@@ -5,15 +5,15 @@ Create new Examan
 
 @section('content')
 
-    <h1>Create New Examan</h1>
+    <h1>Create New Examan zxcxzzx</h1>
     <hr/>
 
-    {!! Form::open(['url' => 'examen', 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['url' => 'examen', 'class' => 'form-horizontal', 'id'=>'frmItem']) !!}
 
                 <div class="form-group {{ $errors->has('nombre') ? 'has-error' : ''}}">
                 {!! Form::label('nombre', 'Nombre: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('nombre', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('nombre', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -48,4 +48,30 @@ Create new Examan
         </ul>
     @endif
 
+
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+   $(document).ready(function() {
+       $('#frmItem').formValidation({
+        message: 'This value is not valid',
+            fields: {   
+                nombre: {
+                    message: 'El Nombre no es válido',
+                    validators: {
+                        notEmpty: {
+                            message: 'El Nombre no puede ser vacío.'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
+                            message: 'Ingrese un Nombre válido.'
+                        }
+                    }
+                },
+            }
+        });
+    });
+
+</script>
 @endsection

@@ -15,11 +15,10 @@ class CreateExamensTable extends Migration
         
             Schema::create('examens', function(Blueprint $table) {
                 $table->increments('id');
-                $table->integer('tipo_examen_id')->unsigned();
-                $table->foreign('tipo_examen_id')->references('id')->on('tipoexamens');
+                $table->integer('tipoexamens_id')->unsigned();
+                $table->foreign('tipoexamens_id')->references('id')->on('tipoexamens');
                 $table->string('nombre');
                 $table->tinyInteger('estado');
-
                 $table->timestamps();
                 $table->softDeletes();
             });

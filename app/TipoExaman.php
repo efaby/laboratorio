@@ -25,4 +25,9 @@ class TipoExaman extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
+    public function examans()
+    {
+        return $this->hasMany('App\Examan', 'tipoexamens_id', 'id');
+    }
+
 }

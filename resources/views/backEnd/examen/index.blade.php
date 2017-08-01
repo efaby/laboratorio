@@ -10,14 +10,16 @@ Examan
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
             <thead>
                 <tr>
-                    <th>ID</th><th>Nombre</th><th>Estado</th><th>Actions</th>
+                    <th>ID</th><th>Nombre</th><th>Tipo Examen</th><th>Estado</th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($examen as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
-                    <td><a href="{{ url('examen', $item->id) }}">{{ $item->nombre }}</a></td><td>{{ $item->estado }}</td>
+                    <td><a href="{{ url('examen', $item->id) }}">{{ $item->nombre }}</a></td>
+                    <td></a></td>
+                    <td>{{ $item->estado }}</td>
                     <td>
                         <a href="{{ url('examen/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 
                         {!! Form::open([

@@ -5,9 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('title')</title>
-	<link href="../../public/css/bootstrap.min.css" rel="stylesheet">
-	<link href="../../public/css/fla.bootstrap.min.css" rel="stylesheet">
-	<link href="../../public/css/jquery.dataTables.min.css" rel="stylesheet">
+	<link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{URL::asset('css/fla.bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{URL::asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
 	<style>
 		body {
 			padding-top: 70px;
@@ -55,11 +55,12 @@
 	</div>
 
 	<!-- Scripts -->
-	<script src="../../public/js/jquery.min.js"></script>
-	<script src="../../public/js/bootstrap.min.js"></script>
-	<script src="../../public/js/jquery.dataTables.min.js"></script>
-	<script src="../../public/js/formValidation.js"></script>
-	<script src="../../public/js/bootstrap.js"></script>
+
+	<script src="{{URL::asset('js/jquery.min.js')}}"></script>
+	<script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
+	<script src="{{URL::asset('js/jquery.dataTables.min.js')}}"></script>
+	<script src="{{URL::asset('js/formValidation.js')}}"></script>
+	<script src="{{URL::asset('js/bootstrap.js')}}"></script>
 	@yield('scripts')
 </body>
 </html>

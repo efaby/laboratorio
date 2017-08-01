@@ -1,30 +1,28 @@
 @extends('backLayout.app')
 @section('title')
-Examan
+Paciente
 @stop
 
 @section('content')
 
-    <h1>Examen <a href="{{ url('examen/create') }}" class="btn btn-primary pull-right btn-sm">Add New Examan</a></h1>
+    <h1>Paciente <a href="{{ url('paciente/create') }}" class="btn btn-primary pull-right btn-sm">Add New Paciente</a></h1>
     <div class="table table-responsive">
-        <table class="table table-bordered table-striped table-hover" id="tblexamen">
+        <table class="table table-bordered table-striped table-hover" id="tblpaciente">
             <thead>
                 <tr>
-                    <th>ID</th><th>Nombre</th><th>Tipo Examen</th><th>Estado</th><th>Actions</th>
+                    <th>ID</th><th>Cedula</th><th>Nombres</th><th>Apellidos</th><th>Tipo</th><th>Telefono</th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach($examen as $item)
+            @foreach($paciente as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
-                    <td><a href="{{ url('examen', $item->id) }}">{{ $item->nombre }}</a></td>
-                    <td>{{ $item->tipoexaman->nombre }}</a></td>
-                    <td>{{ $item->estado }}</td>
+                    <td><a href="{{ url('paciente', $item->id) }}">{{ $item->cedula }}</a></td><td>{{ $item->nombres }}</td><td>{{ $item->apellidos }}</td><td>{{ $item->tipopaciente->nombre }}</td><td>{{ $item->telefono }}</td>
                     <td>
-                        <a href="{{ url('examen/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 
+                        <a href="{{ url('paciente/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['examen', $item->id],
+                            'url' => ['paciente', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
                             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
@@ -41,7 +39,7 @@ Examan
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#tblexamen').DataTable({
+        $('#tblpaciente').DataTable({
             columnDefs: [{
                 targets: [0],
                 visible: false,

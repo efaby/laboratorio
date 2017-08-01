@@ -17,8 +17,8 @@ Create new Examan
                     {!! $errors->first('nombre', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('tipo_examen_id') ? 'has-error' : ''}}">
-                {!! Form::label('tipo_examen_id', 'Tipo Examen: ', ['class' => 'col-sm-3 control-label']) !!}
+            <div class="form-group {{ $errors->has('tipoexamens_id') ? 'has-error' : ''}}">
+                {!! Form::label('tipoexamens_id', 'Tipo Examen: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {{ Form::select('tipoexamens_id', $items, null, ['class' => 'form-control']) }}
                     {!! $errors->first('tipoexamens_id', '<p class="help-block">:message</p>') !!}

@@ -10,7 +10,7 @@ Examan
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
             <thead>
                 <tr>
-                    <th>ID</th><th>Nombre</th><th>Tipo Examen</th><th>Estado</th><th>Actions</th>
+                    <th>ID</th><th>Nombre</th><th>Tipo Examen</th><th>Muestra</th><th>Estado</th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +19,7 @@ Examan
                     <td>{{ $item->id }}</td>
                     <td><a href="{{ url('examen', $item->id) }}">{{ $item->nombre }}</a></td>
                     <td>{{ $item->tipoexaman->nombre }}</a></td>
+                    <td>{{ $item->muestra->nombre }}</a></td>
                     <td>{{ $item->estado }}</td>
                     <td>
                         <a href="{{ url('examen/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 

@@ -20,11 +20,16 @@ class Examan extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre', 'estado', 'tipoexamens_id'];
+    protected $fillable = ['nombre', 'estado', 'tipoexamens_id','muestras_id'];
 
     public function tipoexaman()
     {
         return $this->belongsTo('App\TipoExaman','tipoexamens_id','id');
+    }
+
+    public function muestra()
+    {
+        return $this->belongsTo('App\Muestra','muestras_id','id');
     }
     
     use SoftDeletes;

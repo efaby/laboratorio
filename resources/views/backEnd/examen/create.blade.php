@@ -20,8 +20,15 @@ Create new Examan
             <div class="form-group {{ $errors->has('tipoexamens_id') ? 'has-error' : ''}}">
                 {!! Form::label('tipoexamens_id', 'Tipo Examen: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {{ Form::select('tipoexamens_id', $items, null, ['class' => 'form-control']) }}
+                    {{ Form::select('tipoexamens_id', $items, null, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
                     {!! $errors->first('tipoexamens_id', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            <div class="form-group {{ $errors->has('muestras_id') ? 'has-error' : ''}}">
+                {!! Form::label('muestras_id', 'Muestra: ', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {{ Form::select('muestras_id', $muestras, null, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
+                    {!! $errors->first('muestras_id', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('estado') ? 'has-error' : ''}}">

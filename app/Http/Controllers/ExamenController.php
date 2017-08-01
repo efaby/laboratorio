@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Examan;
 use App\TipoExaman;
+use App\Muestra;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -34,7 +35,8 @@ class ExamenController extends Controller
     public function create()
     {
         $items= TipoExaman::pluck('nombre', 'id')->toArray();
-        return view('backEnd.examen.create', compact('items'));
+        $muestras= Muestra::pluck('nombre', 'id')->toArray();
+        return view('backEnd.examen.create', compact('items','muestras'));
     }
 
     /**
@@ -79,7 +81,8 @@ class ExamenController extends Controller
     {
         $examan = Examan::findOrFail($id);
         $items= TipoExaman::pluck('nombre', 'id')->toArray();
-        return view('backEnd.examen.edit', compact('examan','items'));
+        $muestras= Muestra::pluck('nombre', 'id')->toArray();
+        return view('backEnd.examen.edit', compact('examan','items','muestras'));
     }
 
     /**

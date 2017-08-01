@@ -42,8 +42,10 @@ class MuestraController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['nombre' => 'required', 'descripcion' => 'required', ]);
-
+        $this->validate($request, [
+        		'nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
+        		'descripcion' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\,]+$/'
+        ]);
         Muestra::create($request->all());
 
         Session::flash('message', 'Muestra added!');

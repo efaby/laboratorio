@@ -1,31 +1,32 @@
 @extends('backLayout.app')
 @section('title')
-Tipopaciente
+Tipo de Paciente
 @stop
 
 @section('content')
 
-    <h1>Tipopaciente <a href="{{ url('tipopaciente/create') }}" class="btn btn-primary pull-right btn-sm">Add New Tipopaciente</a></h1>
+    <h1>Tipo de Paciente <a href="{{ url('tipopaciente/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a></h1>
     <div class="table table-responsive">
         <table class="table table-bordered table-striped table-hover" id="tbltipopaciente">
             <thead>
                 <tr>
-                    <th>ID</th><th>Nombre</th><th>Estado</th><th>Actions</th>
+                    <th></th><th>Id</th><th>Nombre</th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($tipopaciente as $item)
                 <tr>
+                    <td></td>
                     <td>{{ $item->id }}</td>
-                    <td><a href="{{ url('tipopaciente', $item->id) }}">{{ $item->nombre }}</a></td><td>{{ $item->estado }}</td>
-                    <td>
-                        <a href="{{ url('tipopaciente/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 
+                    <td>{{ $item->nombre }}
+                    <td width="20%">
+                        <a href="{{ url('tipopaciente/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Actualizar</a> 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['tipopaciente', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                            {!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-xs']) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>

@@ -5,27 +5,28 @@ Muestra
 
 @section('content')
 
-    <h1>Muestra <a href="{{ url('muestra/create') }}" class="btn btn-primary pull-right btn-sm">Add New Muestra</a></h1>
+    <h1>Muestra <a href="{{ url('muestra/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a></h1>
     <div class="table table-responsive">
         <table class="table table-bordered table-striped table-hover" id="tblmuestra">
             <thead>
                 <tr>
-                    <th>ID</th><th>Nombre</th><th>Descripcion</th><th>Estado</th><th>Actions</th>
+                    <th></th><th>Id</th><th>Nombre</th><th>Descripción</th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($muestra as $item)
                 <tr>
+                	<td></td>
                     <td>{{ $item->id }}</td>
-                    <td><a href="{{ url('muestra', $item->id) }}">{{ $item->nombre }}</a></td><td>{{ $item->descripcion }}</td><td>{{ $item->estado }}</td>
-                    <td>
-                        <a href="{{ url('muestra/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 
+                    <td>{{ $item->nombre }}</td><td>{{ $item->descripcion }}</td>
+                    <td width="20%">
+                        <a href="{{ url('muestra/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Actualizar</a> 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['muestra', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                            {!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-xs']) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>

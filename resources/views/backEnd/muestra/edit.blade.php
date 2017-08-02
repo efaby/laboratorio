@@ -1,17 +1,18 @@
 @extends('backLayout.app')
 @section('title')
-Edit Muestra
+Editar Muestra
 @stop
 
 @section('content')
 
-    <h1>Edit Muestra</h1>
+    <h1>Editar Muestra</h1>
     <hr/>
 
     {!! Form::model($muestra, [
         'method' => 'PATCH',
         'url' => ['muestra', $muestra->id],
-        'class' => 'form-horizontal'
+        'class' => 'form-horizontal',
+        'id'=>'frmMuestra'
     ]) !!}
 
                 <div class="form-group {{ $errors->has('nombre') ? 'has-error' : ''}}">
@@ -24,32 +25,50 @@ Edit Muestra
             <div class="form-group {{ $errors->has('descripcion') ? 'has-error' : ''}}">
                 {!! Form::label('descripcion', 'Descripcion: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('descripcion', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::text('descripcion', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('descripcion', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('estado') ? 'has-error' : ''}}">
-                {!! Form::label('estado', 'Estado: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::number('estado', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('estado', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+        	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
     {!! Form::close() !!}
+@endsection
 
-    @if ($errors->any())
-        <ul class="alert alert-danger">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+@section('scripts')
+<script type="text/javascript">
+   $(document).ready(function() {
+       $('#frmMuestra').formValidation({
+        message: 'This value is not valid',
+            fields: {   
+                nombre: {
+                    message: 'El Nombre no es válido',
+                    validators: {
+                        notEmpty: {
+                            message: 'El Nombre no puede ser vacío.'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
+                            message: 'Ingrese un Nombre válido.'
+                        }
+                    }
+                },
+                descripción: {
+                    message: 'La Descripción no es válida',
+                    validators: {
+                        regexp: {
+                            regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
+                            message: 'Ingrese una Descripción válida.'
+                        }
+                    }
+                }
+            }
+        });
+    });
 
+</script>
 @endsection

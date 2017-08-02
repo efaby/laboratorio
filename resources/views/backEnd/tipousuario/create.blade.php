@@ -1,6 +1,6 @@
 @extends('backLayout.app')
 @section('title')
-Create new Tipousuario
+Nuevo Tipo de Usuario
 @stop
 
 @section('content')

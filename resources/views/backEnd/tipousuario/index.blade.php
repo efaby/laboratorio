@@ -19,7 +19,7 @@ Tipo de Usuario
                     <td></td>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->nombre }}</td>
-                    <td>
+                    <td width="20%">
                         <a href="{{ url('tipousuario/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Actualizar</a> 
                         {!! Form::open([
                             'method'=>'DELETE',

@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Examan;
-use App\TipoExaman;
-use App\Muestra;
+use App\Paciente;
+use App\TipoPaciente;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 
-class ExamenController extends Controller
+class PacienteController extends Controller
 {
 
     /**
@@ -22,9 +21,9 @@ class ExamenController extends Controller
      */
     public function index()
     {
-        $examen = Examan::all();
+        $paciente = Paciente::all();
 
-        return view('backEnd.examen.index', compact('examen'));
+        return view('backEnd.paciente.index', compact('paciente'));
     }
 
     /**
@@ -34,9 +33,8 @@ class ExamenController extends Controller
      */
     public function create()
     {
-        $items= TipoExaman::pluck('nombre', 'id')->toArray();
-        $muestras= Muestra::pluck('nombre', 'id')->toArray();
-        return view('backEnd.examen.create', compact('items','muestras'));
+        $items = TipoPaciente::pluck('nombre', 'id')->toArray();
+        return view('backEnd.paciente.create', compact('items'));
     }
 
     /**
@@ -46,14 +44,14 @@ class ExamenController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', ]);
+        $this->validate($request, ['cedula' => 'required', 'nombres' => 'required', 'apellidos' => 'required', ]);
 
-        Examan::create($request->all());
+        Paciente::create($request->all());
 
-        Session::flash('message', 'Examan added!');
+        Session::flash('message', 'Paciente added!');
         Session::flash('status', 'success');
 
-        return redirect('examen');
+        return redirect('paciente');
     }
 
     /**
@@ -65,9 +63,9 @@ class ExamenController extends Controller
      */
     public function show($id)
     {
-        $examan = Examan::findOrFail($id);
+        $paciente = Paciente::findOrFail($id);
 
-        return view('backEnd.examen.show', compact('examan'));
+        return view('backEnd.paciente.show', compact('paciente'));
     }
 
     /**
@@ -79,10 +77,9 @@ class ExamenController extends Controller
      */
     public function edit($id)
     {
-        $examan = Examan::findOrFail($id);
-        $items= TipoExaman::pluck('nombre', 'id')->toArray();
-        $muestras= Muestra::pluck('nombre', 'id')->toArray();
-        return view('backEnd.examen.edit', compact('examan','items','muestras'));
+        $paciente = Paciente::findOrFail($id);
+        $items = TipoPaciente::pluck('nombre', 'id')->toArray();
+        return view('backEnd.paciente.edit', compact('paciente','items'));
     }
 
     /**
@@ -94,15 +91,15 @@ class ExamenController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['nombre' => 'required', ]);
+        $this->validate($request, ['cedula' => 'required', 'nombres' => 'required', 'apellidos' => 'required', ]);
 
-        $examan = Examan::findOrFail($id);
-        $examan->update($request->all());
+        $paciente = Paciente::findOrFail($id);
+        $paciente->update($request->all());
 
-        Session::flash('message', 'Examan updated!');
+        Session::flash('message', 'Paciente updated!');
         Session::flash('status', 'success');
 
-        return redirect('examen');
+        return redirect('paciente');
     }
 
     /**
@@ -114,14 +111,14 @@ class ExamenController extends Controller
      */
     public function destroy($id)
     {
-        $examan = Examan::findOrFail($id);
+        $paciente = Paciente::findOrFail($id);
 
-        $examan->delete();
+        $paciente->delete();
 
-        Session::flash('message', 'Examan deleted!');
+        Session::flash('message', 'Paciente deleted!');
         Session::flash('status', 'success');
 
-        return redirect('examen');
+        return redirect('paciente');
     }
 
 }

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Examan extends Model
+class Paciente extends Model
 {
 
     /**
@@ -13,28 +13,21 @@ class Examan extends Model
      *
      * @var string
      */
-    protected $table = 'examens';
+    protected $table = 'pacientes';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['nombre', 'estado', 'tipoexamens_id','muestras_id'];
+    protected $fillable = ['tipopacientes_id','cedula', 'nombres', 'apellidos', 'fecha_nacimiento', 'celular', 'direccion', 'telefono', 'genero', 'enfermedades', 'estado'];
 
-    public function tipoexaman()
+    public function tipopaciente()
     {
-        return $this->belongsTo('App\TipoExaman','tipoexamens_id','id');
+        return $this->belongsTo('App\TipoPaciente','tipopacientes_id','id');
     }
 
-    public function muestra()
-    {
-        return $this->belongsTo('App\Muestra','muestras_id','id');
-    }
-    
     use SoftDeletes;
     protected $dates = ['deleted_at'];
-
-    
 
 }

@@ -17,6 +17,8 @@ class CreateExamensTable extends Migration
                 $table->increments('id');
                 $table->integer('tipoexamens_id')->unsigned();
                 $table->foreign('tipoexamens_id')->references('id')->on('tipoexamens');
+                $table->integer('muestras_id')->unsigned();
+                $table->foreign('muestras_id')->references('id')->on('muestras');
                 $table->string('nombre');
                 $table->tinyInteger('estado');
                 $table->timestamps();

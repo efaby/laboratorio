@@ -33,3 +33,6 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => ['web']], function () {
 	Route::resource('examen', 'ExamenController');
 });
+Route::group(['middleware' => ['web']], function () {
+	Route::resource('paciente', 'PacienteController');
+});

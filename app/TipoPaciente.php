@@ -25,4 +25,9 @@ class TipoPaciente extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
+    public function pacientes()
+    {
+        return $this->hasMany('App\Paciente' , 'id', 'tipopacientes_id');
+    }
+
 }

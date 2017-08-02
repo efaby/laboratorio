@@ -1,11 +1,11 @@
 @extends('backLayout.app')
 @section('title')
-Edit Tipopaciente
+Editar Tipo de Paciente
 @stop
 
 @section('content')
 
-    <h1>Edit Tipopaciente</h1>
+    <h1>Editar Tipo de Paciente</h1>
     <hr/>
 
     {!! Form::model($tipopaciente, [

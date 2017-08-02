@@ -1,6 +1,6 @@
 @extends('backLayout.app')
 @section('title')
-Edit Tipousuario
+Editar Tipo de Usuario
 @stop
 
 @section('content')

@@ -110,12 +110,9 @@ class TipoUsuarioController extends Controller
     public function destroy($id)
     {
         $tipousuario = TipoUsuario::findOrFail($id);
-
         $tipousuario->delete();
-
         Session::flash('message', 'TipoUsuario deleted!');
         Session::flash('status', 'success');
-
         return redirect('tipousuario');
     }
 

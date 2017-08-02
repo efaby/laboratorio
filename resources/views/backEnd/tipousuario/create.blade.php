@@ -5,7 +5,7 @@ Create new Tipousuario
 
 @section('content')
 
-    <h1>Create New Tipousuario</h1>
+    <h1>Nuevo Tipo de Usuario</h1>
     <hr/>
 
     {!! Form::open(['url' => 'tipousuario', 'class' => 'form-horizontal','id'=>'frmTipoUsuario']) !!}
@@ -17,18 +17,11 @@ Create new Tipousuario
                     {!! $errors->first('nombre', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('estado') ? 'has-error' : ''}}">
-                {!! Form::label('estado', 'Estado: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::number('estado', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('estado', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+        	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
     {!! Form::close() !!}

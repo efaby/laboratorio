@@ -1,11 +1,11 @@
 @extends('backLayout.app')
 @section('title')
-Create new Muestra
+Nueva Muestra
 @stop
 
 @section('content')
 
-    <h1>Create New Muestra</h1>
+    <h1>Nueva Muestra</h1>
     <hr/>
     {!! Form::open(['url' => 'muestra', 'class' => 'form-horizontal','id'=>'frmMuestra']) !!}
                 <div class="form-group {{ $errors->has('nombre') ? 'has-error' : ''}}">
@@ -21,17 +21,11 @@ Create new Muestra
                     {!! Form::text('descripcion', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('descripcion', '<p class="help-block">:message</p>') !!}
                 </div>
-            </div>
-            <div class="form-group {{ $errors->has('estado') ? 'has-error' : ''}}">
-                {!! Form::label('estado', 'Estado: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::number('estado', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('estado', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
+            </div>           
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+        	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
     {!! Form::close() !!}

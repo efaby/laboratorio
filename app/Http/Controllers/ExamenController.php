@@ -46,10 +46,11 @@ class ExamenController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', ]);
-
+        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
+        						   'tipoexamens_id' => 'required',
+        							'muestras_id' => 'required',
+        ]);
         Examan::create($request->all());
-
         Session::flash('message', 'Examan added!');
         Session::flash('status', 'success');
 

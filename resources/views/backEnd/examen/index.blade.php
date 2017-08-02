@@ -1,27 +1,27 @@
 @extends('backLayout.app')
 @section('title')
-Examan
+Exámen
 @stop
 
 @section('content')
 
-    <h1>Examen <a href="{{ url('examen/create') }}" class="btn btn-primary pull-right btn-sm">Add New Examan</a></h1>
+    <h1>Exámen <a href="{{ url('examen/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a></h1>
     <div class="table table-responsive">
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
             <thead>
                 <tr>
-                    <th>ID</th><th>Nombre</th><th>Tipo Examen</th><th>Muestra</th><th>Estado</th><th>Actions</th>
+                    <th></th><th>Id</th><th>Nombre</th><th>Tipo Examen</th><th>Muestra</th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($examen as $item)
                 <tr>
+                	<td></td>
                     <td>{{ $item->id }}</td>
-                    <td><a href="{{ url('examen', $item->id) }}">{{ $item->nombre }}</a></td>
+                    <td>{{ $item->nombre }}</td>
                     <td>{{ $item->tipoexaman->nombre }}</a></td>
                     <td>{{ $item->muestra->nombre }}</a></td>
-                    <td>{{ $item->estado }}</td>
-                    <td>
+                    <td width="20%">
                         <a href="{{ url('examen/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 
                         {!! Form::open([
                             'method'=>'DELETE',

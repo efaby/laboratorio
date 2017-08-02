@@ -65,6 +65,22 @@ Editar Muestra
                             message: 'Ingrese una Descripción válida.'
                         }
                     }
+                },
+                tipoexamens_id: {
+                    message: 'El Tipo de Exámen no es válido',
+                    validators: {
+                        notEmpty: {
+                            message: 'El Tipo de Exámen no puede ser vacío.'
+                        }
+                    }
+                },
+                muestras_id: {
+                    message: 'La muestra no es válida',
+                    validators: {
+                        notEmpty: {
+                            message: 'La Muestra no puede ser vacío.'
+                        }
+                    }
                 }
             }
         });

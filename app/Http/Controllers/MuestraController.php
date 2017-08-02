@@ -44,7 +44,7 @@ class MuestraController extends Controller
     {
         $this->validate($request, [
         		'nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
-        		'descripcion' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\,]+$/'
+        		'descripcion' => 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\,]+$/'
         ]);
         Muestra::create($request->all());
 

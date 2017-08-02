@@ -42,7 +42,7 @@ class TipoExamenController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['nombre' => 'required|AlphaNum', ]);
+        $this->validate($request, ['required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/']);
 
         TipoExaman::create($request->all());
 

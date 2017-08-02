@@ -42,7 +42,7 @@ class TipoPacienteController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', ]);
+        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/']);
 
         TipoPaciente::create($request->all());
 

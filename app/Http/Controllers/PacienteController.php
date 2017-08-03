@@ -44,7 +44,17 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['cedula' => 'required', 'nombres' => 'required', 'apellidos' => 'required', ]);
+        $this->validate($request, [
+        		'tipopacientes_id'=>'required',
+        		'cedula' => 'required|regex:/^(?:\+)?\d{10,13}$/', 
+        		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
+        		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
+        		'fecha_nacimiento'=>'required',
+        		'celular'=>'required|regex: /^(?:\+)?\d{9}$/',
+        		'direccion'=>'required|regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
+        		'telefono'=>'regex: /^(?:\+)?\d{10}$/',
+        		'genero'=>'required'
+        ]);
 
         Paciente::create($request->all());
 
@@ -91,7 +101,17 @@ class PacienteController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['cedula' => 'required', 'nombres' => 'required', 'apellidos' => 'required', ]);
+        $this->validate($request, [
+        		'tipopacientes_id'=>'required',
+        		'cedula' => 'required|regex:/^(?:\+)?\d{10,13}$/',
+        		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
+        		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
+        		'fecha_nacimiento'=>'required',
+        		'celular'=>'required|regex: /^(?:\+)?\d{9}$/',
+        		'direccion'=>'required|regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
+        		'telefono'=>'regex: /^(?:\+)?\d{10}$/',
+        		'genero'=>'required'
+        		]);
 
         $paciente = Paciente::findOrFail($id);
         $paciente->update($request->all());

@@ -17,15 +17,15 @@ class CreatePacientesTable extends Migration
                 $table->increments('id');
                 $table->integer('tipopacientes_id')->unsigned();
                 $table->foreign('tipopacientes_id')->references('id')->on('tipopacientes');
-                $table->string('cedula');
-                $table->string('nombres');
-                $table->string('apellidos');
+                $table->string('cedula',13);
+                $table->string('nombres',128);
+                $table->string('apellidos',128)->nullable();
                 $table->date('fecha_nacimiento');
-                $table->string('celular');
-                $table->string('direccion');
-                $table->string('telefono');
-                $table->string('genero');
-                $table->string('enfermedades');
+                $table->string('celular',10)->nullable();
+                $table->string('direccion',512)->nullable();
+                $table->string('telefono',10)->nullable();
+                $table->string('genero',3);
+                $table->string('enfermedades',1024)->nullable();
                 $table->tinyInteger('estado');
 
                 $table->timestamps();

@@ -15,7 +15,7 @@ class CreateTipoexamensTable extends Migration
         
             Schema::create('tipoexamens', function(Blueprint $table) {
                 $table->increments('id');
-                $table->string('nombre');
+                $table->string('nombre',128);
                 $table->tinyInteger('estado');
 
                 $table->timestamps();

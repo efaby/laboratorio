@@ -19,7 +19,10 @@ class CreateExamensTable extends Migration
                 $table->foreign('tipoexamens_id')->references('id')->on('tipoexamens');
                 $table->integer('muestras_id')->unsigned();
                 $table->foreign('muestras_id')->references('id')->on('muestras');
-                $table->string('nombre');
+                $table->string('nombre',512);
+                $table->text('plantilla');
+                $table->decimal('precio',5,2);
+                $table->decimal('precio_especial',5,2);
                 $table->tinyInteger('estado');
                 $table->timestamps();
                 $table->softDeletes();

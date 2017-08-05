@@ -95,7 +95,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +104,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (44,'2014_10_11_163655_create_tipousuarios_table',1),(45,'2014_10_12_000000_create_users_table',1),(46,'2014_10_12_100000_create_password_resets_table',1),(47,'2017_07_28_163755_create_tipoexamens_table',1),(48,'2017_07_28_163812_create_tipopacientes_table',1),(49,'2017_07_28_163941_create_muestras_table',1),(50,'2017_07_28_164030_create_examens_table',1),(51,'2017_08_01_052430_create_pacientes_table',1),(52,'2017_08_04_055053_create_orden_table',1),(53,'2017_08_04_055154_create_detalleorden_table',1),(54,'2017_08_04_055226_create_resultado_table',1);
+INSERT INTO `migrations` VALUES (55,'2014_10_11_163655_create_tipousuarios_table',1),(56,'2014_10_12_000000_create_users_table',1),(57,'2014_10_12_100000_create_password_resets_table',1),(58,'2017_07_28_163755_create_tipoexamens_table',1),(59,'2017_07_28_163812_create_tipopacientes_table',1),(60,'2017_07_28_163941_create_muestras_table',1),(61,'2017_07_28_164030_create_examens_table',1),(62,'2017_08_01_052430_create_pacientes_table',1),(63,'2017_08_04_055053_create_orden_table',1),(64,'2017_08_04_055154_create_detalleorden_table',1),(65,'2017_08_04_055226_create_resultado_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,6 +146,7 @@ DROP TABLE IF EXISTS `orden`;
 CREATE TABLE `orden` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pacientes_id` int(10) unsigned NOT NULL,
+  `user_id` int(11) NOT NULL,
   `fecha_emision` date NOT NULL,
   `fecha_entrega` datetime NOT NULL,
   `abono` decimal(5,2) NOT NULL,
@@ -388,4 +389,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-04  1:36:52
+-- Dump completed on 2017-08-04 20:26:39

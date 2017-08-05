@@ -17,6 +17,7 @@ class CreateOrdenTable extends Migration
             $table->increments('id');
             $table->integer('pacientes_id')->unsigned();
             $table->foreign('pacientes_id')->references('id')->on('tipopacientes');
+            $table->integer('user_id');
             $table->date('fecha_emision');
             $table->dateTime('fecha_entrega');
             $table->decimal('abono',5,2);

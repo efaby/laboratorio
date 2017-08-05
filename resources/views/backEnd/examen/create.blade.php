@@ -30,6 +30,16 @@ Nuevo Exámen
                 </div>
             </div>
             
+            <div class="form-group {{ $errors->has('plantilla') ? 'has-error' : ''}}">
+                {!! Form::label('plantilla', 'Plantilla: ', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {{ Form::textarea('plantilla', null, ['size' => '80x10', 'class' => 'form-control']) }}
+                    {!! $errors->first('plantilla', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+
+
+
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
         	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
@@ -41,9 +51,13 @@ Nuevo Exámen
 @endsection
 
 @section('scripts')
+<script src="{{ asset('/vendor/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('/vendor/ckeditor/adapters/jquery.js') }}"></script>
+
 <script type="text/javascript">
    $(document).ready(function() {
        $('#frmItem').formValidation({
+        excluded: [':disabled'],
         message: 'This value is not valid',
             fields: {   
                 nombre: {
@@ -66,6 +80,14 @@ Nuevo Exámen
                         }
                     }
                 },
+                plantilla: {
+                    validators: {
+                        notEmpty: {
+                            message: 'La Plantilla no pueden ser vacía.'
+                        },
+                        
+                    }
+                },
                 muestras_id: {
                     message: 'La muestra no es válida',
                     validators: {
@@ -75,7 +97,20 @@ Nuevo Exámen
                     }
                 }
             }
+        }).find('[name="plantilla"]')
+        .each(function() {
+            $(this)
+                // Attach an editor to field
+                .ckeditor()
+                .editor
+                    .on('change', function(e) {
+                        // Revalidate the field that
+                        // the current editor is attached to
+                        // e.sender.name presents the field name
+                        $('#frmItem').formValidation('revalidateField', e.sender.name);
+                    });
         });
+       ;
     });
 
 </script>

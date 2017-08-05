@@ -48,7 +48,10 @@ class ExamenController extends Controller
     {
         $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         						   'tipoexamens_id' => 'required',
-        							'muestras_id' => 'required',
+        						   'muestras_id' => 'required',
+        						   'plantilla'	 => 'required',
+        						   'precio'	 => 'required|regex:/^[+-]?\d+(\.\d+)?$/',
+        						   'precio_especial'  => 'required|regex:/^[+-]?\d+(\.\d+)?$/'
         ]);
         Examan::create($request->all());
         Session::flash('message', 'Examan added!');

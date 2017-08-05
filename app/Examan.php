@@ -20,7 +20,7 @@ class Examan extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre', 'estado', 'tipoexamens_id','muestras_id'];
+    protected $fillable = ['tipoexamens_id','muestras_id','nombre','plantilla','precio','precio_especial','estado'];
 
     public function tipoexaman()
     {

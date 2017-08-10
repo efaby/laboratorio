@@ -36,3 +36,6 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => ['web']], function () {
 	Route::resource('paciente', 'PacienteController');
 });
+Route::group(['middleware' => ['web']], function () {
+	Route::resource('orden', 'OrdenController');
+});

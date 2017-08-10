@@ -95,7 +95,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +104,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (55,'2014_10_11_163655_create_tipousuarios_table',1),(56,'2014_10_12_000000_create_users_table',1),(57,'2014_10_12_100000_create_password_resets_table',1),(58,'2017_07_28_163755_create_tipoexamens_table',1),(59,'2017_07_28_163812_create_tipopacientes_table',1),(60,'2017_07_28_163941_create_muestras_table',1),(61,'2017_07_28_164030_create_examens_table',1),(62,'2017_08_01_052430_create_pacientes_table',1),(63,'2017_08_04_055053_create_orden_table',1),(64,'2017_08_04_055154_create_detalleorden_table',1),(65,'2017_08_04_055226_create_resultado_table',1);
+INSERT INTO `migrations` VALUES (55,'2014_10_11_163655_create_tipousuarios_table',1),(56,'2014_10_12_000000_create_users_table',1),(57,'2014_10_12_100000_create_password_resets_table',1),(58,'2017_07_28_163755_create_tipoexamens_table',1),(59,'2017_07_28_163812_create_tipopacientes_table',1),(60,'2017_07_28_163941_create_muestras_table',1),(61,'2017_07_28_164030_create_examens_table',1),(62,'2017_08_01_052430_create_pacientes_table',1),(63,'2017_08_04_055053_create_orden_table',1),(64,'2017_08_04_055154_create_detalleorden_table',1),(65,'2017_08_04_055226_create_resultado_table',1),(66,'2017_08_10_024829_update_order',2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,6 +157,7 @@ CREATE TABLE `orden` (
   `estado` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orden_pacientes_id_foreign` (`pacientes_id`),
   CONSTRAINT `orden_pacientes_id_foreign` FOREIGN KEY (`pacientes_id`) REFERENCES `tipopacientes` (`id`)
@@ -278,7 +279,7 @@ CREATE TABLE `tipoexamens` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -287,6 +288,7 @@ CREATE TABLE `tipoexamens` (
 
 LOCK TABLES `tipoexamens` WRITE;
 /*!40000 ALTER TABLE `tipoexamens` DISABLE KEYS */;
+INSERT INTO `tipoexamens` VALUES (1,'sasas',1,'2017-08-05 08:31:07','2017-08-05 08:31:07',NULL);
 /*!40000 ALTER TABLE `tipoexamens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -389,4 +391,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-04 20:26:39
+-- Dump completed on 2017-08-09 22:28:16

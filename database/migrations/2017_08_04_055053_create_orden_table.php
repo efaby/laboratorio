@@ -28,6 +28,11 @@ class CreateOrdenTable extends Migration
             $table->tinyInteger('estado');
 
             $table->timestamps();
+            
+        });
+
+        Schema::table('orden', function($table) {
+            $table->softDeletes();
         });
     }
 

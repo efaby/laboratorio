@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Orden;
+use App\Paciente;
 
 class OrdenController extends Controller
 {
@@ -83,5 +84,33 @@ class OrdenController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    public function autocomplete(Request $request)
+    {
+    	$term=$request->term;
+    	$data = paciente::where('cedula','LIKE','%'.$term.'%')
+    	->take(10)
+    	->get();
+    	$result=array();
+    	foreach ($data as $query)
+    	{
+    		$result[] = [ 'id' => $query->id, 'nombres' => $query->nombres.' '.$query->apellidos ];
+    	}
+    	
+    	
+    	 
+    	
+    	
+    	/*$data = DB::table('pacientes')
+    	->where('cedula', 'LIKE', '%'.$term.'%')
+    	->get();
+    	
+    	/*foreach ($queries as $query)
+    	{
+    		$results[] = [ 'id' => $query->id, 'value' => $query->first_name.' '.$query->last_name ];
+    	}*/
+    	dd($result);
+    	return response()->json($results);    	     	
     }
 }

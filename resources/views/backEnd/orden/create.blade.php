@@ -11,45 +11,42 @@ Nuevo Exámen
             <h4> Nueva Factura</h4>
         </div>
         <div class="panel-body">
-
             <form class="form-horizontal" role="form" id="datos_factura">
                 <div class="form-group row">
-                  <label for="nombre_cliente" class="col-md-1 control-label">Cliente</label>
-                  <div class="col-md-3">
-                      <input type="text" class="form-control input-sm" id="nombre_cliente" placeholder="Selecciona un cliente" required>
-                      <input id="id_cliente" type='hidden'> 
-                  </div>
-                  <label for="tel1" class="col-md-1 control-label">Teléfono</label>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control input-sm" id="tel1" placeholder="Teléfono" readonly>
-                            </div>
-                    <label for="mail" class="col-md-1 control-label">Email</label>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control input-sm" id="mail" placeholder="Email" readonly>
-                            </div>
+                	<label for="cedula_paciente" class="col-md-1 control-label">Cédula</label>
+                  	<div class="col-md-3">
+                    	<input type="text" class="form-control input-sm" id="cedula_paciente" placeholder="Selecciona una cédula" required>
+                      	<input id="id_paciente" type='hidden'> 
+                  	</div>
+                	<label for="nombre_paciente" class="col-md-1 control-label">Paciente</label>
+                  	<div class="col-md-3">
+                    	<input type="text" class="form-control input-sm" id="nombre_paciente" placeholder="Paciente" readonly>                      	 
+                  	</div>
+                  	<label for="tel1" class="col-md-1 control-label">Teléfono</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control input-sm" id="tel1" placeholder="Teléfono" readonly>
+                    </div>
+                    
                  </div>
-                        <div class="form-group row">
-                            <label for="empresa" class="col-md-1 control-label">Vendedor</label>
-                            <div class="col-md-3">
-                                <select class="form-control input-sm" id="id_vendedor">
-                                    
-                                </select>
-                            </div>
-                            <label for="tel2" class="col-md-1 control-label">Fecha</label>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control input-sm" id="fecha"  readonly>
-                            </div>
-                            <label for="email" class="col-md-1 control-label">Pago</label>
-                            <div class="col-md-3">
-                                <select class='form-control input-sm' id="condiciones">
-                                    <option value="1">Efectivo</option>
-                                    <option value="2">Cheque</option>
-                                    <option value="3">Transferencia bancaria</option>
-                                    <option value="4">Crédito</option>
-                                </select>
-                            </div>
-                        </div>                
-                
+               <div class="form-group row">
+               		<label for="mail" class="col-md-1 control-label">Email</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control input-sm" id="mail" placeholder="Email" readonly>
+                    </div>
+                 	<label for="tel2" class="col-md-1 control-label">Fecha</label>
+                    <div class="col-md-2">
+                    	<input type="text" class="form-control input-sm" id="fecha"  readonly>
+                     </div>
+                     <label for="email" class="col-md-1 control-label">Pago</label>
+                     <div class="col-md-3">
+                     	<select class='form-control input-sm' id="condiciones">
+                        	<option value="1">Efectivo</option>
+                            <option value="2">Cheque</option>
+                            <option value="3">Transferencia bancaria</option>
+                            <option value="4">Crédito</option>
+                     	</select>
+                	</div>
+               	</div>
                 <div class="col-md-12">
                     <div class="pull-right">
                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
@@ -63,8 +60,7 @@ Nuevo Exámen
         </div>
     </div>      
           <div class="row-fluid">
-            <div class="col-md-12">
-            
+            <div class="col-md-12">           
     
 
             
@@ -103,5 +99,21 @@ Nuevo Exámen
 @endsection
 
 @section('scripts')
-
+<script src="{{ asset('/js/jquery-ui.js') }}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#cedula_paciente").autocomplete({
+			source : '{!!URL::route('autocomplete')!!}',
+			minLength: 2,
+			select: function(event, ui) {
+				event.preventDefault();
+				console.log(ui);
+				$('#id_cliente').val(ui.id);
+				$('#nombre_paciente').val(ui.nombres);
+				$('#tel1').val(ui.item.telefono_cliente);
+				$('#mail').val(ui.item.email_cliente);
+			 }
+		});
+	});	
+</script>
 @endsection

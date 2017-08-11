@@ -97,20 +97,6 @@ class OrdenController extends Controller
     	{
     		$result[] = [ 'id' => $query->id, 'nombres' => $query->nombres.' '.$query->apellidos ];
     	}
-    	
-    	
-    	 
-    	
-    	
-    	/*$data = DB::table('pacientes')
-    	->where('cedula', 'LIKE', '%'.$term.'%')
-    	->get();
-    	
-    	/*foreach ($queries as $query)
-    	{
-    		$results[] = [ 'id' => $query->id, 'value' => $query->first_name.' '.$query->last_name ];
-    	}*/
-    	dd($result);
-    	return response()->json($results);    	     	
+    	return response()->json($result);    	     	
     }
 }

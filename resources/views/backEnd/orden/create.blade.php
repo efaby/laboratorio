@@ -13,12 +13,12 @@ Nuevo Exámen
         <div class="panel-body">
             <form class="form-horizontal" role="form" id="datos_factura">
                 <div class="form-group row">
-                	<label for="cedula_paciente" class="col-md-1 control-label">Cédula</label>
+                	<label for="cedula_pacient" class="col-md-1 control-label">Cédula</label>
                   	<div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="cedula_paciente" placeholder="Selecciona una cédula" required>
+                    	<input type="text" class="form-control input-sm" id="cedula_paciente" placeholder="Ingrese una cédula" required>
                       	<input id="id_paciente" type='hidden'> 
                   	</div>
-                	<label for="nombre_paciente" class="col-md-1 control-label">Paciente</label>
+                	<label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>
                   	<div class="col-md-3">
                     	<input type="text" class="form-control input-sm" id="nombre_paciente" placeholder="Paciente" readonly>                      	 
                   	</div>
@@ -107,9 +107,10 @@ Nuevo Exámen
 			minLength: 2,
 			select: function(event, ui) {
 				event.preventDefault();
-				console.log(ui);
-				$('#id_cliente').val(ui.id);
-				$('#nombre_paciente').val(ui.nombres);
+				alert('joo');
+				console.log(ui.nombres);
+				$('#id_cliente').val(ui.item.id);
+				$('#nombre_paciente').val(ui.item.nombres);
 				$('#tel1').val(ui.item.telefono_cliente);
 				$('#mail').val(ui.item.email_cliente);
 			 }

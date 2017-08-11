@@ -29,9 +29,9 @@ Nuevo Exámen
                     
                  </div>
                <div class="form-group row">
-               		<label for="mail" class="col-md-1 control-label">Email</label>
+               		<label for="mail" class="col-md-1 control-label">Direccion</label>
                     <div class="col-md-3">
-                        <input type="text" class="form-control input-sm" id="mail" placeholder="Email" readonly>
+                        <input type="text" class="form-control input-sm" id="direccion" placeholder="Direccion" readonly>
                     </div>
                  	<label for="tel2" class="col-md-1 control-label">Fecha</label>
                     <div class="col-md-2">
@@ -49,7 +49,7 @@ Nuevo Exámen
                	</div>
                 <div class="col-md-12">
                     <div class="pull-right">
-                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" id="agregar">
                             Agregar productos
                         </button>
                     </div>  
@@ -79,13 +79,26 @@ Nuevo Exámen
                     <form class="form-horizontal">
                       <div class="form-group">
                         <div class="col-sm-6">
-                          <input type="text" class="form-control" id="q" placeholder="Buscar productos" onkeyup="load(1)">
+                          <input type="text" class="form-control" id="buscar" placeholder="Buscar productos" >
                         </div>
-                        <button type="button" class="btn btn-default" onclick="load(1)"><span class='glyphicon glyphicon-search'></span> Buscar</button>
+                        <button type="button" class="btn btn-default" id="buscarBtn"> Buscar</button>
                       </div>
                     </form>
                     <div id="loader" style="position: absolute; text-align: center; top: 55px;  width: 100%;display:none;"></div><!-- Carga gif animado -->
-                    <div class="outer_div" ></div><!-- Datos ajax Final -->
+                    <div class="outer_div" >
+                        
+                        <table id="productos" class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>team</th>
+                            </tr>
+                             </thead>
+                        <tbody>
+                        </tbody>
+                        </table>
+                    </div><!-- Datos ajax Final -->
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -99,22 +112,56 @@ Nuevo Exámen
 @endsection
 
 @section('scripts')
+
+<link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <script src="{{ asset('/js/jquery-ui.js') }}"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
+        var table = $('#productos').DataTable({
+                        "info": false,
+                        "lengthChange": false,
+                        "dom": 'lrtip'
+                    });
 		$("#cedula_paciente").autocomplete({
 			source : '{!!URL::route('autocomplete')!!}',
 			minLength: 2,
 			select: function(event, ui) {
 				event.preventDefault();
-				alert('joo');
-				console.log(ui.nombres);
 				$('#id_cliente').val(ui.item.id);
-				$('#nombre_paciente').val(ui.item.nombres);
-				$('#tel1').val(ui.item.telefono_cliente);
-				$('#mail').val(ui.item.email_cliente);
+				$('#nombre_paciente').val(ui.item.value);
+				$('#tel1').val(ui.item.telefono);
+				$('#direccion').val(ui.item.direccion);
+                $("#cedula_paciente").val(ui.item.cedula);
 			 }
 		});
+
+        $('#agregar').click(function(){
+        var url = '{!!URL::route('examenes')!!}';
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                table.clear();   
+                table.search('').draw();  
+                $('#buscar').val('');        
+                data.forEach(function(item) {
+                    table.row.add([ item.nombre, item.precio, item.precio_especial ]).draw();;
+                })
+            }
+        });
+    });
+
+        $('#buscar').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        });
+
+        $('#buscarBtn').on( 'click', function () {
+            table.search( $('#buscar').val() ).draw();
+        });
+
 	});	
 </script>
 @endsection

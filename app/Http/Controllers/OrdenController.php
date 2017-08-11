@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Orden;
 use App\Paciente;
+use App\Examan;
 
 class OrdenController extends Controller
 {
@@ -95,8 +96,13 @@ class OrdenController extends Controller
     	$result=array();
     	foreach ($data as $query)
     	{
-    		$result[] = [ 'id' => $query->id, 'nombres' => $query->nombres.' '.$query->apellidos ];
+    		$result[] = [ 'id' => $query->id, 'value' => $query->cedula .' - '.$query->nombres.' '.$query->apellidos, 'cedula' => $query->cedula, 'direccion' => $query->direccion, 'telefono' => $query->telefono ];
     	}
     	return response()->json($result);    	     	
+    }
+
+    public function examenes (){
+        $examenes = Examan::all();
+        return response()->json($examenes);    
     }
 }

@@ -69,7 +69,7 @@ Nuevo Paciente
             <div class="form-group {{ $errors->has('genero') ? 'has-error' : ''}}">
                 {!! Form::label('genero', 'Género: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('genero', null, ['class' => 'form-control']) !!}
+                    {!! Form::select('genero', array(null => 'Seleccione','Fem' => 'Femenino', 'Mas' => 'Masculino'),null, ['class' => 'form-control']) !!}
                     {!! $errors->first('genero', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -119,7 +119,7 @@ Nuevo Paciente
                        message: 'Los Nombres no son válidos',
                        validators: {
                            notEmpty: {
-                               message: 'Los Nombres no puedem ser vacíos.'
+                               message: 'Los Nombres no pueden ser vacíos.'
                            },
                            regexp: {
                                regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
@@ -154,7 +154,7 @@ Nuevo Paciente
                                message: 'El Número de Celular no puede ser vacío.'
                            },
                            regexp: {
-                        	   regexp: /^(?:\+)?\d{9}$/,
+                        	   regexp: /^(?:\+)?\d{10}$/,
                         	   message: 'Ingrese un Número de Celular válido.'
                            }
                        }
@@ -172,18 +172,17 @@ Nuevo Paciente
                        message: 'El Número de Teléfono no es válido',
                        validators: {
                     	   regexp: {
-	                           regexp: /^(?:\+)?\d{10}$/,
-	                           message: 'Ingrese un Número de Teléfono válido.'
+	                           regexp: /^(?:\+)?\d{9}$/,
+	                           message: 'Ingrese un Número de Teléfono válido111.'
 	                       }
                        }
                    },
                    genero: {
                        message: 'El Género no es válido',
                        validators: {
-                    	   regexp: {
-	                           regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/,
-	                           message: 'Ingrese un Género válido.'
-	                       }
+                    	   notEmpty: {
+                               message: 'El Género no puede ser vacío.'
+                           }
                        }
                    }            
                }

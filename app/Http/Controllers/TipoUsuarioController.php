@@ -42,7 +42,7 @@ class TipoUsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', ]);
+        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/']);
 
         TipoUsuario::create($request->all());
 
@@ -89,7 +89,7 @@ class TipoUsuarioController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['nombre' => 'required', ]);
+        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/']);
 
         $tipousuario = TipoUsuario::findOrFail($id);
         $tipousuario->update($request->all());

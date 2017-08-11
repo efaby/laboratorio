@@ -89,7 +89,7 @@ class TipoPacienteController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['nombre' => 'required', ]);
+        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/']);
 
         $tipopaciente = TipoPaciente::findOrFail($id);
         $tipopaciente->update($request->all());

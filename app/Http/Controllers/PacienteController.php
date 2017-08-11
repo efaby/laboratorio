@@ -50,9 +50,9 @@ class PacienteController extends Controller
         		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
         		'fecha_nacimiento'=>'required',
-        		'celular'=>'required|regex: /^(?:\+)?\d{9}$/',
+        		'celular'=>'required|regex: /^(?:\+)?\d{10}$/',
         		'direccion'=>'required|regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
-        		'telefono'=>'regex: /^(?:\+)?\d{10}$/',
+        		'telefono'=>'regex: /^(?:\+)?\d{9}$/',
         		'genero'=>'required'
         ]);
 
@@ -107,9 +107,9 @@ class PacienteController extends Controller
         		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'fecha_nacimiento'=>'required',
-        		'celular'=>'required|regex: /^(?:\+)?\d{9}$/',
+        		'celular'=>'required|regex: /^(?:\+)?\d{10}$/',
         		'direccion'=>'required|regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
-        		'telefono'=>'regex: /^(?:\+)?\d{10}$/',
+        		'telefono'=>'regex: /^(?:\+)?\d{9}$/',
         		'genero'=>'required'
         		]);
 

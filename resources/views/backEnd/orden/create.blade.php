@@ -56,17 +56,43 @@ Nuevo Exámen
                 </div>
             </form> 
             
-        <div id="resultados" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->          
+        <div class="form-group col-xs-12">
+
+                        <button type="button" class="btn btn-primary" style="float: right;" ng-click="addDetalle()" ng-disabled="impreso">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                   </div>
+                   <div class="form-group col-xs-12">
+                    <table class="table table-responsive table-striped table-hover table-condensed">
+                    <thead class="bg-primary">
+                    <tr>
+                        <th>Examen</th>
+                        <th>Tipo</th>
+                        <th>Muestra</th>
+                        <th>Precio</th>
+                        <th style="width: 5%;">Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    <td>
+                        <input type="text" class="form-control input-sm" id="examen" placeholder="Examen" required>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button type="button" class="btn btn-danger">
+                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+         </div>
         </div>
     </div>      
-          <div class="row-fluid">
-            <div class="col-md-12">           
-    
-
-            
-            </div>  
-         </div>
-    </div>
+         
 
     <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog modal-lg" role="document">

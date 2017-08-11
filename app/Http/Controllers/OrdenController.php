@@ -91,12 +91,13 @@ class OrdenController extends Controller
     {
     	$term=$request->term;
     	$data = paciente::where('cedula','LIKE','%'.$term.'%')
+    	->whereAnd('deleted_at','is null')
     	->take(10)
     	->get();
     	$result=array();
     	foreach ($data as $query)
     	{
-    		$result[] = [ 'id' => $query->id, 'value' => $query->cedula .' - '.$query->nombres.' '.$query->apellidos, 'cedula' => $query->cedula, 'direccion' => $query->direccion, 'telefono' => $query->telefono ];
+    		$result[] = [ 'id' => $query->id, 'value' => $query->cedula .' - '.$query->nombres.' '.$query->apellidos, 'cedula' => $query->cedula, 'direccion' => $query->direccion, 'telefono' => $query->telefono,'celular' => $query->celular,'fecha_nacimiento' => $query->fecha_nacimiento];
     	}
     	return response()->json($result);    	     	
     }

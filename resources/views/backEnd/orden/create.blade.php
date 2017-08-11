@@ -13,32 +13,51 @@ Nuevo Exámen
         <div class="panel-body">
             <form class="form-horizontal" role="form" id="datos_factura">
                 <div class="form-group row">
-                	<label for="cedula_pacient" class="col-md-1 control-label">Cédula</label>
+                	<div class="col-md-1">
+                		<label for="cedula_pacient" class="col-md-1 control-label">Cédula</label>
+                	</div>	
                   	<div class="col-md-3">
                     	<input type="text" class="form-control input-sm" id="cedula_paciente" placeholder="Ingrese una cédula" required>
                       	<input id="id_paciente" type='hidden'> 
                   	</div>
-                	<label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>
+                  	<div class="col-md-1">
+                		<label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>
+                	</div>	
                   	<div class="col-md-3">
                     	<input type="text" class="form-control input-sm" id="nombre_paciente" placeholder="Paciente" readonly>                      	 
                   	</div>
-                  	<label for="tel1" class="col-md-1 control-label">Teléfono</label>
-                    <div class="col-md-2">
-                        <input type="text" class="form-control input-sm" id="tel1" placeholder="Teléfono" readonly>
-                    </div>
-                    
+                  	<div class="col-md-1">
+               			<label for="mail" class="col-md-1 control-label">Dirección</label>
+               		</div>	
+                    <div class="col-md-3">
+                        <input type="text" class="form-control input-sm" id="direccion_paciente" placeholder="Direccion" readonly>
+                    </div>                    
                  </div>
                <div class="form-group row">
-               		<label for="mail" class="col-md-1 control-label">Direccion</label>
+               		<div class="col-md-1">
+                  		<label for="tel1" class="col-md-1 control-label">Teléfono</label>
+                  	</div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control input-sm" id="direccion" placeholder="Direccion" readonly>
+                        <input type="text" class="form-control input-sm" id="telefono_paciente" placeholder="Teléfono" readonly>
                     </div>
-                 	<label for="tel2" class="col-md-1 control-label">Fecha</label>
-                    <div class="col-md-2">
-                    	<input type="text" class="form-control input-sm" id="fecha"  readonly>
+                    <div class="col-md-1">
+                  		<label for="tel1" class="col-md-1 control-label">Celular</label>
+                  	</div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control input-sm" id="celular_paciente" placeholder="Celular" readonly>
+                    </div>               		
+                    <div class="col-md-1">
+                 		<label for="tel2" class="col-md-1 control-label">F. Nacimiento</label>
+                 	</div>	
+                    <div class="col-md-3">
+                    	<input type="text" class="form-control input-sm" id="fecha_nacimiento"  readonly>
                      </div>
-                     <label for="email" class="col-md-1 control-label">Pago</label>
-                     <div class="col-md-3">
+                </div>
+                <div class="form-group row">
+               		<div class="col-md-1">
+                    	<label for="email" class="col-md-1 control-label">Pago</label>
+                    </div>
+                    <div class="col-md-3">
                      	<select class='form-control input-sm' id="condiciones">
                         	<option value="1">Efectivo</option>
                             <option value="2">Cheque</option>
@@ -156,9 +175,11 @@ Nuevo Exámen
 				event.preventDefault();
 				$('#id_cliente').val(ui.item.id);
 				$('#nombre_paciente').val(ui.item.value);
-				$('#tel1').val(ui.item.telefono);
-				$('#direccion').val(ui.item.direccion);
-                $("#cedula_paciente").val(ui.item.cedula);
+				$('#telefono_paciente').val(ui.item.telefono);
+				$('#celular_paciente').val(ui.item.celular);
+				$('#direccion_paciente').val(ui.item.direccion);
+				$('#fecha_nacimiento').val(ui.item.fecha_nacimiento);
+                $("#cedula_paciente").val(ui.item.cedula);                
 			 }
 		});
 

@@ -65,24 +65,15 @@ Nuevo Exámen
                             <option value="4">Crédito</option>
                      	</select>
                 	</div>
-               	</div>
-                <div class="col-md-12">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" id="agregar">
-                            Agregar productos
-                        </button>
-                    </div>  
-                </div>
-            </form> 
-            
-        <div class="form-group col-xs-12">
-
-                        <button type="button" class="btn btn-primary" style="float: right;" ng-click="addDetalle()" ng-disabled="impreso">
+               	</div>                
+            </form>             
+        	<div class="form-group col-xs-12">
+                        <button type="button" class="btn btn-primary" style="float: right;" id="addDetalle">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                    </div>
                    <div class="form-group col-xs-12">
-                    <table class="table table-responsive table-striped table-hover table-condensed">
+                    <table class="table table-responsive table-striped table-hover table-condensed" id="examenes">
                     <thead class="bg-primary">
                     <tr>
                         <th>Examen</th>
@@ -94,66 +85,29 @@ Nuevo Exámen
                     </thead>
                     <tbody>
                     <tr>
-                    <td>
-                        <input type="text" class="form-control input-sm" id="examen" placeholder="Examen" required>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button type="button" class="btn btn-danger">
-                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
-                    </td>
+                	    <td>
+                    	    <input type="text" class="form-control input-sm" id="examen1" placeholder="Examen" required>	         		    
+                    	</td>
+                    	<td>
+                    		<input type="text" class="form-control input-sm" readonly="readonly" id="tipo1"/>                    		            
+                    	</td>
+	                    <td>
+	                    	<input type="text" class="form-control input-sm" readonly="readonly" id="muestra1"/>
+	                    </td>
+	                    <td>
+	                    	<input type="text" class="form-control input-sm" readonly="readonly" id="precio1"/>
+	                    </td>
+	                    <td>
+	                        <button type="button" class="btn btn-danger" id="eliminar1">
+	                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+	                        </button>
+	                    </td>
                     </tr>
                     </tbody>
                     </table>
          </div>
         </div>
-    </div>      
-         
-
-    <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Buscar productos</h4>
-                  </div>
-                  <div class="modal-body">
-                    <form class="form-horizontal">
-                      <div class="form-group">
-                        <div class="col-sm-6">
-                          <input type="text" class="form-control" id="buscar" placeholder="Buscar productos" >
-                        </div>
-                        <button type="button" class="btn btn-default" id="buscarBtn"> Buscar</button>
-                      </div>
-                    </form>
-                    <div id="loader" style="position: absolute; text-align: center; top: 55px;  width: 100%;display:none;"></div><!-- Carga gif animado -->
-                    <div class="outer_div" >
-                        
-                        <table id="productos" class="table">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>team</th>
-                            </tr>
-                             </thead>
-                        <tbody>
-                        </tbody>
-                        </table>
-                    </div><!-- Datos ajax Final -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-    
-
+    </div>    
 @endsection
 
 @section('scripts')
@@ -183,32 +137,59 @@ Nuevo Exámen
 			 }
 		});
 
-        $('#agregar').click(function(){
-        var url = '{!!URL::route('examenes')!!}';
+		$('#addDetalle').on( 'click', function () {
+			var tbl = document.getElementById('examenes');
+		    var lastRow = tbl.rows.length;
 
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: 'json',
-            success: function (data) {
-                table.clear();   
-                table.search('').draw();  
-                $('#buscar').val('');        
-                data.forEach(function(item) {
-                    table.row.add([ item.nombre, item.precio, item.precio_especial ]).draw();;
-                })
-            }
-        });
-    });
+		    var iteration = lastRow;
+		    var row = tbl.insertRow(lastRow);
+		    
+		    var cellLeft = row.insertCell(0);
+		    var el = document.createElement('input');
+		    el.type = 'text';
+		    el.id = 'examen' + iteration;
+		    el.placeholder='Examen';
+		    cellLeft.appendChild(el);
+		    $("#examen"+iteration ).addClass("form-control input-sm");
+		    
 
-        $('#buscar').on( 'keyup', function () {
-            table.search( this.value ).draw();
-        });
+		    var cellRight = row.insertCell(1);
+		    var tipo = document.createElement('input');
+		    tipo.type = 'text';
+		    tipo.id = 'tipo' + iteration;
+		    tipo.readOnly = true;
+		    cellRight.appendChild(tipo);
+		    $("#tipo"+iteration ).addClass("form-control input-sm");
 
-        $('#buscarBtn').on( 'click', function () {
-            table.search( $('#buscar').val() ).draw();
-        });
+		    var cellThird = row.insertCell(2);
+		    var muestra = document.createElement('input');
+		    muestra.type = 'text';
+		    muestra.id = 'muestra' + iteration;
+		    muestra.readOnly = true;
+		    cellThird.appendChild(muestra);
+		    $("#muestra"+iteration ).addClass("form-control input-sm");
 
+		    var cellFourth = row.insertCell(3);
+		    var precio = document.createElement('input');
+		    precio.type = 'text';
+		    precio.id = 'precio' + iteration;
+		    precio.readOnly = true;
+		    cellFourth.appendChild(precio);
+		    $("#precio"+iteration ).addClass("form-control input-sm");
+
+		    var cellFifth = row.insertCell(4);
+		    var eliminar = document.createElement('button');
+		    eliminar.type = 'button';
+		    eliminar.id = 'eliminar' + iteration;
+		    cellFifth.appendChild(eliminar);
+		    var span = $('<span />', {
+	            'class' : 'glyphicon glyphicon-trash',
+	            'aria-hidden':'true'
+	        }); 
+	        
+		    $("#eliminar"+iteration ).addClass("btn btn-danger");
+		    $("#eliminar"+iteration ).append(span)
+		});
 	});	
 </script>
 @endsection

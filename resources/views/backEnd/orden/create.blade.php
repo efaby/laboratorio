@@ -98,7 +98,7 @@ Nuevo Exámen
 	                    	<input type="text" class="form-control input-sm" readonly="readonly" id="precio1"/>
 	                    </td>
 	                    <td>
-	                        <button type="button" class="btn btn-danger" id="eliminar1">
+	                        <button type="button" class="btn btn-danger" id="eliminar1" onclick="removeDetalle(1)">
 	                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 	                        </button>
 	                    </td>
@@ -124,7 +124,7 @@ Nuevo Exámen
                     });
 		$("#cedula_paciente").autocomplete({
 			source : '{!!URL::route('autocomplete')!!}',
-			minLength: 2,
+			minLength: 5,
 			select: function(event, ui) {
 				event.preventDefault();
 				$('#id_cliente').val(ui.item.id);
@@ -181,15 +181,21 @@ Nuevo Exámen
 		    var eliminar = document.createElement('button');
 		    eliminar.type = 'button';
 		    eliminar.id = 'eliminar' + iteration;
-		    cellFifth.appendChild(eliminar);
+		    cellFifth.appendChild(eliminar);		    
 		    var span = $('<span />', {
 	            'class' : 'glyphicon glyphicon-trash',
 	            'aria-hidden':'true'
 	        }); 
 	        
 		    $("#eliminar"+iteration ).addClass("btn btn-danger");
+		    $("#eliminar"+iteration ).attr("onClick","removeDetalle("+ iteration+")");		
 		    $("#eliminar"+iteration ).append(span)
 		});
 	});	
+
+	function removeDetalle(val) {
+		var tbl = document.getElementById('examenes');
+		tbl.deleteRow(val);
+	}
 </script>
 @endsection

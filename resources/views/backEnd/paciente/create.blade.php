@@ -76,7 +76,7 @@ Nuevo Paciente
             <div class="form-group {{ $errors->has('enfermedades') ? 'has-error' : ''}}">
                 {!! Form::label('enfermedades', 'Enfermedades: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('enfermedades', null, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('enfermedades', null, ['size' => '80x10','class' => 'form-control']) !!}                     
                     {!! $errors->first('enfermedades', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>       

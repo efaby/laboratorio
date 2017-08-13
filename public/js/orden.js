@@ -111,7 +111,21 @@ $(document).ready(function() {
             }
         });
     });
-
+    
+    $('#input').on('keypress', function(e) {
+    	console.log('ksk');
+        if (e.which == 13) {
+            return false;
+        }        
+    });
+    
+    $('#descuento').on( 'change', function () {
+    	suma();               	
+    });
+    
+    $('#abono').on( 'change', function () {
+    	suma();               	
+    });
 });	
 
 function removeDetalle(btn) {
@@ -139,13 +153,54 @@ function getRowId(acInput){
 
 function suma(){
     var elem = document.getElementsByClassName("precioh");
+    var descuento = jQuery("#descuento").val();
+    var abono = jQuery("#abono").val();
     var suma = 0;
     var num = 0;
     for (var i = 0; i < elem.length; ++i) {
         num = parseFloat(elem[i].value);
         if(!isNaN(num)){
-            suma = suma + num;
+            suma = suma + num;            
         }
     }
-    $('#total').val(suma);
+    total = suma;
+    if(!isNaN(descuento)){
+    	total = suma - descuento;
+    }
+    suma = suma.toFixed(2);    
+    total = total.toFixed(2);
+    $("#subtotal").text("$"+suma);
+    $("#total").text("$"+total);
+    
+    if(!isNaN(abono)){
+    	pendiente = total - abono;
+    }
+    pendiente = pendiente.toFixed(2);
+    $("#pendiente").text("$"+pendiente);
+}
+
+function numeroFloat(evt, sender) {
+    var anterior = $(sender).val();
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if ($.trim(anterior) == '' && charCode == 46) {
+        return false;
+    }
+
+    if (charCode == 45) {
+        return true;
+    }
+    if (charCode == 46 && anterior.indexOf('.') == -1) {
+        return true;
+    }
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+function soloNumeros(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
 }

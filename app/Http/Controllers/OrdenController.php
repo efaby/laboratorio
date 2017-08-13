@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Orden;
 use App\Paciente;
 use App\Examan;
+use App\TipoPaciente;
 
 class OrdenController extends Controller
 {
@@ -28,7 +29,8 @@ class OrdenController extends Controller
      */
     public function create()
     {
-        return view('backEnd.orden.create');
+    	$items= TipoPaciente::pluck('nombre', 'id')->toArray();
+    	return view('backEnd.orden.create', compact('items','tipo_pacientes'));
     }
 
     /**

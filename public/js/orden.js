@@ -88,6 +88,13 @@ $(document).ready(function() {
 	});
 
     jQuery('body').on('keyup.autocomplete', '[id^="examen"]', function() {
+        var row = getRowId($(this));
+        $('#tipo' + row).html("");
+        $('#muestra' + row).html("");
+        $('#precio' + row).html("");
+        $('#precioh' + row).val(0);
+        $('#ids' + row).val(0);
+        suma();
         jQuery(this).autocomplete({
             source : url2,
             minLength: 2,

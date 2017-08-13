@@ -102,8 +102,17 @@ class OrdenController extends Controller
     	return response()->json($result);    	     	
     }
 
-    public function examenes (){
-        $examenes = Examan::all();
-        return response()->json($examenes);    
+    public function examenes (Request $request){
+        $term=$request->term;
+        $data = Examan::where('nombre','LIKE','%'.$term.'%')
+        ->whereAnd('deleted_at','is null')
+        ->take(10)
+        ->get();
+        $result=array();
+        foreach ($data as $query)
+        {
+            $result[] = [ 'id' => $query->id, 'value' => $query->nombre, 'precio' => $query->precio, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_e' => $query->precio_especial];
+        }
+        return response()->json($result);    
     }
 }

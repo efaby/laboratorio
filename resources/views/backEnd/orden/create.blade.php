@@ -77,125 +77,53 @@ Nuevo Exámen
                     <thead class="bg-primary">
                     <tr>
                         <th>Examen</th>
-                        <th>Tipo</th>
-                        <th>Muestra</th>
-                        <th>Precio</th>
+                        <th style="width: 25%">Tipo</th>
+                        <th style="width: 25%">Muestra</th>
+                        <th style="width: 10%">Precio</th>
                         <th style="width: 5%;">Acción</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                 	    <td>
-                    	    <input type="text" class="form-control input-sm" id="examen1" placeholder="Examen" required>	         		    
+                    	    <input type="text" class="form-control input-sm" id="examen1" placeholder="Examen" required>
+                            <input type="hidden" id="ids1" name="ids[]">
+                            <input type="hidden" id="precioh1" name="precioh[]" class="precioh">	         		    
                     	</td>
                     	<td>
-                    		<input type="text" class="form-control input-sm" readonly="readonly" id="tipo1"/>                    		            
+                            <div id="tipo1" class="texto-span"></div>                   		            
                     	</td>
 	                    <td>
-	                    	<input type="text" class="form-control input-sm" readonly="readonly" id="muestra1"/>
+                            <div id="muestra1" class="texto-span"></div>
 	                    </td>
 	                    <td>
-	                    	<input type="text" class="form-control input-sm" readonly="readonly" id="precio1"/>
+                            <div id="precio1" class="texto-span"></div>
 	                    </td>
 	                    <td>
-	                        <button type="button" class="btn btn-danger" id="eliminar1" onclick="removeDetalle(1)">
+	                        <button type="button" class="btn btn-danger btnDel disabled" id="eliminar1" onclick="removeDetalle(this)">
 	                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 	                        </button>
 	                    </td>
                     </tr>
                     </tbody>
                     </table>
+
+                    <input type="text" name="total" id="total">
          </div>
         </div>
     </div>    
 @endsection
 
 @section('scripts')
-
-<link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
-<script src="{{ asset('/js/jquery-ui.js') }}"></script>
-
 <script type="text/javascript">
-	$(document).ready(function() {
-        var table = $('#productos').DataTable({
-                        "info": false,
-                        "lengthChange": false,
-                        "dom": 'lrtip'
-                    });
-		$("#cedula_paciente").autocomplete({
-			source : '{!!URL::route('autocomplete')!!}',
-			minLength: 5,
-			select: function(event, ui) {
-				event.preventDefault();
-				$('#id_cliente').val(ui.item.id);
-				$('#nombre_paciente').val(ui.item.value);
-				$('#telefono_paciente').val(ui.item.telefono);
-				$('#celular_paciente').val(ui.item.celular);
-				$('#direccion_paciente').val(ui.item.direccion);
-				$('#fecha_nacimiento').val(ui.item.fecha_nacimiento);
-                $("#cedula_paciente").val(ui.item.cedula);                
-			 }
-		});
-
-		$('#addDetalle').on( 'click', function () {
-			var tbl = document.getElementById('examenes');
-		    var lastRow = tbl.rows.length;
-
-		    var iteration = lastRow;
-		    var row = tbl.insertRow(lastRow);
-		    
-		    var cellLeft = row.insertCell(0);
-		    var el = document.createElement('input');
-		    el.type = 'text';
-		    el.id = 'examen' + iteration;
-		    el.placeholder='Examen';
-		    cellLeft.appendChild(el);
-		    $("#examen"+iteration ).addClass("form-control input-sm");
-		    
-
-		    var cellRight = row.insertCell(1);
-		    var tipo = document.createElement('input');
-		    tipo.type = 'text';
-		    tipo.id = 'tipo' + iteration;
-		    tipo.readOnly = true;
-		    cellRight.appendChild(tipo);
-		    $("#tipo"+iteration ).addClass("form-control input-sm");
-
-		    var cellThird = row.insertCell(2);
-		    var muestra = document.createElement('input');
-		    muestra.type = 'text';
-		    muestra.id = 'muestra' + iteration;
-		    muestra.readOnly = true;
-		    cellThird.appendChild(muestra);
-		    $("#muestra"+iteration ).addClass("form-control input-sm");
-
-		    var cellFourth = row.insertCell(3);
-		    var precio = document.createElement('input');
-		    precio.type = 'text';
-		    precio.id = 'precio' + iteration;
-		    precio.readOnly = true;
-		    cellFourth.appendChild(precio);
-		    $("#precio"+iteration ).addClass("form-control input-sm");
-
-		    var cellFifth = row.insertCell(4);
-		    var eliminar = document.createElement('button');
-		    eliminar.type = 'button';
-		    eliminar.id = 'eliminar' + iteration;
-		    cellFifth.appendChild(eliminar);		    
-		    var span = $('<span />', {
-	            'class' : 'glyphicon glyphicon-trash',
-	            'aria-hidden':'true'
-	        }); 
-	        
-		    $("#eliminar"+iteration ).addClass("btn btn-danger");
-		    $("#eliminar"+iteration ).attr("onClick","removeDetalle("+ iteration+")");		
-		    $("#eliminar"+iteration ).append(span)
-		});
-	});	
-
-	function removeDetalle(val) {
-		var tbl = document.getElementById('examenes');
-		tbl.deleteRow(val);
-	}
+   var url1 = '{!!URL::route('autocomplete')!!}';
+   var url2 = '{!!URL::route('examenes')!!}';
 </script>
+<link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('css/orden.css')}}" rel="stylesheet">
+<script src="{{ asset('/js/jquery-ui.js') }}"></script>
+<script src="{{ asset('/js/orden.js') }}"></script>
+
+
+
 @endsection

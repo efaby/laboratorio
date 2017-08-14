@@ -1,6 +1,6 @@
  var iteration = 1;
 $(document).ready(function() {
-    var table = $('#productos').DataTable({
+	var table = $('#productos').DataTable({
                     "info": false,
                     "lengthChange": false,
                     "dom": 'lrtip'
@@ -125,6 +125,36 @@ $(document).ready(function() {
     
     $('#abono').on( 'change', function () {
     	suma();               	
+    });
+    
+    $('#frmDatosFactura').formValidation({
+        message: 'This value is not valid',
+            fields: {   
+            	abono: {
+                    message: 'El Abono no es válido',
+                    validators: {
+                        notEmpty: {
+                            message: 'El Abono no puede ser vacío.'
+                        }
+                    }
+                },
+                descuento: {
+                    message: 'El Descuento no es válido',
+                    validators: {
+                    	 notEmpty: {
+                             message: 'El Descuento no puede ser vacío.'
+                         }
+                    }
+                },
+                cedula_paciente: {
+                    message: 'La Cédula del Paciente no es válido',
+                    validators: {
+                    	 notEmpty: {
+                             message: 'La Cédula del Paciente no puede ser vacío.'
+                         }
+                    }
+                }
+            }
     });
 });	
 

@@ -17,7 +17,7 @@ Nuevo Exámen
                 		<label for="cedula_pacient" class="col-md-1 control-label">Cédula</label>
                 	</div>	
                     <div class="col-md-3">
-                    	<input type="text" class="form-control" id="cedula_paciente" name="cedula_paciente" placeholder="Ingrese una Cédula" onkeypress="return numeroFloat(event, this)">                    	 
+                    	<input type="text" class="form-control input-sm" id="cedula_paciente" name="cedula_paciente" placeholder="Ingrese una Cédula" onkeypress="return numeroFloat(event, this)">                    	 
                       	<input id="id_paciente" type='hidden'> 
                   	</div>                  
                </div>
@@ -26,19 +26,19 @@ Nuevo Exámen
                 		<label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>
                 	</div>	
                   	<div class="col-md-3">
-                    	<input type="text" class="form-control" id="nombre_paciente" placeholder="Paciente" readonly>                      	 
+                    	<input type="text" class="form-control input-sm" id="nombre_paciente" placeholder="Paciente" readonly>                      	 
                   	</div>
                   	<div class="col-md-1">
                			<label for="mail" class="col-md-1 control-label">Dirección</label>
                		</div>	
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="direccion_paciente" placeholder="Dirección" readonly>
+                        <input type="text" class="form-control input-sm" id="direccion_paciente" placeholder="Dirección" readonly>
                     </div>
                		<div class="col-md-1">
                   		<label for="tel1" class="col-md-1 control-label">Teléfono</label>
                   	</div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="telefono_paciente" placeholder="Teléfono" readonly>
+                        <input type="text" class="form-control input-sm" id="telefono_paciente" placeholder="Teléfono" readonly>
                     </div>
               </div>
               <div class="form-group row">               		
@@ -46,19 +46,19 @@ Nuevo Exámen
                   		<label for="tel1" class="col-md-1 control-label">Celular</label>
                   	</div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="celular_paciente" placeholder="Celular" readonly>
+                        <input type="text" class="form-control input-sm" id="celular_paciente" placeholder="Celular" readonly>
                     </div>               		
                     <div class="col-md-1">
                  		<label for="tel2" class="col-md-1 control-label">F. Nacimiento</label>
                  	</div>	
                     <div class="col-md-3">
-                    	<input type="text" class="form-control" id="fecha_nacimiento" placeholder="Fecha de Nacimiento" readonly>
+                    	<input type="text" class="form-control input-sm" id="fecha_nacimiento" placeholder="Fecha de Nacimiento" readonly>
                     </div>
                     <div class="col-md-1">
                     	<label for="email" class="col-md-1 control-label">Tipo Paciente</label>
                     </div>
                     <div class="col-md-3">
-                     	{{ Form::select('tipopaciente_id', $items, 1, ['class' => 'form-control','placeholder' => 'Seleccione']) }}                    
+                     	{{ Form::select('tipopaciente_id', $items, 1, ['class' => 'form-control input-sm','placeholder' => 'Seleccione']) }}                    
                 	</div>
                 </div>
                 <div class="form-group col-xs-12">
@@ -66,7 +66,7 @@ Nuevo Exámen
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                 </div>
-                <div class="form-group col-xs-12">
+                <div class="col-xs-12">
 	            	<table class="table table-responsive table-striped table-hover table-condensed" id="examenes">
 		            	<thead class="bg-primary">
 			            	<tr>
@@ -80,9 +80,11 @@ Nuevo Exámen
 		                    <tbody>
 			                    <tr>
 			                	    <td>
-			                    	    <input type="text" class="form-control" id="examen1" placeholder="Examen">
-			                            <input type="hidden" id="ids1" name="ids[]">
-			                            <input type="hidden" id="precioh1" name="precioh[]" class="precioh">	         		    
+			                	    	<div class="form-group div-examen">
+				                    	    <input type="text" class="form-control input-sm" id="examen1" name="examen[]" placeholder="Examen">
+				                            <input type="hidden" id="ids1" name="ids[]">
+				                            <input type="hidden" id="precioh1" name="precioh[]" class="precioh">
+			                            </div>	         		    
 			                    	</td>
 			                    	<td>
 			                            <div id="tipo1" class="texto-span"></div>                   		            
@@ -120,7 +122,7 @@ Nuevo Exámen
 	                    				<label for="descuento" class="control-label">DESCUENTO</label>
 	                    			</div>
 	                    			<div class="col-md-2">
-	          							<input type="text" name="descuento" id="descuento" class="form-control" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)">
+	          							<input type="text" name="descuento" id="descuento" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)">
 	          						</div>                    				
 	                    		</td>	
 	                    	</tr>	                    		                    		
@@ -142,7 +144,7 @@ Nuevo Exámen
 	                    				<label for="total" class="control-label">ABONO</label>
 	                    			</div>
 	                    			<div class="col-md-2">	
-	                    				<input type="text" name="abono" id="abono" class="form-control" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)">                							
+	                    				<input type="text" name="abono" id="abono" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)">                							
 									</div>									
 	                    		</td>	
 	                    	</tr>

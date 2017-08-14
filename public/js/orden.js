@@ -32,11 +32,19 @@ $(document).ready(function() {
 	    var row = tbl.insertRow(lastRow);
 	    
 	    var cellLeft = row.insertCell(0);
+	    var div = document.createElement('div');
+	    div.id = 'div' + iteration;
+	    cellLeft.appendChild(div);
+	    
 	    var el = document.createElement('input');
 	    el.type = 'text';
 	    el.id = 'examen' + iteration;
+        el.name = 'examen[]';
 	    el.placeholder='Examen';
-        cellLeft.appendChild(el);
+        div.appendChild(el);
+        $("#div"+iteration).addClass("form-group div-examen");
+        $('#frmDatosFactura').formValidation('addField', 'examen[]');
+        
         var h1 = document.createElement('input');
         h1.type = 'hidden';
         h1.id = 'ids' + iteration;
@@ -153,8 +161,38 @@ $(document).ready(function() {
                              message: 'La Cédula del Paciente no puede ser vacío.'
                          }
                     }
+                },
+                'examen[]': {
+                    message: 'El Exámen no es válido',
+                    validators: {
+                    	 notEmpty: {
+                             message: 'El Exámen no puede ser vacío.'
+                         }
+                    }
                 }
             }
+    })
+
+    // Called after adding new field
+    .on('added.field.fv', function(e, data) {
+        // data.field   --> The field name
+        // data.element --> The new field element
+        // data.options --> The new field options
+
+        if (data.field === 'examen[]') {
+            if ($('#frmDatosFactura').find(':visible[name="examen[]"]').length >= 1) {
+                $('#frmDatosFactura').find('.addButton').attr('disabled', 'disabled');
+            }
+        }
+    })
+
+    // Called after removing the field
+    .on('removed.field.fv', function(e, data) {
+       if (data.field === 'examen[]') {
+            if ($('#frmDatosFactura').find(':visible[name="examen[]"]').length < 1) {
+                $('#frmDatosFactura').find('.addButton').removeAttr('disabled');
+            }
+        }
     });
 });	
 
@@ -164,6 +202,7 @@ function removeDetalle(btn) {
     if(row1 > 2){
         var row = btn.parentNode.parentNode;
         row.parentNode.removeChild(row);
+        $('#frmDatosFactura').formValidation('removeField', row);
         suma();
     }
 	

@@ -173,7 +173,7 @@ Nuevo Paciente
                        validators: {
                     	   regexp: {
 	                           regexp: /^(?:\+)?\d{9}$/,
-	                           message: 'Ingrese un Número de Teléfono válido111.'
+	                           message: 'Ingrese un Número de Teléfono válido.'
 	                       }
                        }
                    },

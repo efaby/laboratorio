@@ -10,28 +10,30 @@ Orden
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
             <thead>
                 <tr>
-                    <th></th><th>Id</th><th>Paciente</th><th>Fecha</th><th>Abono</th><th>Fecha Entrega</th>
+                    <th>Id</th><th>Paciente</th><th>Fecha</th><th>Subtotal</th><th>Descuento</th><th>Total</th><th>Abono</th><th>Fecha Entrega</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($ordenes as $item)
                 <tr>
-                	<td></td>
-                    <td>{{ $item->id }}</td>
+                	<td>{{ $item->id }}</td>
                     <td>{{ $item->paciente->nombres }} {{ $item->paciente->apellidos }}</td>
                     <td>{{ $item->fecha_emision }}</a></td>
+                    <td>{{ $item->subtotal }}</a></td>
+                    <td>{{ $item->descuento }}</a></td>
+                    <td>{{ $item->total }}</a></td>
                     <td>{{ $item->abono }}</a></td>
                     <td>{{ $item->fecha_entrega }}</a></td>
-                    <td width="20%">
-                        <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 
+                     <!-- <td width="20%">
+                       <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['orden', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
                             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
-                        {!! Form::close() !!}
-                    </td>
+                        {!! Form::close() !!} 
+                    </td>-->
                 </tr>
             @endforeach
             </tbody>

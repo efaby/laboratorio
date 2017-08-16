@@ -10,7 +10,7 @@ $(document).ready(function() {
 		minLength: 5,
 		select: function(event, ui) {
 			event.preventDefault();
-			$('#id_cliente').val(ui.item.id);
+			$('#id_paciente').val(ui.item.id);
 			$('#nombre_paciente').val(ui.item.value);
 			$('#telefono_paciente').val(ui.item.telefono);
 			$('#celular_paciente').val(ui.item.celular);
@@ -59,7 +59,14 @@ $(document).ready(function() {
 	    $("#examen"+iteration ).addClass("form-control input-sm");
         $("#precioh"+iteration ).addClass("precioh");
 	    
-
+        var h3 = document.createElement('input');
+        h3.type = 'hidden';
+        h3.id = 'precioe' + iteration;
+        h3.name = 'precioe[]';
+        
+        cellLeft.appendChild(h3);
+        $("#precioe"+iteration ).addClass("precioe");
+	    
 	    var cellRight = row.insertCell(1);
 	    var tipo = document.createElement('div');
 	    tipo.id = 'tipo' + iteration;
@@ -96,11 +103,12 @@ $(document).ready(function() {
 	});
 
     jQuery('body').on('keyup.autocomplete', '[id^="examen"]', function() {
-        var row = getRowId($(this));
-        $('#tipo' + row).html("");
+    	var row = getRowId($(this));
+    	$('#tipo' + row).html("");
         $('#muestra' + row).html("");
         $('#precio' + row).html("");
         $('#precioh' + row).val(0);
+        $('#precioe' + row).val(0);
         $('#ids' + row).val(0);
         suma();
         jQuery(this).autocomplete({
@@ -109,11 +117,12 @@ $(document).ready(function() {
             select: function(event, ui) {
                 var row = getRowId($(this));
                 event.preventDefault();
+                asignarPrecio(ui.item.precio,ui.item.precio_e,row);                
                 $('#tipo' + row).html(ui.item.tipo);
-                $('#muestra' + row).html(ui.item.muestra);
-                $('#precio' + row).html(ui.item.precio);
-                $('#precioh' + row).val(ui.item.precio);
-                $('#ids' + row).val(ui.item.id);
+                $('#muestra' + row).html(ui.item.muestra);                             
+            	$('#precioh' + row).val(ui.item.precio);
+            	$('#precioe' + row).val(ui.item.precio_e);
+            	$('#ids' + row).val(ui.item.id);
                 $('#examen' + row).val(ui.item.value);
                 suma();
             }
@@ -132,6 +141,11 @@ $(document).ready(function() {
     });
     
     $('#abono').on( 'change', function () {
+    	suma();               	
+    });
+    
+    $('#tipopaciente_id').on( 'change', function () {   
+    	asignarDetallePrecios();
     	suma();               	
     });
     
@@ -159,7 +173,11 @@ $(document).ready(function() {
                     validators: {
                     	 notEmpty: {
                              message: 'La Cédula del Paciente no puede ser vacío.'
-                         }
+                         },
+                         regexp: {
+	                           regexp: /^(?:\+)?\d{10}$/,
+	                           message: 'Ingrese una cédula con 10 dígitos.'
+	                      }
                     }
                 },
                 'examen[]': {
@@ -172,7 +190,6 @@ $(document).ready(function() {
                 }
             }
     })
-
     // Called after adding new field
     .on('added.field.fv', function(e, data) {
         // data.field   --> The field name
@@ -195,6 +212,17 @@ $(document).ready(function() {
         }
     });
 });	
+
+function asignarPrecio(precioh, precioe,row){
+	var tipo_paciente = $("#tipopaciente_id").val();
+	var precio = precioe;
+	if(tipo_paciente ==1){
+		precio = precioh;	
+	}
+	$('#precio' + row).html(precio);
+	
+}
+
 
 function removeDetalle(btn) {
     var tbl = document.getElementById('examenes');
@@ -221,7 +249,12 @@ function getRowId(acInput){
 }
 
 function suma(){
-    var elem = document.getElementsByClassName("precioh");
+	var tipo_paciente = $("#tipopaciente_id").val();
+	var className = "precioe"
+	if(tipo_paciente ==1){
+		className = "precioh";	
+	}
+	var elem = document.getElementsByClassName(className);	
     var descuento = jQuery("#descuento").val();
     var abono = jQuery("#abono").val();
     var suma = 0;
@@ -246,6 +279,25 @@ function suma(){
     }
     pendiente = pendiente.toFixed(2);
     $("#pendiente").text("$"+pendiente);
+}
+
+function asignarDetallePrecios(){
+	var cont = 1;	
+	var elem = document.getElementsByClassName("precioh");
+    for (var i = 0; i < elem.length; ++i) {
+    	//num = parseFloat(elem[cont].value);
+    	precioh = $("#precioh"+cont).val();
+    	precioe = $("#precioe"+cont).val();
+        if(!isNaN(precioh)){        	
+        	console.log(precioh, precioe,cont);
+            asignarPrecio(precioh, precioe,cont);            
+        } else {
+        	i = i-1;
+        }   
+        cont = cont + 1;
+        console.log("holas");
+    }
+    
 }
 
 function numeroFloat(evt, sender) {

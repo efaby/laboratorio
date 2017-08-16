@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 use App\Orden;
 use App\Paciente;
 use App\Examan;
@@ -41,7 +42,51 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $paciente_id = $request->input('id_paciente');
+        //Poner id de usuario logueado 
+        $user_id = 1;
+        $abono = $request->input('abono');
+        $descuento = $request->input('descuento');
+        $tipopaciente_id = $request->input('tipopaciente_id');
+      
+        if($tipopaciente_id == 1){
+        	$precio_array = $request->input('precioh');
+        }
+        else{
+        	$precio_array = $request->input('precioe');
+        }
+        $subtotal = array_sum($precio_array);
+        $total = $subtotal - $descuento;
+        $examen_ids =$request->input('ids');
+        
+        $array = [
+        		'pacientes_id'  => $paciente_id,
+        		'user_id'    => $user_id,
+        		'fecha_emision' => new \DateTime(),
+        		'fecha_entrega' => new \DateTime(),
+        		'tipo_pago' =>1,
+        		'abono' =>$abono,
+        		'subtotal'=>$subtotal,
+        		'descuento' =>$descuento,
+        		'total'=>$total,
+        		'estado'=>1,
+        		'created_at'=>new \DateTime()
+        		];
+        DB::table('orden')->insert($array);
+        $orden_id = DB::table('orden')->max('id');
+        
+        $examens = [];
+        foreach ($examen_ids as $exa) {
+        	$examens[] = [
+        			'orden_id'  => $orden_id,
+        			'examens_id'=> $exa,
+        			'created_at'=> new \DateTime(),
+        	];
+        }
+        DB::table('detalleorden')->insert($examens);
+        
+        //Session::flash('status', 'success');
+        return redirect('orden');    	
     }
 
     /**

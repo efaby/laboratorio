@@ -11,14 +11,14 @@ Nuevo Exámen
             <h4> Nueva Factura</h4>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" role="form" id="frmDatosFactura">
+            {!! Form::open(['url' => 'orden', 'class' => 'form-horizontal', 'id'=>'frmItem']) !!}
                 <div class="form-group row">
                 	<div class="col-md-1">
                 		<label for="cedula_pacient" class="col-md-1 control-label">Cédula</label>
                 	</div>	
                     <div class="col-md-3">
                     	<input type="text" class="form-control input-sm" id="cedula_paciente" name="cedula_paciente" placeholder="Ingrese una Cédula" onkeypress="return numeroFloat(event, this)">                    	 
-                      	<input id="id_paciente" type='hidden'> 
+                      	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm"> 
                   	</div>                  
                </div>
                <div class="form-group row">               		
@@ -58,7 +58,7 @@ Nuevo Exámen
                     	<label for="email" class="col-md-1 control-label">Tipo Paciente</label>
                     </div>
                     <div class="col-md-3">
-                     	{{ Form::select('tipopaciente_id', $items, 1, ['class' => 'form-control input-sm','placeholder' => 'Seleccione']) }}                    
+                     	{{ Form::select('tipopaciente_id', $items, 1, ['class' => 'form-control input-sm','placeholder' => 'Seleccione','id'=>'tipopaciente_id']) }}                    
                 	</div>
                 </div>
                 <div class="form-group col-xs-12">
@@ -84,6 +84,7 @@ Nuevo Exámen
 				                    	    <input type="text" class="form-control input-sm" id="examen1" name="examen[]" placeholder="Examen">
 				                            <input type="hidden" id="ids1" name="ids[]">
 				                            <input type="hidden" id="precioh1" name="precioh[]" class="precioh">
+				                            <input type="hidden" id="precioe1" name="precioe[]" class="precioe">
 			                            </div>	         		    
 			                    	</td>
 			                    	<td>
@@ -163,15 +164,16 @@ Nuevo Exámen
 	                    	<tr>
 	                    		<td colspan="2" style="width: 100%;text-align: right;padding-right:1px;">
 	                    			<br>
-	                    			<button type="submit" class="btn btn-primary" style="float: right;" id="addDetalle">
-                        		    	<span aria-hidden="true">Guardar</span>
-                        			</button>	                    			
+	                    		                  			
 	                    		</td>
 	                    	</tr>
 	                    </table>
         		</div>
+        				<div class="col-sm-offset-3 col-sm-3" align="rig">
+	                    				{!! Form::submit('Guardar', ['class' => 'btn btn-primary form-control']) !!}
+	                    			</div>
     	   	</div>
-    	   	</form>
+    	   	{!! Form::close() !!}
     	</div>    
 @endsection
 

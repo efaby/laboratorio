@@ -84,8 +84,6 @@ class OrdenController extends Controller
         	];
         }
         DB::table('detalleorden')->insert($examens);
-        
-        //Session::flash('status', 'success');
         return redirect('orden');    	
     }
 

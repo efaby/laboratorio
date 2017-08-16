@@ -22,13 +22,13 @@ Exámen
                     <td>{{ $item->tipoexaman->nombre }}</a></td>
                     <td>{{ $item->muestra->nombre }}</a></td>
                     <td width="20%">
-                        <a href="{{ url('examen/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 
+                        <a href="{{ url('examen/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Actualizar</a> 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['examen', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                            {!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-xs']) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>

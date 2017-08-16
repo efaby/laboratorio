@@ -14,6 +14,7 @@ Orden
                 </tr>
             </thead>
             <tbody>
+            
             @foreach($ordenes as $item)
                 <tr>
                 	<td>{{ $item->id }}</td>

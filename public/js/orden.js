@@ -149,7 +149,7 @@ $(document).ready(function() {
     	suma();               	
     });
     
-    $('#frmDatosFactura').formValidation({
+    $('#frmItem').formValidation({
         message: 'This value is not valid',
             fields: {   
             	abono: {
@@ -165,6 +165,22 @@ $(document).ready(function() {
                     validators: {
                     	 notEmpty: {
                              message: 'El Descuento no puede ser vacío.'
+                         }
+                    }
+                },
+                tipopago_id: {
+                    message: 'El Tipo de Pago no es válido',
+                    validators: {
+                    	 notEmpty: {
+                             message: 'El Tipo de Pago no puede ser vacío.'
+                         }
+                    }
+                },
+                fecha_entrega: {
+                    message: 'La Fecha de Entrega no es válida',
+                    validators: {
+                    	 notEmpty: {
+                             message: 'La Fecha de Entrega no puede ser vacía.'
                          }
                     }
                 },

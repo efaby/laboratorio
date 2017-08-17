@@ -17,8 +17,8 @@ Nuevo Exámen
                 		<label for="cedula_pacient" class="col-md-1 control-label">Cédula</label>
                 	</div>	
                     <div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="cedula_paciente" name="cedula_paciente" placeholder="Ingrese una Cédula" onkeypress="return numeroFloat(event, this)">                    	 
-                      	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm"> 
+                    	<input type="text" class="form-control input-sm" id="cedula_paciente" name="cedula_paciente" placeholder="Ingrese una Cédula" onkeypress="return numeroFloat(event, this)">
+                    	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm"> 
                   	</div>                  
                </div>
                <div class="form-group row">               		
@@ -43,22 +43,36 @@ Nuevo Exámen
               </div>
               <div class="form-group row">               		
                     <div class="col-md-1">
-                  		<label for="tel1" class="col-md-1 control-label">Celular</label>
+                  		<label for="celular" class="col-md-1 control-label">Celular</label>
                   	</div>
                     <div class="col-md-3">
                         <input type="text" class="form-control input-sm" id="celular_paciente" placeholder="Celular" readonly>
                     </div>               		
                     <div class="col-md-1">
-                 		<label for="tel2" class="col-md-1 control-label">F. Nacimiento</label>
+                 		<label for="fecha_nacimiento" class="col-md-1 control-label">F. Nacimiento</label>
                  	</div>	
                     <div class="col-md-3">
                     	<input type="text" class="form-control input-sm" id="fecha_nacimiento" placeholder="Fecha de Nacimiento" readonly>
                     </div>
                     <div class="col-md-1">
-                    	<label for="email" class="col-md-1 control-label">Tipo Paciente</label>
+                    	<label for="tipo_paciente" class="col-md-1 control-label">Tipo Paciente</label>
                     </div>
                     <div class="col-md-3">
                      	{{ Form::select('tipopaciente_id', $items, 1, ['class' => 'form-control input-sm','placeholder' => 'Seleccione','id'=>'tipopaciente_id']) }}                    
+                	</div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-1">
+                    	<label for="tipo_pago" class="col-md-1 control-label">Tipo Pago</label>
+                    </div>
+                    <div class="col-md-3">
+                     	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], null, ['class' => 'form-control input-sm','id'=>'tipopago_id','placeholder' => 'Seleccione']) }}                    
+                	</div>
+                	<div class="col-md-1">
+                    	<label for="fecha_entrega" class="col-md-1 control-label">Fecha de Entrega</label>
+                    </div>
+                    <div class="col-md-3">
+                     	{!! Form::text('fecha_entrega', null, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Entrega','id'=>'fecha_entrega']) !!}                    	                    
                 	</div>
                 </div>
                 <div class="form-group col-xs-12">
@@ -164,15 +178,14 @@ Nuevo Exámen
 	                    	<tr>
 	                    		<td colspan="2" style="width: 100%;text-align: right;padding-right:1px;">
 	                    			<br>
+	                    			<button type="submit" class="btn btn-primary" style="float: right;" id="addDetalle">
+                        		    	<span aria-hidden="true">Guardar</span>
+                        			</button>
 	                    		                  			
 	                    		</td>
 	                    	</tr>
 	                    </table>
-        		</div>
-        				<div class="col-sm-offset-3 col-sm-3" align="rig">
-	                    				{!! Form::submit('Guardar', ['class' => 'btn btn-primary form-control']) !!}
-	                    			</div>
-    	   	</div>
+        		</div>        				
     	   	{!! Form::close() !!}
     	</div>    
 @endsection

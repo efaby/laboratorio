@@ -10,7 +10,7 @@ Orden
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
             <thead>
                 <tr>
-                    <th></th><th>Id</th><th>Paciente</th><th>Fecha</th><th>Subtotal</th><th>Descuento</th><th>Total</th><th>Abono</th><th>Fecha Entrega</th>
+                    <th></th><th>Id</th><th>Paciente</th><th>Fecha Emisión</th><th>Subtotal</th><th>Descuento</th><th>Total</th><th>Abono</th><th>Fecha Entrega</th>
                 </tr>
             </thead>
             <tbody>

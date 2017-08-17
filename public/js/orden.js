@@ -101,7 +101,7 @@ $(document).ready(function() {
 	    $("#eliminar"+iteration ).attr("onClick","removeDetalle(this)");		
 	    $("#eliminar"+iteration ).append(span)
 	});
-
+	
     jQuery('body').on('keyup.autocomplete', '[id^="examen"]', function() {
     	var row = getRowId($(this));
     	$('#tipo' + row).html("");
@@ -128,6 +128,15 @@ $(document).ready(function() {
             }
         });
     });
+    
+    jQuery( "#fecha_entrega" ).datepicker({  
+		dateFormat: "yy-mm-dd",
+		minDate: new Date(),
+		onClose: function(selectedDate) {
+			$('#fecha_entrega').datepicker('option', 'minDate', selectedDate);
+			$('#frmItem').formValidation('revalidateField', 'fecha_entrega');	        
+	      }  		
+	});
     
     $('#input').on('keypress', function(e) {
     	console.log('ksk');
@@ -181,9 +190,14 @@ $(document).ready(function() {
                     validators: {
                     	 notEmpty: {
                              message: 'La Fecha de Entrega no puede ser vacía.'
-                         }
+                    	 },
+						 date:{	 
+							    format: 'YYYY-MM-DD',
+			                    message: 'La fecha de ingreso no es válida.'				                    
+						 }
                     }
                 },
+               
                 cedula_paciente: {
                     message: 'La Cédula del Paciente no es válido',
                     validators: {

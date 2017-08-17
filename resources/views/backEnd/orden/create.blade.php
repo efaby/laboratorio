@@ -199,7 +199,7 @@ Nuevo Exámen
 <link href="{{URL::asset('css/orden.css')}}" rel="stylesheet">
 <script src="{{ asset('/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('/js/orden.js') }}"></script>
-
+<script src="{{ asset('/js/calendar.js') }}"></script>
 
 
 @endsection

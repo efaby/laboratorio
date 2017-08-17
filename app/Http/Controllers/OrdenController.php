@@ -48,6 +48,8 @@ class OrdenController extends Controller
         $abono = $request->input('abono');
         $descuento = $request->input('descuento');
         $tipopaciente_id = $request->input('tipopaciente_id');
+        $tipopago_id = $request->input('tipopago_id');
+        $fecha_entrega = $request->input('fecha_entrega');
       
         if($tipopaciente_id == 1){
         	$precio_array = $request->input('precioh');

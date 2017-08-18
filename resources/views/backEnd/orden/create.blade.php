@@ -137,7 +137,7 @@ Nuevo Exámen
 	                    				<label for="descuento" class="control-label">DESCUENTO</label>
 	                    			</div>
 	                    			<div class="col-md-2">
-	          							<input type="text" name="descuento" id="descuento" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)">
+	          							<input type="text" name="descuento" id="descuento" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)" value="0">
 	          						</div>                    				
 	                    		</td>	
 	                    	</tr>	                    		                    		
@@ -159,7 +159,7 @@ Nuevo Exámen
 	                    				<label for="total" class="control-label">ABONO</label>
 	                    			</div>
 	                    			<div class="col-md-2">	
-	                    				<input type="text" name="abono" id="abono" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)">                							
+	                    				<input type="text" name="abono" id="abono" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)" value="0">                							
 									</div>									
 	                    		</td>	
 	                    	</tr>

@@ -41,7 +41,7 @@ Nuevo Paciente
             <div class="form-group {{ $errors->has('fecha_nacimiento') ? 'has-error' : ''}}">
                 {!! Form::label('fecha_nacimiento', 'Fecha de Nacimiento: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::date('fecha_nacimiento', null, ['class' => 'form-control']) !!}
+                    {!! Form::date('fecha_nacimiento', null, ['class' => 'form-control','placeholder' => 'yyyy-mm-dd']) !!}
                     {!! $errors->first('fecha_nacimiento', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -90,6 +90,11 @@ Nuevo Paciente
 @endsection
 
 @section('scripts')
+
+<link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
+<script src="{{ asset('/js/jquery-ui.js') }}"></script>
+<script src="{{ asset('/js/calendar.js') }}"></script>
+
 <script type="text/javascript">
    $(document).ready(function() {
        $('#frmPaciente').formValidation({
@@ -144,7 +149,11 @@ Nuevo Paciente
                        validators: {
                     	   notEmpty: {
                                message: 'La Fecha de Nacimiento no puedem ser vacía.'
-                           }                        
+                           } ,
+	  						date:{	 
+								    format: 'YYYY-MM-DD',
+				                    message: 'La fecha de nacimiento no es válida.'				                    
+							 }                                                 
                        }
                    },
                    celular: {
@@ -188,6 +197,15 @@ Nuevo Paciente
                }
            });
        });
+
+   jQuery( "#fecha_nacimiento" ).datepicker({  
+		dateFormat: "yy-mm-dd",
+		maxDate: new Date(),
+		onClose: function(selectedDate) {
+			$('#fecha_nacimiento').datepicker('option', 'minDate', selectedDate);
+			$('#frmPaciente').formValidation('revalidateField', 'fecha_nacimiento');	        
+	      }  		
+	});
 
    </script>
    @endsection

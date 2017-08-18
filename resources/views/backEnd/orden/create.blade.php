@@ -196,6 +196,7 @@ Nuevo Exámen
    var url2 = '{!!URL::route('examenes')!!}';
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('css/datepicker.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/orden.css')}}" rel="stylesheet">
 <script src="{{ asset('/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('/js/orden.js') }}"></script>

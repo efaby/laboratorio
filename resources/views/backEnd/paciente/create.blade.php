@@ -41,7 +41,7 @@ Nuevo Paciente
             <div class="form-group {{ $errors->has('fecha_nacimiento') ? 'has-error' : ''}}">
                 {!! Form::label('fecha_nacimiento', 'Fecha de Nacimiento: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::date('fecha_nacimiento', null, ['class' => 'form-control','placeholder' => 'yyyy-mm-dd']) !!}
+                    {!! Form::text('fecha_nacimiento', null, ['class' => 'form-control','placeholder' => 'yyyy-mm-dd']) !!}
                     {!! $errors->first('fecha_nacimiento', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -202,7 +202,7 @@ Nuevo Paciente
 		dateFormat: "yy-mm-dd",
 		maxDate: new Date(),
 		onClose: function(selectedDate) {
-			$('#fecha_nacimiento').datepicker('option', 'minDate', selectedDate);
+			$('#fecha_nacimiento').datepicker('option', 'maxDate', selectedDate);
 			$('#frmPaciente').formValidation('revalidateField', 'fecha_nacimiento');	        
 	      }  		
 	});

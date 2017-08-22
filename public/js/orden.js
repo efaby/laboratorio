@@ -16,7 +16,8 @@ $(document).ready(function() {
 			$('#celular_paciente').val(ui.item.celular);
 			$('#direccion_paciente').val(ui.item.direccion);
 			$('#fecha_nacimiento').val(ui.item.fecha_nacimiento);
-            $("#cedula_paciente").val(ui.item.cedula);                
+            $("#cedula_paciente").val(ui.item.cedula); 
+            $('#frmItem').formValidation('revalidateField', 'cedula_paciente');             
 		 }
 	});
 
@@ -97,7 +98,7 @@ $(document).ready(function() {
             'aria-hidden':'true'
         }); 
         
-	    $("#eliminar"+iteration ).addClass("btn btn-danger btnDel");
+	    $("#eliminar"+iteration ).addClass("btn btn-danger btnDel btn-sm");
 	    $("#eliminar"+iteration ).attr("onClick","removeDetalle(this)");		
 	    $("#eliminar"+iteration ).append(span)
 	});
@@ -124,6 +125,7 @@ $(document).ready(function() {
             	$('#precioe' + row).val(ui.item.precio_e);
             	$('#ids' + row).val(ui.item.id);
                 $('#examen' + row).val(ui.item.value);
+                $('#frmItem').formValidation('revalidateField', 'examen[]');   
                 suma();
             }
         });

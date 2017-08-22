@@ -8,9 +8,9 @@ Tipo de Usuario
     <h1>Tipo de Usuario <a href="{{ url('tipousuario/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a></h1>
     <div class="table table-responsive">
         <table class="table table-bordered table-striped table-hover" id="tbltipousuario">
-            <thead>
+            <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Nombre</th><th>Acciones</th>
+                    <th></th><th>Id</th><th>Nombre</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,14 +19,14 @@ Tipo de Usuario
                     <td></td>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->nombre }}</td>
-                    <td width="20%">
-                        <a href="{{ url('tipousuario/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Actualizar</a> 
+                    <td style="width: 10%; text-align: center;">
+                        <a href="{{ url('tipousuario/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['tipousuario', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                        	{!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-xs']) !!}
+                        	{!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>

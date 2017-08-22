@@ -8,7 +8,7 @@ Nuevo Exámen
 <div class="container">
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h4> Nueva Factura</h4>
+            <h4> Nueva Orden de Examenes</h4>
         </div>
         <div class="panel-body">
             {!! Form::open(['url' => 'orden', 'class' => 'form-horizontal', 'id'=>'frmItem']) !!}
@@ -111,7 +111,7 @@ Nuevo Exámen
 			                            <div id="precio1" class="texto-span"></div>
 				                    </td>
 				                    <td>
-				                        <button type="button" class="btn btn-danger btnDel disabled" id="eliminar1" onclick="removeDetalle(this)">
+				                        <button type="button" class="btn btn-danger btnDel btn-sm disabled" id="eliminar1" onclick="removeDetalle(this)">
 				                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 				                        </button>
 				                    </td>

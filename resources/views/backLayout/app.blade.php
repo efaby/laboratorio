@@ -5,9 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('title')</title>
-	<link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
-	<link href="{{URL::asset('css/fla.bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">	
 	<link href="{{URL::asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
+	<link href="{{URL::asset('css/fla.bootstrap.min.css')}}" rel="stylesheet">
 	<style>
 		body {
 			padding-top: 70px;
@@ -50,7 +50,7 @@
 	<hr/>
 
 	<div class="container">
-	    &copy; {{ date('Y') }}. Created by <a href="http://www.rolandalla.com">Roland Alla</a>
+	    Copyright &copy; {{ date('Y') }}
 	    <br/>
 	</div>
 

@@ -8,7 +8,7 @@ Orden
     <h1>Orden <a href="{{ url('orden/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a></h1>
     <div class="table table-responsive">
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
-            <thead>
+            <thead class="bg-primary">
                 <tr>
                     <th></th><th>Id</th><th>Paciente</th><th>Fecha Emisión</th><th>Subtotal</th><th>Descuento</th><th>Total</th><th>Abono</th><th>Fecha Entrega</th>
                 </tr>

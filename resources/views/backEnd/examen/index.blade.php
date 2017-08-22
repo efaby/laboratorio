@@ -8,9 +8,9 @@ Exámen
     <h1>Exámen <a href="{{ url('examen/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a></h1>
     <div class="table table-responsive">
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
-            <thead>
+            <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Nombre</th><th>Tipo Examen</th><th>Muestra</th><th>Acciones</th>
+                    <th></th><th>Id</th><th>Nombre</th><th>Tipo Examen</th><th>Muestra</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,14 +21,14 @@ Exámen
                     <td>{{ $item->nombre }}</td>
                     <td>{{ $item->tipoexaman->nombre }}</a></td>
                     <td>{{ $item->muestra->nombre }}</a></td>
-                    <td width="20%">
-                        <a href="{{ url('examen/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Actualizar</a> 
+                    <td style="width: 10%; text-align: center;">
+                        <a href="{{ url('examen/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['examen', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-xs']) !!}
+                            {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>

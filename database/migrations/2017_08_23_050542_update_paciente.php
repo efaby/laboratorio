@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateOrder extends Migration
+class UpdatePaciente extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class UpdateOrder extends Migration
      */
     public function up()
     {
-        Schema::table('orden', function($table) {
-            $table->softDeletes();
+        Schema::table('pacientes', function($table) {
+            $table->dropColumn('fecha_nacimiento');
+            $table->integer('edad');
         });
     }
 
@@ -25,6 +26,9 @@ class UpdateOrder extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('pacientes', function($table) {
+            $table->dropColumn('edad');
+            $table->date('fecha_nacimiento');
+        });
     }
 }

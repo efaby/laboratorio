@@ -38,11 +38,11 @@ Nuevo Paciente
                     {!! $errors->first('apellidos', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('fecha_nacimiento') ? 'has-error' : ''}}">
-                {!! Form::label('fecha_nacimiento', 'Fecha de Nacimiento: ', ['class' => 'col-sm-3 control-label']) !!}
+            <div class="form-group {{ $errors->has('edad') ? 'has-error' : ''}}">
+                {!! Form::label('edad', 'Edad: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('fecha_nacimiento', null, ['class' => 'form-control','placeholder' => 'yyyy-mm-dd']) !!}
-                    {!! $errors->first('fecha_nacimiento', '<p class="help-block">:message</p>') !!}
+                    {!! Form::text('edad', null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('edad', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('celular') ? 'has-error' : ''}}">
@@ -74,7 +74,7 @@ Nuevo Paciente
                 </div>
             </div>
             <div class="form-group {{ $errors->has('enfermedades') ? 'has-error' : ''}}">
-                {!! Form::label('enfermedades', 'Enfermedades: ', ['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('enfermedades', 'Datos Cl&iacute;nicos: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::textarea('enfermedades', null, ['size' => '80x10','class' => 'form-control']) !!}                     
                     {!! $errors->first('enfermedades', '<p class="help-block">:message</p>') !!}
@@ -83,7 +83,8 @@ Nuevo Paciente
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
         	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
-            {!! Form::submit('Guardar', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+            <a href="{{ url('paciente') }}" class="btn btn-info btn-sm">Cancelar</a>
         </div>
     </div>
     {!! Form::close() !!}
@@ -100,63 +101,48 @@ Nuevo Paciente
        $('#frmPaciente').formValidation({
         message: 'This value is not valid',
             fields: {
-            	   tipopacientes_id: {
-                       message: 'El Tipo de Paciente no es válido',
-                       validators: {
-                           notEmpty: {
-                               message: 'El Tipo de Paciente no puede ser vacío.'
-                           }
+            	tipopacientes_id: {
+                    message: 'El Tipo de Paciente no es válido',
+                    validators: {
+                        notEmpty: {
+                           message: 'El Tipo de Paciente no puede ser vacío.'
+                        }
+                    }
+                },  
+               cedula: {
+       				message: 'El Número de Cédula no es válido',
+   				    validators: {					
+       					regexp: {
+       						regexp: /^(?:\+)?\d{10,13}$/,
+       						message: 'Ingrese un Número de Identificación válido.'
+       					}	       						
+   				    }
+       			},       				
+            	nombres: {
+                    message: 'Los Nombres no son válidos',
+                    validators: {
+                        notEmpty: {
+                           message: 'Los Nombres no pueden ser vacíos.'
+                        },
+                        regexp: {
+                           regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
+                           message: 'Ingrese los Nombres válidos.'
+                        }
+                    }
+                },
+               apellidos: {
+                   message: 'Los Apellidos no son válidos',
+                   validators: {
+                       notEmpty: {
+                           message: 'Los Apellidos no puedem ser vacíos.'
+                       },
+                       regexp: {
+                           regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
+                           message: 'Ingrese los Apellidos válidos.'
                        }
-                   },  
-                   cedula: {
-	       				message: 'El Número de Cédula no es válido',
-	       				validators: {
-	       					notEmpty: {
-	       						message: 'El Número de Cédula no puede ser vacío.'
-	       					},					
-	       					regexp: {
-	       						regexp: /^(?:\+)?\d{10,13}$/,
-	       						message: 'Ingrese un Número de Identificación válido.'
-	       					}	       						
-	       				}
-	       			},       				
-            	   nombres: {
-                       message: 'Los Nombres no son válidos',
-                       validators: {
-                           notEmpty: {
-                               message: 'Los Nombres no pueden ser vacíos.'
-                           },
-                           regexp: {
-                               regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
-                               message: 'Ingrese los Nombres válidos.'
-                           }
-                       }
-                   },
-                   apellidos: {
-                       message: 'Los Apellidos no son válidos',
-                       validators: {
-                           notEmpty: {
-                               message: 'Los Apellidos no puedem ser vacíos.'
-                           },
-                           regexp: {
-                               regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
-                               message: 'Ingrese los Apellidos válidos.'
-                           }
-                       }
-                   },
-                   fecha_nacimiento: {
-                       message: 'La Fecha de Nacimiento no es válida',
-                       validators: {
-                    	   notEmpty: {
-                               message: 'La Fecha de Nacimiento no puedem ser vacía.'
-                           } ,
-	  						date:{	 
-								    format: 'YYYY-MM-DD',
-				                    message: 'La fecha de nacimiento no es válida.'				                    
-							 }                                                 
-                       }
-                   },
-                   celular: {
+                   }
+               },
+                celular: {
                 	   message: 'El Celular no es válido',
                        validators: {
                            notEmpty: {
@@ -186,6 +172,18 @@ Nuevo Paciente
 	                       }
                        }
                    },
+                   edad: {
+                       message: 'La edad no es válida',
+                       validators: {
+                        notEmpty: {
+                               message: 'La edad no puede ser vacía.'
+                           },
+                         regexp: {
+                             regexp: /^[1-9]\d*$/,
+                             message: 'Ingrese una edad válida.'
+                         }
+                       }
+                   },
                    genero: {
                        message: 'El Género no es válido',
                        validators: {
@@ -198,14 +196,6 @@ Nuevo Paciente
            });
        });
 
-   jQuery( "#fecha_nacimiento" ).datepicker({  
-		dateFormat: "yy-mm-dd",
-		maxDate: new Date(),
-		onClose: function(selectedDate) {
-			$('#fecha_nacimiento').datepicker('option', 'maxDate', selectedDate);
-			$('#frmPaciente').formValidation('revalidateField', 'fecha_nacimiento');	        
-	      }  		
-	});
 
    </script>
    @endsection

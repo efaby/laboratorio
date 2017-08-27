@@ -25,7 +25,8 @@ Nueva Muestra
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
         	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
-            {!! Form::submit('Guardar', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+            <a href="{{ url('muestra') }}" class="btn btn-info btn-sm">Cancelar</a>
         </div>
     </div>
     {!! Form::close() !!}

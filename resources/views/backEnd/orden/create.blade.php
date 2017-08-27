@@ -14,10 +14,10 @@ Nuevo Exámen
             {!! Form::open(['url' => 'orden', 'class' => 'form-horizontal', 'id'=>'frmItem']) !!}
                 <div class="form-group row">
                 	<div class="col-md-1">
-                		<label for="cedula_pacient" class="col-md-1 control-label">Cédula</label>
+                		<label for="nombre_paciente" class="col-md-1 control-label">Nombre Paciente</label>
                 	</div>	
                     <div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="cedula_paciente" name="cedula_paciente" placeholder="Ingrese una Cédula" onkeypress="return numeroFloat(event, this)">
+                    	<input type="text" class="form-control input-sm" id="nombre_paciente" name="nombre_paciente" placeholder="Ingrese El nombre del Paciente" >
                     	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm"> 
                   	</div>                  
                </div>
@@ -26,7 +26,7 @@ Nuevo Exámen
                 		<label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>
                 	</div>	
                   	<div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="nombre_paciente" placeholder="Paciente" readonly>                      	 
+                    	<input type="text" class="form-control input-sm" id="nombre_paciente1" placeholder="Paciente" readonly>                      	 
                   	</div>
                   	<div class="col-md-1">
                			<label for="mail" class="col-md-1 control-label">Dirección</label>
@@ -41,7 +41,7 @@ Nuevo Exámen
                         <input type="text" class="form-control input-sm" id="telefono_paciente" placeholder="Teléfono" readonly>
                     </div>
               </div>
-              <div class="form-group row">               		
+              <div class="form-group1 row">               		
                     <div class="col-md-1">
                   		<label for="celular" class="col-md-1 control-label">Celular</label>
                   	</div>
@@ -49,10 +49,10 @@ Nuevo Exámen
                         <input type="text" class="form-control input-sm" id="celular_paciente" placeholder="Celular" readonly>
                     </div>               		
                     <div class="col-md-1">
-                 		<label for="fecha_nacimiento" class="col-md-1 control-label">F. Nacimiento</label>
+                 		<label for="fecha_nacimiento" class="col-md-1 control-label">Edad</label>
                  	</div>	
-                    <div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="fecha_nacimiento" placeholder="Fecha de Nacimiento" readonly>
+                    <div class="form-group col-md-3" style="margin: 0px;">
+                    	{!! Form::text('edad', null, ['class' => 'form-control input-sm', 'id' => 'edad']) !!}                    	
                     </div>
                     <div class="col-md-1">
                     	<label for="tipo_paciente" class="col-md-1 control-label">Tipo Paciente</label>
@@ -66,7 +66,7 @@ Nuevo Exámen
                     	<label for="tipo_pago" class="col-md-1 control-label">Tipo Pago</label>
                     </div>
                     <div class="col-md-3">
-                     	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], null, ['class' => 'form-control input-sm','id'=>'tipopago_id','placeholder' => 'Seleccione']) }}                    
+                     	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], null, ['class' => 'form-control input-sm','id'=>'tipopago_id']) }}                    
                 	</div>
                 	<div class="col-md-1">
                     	<label for="fecha_entrega" class="col-md-1 control-label">Fecha de Entrega</label>
@@ -97,8 +97,9 @@ Nuevo Exámen
 			                	    	<div class="form-group div-examen">
 				                    	    <input type="text" class="form-control input-sm" id="examen1" name="examen[]" placeholder="Examen">
 				                            <input type="hidden" id="ids1" name="ids[]">
-				                            <input type="hidden" id="precioh1" name="precioh[]" class="precioh">
-				                            <input type="hidden" id="precioe1" name="precioe[]" class="precioe">
+				                            <input type="hidden" id="preciop1" name="preciop[]" class="preciop">
+				                            <input type="hidden" id="preciol1" name="preciol[]" class="preciol">
+				                            <input type="hidden" id="precioc1" name="precioc[]" class="precioc">
 			                            </div>	         		    
 			                    	</td>
 			                    	<td>
@@ -178,9 +179,11 @@ Nuevo Exámen
 	                    	<tr>
 	                    		<td colspan="2" style="width: 100%;text-align: right;padding-right:1px;">
 	                    			<br>
-	                    			<button type="submit" class="btn btn-primary" style="float: right;" id="addDetalle">
+	                    			<a href="{{ url('orden') }}" class="btn btn-info btn-sm" style="float: right;">Cancelar</a> 
+	                    			<button type="submit" class="btn btn-primary"  id="addDetalle">
                         		    	<span aria-hidden="true">Guardar</span>
-                        			</button>
+                        			</button> &nbsp;
+
 	                    		                  			
 	                    		</td>
 	                    	</tr>

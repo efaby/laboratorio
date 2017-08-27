@@ -19,6 +19,10 @@ Nuevo Exámen
                     <div class="col-md-3">
                     	<input type="text" class="form-control input-sm" id="nombre_paciente" name="nombre_paciente" placeholder="Ingrese El nombre del Paciente" >
                     	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm"> 
+                  	</div> 
+                  	<div class="col-md-8" style="text-align: right;">
+                    	<a href="{{ url('paciente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Paciente</a> &nbsp;
+                    	<a href="{{ url('cliente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Cliente</a>
                   	</div>                  
                </div>
                <div class="form-group row">               		

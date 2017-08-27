@@ -25,11 +25,43 @@
 	                <span class="icon-bar"></span>
 	                <span class="icon-bar"></span>
 	            </button>
-	            <a class="navbar-brand" href="#">CRUD App</a>
+	            <a class="navbar-brand" href="#">Laboratorio Clinico</a>
 	        </div>
 
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
+
+					<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Administración <b class = "caret"></b>
+                        </a>
+                        <ul class = "dropdown-menu">
+                            <li><a href="{{ url('tipopaciente') }}">Tipo Paciente</a></li>
+                            <li><a href="{{ url('tipoexamen') }}">Tipo Examen</a></li>
+                            <li><a href = "{{ url('tipousuario') }}">Tipo Usuario</a></li>                            
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Personas <b class = "caret"></b>
+                        </a>
+                        <ul class = "dropdown-menu">
+                            <li><a href="{{ url('paciente') }}">Paciente</a></li>
+                            <li><a href="{{ url('cliente') }}">Cliente</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Pruebas de Laboratorio <b class = "caret"></b>
+                        </a>
+                        <ul class = "dropdown-menu">
+                            <li><a href="{{ url('muestra') }}">Muestras</a></li>
+                            <li><a href="{{ url('examen') }}">Examenes</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ url('orden') }}">Orden</a></li>
+
+				<!--
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">Login</a></li>
 						<li><a href="{{ url('/auth/register') }}">Register</a></li>
@@ -37,6 +69,9 @@
 						<li><a href="#">{{ Auth::user()->name }}</a></li>
 						<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
 					@endif
+
+					-->
+
 				</ul>
 			</div>
 

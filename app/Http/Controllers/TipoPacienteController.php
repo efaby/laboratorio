@@ -46,7 +46,7 @@ class TipoPacienteController extends Controller
 
         TipoPaciente::create($request->all());
 
-        Session::flash('message', 'TipoPaciente added!');
+        Session::flash('message', 'El Tipo Paciente se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipopaciente');
@@ -94,7 +94,7 @@ class TipoPacienteController extends Controller
         $tipopaciente = TipoPaciente::findOrFail($id);
         $tipopaciente->update($request->all());
 
-        Session::flash('message', 'TipoPaciente updated!');
+        Session::flash('message', 'El Tipo Paciente se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipopaciente');
@@ -113,7 +113,7 @@ class TipoPacienteController extends Controller
 
         $tipopaciente->delete();
 
-        Session::flash('message', 'TipoPaciente deleted!');
+        Session::flash('message', 'El Tipo Examen se elimino satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipopaciente');

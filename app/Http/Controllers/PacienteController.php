@@ -46,10 +46,10 @@ class PacienteController extends Controller
     {
         $this->validate($request, [
         		'tipopacientes_id'=>'required',
-        		'cedula' => 'required|regex:/^(?:\+)?\d{10,13}$/', 
+        		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/', 
         		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
-        		'fecha_nacimiento'=>'required',
+        		'edad'=>'required|regex:/^[1-9]\d*$/',
         		'celular'=>'required|regex: /^(?:\+)?\d{10}$/',
         		'direccion'=>'required|regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
         		'telefono'=>'regex: /^(?:\+)?\d{9}$/',
@@ -58,7 +58,7 @@ class PacienteController extends Controller
 
         Paciente::create($request->all());
 
-        Session::flash('message', 'Paciente added!');
+        Session::flash('message', 'El Paciente se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('paciente');
@@ -103,10 +103,10 @@ class PacienteController extends Controller
     {
         $this->validate($request, [
         		'tipopacientes_id'=>'required',
-        		'cedula' => 'required|regex:/^(?:\+)?\d{10,13}$/',
+        		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/',
         		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
-        		'fecha_nacimiento'=>'required',
+        		'edad'=>'required|regex:/^[1-9]\d*$/',
         		'celular'=>'required|regex: /^(?:\+)?\d{10}$/',
         		'direccion'=>'required|regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
         		'telefono'=>'regex: /^(?:\+)?\d{9}$/',
@@ -116,7 +116,7 @@ class PacienteController extends Controller
         $paciente = Paciente::findOrFail($id);
         $paciente->update($request->all());
 
-        Session::flash('message', 'Paciente updated!');
+        Session::flash('message', 'El Paciente se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('paciente');
@@ -135,7 +135,7 @@ class PacienteController extends Controller
 
         $paciente->delete();
 
-        Session::flash('message', 'Paciente deleted!');
+        Session::flash('message', 'El Paciente se elimino satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('paciente');

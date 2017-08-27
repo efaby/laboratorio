@@ -46,7 +46,7 @@ class TipoExamenController extends Controller
         
         TipoExaman::create($request->all());
 
-        Session::flash('message', 'TipoExaman added!');
+        Session::flash('message', 'El Tipo Examen se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipoexamen');
@@ -94,7 +94,7 @@ class TipoExamenController extends Controller
         $tipoexaman = TipoExaman::findOrFail($id);
         $tipoexaman->update($request->all());
 
-        Session::flash('message', 'TipoExaman updated!');
+        Session::flash('message', 'El Tipo Examen se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipoexamen');
@@ -113,7 +113,7 @@ class TipoExamenController extends Controller
 
         $tipoexaman->delete();
 
-        Session::flash('message', 'TipoExaman deleted!');
+        Session::flash('message', 'El Tipo Examen se elimino satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipoexamen');

@@ -46,15 +46,36 @@ class ExamenController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/',
         						   'tipoexamens_id' => 'required',
-        						   'muestras_id' => 'required',
+                                   'muestras_id' => 'required',
         						   'plantilla'	 => 'required',
-        						   'precio'	 => 'required|regex:/^[+-]?\d+(\.\d+)?$/',
-        						   'precio_especial'  => 'required|regex:/^[+-]?\d+(\.\d+)?$/'
+        						   'precio_normal'	 => 'required|regex:/^[+-]?\d+(\.\d+)?$/',
+        						   'precio_laboratorio'  => 'required|regex:/^[+-]?\d+(\.\d+)?$/',
+                                   'precio_clinica'  => 'required|regex:/^[+-]?\d+(\.\d+)?$/'
         ]);
-        Examan::create($request->all());
+       // Examan::create($request->all());
+
+       /* $examen = new Examan();
+        $examen->nombre = $request['nombre'];
+        $examen->tipoexamens_id = $request['tipoexamens_id'];
+        $examen->plantilla = $request['plantilla'];
+        $examen->precio_normal = $request['precio_normal'];;
+        $examen->precio_laboratorio = $request['precio_laboratorio'];;
+        $examen->precio_clinica = $request['precio_clinica'];;
+        $examen->estado = $request['estado'];
+        $examen->save();
+
+        $examen->muestras()->sync($request->input('muestra',[]));
+
         Session::flash('message', 'Examan added!');
+        Session::flash('status', 'success');
+
+        return redirect('examen'); */
+
+        Examan::create($request->all());
+        Session::flash('message', 'El Examen se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('examen');
@@ -84,8 +105,14 @@ class ExamenController extends Controller
     public function edit($id)
     {
         $examan = Examan::findOrFail($id);
+
         $items= TipoExaman::pluck('nombre', 'id')->toArray();
         $muestras= Muestra::pluck('nombre', 'id')->toArray();
+        /* $selected = array();
+        foreach ($examan->muestras as $item) {
+            $selected[] = $item->id;
+        } */
+
         return view('backEnd.examen.edit', compact('examan','items','muestras'));
     }
 
@@ -100,17 +127,39 @@ class ExamenController extends Controller
     {
         $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/',
         						   'tipoexamens_id' => 'required',
-        						   'muestras_id' => 'required',
+                                   'muestras_id' => 'required',
         						   'plantilla'	 => 'required',
-        						   'precio'	 => 'required|regex:/^[+-]?\d+(\.\d+)?$/',
-        						   'precio_especial'  => 'required|regex:/^[+-]?\d+(\.\d+)?$/']);
-        $examan = Examan::findOrFail($id);
-        $examan->update($request->all());
+        						   'precio_normal'     => 'required|regex:/^[+-]?\d+(\.\d+)?$/',
+                                   'precio_laboratorio'  => 'required|regex:/^[+-]?\d+(\.\d+)?$/',
+                                   'precio_clinica'  => 'required|regex:/^[+-]?\d+(\.\d+)?$/'
+                                   ]);
+        $examen = Examan::findOrFail($id);
+        //$examan->update($request->all());
+
+        /* $examen->nombre = $request['nombre'];
+        $examen->tipoexamens_id = $request['tipoexamens_id'];
+        $examen->plantilla = $request['plantilla'];
+        $examen->precio_normal = $request['precio_normal'];;
+        $examen->precio_laboratorio = $request['precio_laboratorio'];;
+        $examen->precio_clinica = $request['precio_clinica'];;
+        $examen->estado = $request['estado'];
+        $examen->save();
+
+        $examen->muestras()->sync($request->input('muestra',[]));
 
         Session::flash('message', 'Examan updated!');
         Session::flash('status', 'success');
 
+        return redirect('examen'); */
+
+        $examen->update($request->all());
+
+        Session::flash('message', 'El Examen se almaceno satisfactoriamente!');
+        Session::flash('status', 'success');
+
         return redirect('examen');
+
+
     }
 
     /**
@@ -126,7 +175,7 @@ class ExamenController extends Controller
 
         $examan->delete();
 
-        Session::flash('message', 'Examan deleted!');
+        Session::flash('message', 'El Examen se elimino satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('examen');

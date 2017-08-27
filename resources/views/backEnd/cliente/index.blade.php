@@ -1,12 +1,11 @@
 @extends('backLayout.app')
 @section('title')
-Exámen
+Cliente
 @stop
 
 @section('content')
 
-    <h1>Exámen</h1>
-
+    <h1>Clientes </h1>
     @if (Session::has('message'))
         <div class="alert alert-success fade in">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -15,29 +14,27 @@ Exámen
     @endif
     <div class="row" style="margin-bottom: 10px;" > 
     <div class="col-sm-12">
-        <a href="{{ url('examen/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a>
+        <a href="{{ url('cliente/create') }}" class="btn btn-primary pull-right btn-sm">A&ntilde;adir</a>
     </div>
     </div>
-
+    
     <div class="table table-responsive">
-        <table class="table table-bordered table-striped table-hover" id="tblexamen">
-            <thead class="bg-primary">
+        <table class="table table-bordered table-striped table-hover" id="tblcliente">
+            <thead>
                 <tr>
-                    <th>Id</th><th>Nombres</th><th>Tipo Examen</th><th>Muestra</th><th style="width: 10%; text-align: center;">Acciones</th>
+                    <th>ID</th><th>C&eacute;dula</th><th>Nombres</th><th>Apellidos</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach($examen as $item)
+            @foreach($cliente as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
-                    <td>{{ $item->nombre }}</td>
-                    <td>{{ $item->tipoexaman->nombre }}</td>                    
-                    <td>{{ $item->muestra->nombre }}</td>
+                    <td>{{ $item->cedula }}</td><td>{{ $item->nombres }}</td><td>{{ $item->apellidos }}</td>
                     <td style="width: 10%; text-align: center;">
-                        <a href="{{ url('examen/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+                        <a href="{{ url('cliente/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['examen', $item->id],
+                            'url' => ['cliente', $item->id],
                             'style' => 'display:inline',
                             'class' => 'delete'
                         ]) !!}
@@ -55,7 +52,7 @@ Exámen
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#tblexamen').DataTable({
+        $('#tblcliente').DataTable({
             columnDefs: [{
                 targets: [0],
                 visible: false,
@@ -79,7 +76,7 @@ Exámen
                         }
                 },
                 "lengthChange": false,
-                info: false
+                info: false            
         });
     });
 

@@ -5,19 +5,19 @@ $(document).ready(function() {
                     "lengthChange": false,
                     "dom": 'lrtip'
                 });
-	$("#cedula_paciente").autocomplete({
+	$("#nombre_paciente").autocomplete({
 		source : url1,
-		minLength: 5,
+		minLength: 3,
 		select: function(event, ui) {
 			event.preventDefault();
 			$('#id_paciente').val(ui.item.id);
-			$('#nombre_paciente').val(ui.item.value);
+			$('#nombre_paciente1').val(ui.item.nombres);
 			$('#telefono_paciente').val(ui.item.telefono);
 			$('#celular_paciente').val(ui.item.celular);
 			$('#direccion_paciente').val(ui.item.direccion);
-			$('#fecha_nacimiento').val(ui.item.fecha_nacimiento);
-            $("#cedula_paciente").val(ui.item.cedula); 
-            $('#frmItem').formValidation('revalidateField', 'cedula_paciente');             
+			$('#edad').val(ui.item.edad);
+            $("#nombre_paciente").val(ui.item.value); 
+            $('#frmItem').formValidation('revalidateField', 'nombre_paciente');             
 		 }
 	});
 
@@ -51,22 +51,35 @@ $(document).ready(function() {
         h1.id = 'ids' + iteration;
         h1.name = 'ids[]';
 	    cellLeft.appendChild(h1);
+        var h21 = document.createElement('input');
+        h21.type = 'hidden';
+        h21.id = 'muestras' + iteration;
+        h21.name = 'muestras[]';
+        cellLeft.appendChild(h21);
         var h2 = document.createElement('input');
         h2.type = 'hidden';
-        h2.id = 'precioh' + iteration;
-        h2.name = 'precioh[]';
+        h2.id = 'preciop' + iteration;
+        h2.name = 'preciop[]';
         
         cellLeft.appendChild(h2);
 	    $("#examen"+iteration ).addClass("form-control input-sm");
-        $("#precioh"+iteration ).addClass("precioh");
+        $("#preciop"+iteration ).addClass("preciop");
 	    
         var h3 = document.createElement('input');
         h3.type = 'hidden';
-        h3.id = 'precioe' + iteration;
-        h3.name = 'precioe[]';
+        h3.id = 'preciol' + iteration;
+        h3.name = 'preciol[]';
         
         cellLeft.appendChild(h3);
-        $("#precioe"+iteration ).addClass("precioe");
+        $("#preciol"+iteration ).addClass("preciol");
+
+        var h31 = document.createElement('input');
+        h31.type = 'hidden';
+        h31.id = 'precioc' + iteration;
+        h31.name = 'precioc[]';
+        
+        cellLeft.appendChild(h31);
+        $("#precioc"+iteration ).addClass("precioc");
 	    
 	    var cellRight = row.insertCell(1);
 	    var tipo = document.createElement('div');
@@ -108,8 +121,9 @@ $(document).ready(function() {
     	$('#tipo' + row).html("");
         $('#muestra' + row).html("");
         $('#precio' + row).html("");
-        $('#precioh' + row).val(0);
-        $('#precioe' + row).val(0);
+        $('#preciop' + row).val(0);
+        $('#preciol' + row).val(0);
+        $('#precioc' + row).val(0);
         $('#ids' + row).val(0);
         suma();
         jQuery(this).autocomplete({
@@ -118,13 +132,15 @@ $(document).ready(function() {
             select: function(event, ui) {
                 var row = getRowId($(this));
                 event.preventDefault();
-                asignarPrecio(ui.item.precio,ui.item.precio_e,row);                
+                asignarPrecio(ui.item.precio_normal,ui.item.precio_laboratorio,ui.item.precio_clinica,row);                
                 $('#tipo' + row).html(ui.item.tipo);
                 $('#muestra' + row).html(ui.item.muestra);                             
-            	$('#precioh' + row).val(ui.item.precio);
-            	$('#precioe' + row).val(ui.item.precio_e);
+            	$('#preciop' + row).val(ui.item.precio_normal);
+            	$('#preciol' + row).val(ui.item.precio_laboratorio);
+                $('#precioc' + row).val(ui.item.precio_clinica);
             	$('#ids' + row).val(ui.item.id);
-                $('#examen' + row).val(ui.item.value);
+                $('#muestras' + row).val(ui.item.muestraId);
+                $('#examen' + row).val(ui.item.examen);
                 $('#frmItem').formValidation('revalidateField', 'examen[]');   
                 suma();
             }
@@ -200,18 +216,30 @@ $(document).ready(function() {
                     }
                 },
                
-                cedula_paciente: {
-                    message: 'La Cédula del Paciente no es válido',
+                nombre_paciente: {
+                    message: 'El Nombre del Paciente no es válido',
                     validators: {
                     	 notEmpty: {
-                             message: 'La Cédula del Paciente no puede ser vacío.'
+                             message: 'El Nombre del Paciente no puede ser vacío.'
                          },
                          regexp: {
-	                           regexp: /^(?:\+)?\d{10}$/,
-	                           message: 'Ingrese una cédula con 10 dígitos.'
+	                           regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
+	                           message: 'El Nombre del Paciente un nombre válido.'
 	                      }
                     }
                 },
+                edad: {
+                       message: 'La edad no es válida',
+                       validators: {
+                        notEmpty: {
+                               message: 'La edad no puede ser vacía.'
+                           },
+                         regexp: {
+                             regexp: /^[1-9]\d*$/,
+                             message: 'Ingrese una edad válida.'
+                         }
+                       }
+                   },
                 'examen[]': {
                     message: 'El Exámen no es válido',
                     validators: {
@@ -245,12 +273,18 @@ $(document).ready(function() {
     });
 });	
 
-function asignarPrecio(precioh, precioe,row){
+function asignarPrecio(preciop, preciol,precioc,row){
 	var tipo_paciente = $("#tipopaciente_id").val();
-	var precio = precioe;
+    precio = 0;
 	if(tipo_paciente ==1){
-		precio = precioh;	
+		precio = preciop;	
 	}
+    if(tipo_paciente ==2){
+        precio = preciol;   
+    }
+    if(tipo_paciente ==3){
+        precio = precioc;   
+    }
 	$('#precio' + row).html(precio);
 	
 }
@@ -282,10 +316,16 @@ function getRowId(acInput){
 
 function suma(){
 	var tipo_paciente = $("#tipopaciente_id").val();
-	var className = "precioe"
+	
 	if(tipo_paciente ==1){
-		className = "precioh";	
+		className = "preciop";	
 	}
+    if(tipo_paciente ==2){
+        className = "preciol";  
+    }
+    if(tipo_paciente ==3){
+        className = "precioc";  
+    }
 	var elem = document.getElementsByClassName(className);	
     var descuento = jQuery("#descuento").val();
     var abono = jQuery("#abono").val();
@@ -315,19 +355,18 @@ function suma(){
 
 function asignarDetallePrecios(){
 	var cont = 1;	
-	var elem = document.getElementsByClassName("precioh");
+	var elem = document.getElementsByClassName("preciop");
     for (var i = 0; i < elem.length; ++i) {
     	//num = parseFloat(elem[cont].value);
-    	precioh = $("#precioh"+cont).val();
-    	precioe = $("#precioe"+cont).val();
-        if(!isNaN(precioh)){        	
-        	console.log(precioh, precioe,cont);
-            asignarPrecio(precioh, precioe,cont);            
+    	preciop = $("#preciop"+cont).val();
+    	preciol = $("#preciol"+cont).val();
+        precioc = $("#precioc"+cont).val();
+        if(!isNaN(preciop)){        	
+            asignarPrecio(preciop, preciol,precioc,cont);            
         } else {
         	i = i-1;
         }   
         cont = cont + 1;
-        console.log("holas");
     }
     
 }

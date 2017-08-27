@@ -20,7 +20,7 @@ class Paciente extends Model
      *
      * @var array
      */
-    protected $fillable = ['tipopacientes_id','cedula', 'nombres', 'apellidos', 'fecha_nacimiento', 'celular', 'direccion', 'telefono', 'genero', 'enfermedades', 'estado'];
+    protected $fillable = ['tipopacientes_id','cedula', 'nombres', 'apellidos', 'edad', 'celular', 'direccion', 'telefono', 'genero', 'enfermedades', 'estado'];
 
     public function tipopaciente()
     {

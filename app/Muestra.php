@@ -20,7 +20,7 @@ class Muestra extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre', 'descripcion', 'estado'];
+    protected $fillable = ['id', 'nombre', 'descripcion', 'estado'];
 
     use SoftDeletes;
     protected $dates = ['deleted_at'];
@@ -29,6 +29,5 @@ class Muestra extends Model
     {
         return $this->hasMany('App\Examan' , 'id', 'muestras_id');
     }
-
 
 }

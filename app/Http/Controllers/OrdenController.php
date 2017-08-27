@@ -50,16 +50,24 @@ class OrdenController extends Controller
         $tipopaciente_id = $request->input('tipopaciente_id');
         $tipopago_id = $request->input('tipopago_id');
         $fecha_entrega = $request->input('fecha_entrega');
+
+        $paciente = Paciente::findOrFail($$paciente_id);
+        $paciente->edad = $request->input('edad');
+        $paciente->save();
       
         if($tipopaciente_id == 1){
-        	$precio_array = $request->input('precioh');
+        	$precio_array = $request->input('preciop');
+        }        
+        if($tipopaciente_id == 2){
+          
+            $precio_array = $request->input('preciol');
         }
-        else{
-        	$precio_array = $request->input('precioe');
+        if($tipopaciente_id == 3){
+            $precio_array = $request->input('precioc');
         }
         $subtotal = array_sum($precio_array);
         $total = $subtotal - $descuento;
-        $examen_ids =$request->input('ids');
+        $examen_ids =$request->input('ids'); // obtenermos los 
         
         $array = [
         		'pacientes_id'  => $paciente_id,
@@ -72,6 +80,8 @@ class OrdenController extends Controller
         		'descuento' =>$descuento,
         		'total'=>$total,
         		'estado'=>1,
+                'iva' => 0,
+                'cliente_id' => 0,
         		'created_at'=>new \DateTime()
         		];
         DB::table('orden')->insert($array);
@@ -86,6 +96,7 @@ class OrdenController extends Controller
         	];
         }
         DB::table('detalleorden')->insert($examens);
+        Session::flash('message', 'La Orden se almaceno satisfactoriamente!');
         return redirect('orden');    	
     }
 
@@ -137,14 +148,14 @@ class OrdenController extends Controller
     public function autocomplete(Request $request)
     {
     	$term=$request->term;
-    	$data = paciente::where('cedula','LIKE','%'.$term.'%')
+    	$data = paciente::where(DB::raw("CONCAT(`nombres`, ' ', `apellidos`)"),'LIKE','%'.$term.'%')
     	->whereAnd('deleted_at','is null')
     	->take(10)
     	->get();
     	$result=array();
     	foreach ($data as $query)
     	{
-    		$result[] = [ 'id' => $query->id, 'value' => $query->cedula .' - '.$query->nombres.' '.$query->apellidos, 'cedula' => $query->cedula, 'direccion' => $query->direccion, 'telefono' => $query->telefono,'celular' => $query->celular,'fecha_nacimiento' => $query->fecha_nacimiento];
+    		$result[] = [ 'id' => $query->id, 'value' => $query->cedula .' - '.$query->nombres.' '.$query->apellidos, 'nombres' => $query->nombres.' '.$query->apellidos, 'direccion' => $query->direccion, 'telefono' => $query->telefono,'celular' => $query->celular,'edad' => $query->edad];
     	}
     	return response()->json($result);    	     	
     }
@@ -158,7 +169,8 @@ class OrdenController extends Controller
         $result=array();
         foreach ($data as $query)
         {
-            $result[] = [ 'id' => $query->id, 'value' => $query->nombre, 'precio' => $query->precio, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_e' => $query->precio_especial];
+            $result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];
+
         }
         return response()->json($result);    
     }

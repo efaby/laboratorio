@@ -48,7 +48,7 @@ class MuestraController extends Controller
         ]);
         Muestra::create($request->all());
 
-        Session::flash('message', 'Muestra added!');
+        Session::flash('message', 'La Muestra se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('muestra');
@@ -99,7 +99,7 @@ class MuestraController extends Controller
         $muestra = Muestra::findOrFail($id);
         $muestra->update($request->all());
 
-        Session::flash('message', 'Muestra updated!');
+        Session::flash('message', 'La Muestra se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('muestra');
@@ -118,7 +118,7 @@ class MuestraController extends Controller
 
         $muestra->delete();
 
-        Session::flash('message', 'Muestra deleted!');
+        Session::flash('message', 'La Muestra se elimino satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('muestra');

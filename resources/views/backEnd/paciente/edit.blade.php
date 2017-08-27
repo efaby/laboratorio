@@ -43,11 +43,11 @@ Editar Paciente
                     {!! $errors->first('apellidos', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('fecha_nacimiento') ? 'has-error' : ''}}">
-                {!! Form::label('fecha_nacimiento', 'Fecha de Nacimiento: ', ['class' => 'col-sm-3 control-label']) !!}
+            <div class="form-group {{ $errors->has('edad') ? 'has-error' : ''}}">
+                {!! Form::label('edad', 'Edad: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('fecha_nacimiento', null, ['class' => 'form-control','placeholder' => 'yyyy-mm-dd']) !!}
-                    {!! $errors->first('fecha_nacimiento', '<p class="help-block">:message</p>') !!}                    
+                    {!! Form::text('edad', null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('edad', '<p class="help-block">:message</p>') !!}                    
                 </div>
             </div>
             <div class="form-group {{ $errors->has('celular') ? 'has-error' : ''}}">
@@ -89,7 +89,8 @@ Editar Paciente
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
         	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
-            {!! Form::submit('Guardar', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+            <a href="{{ url('paciente') }}" class="btn btn-info btn-sm">Cancelar</a>
         </div>
     </div>
     {!! Form::close() !!}
@@ -115,10 +116,7 @@ Editar Paciente
                    },  
                    cedula: {
 	       				message: 'El Número de Cédula no es válido',
-	       				validators: {
-	       							notEmpty: {
-	       								message: 'El Número de Cédula no puede ser vacío.'
-	       							},					
+	       				validators: {			
 	       							regexp: {
 	       								regexp: /^(?:\+)?\d{10,13}$/,
 	       								message: 'Ingrese un Número de Identificación válido.'
@@ -147,18 +145,6 @@ Editar Paciente
                                regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
                                message: 'Ingrese los Apellidos válidos.'
                            }
-                       }
-                   },
-                   fecha_nacimiento: {
-                       message: 'La Fecha de Nacimiento no es válida',
-                       validators: {
-                    	   notEmpty: {
-                               message: 'La Fecha de Nacimiento no puedem ser vacía.'
-                           },
-                       		date:{	 
-								    format: 'YYYY-MM-DD',
-				                    message: 'La fecha de nacimiento no es válida.'				                    
-							 }                        
                        }
                    },
                    celular: {
@@ -191,6 +177,18 @@ Editar Paciente
 	                       }
                        }
                    },
+                   edad: {
+                       message: 'La edad no es válida',
+                       validators: {
+                        notEmpty: {
+                               message: 'La edad no puede ser vacía.'
+                           },
+                         regexp: {
+                             regexp: /^[1-9]\d*$/,
+                             message: 'Ingrese una edad válida.'
+                         }
+                       }
+                   },
                    genero: {
                        message: 'El Género no es válido',
                        validators: {
@@ -203,13 +201,6 @@ Editar Paciente
            });
        });
 
-   jQuery( "#fecha_nacimiento" ).datepicker({  
-		dateFormat: "yy-mm-dd",
-		maxDate: new Date(),
-		onClose: function(selectedDate) {
-			$('#fecha_nacimiento').datepicker('option', 'maxDate', selectedDate);
-			$('#frmPaciente').formValidation('revalidateField', 'fecha_nacimiento');	        
-	      }  		
-	});
+
    </script>
    @endsection

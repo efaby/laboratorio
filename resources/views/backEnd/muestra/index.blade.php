@@ -5,7 +5,18 @@ Muestra
 
 @section('content')
 
-    <h1>Muestra <a href="{{ url('muestra/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a></h1>
+    <h1>Muestra</h1>
+    @if (Session::has('message'))
+        <div class="alert alert-success fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            {{ Session::get('message') }}
+        </div>
+    @endif
+    <div class="row" style="margin-bottom: 10px;" > 
+    <div class="col-sm-12">
+        <a href="{{ url('muestra/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a>
+    </div>
+    </div>
     <div class="table table-responsive">
         <table class="table table-bordered table-striped table-hover" id="tblmuestra">
             <thead class="bg-primary">
@@ -24,7 +35,8 @@ Muestra
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['muestra', $item->id],
-                            'style' => 'display:inline'
+                            'style' => 'display:inline',
+                            'class' => 'delete'
                         ]) !!}
                             {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
                         {!! Form::close() !!}
@@ -48,7 +60,29 @@ Muestra
                 },
             ],
             order: [[0, "asc"]],
+            "language":{
+                "lengthMenu":"Mostrar _MENU_ registros por página.",
+                "zeroRecords": "Lo sentimos. No se encontraron registros.",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros aún.",
+                    "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+                    "search" : "Búsqueda",
+                    "LoadingRecords": "Cargando ...",
+                    "Processing": "Procesando...",
+                    "SearchPlaceholder": "Comience a teclear...",
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente", 
+                        }
+                },
+                "lengthChange": false,
+                info: false
         });
     });
+
+    $(".delete").on("submit", function(){
+        return confirm("Esta seguro que desea eliminar el item selccionado?");
+    });
+    
 </script>
 @endsection

@@ -46,7 +46,7 @@ class TipoUsuarioController extends Controller
 
         TipoUsuario::create($request->all());
 
-        Session::flash('message', 'TipoUsuario added!');
+        Session::flash('message', 'El Tipo Usuario se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipousuario');
@@ -94,7 +94,7 @@ class TipoUsuarioController extends Controller
         $tipousuario = TipoUsuario::findOrFail($id);
         $tipousuario->update($request->all());
 
-        Session::flash('message', 'TipoUsuario updated!');
+        Session::flash('message', 'El Tipo Usuario se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipousuario');
@@ -111,7 +111,7 @@ class TipoUsuarioController extends Controller
     {
         $tipousuario = TipoUsuario::findOrFail($id);
         $tipousuario->delete();
-        Session::flash('message', 'TipoUsuario deleted!');
+        Session::flash('message', 'El Tipo Usuario se elimino satisfactoriamente!');
         Session::flash('status', 'success');
         return redirect('tipousuario');
     }

@@ -85,7 +85,7 @@ Nuevo Exámen
                             message: 'El Nombre no puede ser vacío.'
                         },
                         regexp: {
-                            regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
+                            regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-\(\)]+$/,
                             message: 'Ingrese un Nombre válido.'
                         }
                     }

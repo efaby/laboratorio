@@ -89,7 +89,7 @@ class TipoExamenController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/', ]);
+        $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\(\)\_\s\-]+$/', ]);
 
         $tipoexaman = TipoExaman::findOrFail($id);
         $tipoexaman->update($request->all());

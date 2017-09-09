@@ -8,7 +8,7 @@ Orden
     <h1>Orden</h1>
 
     @if (Session::has('message'))
-        <div class="alert alert-success fade in">
+        <div class="alert alert-{{ Session::get('status') }} fade in">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             {{ Session::get('message') }}
         </div>
@@ -23,7 +23,7 @@ Orden
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
             <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Paciente</th><th>Fecha Emisión</th><th>Subtotal</th><th>Descuento</th><th>Total</th><th>Abono</th><th>Fecha Entrega</th>
+                    <th></th><th>Id</th><th>Paciente</th><th>Fecha Emisión</th><th>Subtotal</th><th>Descuento</th><th>Total</th><th>Abono</th><th>Fecha Entrega</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,16 +39,17 @@ Orden
                     <td>${{ $item->total }}</a></td>
                     <td>${{ $item->abono }}</a></td>
                     <td>{{ $item->fecha_entrega }}</a></td>
-                     <!-- <td width="20%">
-                       <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Update</a> 
+                    <td style="width: 10%; text-align: center;">
+                        <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['orden', $item->id],
-                            'style' => 'display:inline'
+                            'style' => 'display:inline',
+                            'class' => 'delete'
                         ]) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
-                        {!! Form::close() !!} 
-                    </td>-->
+                            {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
+                        {!! Form::close() !!}
+                    </td>
                 </tr>
             @endforeach
             </tbody>
@@ -86,6 +87,10 @@ Orden
             "lengthChange": false,
             info: false
         });
+    });
+
+    $(".delete").on("submit", function(){
+        return confirm("Esta seguro que desea eliminar la orden selccionada?");
     });
 </script>
 @endsection

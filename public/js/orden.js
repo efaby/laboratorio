@@ -21,6 +21,16 @@ $(document).ready(function() {
 		 }
 	});
 
+    $("#nombre_medico").autocomplete({
+        source : url3,
+        minLength: 3,
+        select: function(event, ui) {
+            event.preventDefault();
+            $('#nombre_medico').val(ui.item.value);
+            $('#frmItem').formValidation('revalidateField', 'nombre_medico');             
+         }
+    });
+
 	$('#addDetalle').on( 'click', function () {
 		var tbl = document.getElementById('examenes');
 	    var lastRow = tbl.rows.length;
@@ -228,6 +238,18 @@ $(document).ready(function() {
 	                      }
                     }
                 },
+                nombre_medico: {
+                    message: 'El Nombre del Médico no es válido',
+                    validators: {
+                         notEmpty: {
+                             message: 'El Nombre del Médico no puede ser vacío.'
+                         },
+                         regexp: {
+                               regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\_\s\-]+$/,
+                               message: 'El Nombre del Médico un nombre válido.'
+                          }
+                    }
+                },
                 edad: {
                        message: 'La edad no es válida',
                        validators: {
@@ -252,10 +274,6 @@ $(document).ready(function() {
     })
     // Called after adding new field
     .on('added.field.fv', function(e, data) {
-        // data.field   --> The field name
-        // data.element --> The new field element
-        // data.options --> The new field options
-
         if (data.field === 'examen[]') {
             if ($('#frmDatosFactura').find(':visible[name="examen[]"]').length >= 1) {
                 $('#frmDatosFactura').find('.addButton').attr('disabled', 'disabled');

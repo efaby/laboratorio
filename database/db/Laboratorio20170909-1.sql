@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `laboratorio` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `laboratorio`;
--- MySQL dump 10.13  Distrib 5.7.19, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for linux-glibc2.5 (x86_64)
 --
 -- Host: localhost    Database: laboratorio
 -- ------------------------------------------------------
--- Server version	5.7.19-0ubuntu0.16.04.1
+-- Server version	5.5.55-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -62,6 +62,7 @@ CREATE TABLE `detalleorden` (
   `examens_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `plantilla_atendido` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `detalleorden_orden_id_foreign` (`orden_id`),
   KEY `detalleorden_examens_id_foreign` (`examens_id`),
@@ -76,7 +77,7 @@ CREATE TABLE `detalleorden` (
 
 LOCK TABLES `detalleorden` WRITE;
 /*!40000 ALTER TABLE `detalleorden` DISABLE KEYS */;
-INSERT INTO `detalleorden` VALUES (1,1,193,'2017-08-27 18:59:03',NULL),(2,1,194,'2017-08-27 18:59:03',NULL);
+INSERT INTO `detalleorden` VALUES (1,1,193,'2017-08-27 18:59:03',NULL,NULL),(2,1,194,'2017-08-27 18:59:03',NULL,NULL);
 /*!40000 ALTER TABLE `detalleorden` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,9 +225,12 @@ CREATE TABLE `orden` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `cliente_id` int(11) NOT NULL,
   `descuento` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre_medico` varchar(1024) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usuario_atiende` int(11) NOT NULL DEFAULT '0',
+  `atendido` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `orden_pacientes_id_foreign` (`pacientes_id`),
-  CONSTRAINT `orden_pacientes_id_foreign` FOREIGN KEY (`pacientes_id`) REFERENCES `tipopacientes` (`id`)
+  KEY `orden_pacientes_id_foreign_idx` (`pacientes_id`),
+  CONSTRAINT `orden_pacientes_id_foreign` FOREIGN KEY (`pacientes_id`) REFERENCES `pacientes` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -236,7 +240,7 @@ CREATE TABLE `orden` (
 
 LOCK TABLES `orden` WRITE;
 /*!40000 ALTER TABLE `orden` DISABLE KEYS */;
-INSERT INTO `orden` VALUES (1,1,1,'2017-08-27','2017-08-27 18:59:03',0.00,1,0.00,5.00,5.00,1,'2017-08-27 18:59:03',NULL,NULL,0,'0');
+INSERT INTO `orden` VALUES (1,1,1,'2017-08-27','2017-08-27 18:59:03',0.00,1,0.00,5.00,5.00,1,'2017-08-27 18:59:03',NULL,NULL,0,'0','Dr. Coloma',0,1);
 /*!40000 ALTER TABLE `orden` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -425,4 +429,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-09  8:41:01
+-- Dump completed on 2017-09-09 11:13:09

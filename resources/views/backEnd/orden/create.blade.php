@@ -45,7 +45,7 @@ Nuevo Exámen
                         <input type="text" class="form-control input-sm" id="telefono_paciente" placeholder="Teléfono" readonly>
                     </div>
               </div>
-              <div class="form-group1 row">               		
+              <div class="form-group row">               		
                     <div class="col-md-1">
                   		<label for="celular" class="col-md-1 control-label">Celular</label>
                   	</div>
@@ -56,27 +56,33 @@ Nuevo Exámen
                  		<label for="fecha_nacimiento" class="col-md-1 control-label">Edad</label>
                  	</div>	
                     <div class="form-group col-md-3" style="margin: 0px;">
-                    	{!! Form::text('edad', null, ['class' => 'form-control input-sm', 'id' => 'edad']) !!}                    	
+                    	{!! Form::text('edad', null, ['class' => 'form-control input-sm', 'id' => 'edad', 'placeholder'=>'Ingrese la Edad del Paciente']) !!}                    	
                     </div>
                     <div class="col-md-1">
+                 		<label for="fecha_nacimiento" class="col-md-1 control-label">M&eacute;dico</label>
+                 	</div>	
+                    <div class="form-group col-md-3" style="margin: 0px;">
+                    	{!! Form::text('nombre_medico', null, ['class' => 'form-control input-sm', 'id' => 'nombre_medico', 'placeholder'=>'Ingrese el nombre del Médico']) !!}                    	
+                    </div>                    
+                </div>
+                <div class="form-group row">
+                	<div class="col-md-1">
                     	<label for="tipo_paciente" class="col-md-1 control-label">Tipo Paciente</label>
                     </div>
                     <div class="col-md-3">
                      	{{ Form::select('tipopaciente_id', $items, 1, ['class' => 'form-control input-sm','placeholder' => 'Seleccione','id'=>'tipopaciente_id']) }}                    
-                	</div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-1">
-                    	<label for="tipo_pago" class="col-md-1 control-label">Tipo Pago</label>
-                    </div>
-                    <div class="col-md-3">
-                     	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], null, ['class' => 'form-control input-sm','id'=>'tipopago_id']) }}                    
-                	</div>
+                	</div>                    
                 	<div class="col-md-1">
                     	<label for="fecha_entrega" class="col-md-1 control-label">Fecha de Entrega</label>
                     </div>
                     <div class="col-md-3">
                      	{!! Form::text('fecha_entrega', null, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Entrega','id'=>'fecha_entrega']) !!}                    	                    
+                	</div>
+                	<div class="col-md-1">
+                    	<label for="tipo_pago" class="col-md-1 control-label">Tipo Pago</label>
+                    </div>
+                    <div class="col-md-3">
+                     	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], null, ['class' => 'form-control input-sm','id'=>'tipopago_id']) }}                    
                 	</div>
                 </div>
                 <div class="form-group col-xs-12">
@@ -201,6 +207,7 @@ Nuevo Exámen
 <script type="text/javascript">
    var url1 = '{!!URL::route('autocomplete')!!}';
    var url2 = '{!!URL::route('examenes')!!}';
+   var url3 = '{!!URL::route('medicos')!!}';
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/datepicker.min.css')}}" rel="stylesheet">

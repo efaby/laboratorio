@@ -133,10 +133,23 @@ class PacienteController extends Controller
     {
         $paciente = Paciente::findOrFail($id);
 
-        $paciente->delete();
+        $ordenes = $paciente->ordenes;
+        $band = true;
+        foreach ($ordenes as $orden) {
+            if($orden->atendido === 1){
+                $band = false;
+            }
+        }
+        $message = 'El Paciente NO se pudo eliminar porque exiten ordenes de examenes Asociados!';
+        $type = 'warning';
+        if($band) {
+            $paciente->delete();
+            $message = 'El Paciente se eliminó satisfactoriamente!';
+            $type = 'success';
+        }   
 
-        Session::flash('message', 'El Paciente se elimino satisfactoriamente!');
-        Session::flash('status', 'success');
+        Session::flash('message', $message);
+        Session::flash('status', $type);
 
         return redirect('paciente');
     }

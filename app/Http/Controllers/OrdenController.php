@@ -9,6 +9,8 @@ use App\Paciente;
 use App\Examan;
 use App\TipoPaciente;
 
+use Session;
+
 class OrdenController extends Controller
 {
     /**
@@ -50,6 +52,7 @@ class OrdenController extends Controller
         $tipopaciente_id = $request->input('tipopaciente_id');
         $tipopago_id = $request->input('tipopago_id');
         $fecha_entrega = $request->input('fecha_entrega');
+        $nombre_medico = $request->input('nombre_medico');
 
         $paciente = Paciente::findOrFail($$paciente_id);
         $paciente->edad = $request->input('edad');
@@ -82,7 +85,8 @@ class OrdenController extends Controller
         		'estado'=>1,
                 'iva' => 0,
                 'cliente_id' => 0,
-        		'created_at'=>new \DateTime()
+        		'created_at'=>new \DateTime(),
+                'nombre_medico' => $nombre_medico
         		];
         DB::table('orden')->insert($array);
         $orden_id = DB::table('orden')->max('id');
@@ -142,7 +146,20 @@ class OrdenController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $orden = Orden::findOrFail($id);
+
+        $message = 'La Orden NO se pudo eliminar porque es ya fue atendida!';
+        $type = 'warning';
+        if($orden->atendido === 0){
+            $orden->delete();
+            $message = 'La Orden se eliminó satisfactoriamente!';
+            $type = 'success';
+        }   
+
+        Session::flash('message', $message);
+        Session::flash('status', $type);
+
+        return redirect('orden');
     }
     
     public function autocomplete(Request $request)
@@ -155,7 +172,7 @@ class OrdenController extends Controller
     	$result=array();
     	foreach ($data as $query)
     	{
-    		$result[] = [ 'id' => $query->id, 'value' => $query->cedula .' - '.$query->nombres.' '.$query->apellidos, 'nombres' => $query->nombres.' '.$query->apellidos, 'direccion' => $query->direccion, 'telefono' => $query->telefono,'celular' => $query->celular,'edad' => $query->edad];
+    		$result[] = [ 'id' => $query->id, 'value' => $query->cedula .' - '.$query->apellidos. ' ' .$query->nombres, 'nombres' => $query->apellidos.' '.$query->nombres, 'direccion' => $query->direccion, 'telefono' => $query->telefono,'celular' => $query->celular,'edad' => $query->edad];
     	}
     	return response()->json($result);    	     	
     }
@@ -174,4 +191,20 @@ class OrdenController extends Controller
         }
         return response()->json($result);    
     }
+
+    public function medicos(Request $request)
+    {
+        $term=$request->term;
+        $data = Orden::where('nombre_medico','LIKE','%'.$term.'%')
+        ->whereAnd('deleted_at','is null')
+        ->take(10)
+        ->get();
+        $result=array();
+        foreach ($data as $query)
+        {
+            $result[] = [ 'value' => $query->nombre_medico ];
+        }
+        return response()->json($result);               
+    }
+
 }

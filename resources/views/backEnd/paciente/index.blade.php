@@ -8,7 +8,7 @@ Paciente
     <h1>Paciente</h1>
 
     @if (Session::has('message'))
-        <div class="alert alert-success fade in">
+        <div class="alert alert-{{ Session::get('status') }} fade in">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             {{ Session::get('message') }}
         </div>

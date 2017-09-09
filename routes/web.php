@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get("orden/autocomplete",array('as'=>'autocomplete','uses'=> 'OrdenController@autocomplete'));
 Route::get("orden/examenes",array('as'=>'examenes','uses'=> 'OrdenController@examenes'));
+Route::get("orden/medicos",array('as'=>'medicos','uses'=> 'OrdenController@medicos'));
 
 Route::group(['middleware' => ['web']], function () {
 	Route::resource('tipousuario', 'TipoUsuarioController');

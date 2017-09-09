@@ -22,6 +22,11 @@ class Cliente extends Model
      */
     protected $fillable = ['cedula', 'nombres', 'apellidos', 'direccion', 'telefono', 'estado'];
 
+    public function ordenes()
+    {
+        return $this->hasMany('App\Orden' , 'id', 'cliente_id');
+    }
+
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 

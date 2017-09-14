@@ -8,6 +8,7 @@ use App\Orden;
 use App\Paciente;
 use App\Examan;
 use App\TipoPaciente;
+use Illuminate\Database\Eloquent\Model;
 
 use Session;
 
@@ -33,7 +34,7 @@ class OrdenController extends Controller
     public function create()
     {
     	$items= TipoPaciente::pluck('nombre', 'id')->toArray();
-    	return view('backEnd.orden.create', compact('items','tipo_pacientes'));
+    	return view('backEnd.orden.create', compact('items'));
     }
 
     /**
@@ -54,7 +55,7 @@ class OrdenController extends Controller
         $fecha_entrega = $request->input('fecha_entrega');
         $nombre_medico = $request->input('nombre_medico');
 
-        $paciente = Paciente::findOrFail($$paciente_id);
+        $paciente = Paciente::findOrFail($paciente_id);
         $paciente->edad = $request->input('edad');
         $paciente->save();
       
@@ -70,23 +71,25 @@ class OrdenController extends Controller
         }
         $subtotal = array_sum($precio_array);
         $total = $subtotal - $descuento;
-        $examen_ids =$request->input('ids'); // obtenermos los 
+        $examen_ids =$request->input('ids'); // obtenermos los
         
         $array = [
         		'pacientes_id'  => $paciente_id,
         		'user_id'    => $user_id,
         		'fecha_emision' => new \DateTime(),
         		'fecha_entrega' => new \DateTime(),
-        		'tipo_pago' =>1,
         		'abono' =>$abono,
+        		'tipo_pago' =>1,
+        		'iva' => 0,
         		'subtotal'=>$subtotal,
-        		'descuento' =>$descuento,
         		'total'=>$total,
         		'estado'=>1,
-                'iva' => 0,
-                'cliente_id' => 0,
         		'created_at'=>new \DateTime(),
-                'nombre_medico' => $nombre_medico
+        		'cliente_id' => 0,
+        		'descuento' =>$descuento,
+                'nombre_medico' => $nombre_medico,
+        		'usuario_atiende' =>1,
+        		'atendido' =>1,
         		];
         DB::table('orden')->insert($array);
         $orden_id = DB::table('orden')->max('id');
@@ -112,7 +115,9 @@ class OrdenController extends Controller
      */
     public function show($id)
     {
-        //
+    	$orden = Orden::findOrFail($id);
+    	
+    	return view('backEnd.orden.show', compact('orden'));
     }
 
     /**
@@ -123,7 +128,27 @@ class OrdenController extends Controller
      */
     public function edit($id)
     {
-        //
+    	$items= TipoPaciente::pluck('nombre', 'id')->toArray();
+    	
+    	$array = DB::table('orden')
+    //	->join('detalleorden', 'orden.id', '=', 'detalleorden.orden_id')
+    	->join('pacientes', 'pacientes.id', '=', 'orden.pacientes_id')
+    	->select('orden.*', 'pacientes.nombres as nombre_paciente', 'pacientes.direccion as direccion_paciente')
+    	->where('orden.id', $id)
+    	->get();
+    	$array= $array->toArray()[0];
+    	$orden = json_decode(json_encode($array), True);    	
+    
+    	//$orden = $this->HasRelationships->belongsToMany('orden', 'pacientes', 'id','pacientes_id');
+    	
+//    	dd($orden);
+    	
+    	
+    	//dd($orden);
+    	//$items1 = Orden::pluck('id','pacientes_id','user_id','fecha_emision','fecha_entrega',
+    		//	'abono','tipo_pago','iva','subtotal',
+    		//	'total','descuento','nombre_medico')->toArray(); 
+    	return view('backEnd.orden.edit', compact('orden','items'));
     }
 
     /**

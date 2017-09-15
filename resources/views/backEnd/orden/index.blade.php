@@ -40,12 +40,14 @@ Orden
                     <td>${{ $item->abono }}</a></td>
                     <td>{{ $item->fecha_entrega }}</a></td>
                     <td style="width: 10%; text-align: center;">
-                        <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+                        <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
+                        <a href="{{ url('orden/orden/' . $item->id ) }}" class="btn btn-warning btn-xs" title="Atender"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['orden', $item->id],
                             'style' => 'display:inline',
-                            'class' => 'delete'
+                            'class' => 'delete',
+                            'title' => 'Eliminar'
                         ]) !!}
                             {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
                         {!! Form::close() !!}

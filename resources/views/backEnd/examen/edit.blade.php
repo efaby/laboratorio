@@ -149,7 +149,18 @@ Editar Exámen
         .each(function() {
             $(this)
                 // Attach an editor to field
-                .ckeditor()
+                .ckeditor({
+            toolbar: [
+                { name: 'document', items: [ 'Print' ] },
+                { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+                { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting' ] },
+                { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+                { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+                { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ] },
+                { name: 'editing', items: [ 'Scayt' ] },
+                { name: 'insert', items: [ 'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe' ] }
+            ]})
                 .editor
                     .on('change', function(e) {
                         // Revalidate the field that

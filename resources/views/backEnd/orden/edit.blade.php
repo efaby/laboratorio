@@ -13,39 +13,30 @@ Editar Exámen
         <div class="panel-body">
             {!! Form::model($orden, [
         			'method' => 'PATCH',
-        			'url' => ['orden', $orden['id']],
+        			'url' => ['orden', $orden->id],
         			'class' => 'form-horizontal',
         			'id'=>'frmItem'
     		]) !!}
-                <div class="form-group row">
-                	<div class="col-md-1">
-                		<label for="nombre_paciente" class="col-md-1 control-label">Nombre Paciente</label>
-                	</div>	
-                    <div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="nombre_paciente" name="nombre_paciente" placeholder="Ingrese El nombre del Paciente" readonly
-                    	value="{{$orden['cedula']}} - {{$orden['apellido_paciente']}} {{$orden['nombre_paciente']}}">
-                    	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm"> 
-                  	</div> 
-               </div>
                <div class="form-group row">               		
                   	<div class="col-md-1">
                 		<label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>
                 	</div>	
                   	<div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="nombre_paciente1" placeholder="Paciente" value="{{$orden['nombre_paciente']}} {{$orden['apellido_paciente']}}" readonly>                      	 
+                    	<input type="text" class="form-control input-sm" id="nombre_paciente1" placeholder="Paciente" value="{{ $paciente->apellidos }} {{ $paciente->nombres }}   " readonly>  
+                    	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm" value="{{ $paciente->id }}">                  	 
                   	</div>
                   	<div class="col-md-1">
                			<label for="mail" class="col-md-1 control-label">Dirección</label>
                		</div>	
                     <div class="col-md-3">
                         <input type="text" class="form-control input-sm" id="direccion_paciente" name="direccion_paciente" 
-                        placeholder="Dirección" value="{{$orden['direccion_paciente']}}" readonly>
+                        placeholder="Dirección" value="{{ $paciente->direccion }}" readonly>
                     </div>
                		<div class="col-md-1">
                   		<label for="tel1" class="col-md-1 control-label">Teléfono</label>
                   	</div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control input-sm" id="telefono_paciente" placeholder="Teléfono" value="{{$orden['telefono']}}" readonly>
+                        <input type="text" class="form-control input-sm" id="telefono_paciente" placeholder="Teléfono" value="{{ $paciente->telefono }}" readonly>
                     </div>
               </div>
               <div class="form-group row">               		
@@ -53,19 +44,19 @@ Editar Exámen
                   		<label for="celular" class="col-md-1 control-label">Celular</label>
                   	</div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control input-sm" id="celular_paciente" placeholder="Celular" value="{{$orden['celular']}}" readonly>
+                        <input type="text" class="form-control input-sm" id="celular_paciente" placeholder="Celular" value="{{ $paciente->celular }}" readonly>
                     </div>               		
                     <div class="col-md-1">
                  		<label for="fecha_nacimiento" class="col-md-1 control-label">Edad</label>
                  	</div>	
                     <div class="form-group col-md-3" style="margin: 0px;">
-                    	{!! Form::text('edad', null, ['class' => 'form-control input-sm', 'id' => 'edad','readonly'=>'true', 'placeholder'=>'Ingrese la Edad del Paciente','value'=>$orden['edad']]) !!}                    	
+                    	{!! Form::text('edad', $paciente->edad, ['class' => 'form-control input-sm', 'id' => 'edad','readonly'=>'true', 'placeholder'=>'Ingrese la Edad del Paciente']) !!}                    	
                     </div>
                     <div class="col-md-1">
                  		<label for="fecha_nacimiento" class="col-md-1 control-label">M&eacute;dico</label>
                  	</div>	
                     <div class="form-group col-md-3" style="margin: 0px;">
-                    	{!! Form::text('nombre_medico', null, ['class' => 'form-control input-sm', 'id' => 'nombre_medico', 'placeholder'=>'Ingrese el nombre del Médico']) !!}                    	
+                    	{!! Form::text('nombre_medico', $orden->nombre_medico, ['class' => 'form-control input-sm', 'id' => 'nombre_medico', 'placeholder'=>'Ingrese el nombre del Médico']) !!}                    	
                     </div>                    
                 </div>
                 <div class="form-group row">
@@ -73,19 +64,19 @@ Editar Exámen
                     	<label for="tipo_paciente" class="col-md-1 control-label">Tipo Paciente</label>
                     </div>
                     <div class="col-md-3">
-                     	{{ Form::select('tipopaciente_id', $items, 1, ['class' => 'form-control input-sm','readonly'=>'true','placeholder' => 'Seleccione','id'=>'tipopaciente_id']) }}                    
+                     	{{ Form::select('tipopaciente_id', $items, $orden->tipopaciente_id, ['class' => 'form-control input-sm','placeholder' => 'Seleccione','id'=>'tipopaciente_id']) }}                    
                 	</div>                    
                 	<div class="col-md-1">
                     	<label for="fecha_entrega" class="col-md-1 control-label">Fecha de Entrega</label>
                     </div>
                     <div class="col-md-3">
-                     	{!! Form::text('fecha_entrega', null, ['class' => 'form-control input-sm','readonly'=>'true','placeholder' => 'Fecha de Entrega','id'=>'fecha_entrega']) !!}                    	                    
+                     	{!! Form::text('fecha_entrega', $orden->fecha_entrega, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Entrega','id'=>'fecha_entrega']) !!}                    	                    
                 	</div>
                 	<div class="col-md-1">
                     	<label for="tipo_pago" class="col-md-1 control-label">Tipo Pago</label>
                     </div>
                     <div class="col-md-3">
-                     	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], null, ['class' => 'form-control input-sm','id'=>'tipopago_id','readonly'=>'true']) }}                    
+                     	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], $orden->tipopago_id, ['class' => 'form-control input-sm','id'=>'tipopago_id']) }}                    
                 	</div>
                 </div>
                 <div class="form-group col-xs-12">
@@ -105,31 +96,33 @@ Editar Exámen
 			                    </tr>
 			                </thead>
 		                    <tbody>
+		                    <?php $i = 1; foreach ($detalleorden as $item) { ?>
 			                    <tr>
 			                	    <td>
 			                	    	<div class="form-group div-examen">
-				                    	    <input type="text" class="form-control input-sm" id="examen1" name="examen[]" placeholder="Examen">
-				                            <input type="hidden" id="ids1" name="ids[]">
-				                            <input type="hidden" id="preciop1" name="preciop[]" class="preciop">
-				                            <input type="hidden" id="preciol1" name="preciol[]" class="preciol">
-				                            <input type="hidden" id="precioc1" name="precioc[]" class="precioc">
+				                    	    <input type="text" class="form-control input-sm" id="examen1" name="examen[]" placeholder="Examen" value="<?php echo $item->examan->nombre; ?>">
+				                            <input type="hidden" id="ids<?php echo $i; ?>" name="ids[]" value="<?php echo $item->examan->id; ?>">
+				                            <input type="hidden" id="preciop<?php echo $i; ?>" name="preciop[]" class="preciop" value="<?php echo $item->examan->precio_normal; ?>">
+				                            <input type="hidden" id="preciol<?php echo $i; ?>" name="preciol[]" class="preciol" value="<?php echo $item->examan->precio_laboratorio; ?>">
+				                            <input type="hidden" id="precioc<?php echo $i; ?>" name="precioc[]" class="precioc" value="<?php echo $item->examan->precio_clinica; ?>">
 			                            </div>	         		    
 			                    	</td>
 			                    	<td>
-			                            <div id="tipo1" class="texto-span"></div>                   		            
+			                            <div id="tipo<?php echo $i; ?>" class="texto-span"><?php echo $item->examan->tipoexaman->nombre; ?></div>                   		            
 			                    	</td>
 				                    <td>
-			                            <div id="muestra1" class="texto-span"></div>
+			                            <div id="muestra<?php echo $i; ?>" class="texto-span"><?php echo $item->examan->muestra->nombre; ?></div>
 				                    </td>
 				                    <td>
-			                            <div id="precio1" class="texto-span"></div>
+			                            <div id="precio<?php echo $i; ?>" class="texto-span"><?php echo $item->precio; ?></div>
 				                    </td>
 				                    <td>
-				                        <button type="button" class="btn btn-danger btnDel btn-sm disabled" id="eliminar1" onclick="removeDetalle(this)">
+				                        <button type="button" class="btn btn-danger btnDel btn-sm disabled" id="eliminar<?php echo $i; ?>" onclick="removeDetalle(this)">
 				                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 				                        </button>
 				                    </td>
 			                    </tr>
+			                <?php } ?>
 		                    </tbody>
 	                    </table>
 	                    <table style="width: 100%;text-align: right;">
@@ -140,7 +133,7 @@ Editar Exámen
 	                    			</div>
 	                    			<div class="col-md-2">
 		                    			<label for="subtotal" class="control-label">
-		                    				<span id="subtotal" name="subtotal">$0.00</span>
+		                    				<span id="subtotal" name="subtotal"><?php echo $orden->subtotal; ?></span>
 	    	                			</label>
 	    	                		</div>		
 	                    		</td>	
@@ -151,7 +144,7 @@ Editar Exámen
 	                    				<label for="descuento" class="control-label">DESCUENTO</label>
 	                    			</div>
 	                    			<div class="col-md-2">
-	          							<input type="text" name="descuento" id="descuento" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)" value="0">
+	          							<input type="text" name="descuento" id="descuento" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)" value="<?php echo $orden->descuento; ?>">
 	          						</div>                    				
 	                    		</td>	
 	                    	</tr>	                    		                    		
@@ -162,7 +155,7 @@ Editar Exámen
 	                    			</div>
 	                    			<div class="col-md-2">
 	                    				<label for="total" class="control-label">
-											<span id="total" name="total">$0.00</span>
+											<span id="total" name="total"><?php echo $orden->total; ?></span>
 										</label>
 									</div>	
 	                    		</td>	
@@ -173,7 +166,7 @@ Editar Exámen
 	                    				<label for="total" class="control-label">ABONO</label>
 	                    			</div>
 	                    			<div class="col-md-2">	
-	                    				<input type="text" name="abono" id="abono" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)" value="0">                							
+	                    				<input type="text" name="abono" id="abono" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)" value="<?php echo $orden->abono; ?>">                							
 									</div>									
 	                    		</td>	
 	                    	</tr>
@@ -184,7 +177,7 @@ Editar Exámen
 	                    			</div>
 	                    			<div class="col-md-2">
 		                    			<label for="pendiente" class="control-label">
-											<span id="pendiente" name="pendiente">$0.00</span>
+											<span id="pendiente" name="pendiente"><?php echo $orden->total - $orden->abono; ?></span>
 										</label>
 									</div>	
 	                    		</td>	
@@ -211,6 +204,7 @@ Editar Exámen
    var url1 = '{!!URL::route('autocomplete')!!}';
    var url2 = '{!!URL::route('examenes')!!}';
    var url3 = '{!!URL::route('medicos')!!}';
+   var iteration = <?php echo $iteration; ?>;
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/datepicker.min.css')}}" rel="stylesheet">

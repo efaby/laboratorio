@@ -8,6 +8,7 @@ use App\Orden;
 use App\Paciente;
 use App\Examan;
 use App\TipoPaciente;
+use App\Detalleorden;
 use Illuminate\Database\Eloquent\Model;
 
 use Session;
@@ -77,7 +78,7 @@ class OrdenController extends Controller
         		'pacientes_id'  => $paciente_id,
         		'user_id'    => $user_id,
         		'fecha_emision' => new \DateTime(),
-        		'fecha_entrega' => new \DateTime(),
+        		'fecha_entrega' => $fecha_entrega,
         		'abono' =>$abono,
         		'tipo_pago' =>1,
         		'iva' => 0,
@@ -88,19 +89,23 @@ class OrdenController extends Controller
         		'cliente_id' => 0,
         		'descuento' =>$descuento,
                 'nombre_medico' => $nombre_medico,
-        		'usuario_atiende' =>1,
-        		'atendido' =>1,
+        		'usuario_atiende' =>0,
+        		'atendido' =>0,
+                'tipopaciente_id' => $tipopaciente_id
         		];
         DB::table('orden')->insert($array);
         $orden_id = DB::table('orden')->max('id');
         
         $examens = [];
+        $i = 0;
         foreach ($examen_ids as $exa) {
         	$examens[] = [
         			'orden_id'  => $orden_id,
         			'examens_id'=> $exa,
         			'created_at'=> new \DateTime(),
+                    'precio' => $precio_array[$i]
         	];
+            $i++;
         }
         DB::table('detalleorden')->insert($examens);
         Session::flash('message', 'La Orden se almaceno satisfactoriamente!');
@@ -128,33 +133,12 @@ class OrdenController extends Controller
      */
     public function edit($id)
     {
-    	$items= TipoPaciente::pluck('nombre', 'id')->toArray();
-    	
-    	$array = DB::table('orden')
-    	->join('pacientes', 'pacientes.id', '=', 'orden.pacientes_id')
-    	->select('orden.*', 'pacientes.nombres as nombre_paciente',
-    			'pacientes.apellidos as apellido_paciente',
-    			'pacientes.cedula as cedula',
-    			'pacientes.direccion as direccion_paciente',
-    			'pacientes.celular as celular',
-    			'pacientes.telefono as telefono',
-    			'pacientes.edad as edad')
-    	->where('orden.id', $id)
-    	->get();
-    	$array= $array->toArray()[0];
-    	$orden = json_decode(json_encode($array), True);
-    	
-    	$arrayDet = DB::table('orden')
-    	->join('detalleorden', 'orden.id', '=', 'detalleorden.orden_id')
-    	->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
-    	->select('orden.*', 'detalleorden.*', 'examens.*')
-    	->where('detalleorden.orden_id', $id)
-    	->get();
-    	$arrayDet= $arrayDet->toArray();
-    	$detalleorden = json_decode(json_encode($arrayDet), True);
-    	//dd($detalleorden);
-    	
-    	return view('backEnd.orden.edit', compact('orden','items','detalleorden'));
+        $orden = Orden::findOrFail($id);
+        $paciente = $orden->paciente;
+        $detalleorden = $orden->detalleorden;
+        $items= TipoPaciente::pluck('nombre', 'id')->toArray();  
+        $iteration = count($detalleorden);  	
+    	return view('backEnd.orden.edit', compact('orden','paciente','detalleorden','items', 'iteration'));
     }
 
     /**
@@ -166,7 +150,57 @@ class OrdenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $orden = Orden::findOrFail($id);
+        $paciente_id = $request->input('id_paciente');
+        //Poner id de usuario logueado 
+        $user_id = 1;        
+        $tipopaciente_id = $request->input('tipopaciente_id');
+        $descuento = $request->input('descuento');
+        $paciente = Paciente::findOrFail($paciente_id);
+        $paciente->edad = $request->input('edad');
+        $paciente->save();
+      
+        if($tipopaciente_id == 1){
+            $precio_array = $request->input('preciop');
+        }        
+        if($tipopaciente_id == 2){
+          
+            $precio_array = $request->input('preciol');
+        }
+        if($tipopaciente_id == 3){
+            $precio_array = $request->input('precioc');
+        }
+        $subtotal = array_sum($precio_array);
+        $total = $subtotal - $descuento;
+
+        $orden->abono = $request->input('abono');
+        $orden->user_id = $user_id;
+        $orden->descuento = $request->input('descuento');
+        $orden->tipopaciente_id = $tipopaciente_id;
+        $orden->tipo_pago = $request->input('tipopago_id');
+        $orden->fecha_entrega = $request->input('fecha_entrega');
+        $orden->nombre_medico = $request->input('nombre_medico');
+        $orden->subtotal = $subtotal;
+        $orden->total = $total;
+        $orden->save();
+
+        Detalleorden::where('orden_id', '=', $id)->delete();
+        $examen_ids =$request->input('ids');      
+        $examens = [];
+        $i = 0;
+        foreach ($examen_ids as $exa) {
+            $examens[] = [
+                    'orden_id'  => $id,
+                    'examens_id'=> $exa,
+                    'created_at'=> new \DateTime(),
+                    'precio' => $precio_array[$i]
+            ];
+            $i++;
+        }
+        DB::table('detalleorden')->insert($examens);
+        //$orden->detalleorden()->sync($examens);
+        Session::flash('message', 'La Orden se almaceno satisfactoriamente!');
+        return redirect('orden');
     }
 
     /**
@@ -236,6 +270,37 @@ class OrdenController extends Controller
             $result[] = [ 'value' => $query->nombre_medico ];
         }
         return response()->json($result);               
+    }
+
+    public function orden($id) {
+        $orden = Orden::findOrFail($id);
+        $paciente = $orden->paciente;
+        $plantilla = $orden->plantilla;
+        if ($plantilla === null) {
+            $detalleorden = $orden->detalleorden;
+            foreach ($detalleorden as $item) {
+                $plantilla .= $item->examan->plantilla;
+            }
+        }
+        //$detalleorden = $orden->detalleorden;
+        return view('backEnd.orden.orden', compact('orden', 'paciente', 'plantilla'));
+                        
+    }
+
+    public function saveOrden(Request $request)
+    {
+        $this->validate($request, ['orden_id' => 'required',
+                                   'plantilla'   => 'required'
+        ]);
+        $orden_id = $request->input('orden_id');
+        $plantilla = $request->input('plantilla');
+        $orden = Orden::findOrFail($orden_id);
+        $orden->plantilla = $plantilla;
+        $orden->usuario_atiende = 1; // user sesion
+        $orden->save();
+        Session::flash('message', 'La Orden se Actualizo satisfactoriamente!');
+        return redirect('orden');
+
     }
 
 }

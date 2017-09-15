@@ -1,4 +1,4 @@
- var iteration = 1;
+
 $(document).ready(function() {
 	var table = $('#productos').DataTable({
                     "info": false,
@@ -173,11 +173,11 @@ $(document).ready(function() {
         }        
     });
     
-    $('#descuento').on( 'change', function () {
+    $('#descuento').on( 'keyup', function () {
     	suma();               	
     });
     
-    $('#abono').on( 'change', function () {
+    $('#abono').on( 'keyup', function () {
     	suma();               	
     });
     
@@ -414,3 +414,4 @@ function soloNumeros(evt) {
     }
     return true;
 }
+

@@ -19,7 +19,7 @@ class Orden extends Model
      *
      * @var array
      */
-    protected $fillable = ['pacientes_id','user_id','nombre','fecha_emision','fecha_entrega','abono','tipo_pago','total','iva','iva','estado','subtotal', 'descuento', 'cliente_id', 'nombre_medico', 'usuario_atiende', 'atendido'];
+    protected $fillable = ['pacientes_id','user_id','nombre','fecha_emision','fecha_entrega','abono','tipo_pago','total','iva','iva','estado','subtotal', 'descuento', 'cliente_id', 'nombre_medico', 'usuario_atiende', 'atendido','plantilla'];
 
     public function paciente()
     {
@@ -36,6 +36,10 @@ class Orden extends Model
         return $this->belongsTo('App\User','user_id','id');
     }
 
+    public function detalleorden()
+    {
+        return $this->hasMany('App\Detalleorden' , 'orden_id', 'id');
+    }
     
     use SoftDeletes;
     protected $dates = ['deleted_at'];

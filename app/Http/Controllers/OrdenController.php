@@ -133,21 +133,17 @@ class OrdenController extends Controller
     	$array = DB::table('orden')
     //	->join('detalleorden', 'orden.id', '=', 'detalleorden.orden_id')
     	->join('pacientes', 'pacientes.id', '=', 'orden.pacientes_id')
-    	->select('orden.*', 'pacientes.nombres as nombre_paciente', 'pacientes.direccion as direccion_paciente')
+    	->select('orden.*', 'pacientes.nombres as nombre_paciente',
+    			'pacientes.apellidos as apellido_paciente',
+    			'pacientes.cedula as cedula',
+    			'pacientes.direccion as direccion_paciente',
+    			'pacientes.celular as celular',
+    			'pacientes.telefono as telefono',
+    			'pacientes.edad as edad')
     	->where('orden.id', $id)
     	->get();
     	$array= $array->toArray()[0];
-    	$orden = json_decode(json_encode($array), True);    	
-    
-    	//$orden = $this->HasRelationships->belongsToMany('orden', 'pacientes', 'id','pacientes_id');
-    	
-//    	dd($orden);
-    	
-    	
-    	//dd($orden);
-    	//$items1 = Orden::pluck('id','pacientes_id','user_id','fecha_emision','fecha_entrega',
-    		//	'abono','tipo_pago','iva','subtotal',
-    		//	'total','descuento','nombre_medico')->toArray(); 
+    	$orden = json_decode(json_encode($array), True);
     	return view('backEnd.orden.edit', compact('orden','items'));
     }
 

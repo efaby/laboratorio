@@ -22,7 +22,8 @@ Editar Exámen
                 		<label for="nombre_paciente" class="col-md-1 control-label">Nombre Paciente</label>
                 	</div>	
                     <div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="nombre_paciente" name="nombre_paciente" placeholder="Ingrese El nombre del Paciente" readonly>
+                    	<input type="text" class="form-control input-sm" id="nombre_paciente" name="nombre_paciente" placeholder="Ingrese El nombre del Paciente" readonly
+                    	value="{{$orden['cedula']}} - {{$orden['apellido_paciente']}} {{$orden['nombre_paciente']}}">
                     	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm"> 
                   	</div> 
                </div>
@@ -31,7 +32,7 @@ Editar Exámen
                 		<label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>
                 	</div>	
                   	<div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="nombre_paciente1" placeholder="Paciente" readonly>                      	 
+                    	<input type="text" class="form-control input-sm" id="nombre_paciente1" placeholder="Paciente" value="{{$orden['nombre_paciente']}} {{$orden['apellido_paciente']}}" readonly>                      	 
                   	</div>
                   	<div class="col-md-1">
                			<label for="mail" class="col-md-1 control-label">Dirección</label>
@@ -44,7 +45,7 @@ Editar Exámen
                   		<label for="tel1" class="col-md-1 control-label">Teléfono</label>
                   	</div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control input-sm" id="telefono_paciente" placeholder="Teléfono" readonly>
+                        <input type="text" class="form-control input-sm" id="telefono_paciente" placeholder="Teléfono" value="{{$orden['telefono']}}" readonly>
                     </div>
               </div>
               <div class="form-group row">               		
@@ -52,13 +53,13 @@ Editar Exámen
                   		<label for="celular" class="col-md-1 control-label">Celular</label>
                   	</div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control input-sm" id="celular_paciente" placeholder="Celular" readonly>
+                        <input type="text" class="form-control input-sm" id="celular_paciente" placeholder="Celular" value="{{$orden['celular']}}" readonly>
                     </div>               		
                     <div class="col-md-1">
                  		<label for="fecha_nacimiento" class="col-md-1 control-label">Edad</label>
                  	</div>	
                     <div class="form-group col-md-3" style="margin: 0px;">
-                    	{!! Form::text('edad', null, ['class' => 'form-control input-sm', 'id' => 'edad','readonly'=>'true', 'placeholder'=>'Ingrese la Edad del Paciente']) !!}                    	
+                    	{!! Form::text('edad', null, ['class' => 'form-control input-sm', 'id' => 'edad','readonly'=>'true', 'placeholder'=>'Ingrese la Edad del Paciente','value'=>$orden['edad']]) !!}                    	
                     </div>
                     <div class="col-md-1">
                  		<label for="fecha_nacimiento" class="col-md-1 control-label">M&eacute;dico</label>

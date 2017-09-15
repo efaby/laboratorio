@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `laboratorio` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `laboratorio`;
--- MySQL dump 10.13  Distrib 5.7.9, for linux-glibc2.5 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.19, for Linux (x86_64)
 --
 -- Host: localhost    Database: laboratorio
 -- ------------------------------------------------------
--- Server version	5.5.55-0ubuntu0.14.04.1
+-- Server version	5.7.19-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -62,13 +62,13 @@ CREATE TABLE `detalleorden` (
   `examens_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `plantilla_atendido` text COLLATE utf8mb4_unicode_ci,
+  `precio` decimal(5,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `detalleorden_orden_id_foreign` (`orden_id`),
   KEY `detalleorden_examens_id_foreign` (`examens_id`),
   CONSTRAINT `detalleorden_examens_id_foreign` FOREIGN KEY (`examens_id`) REFERENCES `examens` (`id`),
   CONSTRAINT `detalleorden_orden_id_foreign` FOREIGN KEY (`orden_id`) REFERENCES `orden` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `detalleorden` (
 
 LOCK TABLES `detalleorden` WRITE;
 /*!40000 ALTER TABLE `detalleorden` DISABLE KEYS */;
-INSERT INTO `detalleorden` VALUES (1,1,193,'2017-08-27 18:59:03',NULL,NULL),(2,1,194,'2017-08-27 18:59:03',NULL,NULL);
+INSERT INTO `detalleorden` VALUES (1,1,181,'2017-08-27 18:59:03',NULL,33.00),(2,1,182,'2017-08-27 18:59:03',NULL,22.00),(11,3,2,'2017-09-15 11:09:31',NULL,2.50),(12,3,181,'2017-09-15 11:09:31',NULL,8.00),(13,3,17,'2017-09-15 11:09:31',NULL,25.00);
 /*!40000 ALTER TABLE `detalleorden` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,10 +228,12 @@ CREATE TABLE `orden` (
   `nombre_medico` varchar(1024) COLLATE utf8mb4_unicode_ci NOT NULL,
   `usuario_atiende` int(11) NOT NULL DEFAULT '0',
   `atendido` int(11) NOT NULL DEFAULT '0',
+  `plantilla` longtext COLLATE utf8mb4_unicode_ci,
+  `tipopaciente_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `orden_pacientes_id_foreign_idx` (`pacientes_id`),
   CONSTRAINT `orden_pacientes_id_foreign` FOREIGN KEY (`pacientes_id`) REFERENCES `pacientes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +242,7 @@ CREATE TABLE `orden` (
 
 LOCK TABLES `orden` WRITE;
 /*!40000 ALTER TABLE `orden` DISABLE KEYS */;
-INSERT INTO `orden` VALUES (1,1,1,'2017-08-27','2017-08-27 18:59:03',0.00,1,0.00,5.00,5.00,1,'2017-08-27 18:59:03',NULL,NULL,0,'0','Dr. Coloma',0,1);
+INSERT INTO `orden` VALUES (1,1,1,'2017-08-27','2017-08-27 18:59:03',0.00,1,0.00,5.00,5.00,1,'2017-08-27 18:59:03','2017-09-14 12:23:37',NULL,0,'0','Dr. Coloma',1,1,'<p>COPROPARASITARIO SERIADO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 333 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; N/A</p>\r\n\r\n<p>GIARDIA LAMBLIA Ag.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N/A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 88.77</p>\r\n\r\n<div style=\"page-break-after: always\"><span style=\"display:none\">&nbsp;</span></div>\r\n\r\n<p>Este texto tambien</p>',1),(2,1,1,'2017-09-15','2017-09-29 00:00:00',15.00,1,0.00,35.00,30.00,1,'2017-09-15 10:18:00','2017-09-15 11:06:20','2017-09-15 11:06:20',0,'5','Dra. caceres',1,0,NULL,1),(3,1,1,'2017-09-15','2017-09-16 00:00:00',5.00,1,0.00,35.50,30.50,1,'2017-09-15 11:07:42','2017-09-15 11:09:31',NULL,0,'5','Dra. cevallos',0,0,NULL,1);
 /*!40000 ALTER TABLE `orden` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -429,4 +431,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-09 11:13:09
+-- Dump completed on 2017-09-15  1:15:20

@@ -131,7 +131,6 @@ class OrdenController extends Controller
     	$items= TipoPaciente::pluck('nombre', 'id')->toArray();
     	
     	$array = DB::table('orden')
-    //	->join('detalleorden', 'orden.id', '=', 'detalleorden.orden_id')
     	->join('pacientes', 'pacientes.id', '=', 'orden.pacientes_id')
     	->select('orden.*', 'pacientes.nombres as nombre_paciente',
     			'pacientes.apellidos as apellido_paciente',
@@ -144,7 +143,18 @@ class OrdenController extends Controller
     	->get();
     	$array= $array->toArray()[0];
     	$orden = json_decode(json_encode($array), True);
-    	return view('backEnd.orden.edit', compact('orden','items'));
+    	
+    	$arrayDet = DB::table('orden')
+    	->join('detalleorden', 'orden.id', '=', 'detalleorden.orden_id')
+    	->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
+    	->select('orden.*', 'detalleorden.*', 'examens.*')
+    	->where('detalleorden.orden_id', $id)
+    	->get();
+    	$arrayDet= $arrayDet->toArray();
+    	$detalleorden = json_decode(json_encode($arrayDet), True);
+    	//dd($detalleorden);
+    	
+    	return view('backEnd.orden.edit', compact('orden','items','detalleorden'));
     }
 
     /**

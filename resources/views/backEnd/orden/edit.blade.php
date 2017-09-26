@@ -50,7 +50,7 @@ Editar Exámen
                  		<label for="fecha_nacimiento" class="col-md-1 control-label">Edad</label>
                  	</div>	
                     <div class="form-group col-md-3" style="margin: 0px;">
-                    	{!! Form::text('edad', $paciente->edad, ['class' => 'form-control input-sm', 'id' => 'edad','readonly'=>'true', 'placeholder'=>'Ingrese la Edad del Paciente']) !!}                    	
+                    	{!! Form::text('edad', $paciente->edad, ['class' => 'form-control input-sm', 'id' => 'edad', 'placeholder'=>'Ingrese la Edad del Paciente']) !!}                    	
                     </div>
                     <div class="col-md-1">
                  		<label for="fecha_nacimiento" class="col-md-1 control-label">M&eacute;dico</label>
@@ -96,7 +96,11 @@ Editar Exámen
 			                    </tr>
 			                </thead>
 		                    <tbody>
-		                    <?php $i = 1; foreach ($detalleorden as $item) { ?>
+		                    <?php $i = 1;  $disable = "";
+		                    if(count($detalleorden)== 1) {
+		                    	$disable = "disabled";
+		                    }
+		                    foreach ($detalleorden as $item) { ?>
 			                    <tr>
 			                	    <td>
 			                	    	<div class="form-group div-examen">
@@ -117,12 +121,12 @@ Editar Exámen
 			                            <div id="precio<?php echo $i; ?>" class="texto-span"><?php echo $item->precio; ?></div>
 				                    </td>
 				                    <td>
-				                        <button type="button" class="btn btn-danger btnDel btn-sm disabled" id="eliminar<?php echo $i; ?>" onclick="removeDetalle(this)">
+				                        <button type="button" class="btn btn-danger btnDel btn-sm <?php echo $disable; ?>" id="eliminar<?php echo $i; ?>" onclick="removeDetalle(this)">
 				                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 				                        </button>
 				                    </td>
 			                    </tr>
-			                <?php } ?>
+			                <?php $i++;} ?>
 		                    </tbody>
 	                    </table>
 	                    <table style="width: 100%;text-align: right;">

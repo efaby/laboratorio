@@ -296,6 +296,7 @@ class OrdenController extends Controller
         $plantilla = $request->input('plantilla');
         $orden = Orden::findOrFail($orden_id);
         $orden->plantilla = $plantilla;
+        $orden->atendido = 1;
         $orden->usuario_atiende = 1; // user sesion
         $orden->save();
         Session::flash('message', 'La Orden se Actualizo satisfactoriamente!');

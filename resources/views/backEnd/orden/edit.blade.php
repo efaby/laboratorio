@@ -70,7 +70,7 @@ Editar Exámen
                     	<label for="fecha_entrega" class="col-md-1 control-label">Fecha de Entrega</label>
                     </div>
                     <div class="col-md-3">
-                     	{!! Form::text('fecha_entrega', $orden->fecha_entrega, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Entrega','id'=>'fecha_entrega']) !!}                    	                    
+                     	{!! Form::text('fecha_entrega', date_format(date_create($orden->fecha_entrega),"Y-m-d H:i") , ['class' => 'form-control input-sm','placeholder' => 'Fecha de Entrega','id'=>'fecha_entrega']) !!}                    	                    
                 	</div>
                 	<div class="col-md-1">
                     	<label for="tipo_pago" class="col-md-1 control-label">Tipo Pago</label>
@@ -211,11 +211,11 @@ Editar Exámen
    var iteration = <?php echo $iteration; ?>;
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
-<link href="{{URL::asset('css/datepicker.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('css/jquery.datetimepicker.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/orden.css')}}" rel="stylesheet">
 <script src="{{ asset('/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('/js/orden.js') }}"></script>
-<script src="{{ asset('/js/calendar.js') }}"></script>
+<script src="{{ asset('/js/jquery.datetimepicker.full.min.js') }}"></script>
 
 
 @endsection

@@ -211,11 +211,11 @@ Nuevo Exámen
    var iteration = 1;
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
-<link href="{{URL::asset('css/datepicker.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('css/jquery.datetimepicker.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/orden.css')}}" rel="stylesheet">
 <script src="{{ asset('/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('/js/orden.js') }}"></script>
-<script src="{{ asset('/js/calendar.js') }}"></script>
+<script src="{{ asset('/js/jquery.datetimepicker.full.min.js') }}"></script>
 
 
 @endsection

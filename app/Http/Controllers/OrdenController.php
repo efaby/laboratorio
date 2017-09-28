@@ -108,6 +108,7 @@ class OrdenController extends Controller
         }
         DB::table('detalleorden')->insert($examens);
         Session::flash('message', 'La Orden se almaceno satisfactoriamente!');
+        Session::flash('status', 'success');
         return redirect('orden');    	
     }
 
@@ -199,6 +200,7 @@ class OrdenController extends Controller
         DB::table('detalleorden')->insert($examens);
         //$orden->detalleorden()->sync($examens);
         Session::flash('message', 'La Orden se almaceno satisfactoriamente!');
+        Session::flash('status', 'success');
         return redirect('orden');
     }
 
@@ -298,6 +300,7 @@ class OrdenController extends Controller
         $orden->atendido = 1;
         $orden->usuario_atiende = 1; // user sesion
         $orden->save();
+        Session::flash('status', 'success');
         Session::flash('message', 'La Orden se Actualizo satisfactoriamente!');
         return redirect('orden');
     }

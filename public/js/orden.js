@@ -156,7 +156,7 @@ $(document).ready(function() {
             }
         });
     });
-    
+   /* 
     jQuery( "#fecha_entrega" ).datepicker({  
 		dateFormat: "yy-mm-dd",
 		minDate: new Date(),
@@ -165,6 +165,14 @@ $(document).ready(function() {
 			$('#frmItem').formValidation('revalidateField', 'fecha_entrega');	        
 	      }  		
 	});
+    */
+    jQuery.datetimepicker.setLocale('es');
+    $('#fecha_entrega').datetimepicker({
+        dayOfWeekStart : 1,
+        format: 'Y-m-d H:i',
+        lang:'es',
+        minDate:  new Date()
+    });
     
     $('#input').on('keypress', function(e) {
     	console.log('ksk');
@@ -220,7 +228,7 @@ $(document).ready(function() {
                              message: 'La Fecha de Entrega no puede ser vacía.'
                     	 },
 						 date:{	 
-							    format: 'YYYY-MM-DD',
+							    format: 'YYYY-MM-DD H:i',
 			                    message: 'La fecha de ingreso no es válida.'				                    
 						 }
                     }

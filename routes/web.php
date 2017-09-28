@@ -20,6 +20,7 @@ Route::get("orden/examenes",array('as'=>'examenes','uses'=> 'OrdenController@exa
 Route::get("orden/medicos",array('as'=>'medicos','uses'=> 'OrdenController@medicos'));
 Route::get("orden/orden/{id}",array('as'=>'orden','uses'=> 'OrdenController@orden'));
 Route::post("orden/saveOrden",array('as'=>'saveOrden','uses'=> 'OrdenController@saveOrden'));
+Route::get("orden/ordenPdf/{id}",array('as'=>'ordenPdf','uses'=> 'OrdenController@ordenPdf'));
 
 
 Route::group(['middleware' => ['web']], function () {

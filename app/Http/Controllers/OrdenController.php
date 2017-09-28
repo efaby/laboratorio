@@ -10,7 +10,6 @@ use App\Examan;
 use App\TipoPaciente;
 use App\Detalleorden;
 use Illuminate\Database\Eloquent\Model;
-
 use Session;
 
 class OrdenController extends Controller
@@ -301,7 +300,22 @@ class OrdenController extends Controller
         $orden->save();
         Session::flash('message', 'La Orden se Actualizo satisfactoriamente!');
         return redirect('orden');
-
     }
-
+    
+    public function ordenPdf($id)
+    {
+    	$orden = Orden::findOrFail($id);
+    	$paciente = $orden->paciente;
+    	$plantilla = $orden->plantilla;
+    	if ($plantilla === null) {
+    		$detalleorden = $orden->detalleorden;
+    		foreach ($detalleorden as $item) {
+    			$plantilla .= $item->examan->plantilla;
+    		}
+    	}
+    	$view =  \View::make('pdf.ordengenerada', compact('orde', 'paciente', 'plantilla'))->render();
+    	$pdf = \App::make('dompdf.wrapper');
+    	$pdf->loadHTML($view);
+    	return $pdf->stream('invoice');
+    }
 }

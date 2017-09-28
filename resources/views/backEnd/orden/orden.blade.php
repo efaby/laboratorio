@@ -9,6 +9,13 @@ Orden Exámen
     <h1>Orden de Exámen</h1>
     <hr/>
     <div class="form-group row">
+          	   <div class="form-group row">
+          	        <div class="col-md-12">
+          	        	<div class="pull-right">
+          	        	 	<a target="_blank"  href="{{ url('orden/ordenPdf/'.$orden->id) }}" class="btn btn-warning btn-xs" title="Imprimir">Imprimir</a>          	        	 
+          	        	 </div>
+          	        </div>
+          	   </div>
                <div class="form-group row">                     
                     <div class="col-md-1">
                         <label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>

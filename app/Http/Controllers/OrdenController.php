@@ -309,13 +309,7 @@ class OrdenController extends Controller
     {
     	$orden = Orden::findOrFail($id);
     	$paciente = $orden->paciente;
-    	$plantilla = $orden->plantilla;
-    	if ($plantilla === null) {
-    		$detalleorden = $orden->detalleorden;
-    		foreach ($detalleorden as $item) {
-    			$plantilla .= $item->examan->plantilla;
-    		}
-    	}
+    	$plantilla = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',$orden->plantilla);
     	$view =  \View::make('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'))->render();
     	$pdf = \App::make('dompdf.wrapper');
     	$pdf->loadHTML($view);

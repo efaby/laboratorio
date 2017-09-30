@@ -28,11 +28,17 @@
 		}
 		#apartado2{
 		   width:600px;
-		   height:750px;
+		   height:700px;
 		   border:0.5px solid;
 		   border-color:black;
 		   border-radius: 5px 5px 7px 7px;		   
 		   margin: auto;		   
+		}
+		#apartado3{
+			width:600px;
+		   	margin: auto;
+		   	padding-top:10px;
+		   	text-align:center;			
 		}
 		#plantilla{
 			padding-left:20px;
@@ -41,6 +47,8 @@
 	</style>
   </head>
   <body>
+  	 <?php $i = 1; ?>	
+   	  @foreach ($plantilla as $item)
   	  <div id="apartado1">
 	  	  <table align="center">
 	  	  	<tr>
@@ -67,10 +75,18 @@
 	  	  	</tr>
 	  	  	<tr>
 	  	  		<td align="left" id="plantilla">
-	  	  			{{ strip_tags($plantilla) }}
+	  	  			{{strip_tags($item)}}
 	  	  		</td>
 	  	  	</tr>
 	  	  </table>
-  	  </div>     
+  	  </div>
+  	  <div id="apartado3">
+  	  		Página {{$i}}/{{count($plantilla)}}
+  	  </div>
+  	  	@if (count($plantilla) != $i)
+  	  		<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>
+  	  	@endif	
+  	  	<?php $i++; ?>
+  	  @endforeach     
   </body>
 </html>

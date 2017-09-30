@@ -316,7 +316,7 @@ class OrdenController extends Controller
     			$plantilla .= $item->examan->plantilla;
     		}
     	}
-    	$view =  \View::make('pdf.ordengenerada', compact('orde', 'paciente', 'plantilla'))->render();
+    	$view =  \View::make('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'))->render();
     	$pdf = \App::make('dompdf.wrapper');
     	$pdf->loadHTML($view);
     	return $pdf->stream('invoice');

@@ -8,11 +8,17 @@ Orden Exámen
 <div class="panel-body">
     <h1>Orden de Exámen</h1>
     <hr/>
+    @if (Session::has('message'))
+        <div class="alert alert-{{ Session::get('status') }} fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            {{ Session::get('message') }}
+        </div>
+    @endif
     <div class="form-group row">
           	   <div class="form-group row">
           	        <div class="col-md-12">
           	        	<div class="pull-right">
-          	        	 	<a target="_blank"  href="{{ url('orden/ordenPdf/'.$orden->id) }}" class="btn btn-warning btn-xs" title="Imprimir">Imprimir</a>          	        	 
+          	        	 	<a  href="{{ url('orden/imprimir/'.$orden->id) }}" class="btn btn-warning btn-xs" title="Imprimir">Imprimir</a>          	        	 
           	        	 </div>
           	        </div>
           	   </div>
@@ -86,7 +92,7 @@ Orden Exámen
                 <div class="col-sm-12">
                 	{!! Form::hidden('orden_id', $orden->id) !!}
                     {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-                    <a href="{{ url('orden') }}" class="btn btn-info btn-sm">Cancelar</a>
+                    <a href="{{ url('orden') }}" class="btn btn-info btn-sm">Salir</a>
                 </div>
             </div>
     {!! Form::close() !!}
@@ -115,7 +121,7 @@ Orden Exámen
         }).find('[name="plantilla"]')
         .ckeditor({
             toolbar: [
-                { name: 'document', items: [ 'Print' ] },
+               
                 { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
                 { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
                 { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting' ] },
@@ -123,7 +129,7 @@ Orden Exámen
                 { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
                 { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ] },
                 { name: 'editing', items: [ 'Scayt' ] },
-                { name: 'insert', items: [ 'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe' ] }
+                { name: 'insert', items: [ 'Table', 'SpecialChar', 'PageBreak' ] }
             ],
             bodyClass: 'document-editor',
             format_tags: 'p;h1;h2;h3;pre',

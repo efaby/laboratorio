@@ -280,7 +280,7 @@ class OrdenController extends Controller
         if ($plantilla === null) {
             $detalleorden = $orden->detalleorden;
             foreach ($detalleorden as $item) {
-                $plantilla .= $item->examan->plantilla;
+                $plantilla .= "MUESTRA:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ".$item->examan->muestra->nombre.$item->examan->plantilla;
             }
         }
         //$detalleorden = $orden->detalleorden;
@@ -302,7 +302,7 @@ class OrdenController extends Controller
         $orden->save();
         Session::flash('status', 'success');
         Session::flash('message', 'La Orden se Actualizo satisfactoriamente!');
-        return redirect('orden');
+        return redirect()->route('orden1', ['id' => $orden_id]);
     }
     
     public function ordenPdf($id)
@@ -315,4 +315,11 @@ class OrdenController extends Controller
     	$pdf->loadHTML($view);
     	return $pdf->stream('invoice');
     }
+
+    public function imprimir($id)
+    {
+        // verificar el usuario que va  imprimir
+        return view('backEnd.orden.imprimir', compact('id'));
+    }
+
 }

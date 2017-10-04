@@ -120,30 +120,42 @@ Editar Exámen
                         }
                     }
                 },
-                precio: {
-                    message: 'El Precio no es válido',
+                precio_normal: {
+                    message: 'El Precio Particular no es válido',
                     validators: {
                         notEmpty: {
-                            message: 'El Precio no puede ser vacío.'
+                            message: 'El Precio Particular no puede ser vacío.'
                         },
                         regexp: {
                             regexp: /^[+-]?\d+(\.\d+)?$/,
-                            message: 'Ingrese un Precio válido.'
+                            message: 'Ingrese un Precio Particular válido.'
                         }
                     }
                 },
-                precio_especial: {
-                    message: 'El Precio Especial no es válido',
+                precio_laboratorio: {
+                    message: 'El Precio Laboratorio no es válido',
                     validators: {
                         notEmpty: {
-                            message: 'El Precio Especial no puede ser vacío.'
+                            message: 'El Precio Laboratorio no puede ser vacío.'
                         },
                         regexp: {
                             regexp: /^[+-]?\d+(\.\d+)?$/,
-                            message: 'Ingrese un Precio Especial válido.'
+                            message: 'Ingrese un Precio Laboratorio válido.'
                         }
                     }
-                }
+                },
+                precio_clinica: {
+                    message: 'El Precio Clinica no es válido',
+                    validators: {
+                        notEmpty: {
+                            message: 'El Precio Clinica no puede ser vacío.'
+                        },
+                        regexp: {
+                            regexp: /^[+-]?\d+(\.\d+)?$/,
+                            message: 'Ingrese un Precio Clinica válido.'
+                        }
+                    }
+                },
             }
         }).find('[name="plantilla"]')
         .each(function() {

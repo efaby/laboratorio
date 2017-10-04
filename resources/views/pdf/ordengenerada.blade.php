@@ -19,16 +19,19 @@
 		}		
 		#apartado1{
 		   width:600px;
-		   height:60px;
+		   height:40px;
 		   border:0.5px solid;
 		   border-color:black;
 		   border-radius: 5px 5px 7px 7px;
 		   margin: auto;
-		   margin-top:100px;		   
+		   margin-top:150px;		   
+		}
+		#apartado1 table{
+			line-height: 0.5em;
 		}
 		#apartado2{
 		   width:600px;
-		   height:700px;
+		   height:680px;
 		   border:0.5px solid;
 		   border-color:black;
 		   border-radius: 5px 5px 7px 7px;		   
@@ -75,7 +78,7 @@
 	  	  	</tr>
 	  	  	<tr>
 	  	  		<td align="left" id="plantilla">
-	  	  			{{strip_tags($item)}}
+	  	  			<?php echo strip_tags($item, '<p><br>') ?>
 	  	  		</td>
 	  	  	</tr>
 	  	  </table>

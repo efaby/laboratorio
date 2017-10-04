@@ -18,9 +18,10 @@ Route::get('/', function () {
 Route::get("orden/autocomplete",array('as'=>'autocomplete','uses'=> 'OrdenController@autocomplete'));
 Route::get("orden/examenes",array('as'=>'examenes','uses'=> 'OrdenController@examenes'));
 Route::get("orden/medicos",array('as'=>'medicos','uses'=> 'OrdenController@medicos'));
-Route::get("orden/orden/{id}",array('as'=>'orden','uses'=> 'OrdenController@orden'));
+Route::get("orden/orden/{id}",array('as'=>'orden1','uses'=> 'OrdenController@orden'));
 Route::post("orden/saveOrden",array('as'=>'saveOrden','uses'=> 'OrdenController@saveOrden'));
 Route::get("orden/ordenPdf/{id}",array('as'=>'ordenPdf','uses'=> 'OrdenController@ordenPdf'));
+Route::get("orden/imprimir/{id}",array('as'=>'imprimir','uses'=> 'OrdenController@imprimir'));
 
 
 Route::group(['middleware' => ['web']], function () {

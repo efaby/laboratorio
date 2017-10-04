@@ -47,6 +47,7 @@ Orden
                         @endif
                         
                         <a href="{{ url('orden/orden/' . $item->id ) }}" class="btn btn-warning btn-xs" title="Atender"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
+                        @if ($item->atendido===0) 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['orden', $item->id],
@@ -56,6 +57,9 @@ Orden
                         ]) !!}
                             {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
                         {!! Form::close() !!}
+                        @else
+                            <a href="#" class="btn btn-danger btn-xs disabled" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></a> 
+                        @endif
                     </td>
                 </tr>
             @endforeach

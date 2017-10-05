@@ -20,7 +20,7 @@ Nuevo Exámen
                     	<input type="text" class="form-control input-sm" id="nombre_paciente" name="nombre_paciente" placeholder="Ingrese El nombre del Paciente" >
                     	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm"> 
                   	</div> 
-                  	<div class="col-md-8" style="text-align: right;">
+                  	<div class="col-md-8" style="text-align: right; padding-top: 10px;">
                     	<a href="{{ url('paciente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Paciente</a> &nbsp;
                     	<a href="{{ url('cliente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Cliente</a>
                   	</div>                  
@@ -85,13 +85,14 @@ Nuevo Exámen
                      	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], null, ['class' => 'form-control input-sm','id'=>'tipopago_id']) }}                    
                 	</div>
                 </div>
-                <div class="form-group col-xs-12">
+                <div class="form-group col-md-12">
                         <button type="button" class="btn btn-primary" style="float: right;" id="addDetalle">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                 </div>
-                <div class="col-xs-12">
-	            	<table class="table table-responsive table-striped table-hover table-condensed" id="examenes">
+                <div >
+                <div class="table table-responsive">
+	            	<table class="table ttable-striped table-hover table-condensed" id="examenes">
 		            	<thead class="bg-primary">
 			            	<tr>
 			                        <th>Examen</th>
@@ -129,9 +130,10 @@ Nuevo Exámen
 			                    </tr>
 		                    </tbody>
 	                    </table>
+	                    </div>
 	                    <table style="width: 100%;text-align: right;">
 	                    	<tr>
-	                    		<td style="width: 100%;text-align: right;padding-right:10px;padding-bottom:12px;">
+	                    		<td style="width: 100%;text-align: right;padding-bottom:12px;">
 	                    			<div class="col-md-10">
 	                    				<label for="subtotal" class="control-label">SUBTOTAL</label>
 	                    			</div>
@@ -143,7 +145,7 @@ Nuevo Exámen
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
-	                    		<td style="width: 100%;text-align: right;padding-right:10px;" class="form-group">
+	                    		<td style="width: 100%;text-align: right;" class="form-group">
 	                    			<div class="col-md-10">
 	                    				<label for="descuento" class="control-label">DESCUENTO</label>
 	                    			</div>
@@ -153,7 +155,7 @@ Nuevo Exámen
 	                    		</td>	
 	                    	</tr>	                    		                    		
 	                    	<tr>
-	                    		<td style="width: 100%;text-align: right;padding-right:10px;padding-bottom:12px;">
+	                    		<td style="width: 100%;text-align: right;padding-bottom:12px;">
 	                    			<div class="col-md-10">
 	                    				<label for="total" class="control-label">TOTAL A PAGAR</label>
 	                    			</div>
@@ -165,7 +167,7 @@ Nuevo Exámen
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
-	                    		<td style="width: 100%;text-align: right;padding-right:10px;" class="form-group">
+	                    		<td style="width: 100%;text-align: right;" class="form-group">
 	                    			<div class="col-md-10">
 	                    				<label for="total" class="control-label">ABONO</label>
 	                    			</div>
@@ -175,7 +177,7 @@ Nuevo Exámen
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
-	                    		<td style="width: 100%;text-align: right;padding-right:10px;padding-bottom:12px;">
+	                    		<td style="width: 100%;text-align: right;padding-bottom:12px;">
 	                    			<div class="col-md-10">
 	                    				<label for="pendiente" class="control-label">PENDIENTE A PAGAR</label>
 	                    			</div>
@@ -187,7 +189,7 @@ Nuevo Exámen
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
-	                    		<td colspan="2" style="width: 100%;text-align: right;padding-right:1px;">
+	                    		<td colspan="2" style="width: 100%;text-align: right;">
 	                    			<br>
 	                    			<a href="{{ url('orden') }}" class="btn btn-info btn-sm" style="float: right;">Cancelar</a> 
 	                    			<button type="submit" class="btn btn-primary"  id="addDetalle">
@@ -198,6 +200,7 @@ Nuevo Exámen
 	                    		</td>
 	                    	</tr>
 	                    </table>
+
         		</div>        				
     	   	{!! Form::close() !!}
     	</div>    

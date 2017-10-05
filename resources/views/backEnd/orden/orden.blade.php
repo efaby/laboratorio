@@ -15,7 +15,7 @@ Orden Exámen
         </div>
     @endif
     <div class="form-group row">
-          	   <div class="form-group row">
+          	   <div class="form-group">
           	        <div class="col-md-12">
           	        	<div class="pull-right">
           	        	 	<a  href="{{ url('orden/imprimir/'.$orden->id) }}" class="btn btn-warning btn-xs" title="Imprimir">Imprimir</a>          	        	 
@@ -27,19 +27,19 @@ Orden Exámen
                         <label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>
                     </div>  
                     <div class="col-md-3">
-                            {{ $paciente->apellidos }} {{ $paciente->nombres }}                   
+                           <div class="col-md-12"> {{ $paciente->apellidos }} {{ $paciente->nombres }}  </div>                 
                     </div>
                     <div class="col-md-1">
                         <label for="mail" class="col-md-1 control-label">Dirección</label>
                     </div>  
                     <div class="col-md-3">
-                        {{ $paciente->direccion }}
+                        <div class="col-md-12">{{ $paciente->direccion }}</div>
                     </div>
                     <div class="col-md-1">
                         <label for="tel1" class="col-md-1 control-label">Teléfono</label>
                     </div>
                     <div class="col-md-3">
-                       {{ $paciente->telefono }}
+                       <div class="col-md-12">{{ $paciente->telefono }}</div>
                     </div>
               </div>
               <div class="form-group row">                      
@@ -47,19 +47,19 @@ Orden Exámen
                         <label for="celular" class="col-md-1 control-label">Celular</label>
                     </div>
                     <div class="col-md-3">
-                        {{ $paciente->celular }}
+                        <div class="col-md-12">{{ $paciente->celular }}</div>
                     </div>                      
                     <div class="col-md-1">
                         <label for="fecha_nacimiento" class="col-md-1 control-label">Edad</label>
                     </div>  
                     <div class="form-group col-md-3" style="margin: 0px;">
-                        {{ $paciente->edad }}                      
+                        <div class="col-md-12">{{ $paciente->edad }}</div>                      
                     </div>
                     <div class="col-md-1">
                         <label for="fecha_nacimiento" class="col-md-1 control-label">M&eacute;dico</label>
                     </div>  
                     <div class="form-group col-md-3" style="margin: 0px;">
-                        {{ $orden->nombre_medico }}                  
+                        <div class="col-md-12">{{ $orden->nombre_medico }}</div>                  
                     </div>                    
                 </div>
                 <div class="form-group row">
@@ -67,13 +67,13 @@ Orden Exámen
                         <label for="tipo_paciente" class="col-md-12 control-label">Tipo Paciente</label>
                     </div>
                     <div class="col-md-3">
-                        {{ $paciente->tipopaciente->nombre }}                  
+                        <div class="col-md-12">{{ $paciente->tipopaciente->nombre }}</div>                  
                     </div>                    
                     <div class="col-md-2">
                         <label for="fecha_entrega" class="col-md-12 control-label">Fecha de Entrega</label>
                     </div>
                     <div class="col-md-3">
-                           {{ $orden->fecha_entrega }}                                      
+                           <div class="col-md-12">{{ $orden->fecha_entrega }}</div>                                  
                     </div>
                     
                 </div>

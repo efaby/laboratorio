@@ -79,12 +79,13 @@ Editar Exámen
                      	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], $orden->tipopago_id, ['class' => 'form-control input-sm','id'=>'tipopago_id']) }}                    
                 	</div>
                 </div>
-                <div class="form-group col-xs-12">
+                <div class="form-group col-md-12">
                         <button type="button" class="btn btn-primary" style="float: right;" id="addDetalle">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                 </div>
-                <div class="col-xs-12">
+                <div >
+                <div class="table table-responsive">
 	            	<table class="table table-responsive table-striped table-hover table-condensed" id="examenes">
 		            	<thead class="bg-primary">
 			            	<tr>
@@ -129,9 +130,10 @@ Editar Exámen
 			                <?php $i++;} ?>
 		                    </tbody>
 	                    </table>
+	                    </div>
 	                    <table style="width: 100%;text-align: right;">
 	                    	<tr>
-	                    		<td style="width: 100%;text-align: right;padding-right:10px;padding-bottom:12px;">
+	                    		<td style="width: 100%;text-align: right;padding-bottom:12px;">
 	                    			<div class="col-md-10">
 	                    				<label for="subtotal" class="control-label">SUBTOTAL</label>
 	                    			</div>
@@ -143,7 +145,7 @@ Editar Exámen
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
-	                    		<td style="width: 100%;text-align: right;padding-right:10px;" class="form-group">
+	                    		<td style="width: 100%;text-align: right;" class="form-group">
 	                    			<div class="col-md-10">
 	                    				<label for="descuento" class="control-label">DESCUENTO</label>
 	                    			</div>
@@ -153,7 +155,7 @@ Editar Exámen
 	                    		</td>	
 	                    	</tr>	                    		                    		
 	                    	<tr>
-	                    		<td style="width: 100%;text-align: right;padding-right:10px;padding-bottom:12px;">
+	                    		<td style="width: 100%;text-align: right;padding-bottom:12px;">
 	                    			<div class="col-md-10">
 	                    				<label for="total" class="control-label">TOTAL A PAGAR</label>
 	                    			</div>
@@ -165,7 +167,7 @@ Editar Exámen
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
-	                    		<td style="width: 100%;text-align: right;padding-right:10px;" class="form-group">
+	                    		<td style="width: 100%;text-align: right;" class="form-group">
 	                    			<div class="col-md-10">
 	                    				<label for="total" class="control-label">ABONO</label>
 	                    			</div>
@@ -175,7 +177,7 @@ Editar Exámen
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
-	                    		<td style="width: 100%;text-align: right;padding-right:10px;padding-bottom:12px;">
+	                    		<td style="width: 100%;text-align: right;padding-bottom:12px;">
 	                    			<div class="col-md-10">
 	                    				<label for="pendiente" class="control-label">PENDIENTE A PAGAR</label>
 	                    			</div>

@@ -10,7 +10,7 @@ Imprimir Exámen
     <hr/>
     <div class="alert alert-warning fade in">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
-            Excedio el limite de impresi&oacute;n
+            Excedi&oacute; el l&iacute;mite de impresi&oacute;n
         </div>
     <embed src="{{ url('orden/ordenPdf/'.$id) }}" type="application/pdf" width="100%" height="600">
     <hr />

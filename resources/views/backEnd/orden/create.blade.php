@@ -20,7 +20,13 @@ Nuevo Exámen
                     	<input type="text" class="form-control input-sm" id="nombre_paciente" name="nombre_paciente" placeholder="Ingrese El nombre del Paciente" >
                     	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm"> 
                   	</div> 
-                  	<div class="col-md-8" style="text-align: right; padding-top: 10px;">
+                  	<div class="col-md-1">
+                  		<label for="nombre_paciente" class="col-md-1 control-label">Orden Relacional</label>
+                  	</div>	
+                  	<div class="col-md-3" style="text-align: left;">	
+                  		<input type="checkbox" id="is_relacional" name="is_relacional">
+                  	</div>
+                  	<div class="col-md-4" style="text-align: right;">
                     	<a href="{{ url('paciente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Paciente</a> &nbsp;
                     	<a href="{{ url('cliente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Cliente</a>
                   	</div>                  

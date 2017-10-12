@@ -126,7 +126,7 @@ $(document).ready(function() {
 	    $("#eliminar"+iteration ).append(span)
 	});
 	
-    jQuery('body').on('keyup.autocomplete', '[id^="examen"]', function() {
+	jQuery('body').on('keyup.autocomplete', '[id^="examen"]', function() {
     	var row = getRowId($(this));
     	$('#tipo' + row).html("");
         $('#muestra' + row).html("");
@@ -135,10 +135,21 @@ $(document).ready(function() {
         $('#preciol' + row).val(0);
         $('#precioc' + row).val(0);
         $('#ids' + row).val(0);
+        var is_relacional = $('input:checkbox[name=is_relacional]:checked').val();
+        if(is_relacional == undefined){
+        	is_relacional =0;
+        }else{
+        	is_relacional =1;
+        }
+        var id_paciente =  $('#id_paciente').val();        
         suma();
         jQuery(this).autocomplete({
-            source : url2,
+            //source : url2,
+            source: url2+"?is_relacional=" +is_relacional +" & id_paciente="+id_paciente,
             minLength: 2,
+            extraParams: {
+                test: 'new'
+            },
             select: function(event, ui) {
                 var row = getRowId($(this));
                 event.preventDefault();

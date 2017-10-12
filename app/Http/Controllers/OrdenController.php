@@ -45,7 +45,9 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-        $paciente_id = $request->input('id_paciente');
+    	$is_relacional = $request->input('is_relacional');
+    	$is_relacional = isset($is_relacional)?1:0;
+    	$paciente_id = $request->input('id_paciente');
         //Poner id de usuario logueado 
         $user_id = 1;
         $abono = $request->input('abono');
@@ -73,6 +75,12 @@ class OrdenController extends Controller
         $total = $subtotal - $descuento;
         $examen_ids =$request->input('ids'); // obtenermos los
         
+        $is_relacional = $request->input('is_relacional');
+        if(isset($is_relacional)){
+        	$is_relacional =1;
+        }else{
+        	$is_relacional =0;
+        }
         $array = [
         		'pacientes_id'  => $paciente_id,
         		'user_id'    => $user_id,
@@ -90,7 +98,8 @@ class OrdenController extends Controller
                 'nombre_medico' => $nombre_medico,
         		'usuario_atiende' =>0,
         		'atendido' =>0,
-                'tipopaciente_id' => $tipopaciente_id
+                'tipopaciente_id' => $tipopaciente_id,
+        		'is_relacional'=>$is_relacional
         		];
         DB::table('orden')->insert($array);
         $orden_id = DB::table('orden')->max('id');
@@ -181,9 +190,15 @@ class OrdenController extends Controller
         $orden->fecha_entrega = $request->input('fecha_entrega');
         $orden->nombre_medico = $request->input('nombre_medico');
         $orden->subtotal = $subtotal;
-        $orden->total = $total;
+        $orden->total = $total;        
+        $is_relacional = $request->input('is_relacional');
+        if(isset($is_relacional)){
+        	$orden->is_relacional =1;
+        }else{
+        	$orden->is_relacional =0;
+        }
+        
         $orden->save();
-
         Detalleorden::where('orden_id', '=', $id)->delete();
         $examen_ids =$request->input('ids');      
         $examens = [];
@@ -245,15 +260,49 @@ class OrdenController extends Controller
 
     public function examenes (Request $request){
         $term=$request->term;
+        $is_relacional = $request->is_relacional;
+        $id_paciente = $request->id_paciente;      
+        $hoy = new \DateTime();
+        $hoy_format = $hoy->format('Y-m-d');
+        
         $data = Examan::where('nombre','LIKE','%'.$term.'%')
         ->whereAnd('deleted_at','is null')
         ->take(10)
         ->get();
         $result=array();
-        foreach ($data as $query)
-        {
-            $result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];
-
+        
+        if($is_relacional == 1){        	        	
+        	$detalle= DB::table('orden')
+        					->join('detalleorden', 'orden.id', '=', 'detalleorden.orden_id')
+        					->select('detalleorden.*')
+        					->where('pacientes_id', $id_paciente)
+        					->whereAnd('fecha_emision', $hoy_format)
+        					->get();
+        	
+        	foreach ($data as $query)        	
+	        {
+	        	$band=false;
+	        	foreach ($detalle as $d)
+	        	{	  
+	        		if($d->examens_id == $query->id){
+	        			$band=true;	        			
+	        		}	        		
+	        	}
+	        	if($band==true){
+	        		$result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => '0.00', 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => '0.00', 'precio_clinica' => '0.00', 'examen' => $query->nombre ];	        	
+	        	}else{
+	        		$result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];	        		
+	        	}
+        	}        	
+        	// if isrelated se deberia hacer una consulta in        	
+        	// detalle de todas las ordenes de ese dia y comparas con los resultados del sql del term
+        	
+        }else{
+        	foreach ($data as $query)
+	        {
+	            $result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];
+	
+	        }
         }
         return response()->json($result);    
     }
@@ -290,11 +339,13 @@ class OrdenController extends Controller
 
     public function saveOrden(Request $request)
     {
-        $this->validate($request, ['orden_id' => 'required',
+    	$this->validate($request, ['orden_id' => 'required',
                                    'plantilla'   => 'required'
         ]);
         $orden_id = $request->input('orden_id');
         $plantilla = $request->input('plantilla');
+        $is_relacional = $request->is_relacional;
+        
         $orden = Orden::findOrFail($orden_id);
         $orden->plantilla = $plantilla;
         $orden->atendido = 1;

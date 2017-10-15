@@ -11,6 +11,7 @@ use App\TipoPaciente;
 use App\Detalleorden;
 use Illuminate\Database\Eloquent\Model;
 use Session;
+use App\Codigosorden;
 
 class OrdenController extends Controller
 {
@@ -372,5 +373,40 @@ class OrdenController extends Controller
         // verificar el usuario que va  imprimir
         return view('backEnd.orden.imprimir', compact('id'));
     }
-
+    
+    public static function alphaNumeric($length)
+    {
+    	$chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    	$clen   = strlen( $chars )-1;
+    	$id  = '';
+    
+    	for ($i = 0; $i < $length; $i++) {
+    		$id .= $chars[mt_rand(0,$clen)];
+    	}
+    	return ($id);
+    }
+    
+    public function generarCodigo($id){
+    	$orden = Orden::findOrFail($id);
+    	$paciente = $orden->paciente;
+    	$orden= Codigosorden::where('orden_id', '=', $id)->count();
+    	if($orden>0){
+    		$ord= Codigosorden::where('orden_id', '=', $id)->firstOrFail();
+    		$codigo = $ord->codigo;
+    	}else{
+	    	$codigo = $this->alphaNumeric(6);
+	    	$array = [
+	    			'cedula'  => $paciente->cedula,
+	    			'fecha'    => new \DateTime(),
+	    			'codigo' => $codigo,
+	    			'orden_id' => $id    			
+	    	];
+	    	DB::table('codigosorden')->insert($array);
+    	}
+    	return view('backEnd.orden.modal', compact('codigo'));    	
+    }
+    
+    public function updatePage(){
+    	return redirect()->to('orden');
+    }
 }

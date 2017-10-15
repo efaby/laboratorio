@@ -41,6 +41,11 @@ class Orden extends Model
         return $this->hasMany('App\Detalleorden' , 'orden_id', 'id');
     }
     
+    public function codigosordenes()
+    {
+    	return $this->hasMany('App\Codigosorden' , 'orden_id', 'id');
+    }
+    
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 }

@@ -39,14 +39,16 @@ Orden
                     <td>${{ $item->total }}</a></td>
                     <td>${{ $item->abono }}</a></td>
                     <td>{{ $item->fecha_entrega }}</a></td>
-                    <td style="width: 10%; text-align: center;">
+                    <td style="width: 13%; text-align: center;">
                         @if ($item->atendido===0) 
                             <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
                         @else
-                            <a href="#" class="btn btn-warning btn-xs disabled" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
+                            <a href="#" class="btn btn-warning btn-xs disabled" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a>                            
                         @endif
-                        
-                        <a href="{{ url('orden/orden/' . $item->id ) }}" class="btn btn-warning btn-xs" title="Atender"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
+                        <a href="{{ url('orden/generarCodigo/' . $item->id) }}" data-toggle="modal" class="btn btn-info btn-xs" title="Generar Código" data-target="#myModal">
+                          	<span class="glyphicon glyphicon-qrcode" aria-hidden="true" ></span>
+                        </a>
+                        <a href="{{ url('orden/orden/' . $item->id ) }}" class="btn btn-success btn-xs" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
                         @if ($item->atendido===0) 
                         {!! Form::open([
                             'method'=>'DELETE',
@@ -66,7 +68,15 @@ Orden
             </tbody>
         </table>
     </div>
-
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="modal-header">
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>	
 @endsection
 
 @section('scripts')

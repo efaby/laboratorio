@@ -53,3 +53,6 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => ['web']], function () {
 	Route::resource('cliente', 'ClienteController');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

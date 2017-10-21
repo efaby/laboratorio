@@ -434,3 +434,6 @@ function soloNumeros(evt) {
     return true;
 }
 
+function agregar(items) {
+    console.log("llegos",items);
+}

@@ -259,8 +259,12 @@ class OrdenController extends Controller
     	return response()->json($result);    	     	
     }
 
-    public function examenes (Request $request){
-        $term=$request->term;
+    public function examenes (){
+        $examenes = Examan::all();
+        $limit = round(count($examenes) / 4);
+        return view('backEnd.orden.modalExamenes', compact('examenes','limit'));
+
+        /*$term=$request->term;
         $is_relacional = $request->is_relacional;
         $id_paciente = $request->id_paciente;      
         $hoy = new \DateTime();
@@ -305,7 +309,7 @@ class OrdenController extends Controller
 	
 	        }
         }
-        return response()->json($result);    
+        return response()->json($result);   */ 
     }
 
     public function medicos(Request $request)

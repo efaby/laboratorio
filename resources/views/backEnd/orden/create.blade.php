@@ -92,9 +92,9 @@ Nuevo Exámen
                 	</div>
                 </div>
                 <div class="form-group col-md-12">
-                        <button type="button" class="btn btn-primary" style="float: right;" id="addDetalle">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
+                        <a href="{{ url('orden/examenes') }}" data-toggle="modal" class="btn btn-primary" style="float: right;" title="Generar Código" data-target="#myModal">
+                          	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
                 </div>
                 <div >
                 <div class="table table-responsive">
@@ -209,7 +209,16 @@ Nuevo Exámen
 
         		</div>        				
     	   	{!! Form::close() !!}
-    	</div>    
+    	</div>   
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+		<div class="modal-dialog modal-lg" >
+			<div class="modal-content">
+				<div class="modal-header">
+				</div>
+			</div>
+		</div>	
+	</div> 
 @endsection
 
 @section('scripts')

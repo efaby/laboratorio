@@ -32,98 +32,7 @@ $(document).ready(function() {
     });
 
 	$('#addDetalle').on( 'click', function () {
-		var tbl = document.getElementById('examenes');
-	    var lastRow = tbl.rows.length;
-
-        if(lastRow == 2){
-            $(".btnDel").removeClass("disabled");            
-        }
-
-	    iteration = iteration + 1;
-	    var row = tbl.insertRow(lastRow);
-	    
-	    var cellLeft = row.insertCell(0);
-	    var div = document.createElement('div');
-	    div.id = 'div' + iteration;
-	    cellLeft.appendChild(div);
-	    
-	    var el = document.createElement('input');
-	    el.type = 'text';
-	    el.id = 'examen' + iteration;
-        el.name = 'examen[]';
-	    el.placeholder='Examen';
-        div.appendChild(el);
-        $("#div"+iteration).addClass("form-group div-examen");
-        $('#frmDatosFactura').formValidation('addField', 'examen[]');
-        
-        var h1 = document.createElement('input');
-        h1.type = 'hidden';
-        h1.id = 'ids' + iteration;
-        h1.name = 'ids[]';
-	    cellLeft.appendChild(h1);
-        var h21 = document.createElement('input');
-        h21.type = 'hidden';
-        h21.id = 'muestras' + iteration;
-        h21.name = 'muestras[]';
-        cellLeft.appendChild(h21);
-        var h2 = document.createElement('input');
-        h2.type = 'hidden';
-        h2.id = 'preciop' + iteration;
-        h2.name = 'preciop[]';
-        
-        cellLeft.appendChild(h2);
-	    $("#examen"+iteration ).addClass("form-control input-sm");
-        $("#preciop"+iteration ).addClass("preciop");
-	    
-        var h3 = document.createElement('input');
-        h3.type = 'hidden';
-        h3.id = 'preciol' + iteration;
-        h3.name = 'preciol[]';
-        
-        cellLeft.appendChild(h3);
-        $("#preciol"+iteration ).addClass("preciol");
-
-        var h31 = document.createElement('input');
-        h31.type = 'hidden';
-        h31.id = 'precioc' + iteration;
-        h31.name = 'precioc[]';
-        
-        cellLeft.appendChild(h31);
-        $("#precioc"+iteration ).addClass("precioc");
-	    
-	    var cellRight = row.insertCell(1);
-	    var tipo = document.createElement('div');
-	    tipo.id = 'tipo' + iteration;
-	    cellRight.appendChild(tipo);
-        $("#tipo"+iteration ).addClass("texto-span");
-
-
-	    var cellThird = row.insertCell(2);
-	    var muestra = document.createElement('div');
-	    muestra.id = 'muestra' + iteration;
-	    cellThird.appendChild(muestra);
-	    $("#muestra"+iteration ).addClass("texto-span");
-
-	    var cellFourth = row.insertCell(3);
-	    var precio = document.createElement('div');
-	    precio.type = 'text';
-	    precio.id = 'precio' + iteration;
-	    cellFourth.appendChild(precio);
-	    $("#precio"+iteration ).addClass("texto-span");
-
-	    var cellFifth = row.insertCell(4);
-	    var eliminar = document.createElement('button');
-	    eliminar.type = 'button';
-	    eliminar.id = 'eliminar' + iteration;
-	    cellFifth.appendChild(eliminar);		    
-	    var span = $('<span />', {
-            'class' : 'glyphicon glyphicon-trash',
-            'aria-hidden':'true'
-        }); 
-        
-	    $("#eliminar"+iteration ).addClass("btn btn-danger btnDel btn-sm");
-	    $("#eliminar"+iteration ).attr("onClick","removeDetalle(this)");		
-	    $("#eliminar"+iteration ).append(span)
+		
 	});
 	
 	jQuery('body').on('keyup.autocomplete', '[id^="examen"]', function() {
@@ -434,3 +343,123 @@ function soloNumeros(evt) {
     return true;
 }
 
+function agregar(items) {
+    console.log("llegos",items);
+
+    $.ajax({
+        type: "POST",
+        url: url2,
+        data: {"_token": token, ids: items, is_relacional: $('input:checkbox[name=is_relacional]:checked').val(), id_paciente: $('#id_paciente').val() },
+        success: function( response ) {
+            
+            $.each(response, function(index, value) {
+                var tbl = document.getElementById('examenes');
+                var lastRow = tbl.rows.length;
+
+                if(lastRow == 2){
+                    $(".btnDel").removeClass("disabled");            
+                }
+
+                iteration = iteration + 1;
+                var row = tbl.insertRow(lastRow);
+                
+                var cellLeft = row.insertCell(0);
+                var div = document.createElement('div');
+                div.id = 'div' + iteration;
+                cellLeft.appendChild(div);
+                
+                var el = document.createElement('div');
+                el.type = 'text';
+                el.id = 'examen' + iteration;
+                el.name = 'examen' + iteration;
+                el.placeholder='Examen';
+                div.appendChild(el);
+                $("#div"+iteration).addClass("form-group div-examen");
+                $('#frmDatosFactura').formValidation('addField', 'examen[]');
+                
+                var h1 = document.createElement('input');
+                h1.type = 'hidden';
+                h1.id = 'ids' + iteration;
+                h1.name = 'ids[]';
+                cellLeft.appendChild(h1);
+                var h21 = document.createElement('input');
+                h21.type = 'hidden';
+                h21.id = 'muestras' + iteration;
+                h21.name = 'muestras[]';
+                cellLeft.appendChild(h21);
+                var h2 = document.createElement('input');
+                h2.type = 'hidden';
+                h2.id = 'preciop' + iteration;
+                h2.name = 'preciop[]';
+                
+                cellLeft.appendChild(h2);
+                $("#examen"+iteration ).addClass("form-control input-sm");
+                $("#preciop"+iteration ).addClass("preciop");
+                
+                var h3 = document.createElement('input');
+                h3.type = 'hidden';
+                h3.id = 'preciol' + iteration;
+                h3.name = 'preciol[]';
+                
+                cellLeft.appendChild(h3);
+                $("#preciol"+iteration ).addClass("preciol");
+
+                var h31 = document.createElement('input');
+                h31.type = 'hidden';
+                h31.id = 'precioc' + iteration;
+                h31.name = 'precioc[]';
+                
+                cellLeft.appendChild(h31);
+                $("#precioc"+iteration ).addClass("precioc");
+                
+                var cellRight = row.insertCell(1);
+                var tipo = document.createElement('div');
+                tipo.id = 'tipo' + iteration;
+                cellRight.appendChild(tipo);
+                $("#tipo"+iteration ).addClass("texto-span");
+
+
+                var cellThird = row.insertCell(2);
+                var muestra = document.createElement('div');
+                muestra.id = 'muestra' + iteration;
+                cellThird.appendChild(muestra);
+                $("#muestra"+iteration ).addClass("texto-span");
+
+                var cellFourth = row.insertCell(3);
+                var precio = document.createElement('div');
+                precio.type = 'text';
+                precio.id = 'precio' + iteration;
+                cellFourth.appendChild(precio);
+                $("#precio"+iteration ).addClass("texto-span");
+
+                var cellFifth = row.insertCell(4);
+                var eliminar = document.createElement('button');
+                eliminar.type = 'button';
+                eliminar.id = 'eliminar' + iteration;
+                cellFifth.appendChild(eliminar);            
+                var span = $('<span />', {
+                    'class' : 'glyphicon glyphicon-trash',
+                    'aria-hidden':'true'
+                }); 
+                
+                $("#eliminar"+iteration ).addClass("btn btn-danger btnDel btn-sm");
+                $("#eliminar"+iteration ).attr("onClick","removeDetalle(this)");        
+                $("#eliminar"+iteration ).append(span);
+
+                asignarPrecio(value.precio_normal,value.precio_laboratorio,value.precio_clinica,iteration);                
+                $('#tipo' + iteration).html(value.tipo);
+                $('#muestra' + iteration).html(value.muestra);                             
+                $('#preciop' + iteration).val(value.precio_normal);
+                $('#preciol' + iteration).val(value.precio_laboratorio);
+                $('#precioc' + iteration).val(value.precio_clinica);
+                $('#ids' + iteration).val(value.id);
+                $('#muestras' + iteration).val(value.muestraId);
+                $('#examen' + iteration).html(value.examen);
+                $('#frmItem').formValidation('revalidateField', 'examen[]');   
+                suma();
+                
+            });
+
+        }
+    });
+}

@@ -92,9 +92,9 @@ Nuevo Exámen
                 	</div>
                 </div>
                 <div class="form-group col-md-12">
-                        <button type="button" class="btn btn-primary" style="float: right;" id="addDetalle">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
+                        <a href="{{ url('orden/examenes') }}" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal">
+                          	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
                 </div>
                 <div >
                 <div class="table table-responsive">
@@ -106,34 +106,10 @@ Nuevo Exámen
 			                        <th style="width: 25%">Muestra</th>
 			                        <th style="width: 10%">Precio</th>
 			                        <th style="width: 5%;">Acción</th>
-			                    </tr>
+			                </tr>
 			                </thead>
 		                    <tbody>
-			                    <tr>
-			                	    <td>
-			                	    	<div class="form-group div-examen">
-				                    	    <input type="text" class="form-control input-sm" id="examen1" name="examen[]" placeholder="Examen">
-				                            <input type="hidden" id="ids1" name="ids[]">
-				                            <input type="hidden" id="preciop1" name="preciop[]" class="preciop">
-				                            <input type="hidden" id="preciol1" name="preciol[]" class="preciol">
-				                            <input type="hidden" id="precioc1" name="precioc[]" class="precioc">
-			                            </div>	         		    
-			                    	</td>
-			                    	<td>
-			                            <div id="tipo1" class="texto-span"></div>                   		            
-			                    	</td>
-				                    <td>
-			                            <div id="muestra1" class="texto-span"></div>
-				                    </td>
-				                    <td>
-			                            <div id="precio1" class="texto-span"></div>
-				                    </td>
-				                    <td>
-				                        <button type="button" class="btn btn-danger btnDel btn-sm disabled" id="eliminar1" onclick="removeDetalle(this)">
-				                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-				                        </button>
-				                    </td>
-			                    </tr>
+			                    <tr></tr>
 		                    </tbody>
 	                    </table>
 	                    </div>
@@ -209,15 +185,25 @@ Nuevo Exámen
 
         		</div>        				
     	   	{!! Form::close() !!}
-    	</div>    
+    	</div>   
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+		<div class="modal-dialog modal-lg" >
+			<div class="modal-content">
+				<div class="modal-header">
+				</div>
+			</div>
+		</div>	
+	</div> 
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
    var url1 = '{!!URL::route('autocomplete')!!}';
-   var url2 = '{!!URL::route('examenes')!!}';
+   var url2 = '{!!URL::route('examenesDetalles')!!}';
    var url3 = '{!!URL::route('medicos')!!}';
-   var iteration = 1;
+   var iteration = 0;
+   var token = "{{ csrf_token() }}";
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/jquery.datetimepicker.css')}}" rel="stylesheet">

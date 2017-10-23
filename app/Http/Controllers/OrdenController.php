@@ -259,53 +259,60 @@ class OrdenController extends Controller
     	return response()->json($result);    	     	
     }
 
-    public function examenes (Request $request){
-        $term=$request->term;
-        $is_relacional = $request->is_relacional;
-        $id_paciente = $request->id_paciente;      
+
+    public function examenes (){
+        $examenes = Examan::all();
+        $limit = round(count($examenes) / 4);
+        return view('backEnd.orden.modalExamenes', compact('examenes','limit'));        
+    }
+
+    public function examenesDetalles(Request $request) {
+
+        $ids = $request->input('ids');
+        $is_relacional = $request->input('is_relacional');
+        $id_paciente = $request->input('id_paciente');    
+
         $hoy = new \DateTime();
         $hoy_format = $hoy->format('Y-m-d');
-        
-        $data = Examan::where('nombre','LIKE','%'.$term.'%')
-        ->whereAnd('deleted_at','is null')
-        ->take(10)
-        ->get();
+
+        $data = Examan::whereIn('id', $ids)->get();
+
         $result=array();
         
-        if($is_relacional == 1){        	        	
-        	$detalle= DB::table('orden')
-        					->join('detalleorden', 'orden.id', '=', 'detalleorden.orden_id')
-        					->select('detalleorden.*')
-        					->where('pacientes_id', $id_paciente)
-        					->whereAnd('fecha_emision', $hoy_format)
-        					->get();
-        	
-        	foreach ($data as $query)        	
-	        {
-	        	$band=false;
-	        	foreach ($detalle as $d)
-	        	{	  
-	        		if($d->examens_id == $query->id){
-	        			$band=true;	        			
-	        		}	        		
-	        	}
-	        	if($band==true){
-	        		$result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => '0.00', 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => '0.00', 'precio_clinica' => '0.00', 'examen' => $query->nombre ];	        	
-	        	}else{
-	        		$result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];	        		
-	        	}
-        	}        	
-        	// if isrelated se deberia hacer una consulta in        	
-        	// detalle de todas las ordenes de ese dia y comparas con los resultados del sql del term
-        	
+        if($is_relacional == 1){                        
+            $detalle= DB::table('orden')
+                            ->join('detalleorden', 'orden.id', '=', 'detalleorden.orden_id')
+                            ->select('detalleorden.*')
+                            ->where('pacientes_id', $id_paciente)
+                            ->whereAnd('fecha_emision', $hoy_format)
+                            ->get();
+            
+            foreach ($data as $query)           
+            {
+                $band=false;
+                foreach ($detalle as $d)
+                {     
+                    if($d->examens_id == $query->id){
+                        $band=true;                     
+                    }                   
+                }
+                if($band==true){
+                    $result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => '0.00', 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => '0.00', 'precio_clinica' => '0.00', 'examen' => $query->nombre ];             
+                }else{
+                    $result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];                  
+                }
+            }           
+            // if isrelated se deberia hacer una consulta in            
+            // detalle de todas las ordenes de ese dia y comparas con los resultados del sql del term
+            
         }else{
-        	foreach ($data as $query)
-	        {
-	            $result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];
-	
-	        }
+            foreach ($data as $query)
+            {
+                $result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];
+    
+            }
         }
-        return response()->json($result);    
+        return response()->json($result); 
     }
 
     public function medicos(Request $request)

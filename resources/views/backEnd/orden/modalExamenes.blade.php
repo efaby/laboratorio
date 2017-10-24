@@ -42,5 +42,13 @@
             $('#myModal').modal('hide');
             agregar(checked);
         });
+
+
+
+          $("input:checkbox").each(function () {
+            var iid = $(this).attr("value");
+            this.checked = false
+            if (myArray.indexOf(iid) != -1) this.checked = true
+        });
     });
 </script>

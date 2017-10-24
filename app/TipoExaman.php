@@ -30,4 +30,8 @@ class TipoExaman extends Model
         return $this->hasMany('App\Examan' , 'id', 'tipoexamens_id');
     }
 
+    public function muestras()
+    {
+        return $this->hasMany('App\Muestra' , 'id', 'tipoexamens_id');
+    }
 }

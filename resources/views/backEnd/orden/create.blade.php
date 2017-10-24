@@ -108,8 +108,7 @@ Nuevo Exámen
 			                        <th style="width: 5%;">Acción</th>
 			                </tr>
 			                </thead>
-		                    <tbody>
-			                    <tr></tr>
+		                    <tbody id="tbodyExamenes">
 		                    </tbody>
 	                    </table>
 	                    </div>
@@ -201,9 +200,9 @@ Nuevo Exámen
 <script type="text/javascript">
    var url1 = '{!!URL::route('autocomplete')!!}';
    var url2 = '{!!URL::route('examenesDetalles')!!}';
-   var url3 = '{!!URL::route('medicos')!!}';
-   var iteration = 0;
+   var url3 = '{!!URL::route('medicos')!!}';   
    var token = "{{ csrf_token() }}";
+   var myArray = [];
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/jquery.datetimepicker.css')}}" rel="stylesheet">

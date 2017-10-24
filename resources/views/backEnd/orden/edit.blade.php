@@ -80,9 +80,9 @@ Editar Exámen
                 	</div>
                 </div>
                 <div class="form-group col-md-12">
-                        <button type="button" class="btn btn-primary" style="float: right;" id="addDetalle">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
+                        <a href="{{ url('orden/examenes') }}" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal">
+                          	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
                 </div>
                 <div >
                 <div class="table table-responsive">
@@ -104,13 +104,13 @@ Editar Exámen
 		                    foreach ($detalleorden as $item) { ?>
 			                    <tr>
 			                	    <td>
-			                	    	<div class="form-group div-examen">
-				                    	    <input type="text" class="form-control input-sm" id="examen1" name="examen[]" placeholder="Examen" value="<?php echo $item->examan->nombre; ?>">
-				                            <input type="hidden" id="ids<?php echo $i; ?>" name="ids[]" value="<?php echo $item->examan->id; ?>">
-				                            <input type="hidden" id="preciop<?php echo $i; ?>" name="preciop[]" class="preciop" value="<?php echo $item->examan->precio_normal; ?>">
-				                            <input type="hidden" id="preciol<?php echo $i; ?>" name="preciol[]" class="preciol" value="<?php echo $item->examan->precio_laboratorio; ?>">
-				                            <input type="hidden" id="precioc<?php echo $i; ?>" name="precioc[]" class="precioc" value="<?php echo $item->examan->precio_clinica; ?>">
-			                            </div>	         		    
+			                	    	
+		                	    		<div id="examen<?php echo $i; ?>" class="texto-span"><?php echo $item->examan->nombre; ?></div>
+			                    	    
+			                            <input type="hidden" id="ids<?php echo $i; ?>" name="ids[]" value="<?php echo $item->examan->id; ?>">
+			                            <input type="hidden" id="preciop<?php echo $i; ?>" name="preciop[]" class="preciop" value="<?php echo $item->examan->precio_normal; ?>">
+			                            <input type="hidden" id="preciol<?php echo $i; ?>" name="preciol[]" class="preciol" value="<?php echo $item->examan->precio_laboratorio; ?>">
+			                            <input type="hidden" id="precioc<?php echo $i; ?>" name="precioc[]" class="precioc" value="<?php echo $item->examan->precio_clinica; ?>">         		    
 			                    	</td>
 			                    	<td>
 			                            <div id="tipo<?php echo $i; ?>" class="texto-span"><?php echo $item->examan->tipoexaman->nombre; ?></div>                   		            
@@ -203,14 +203,22 @@ Editar Exámen
         		</div>        				
     	   	{!! Form::close() !!}
     	</div>    
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+		<div class="modal-dialog modal-lg" >
+			<div class="modal-content">
+				<div class="modal-header">
+				</div>
+			</div>
+		</div>	
+	</div> 
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
    var url1 = '{!!URL::route('autocomplete')!!}';
-   var url2 = '{!!URL::route('examenes')!!}';
+   var url2 = '{!!URL::route('examenesDetalles')!!}';
    var url3 = '{!!URL::route('medicos')!!}';
-   var iteration = <?php echo $iteration; ?>;
+   var token = "{{ csrf_token() }}";
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/jquery.datetimepicker.css')}}" rel="stylesheet">

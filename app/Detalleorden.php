@@ -31,4 +31,14 @@ class Detalleorden extends Model
         return $this->belongsTo('App\Orden','orden_id','id');
     }
 
+    public function muestra()
+    {
+        return $this->belongsTo('App\Muestra','muestra_id','id');
+    }
+
+    public function tipoexaman()
+    {
+        return $this->belongsTo('App\TipoExaman','tipoexamens_id','id');
+    }
+
 }

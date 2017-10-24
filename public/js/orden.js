@@ -351,9 +351,12 @@ function agregar(items) {
         url: url2,
         data: {"_token": token, ids: items, is_relacional: $('input:checkbox[name=is_relacional]:checked').val(), id_paciente: $('#id_paciente').val() },
         success: function( response ) {
-            
+            var iteration = 0;
+            myArray = [];
+            $('#tbodyExamenes').empty();
             $.each(response, function(index, value) {
-                var tbl = document.getElementById('examenes');
+                
+                var tbl = document.getElementById('tbodyExamenes');                
                 var lastRow = tbl.rows.length;
 
                 if(lastRow == 2){
@@ -364,18 +367,14 @@ function agregar(items) {
                 var row = tbl.insertRow(lastRow);
                 
                 var cellLeft = row.insertCell(0);
-                var div = document.createElement('div');
-                div.id = 'div' + iteration;
-                cellLeft.appendChild(div);
                 
                 var el = document.createElement('div');
                 el.type = 'text';
                 el.id = 'examen' + iteration;
                 el.name = 'examen' + iteration;
                 el.placeholder='Examen';
-                div.appendChild(el);
-                $("#div"+iteration).addClass("form-group div-examen");
-                $('#frmDatosFactura').formValidation('addField', 'examen[]');
+                cellLeft.appendChild(el);
+                $("#examen"+iteration ).addClass("texto-span");
                 
                 var h1 = document.createElement('input');
                 h1.type = 'hidden';
@@ -392,8 +391,7 @@ function agregar(items) {
                 h2.id = 'preciop' + iteration;
                 h2.name = 'preciop[]';
                 
-                cellLeft.appendChild(h2);
-                $("#examen"+iteration ).addClass("form-control input-sm");
+                cellLeft.appendChild(h2);                
                 $("#preciop"+iteration ).addClass("preciop");
                 
                 var h3 = document.createElement('input');
@@ -453,6 +451,7 @@ function agregar(items) {
                 $('#preciol' + iteration).val(value.precio_laboratorio);
                 $('#precioc' + iteration).val(value.precio_clinica);
                 $('#ids' + iteration).val(value.id);
+                myArray.push(value.id);
                 $('#muestras' + iteration).val(value.muestraId);
                 $('#examen' + iteration).html(value.examen);
                 $('#frmItem').formValidation('revalidateField', 'examen[]');   

@@ -24,18 +24,18 @@ Nuevo Paciente
                     {!! $errors->first('cedula', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('nombres') ? 'has-error' : ''}}">
-                {!! Form::label('nombres', 'Nombres: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::text('nombres', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('nombres', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
             <div class="form-group {{ $errors->has('apellidos') ? 'has-error' : ''}}">
                 {!! Form::label('apellidos', 'Apellidos: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('apellidos', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('apellidos', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            <div class="form-group {{ $errors->has('nombres') ? 'has-error' : ''}}">
+                {!! Form::label('nombres', 'Nombres: ', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::text('nombres', null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('nombres', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('edad') ? 'has-error' : ''}}">

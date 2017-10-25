@@ -44,15 +44,15 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+    	$this->validate($request, [
         		'tipopacientes_id'=>'required',
         		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/', 
         		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
         		'edad'=>'required|regex:/^[1-9]\d*$/',
         		'celular'=>'required|regex: /^(?:\+)?\d{10}$/',
-        		'direccion'=>'required|regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
-        		'telefono'=>'regex: /^(?:\+)?\d{9}$/',
+        		//'direccion'=>'regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
+        		//'telefono'=>'regex: /^(?:\+)?\d{9}$/',
         		'genero'=>'required'
         ]);
 
@@ -108,7 +108,7 @@ class PacienteController extends Controller
         		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'edad'=>'required|regex:/^[1-9]\d*$/',
         		'celular'=>'required|regex: /^(?:\+)?\d{10}$/',
-        		'direccion'=>'required|regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
+        		'direccion'=>'regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
         		'telefono'=>'regex: /^(?:\+)?\d{9}$/',
         		'genero'=>'required'
         		]);

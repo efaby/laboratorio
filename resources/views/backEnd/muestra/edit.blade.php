@@ -15,9 +15,16 @@ Editar Muestra
         'id'=>'frmMuestra'
     ]) !!}
 
-                <div class="form-group {{ $errors->has('nombre') ? 'has-error' : ''}}">
-                {!! Form::label('nombre', 'Nombre: ', ['class' => 'col-sm-3 control-label']) !!}
+            <div class="form-group {{ $errors->has('tipoexamens_id') ? 'has-error' : ''}}">
+                {!! Form::label('tipoexamens_id', 'Tipo Examen: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
+                    {{ Form::select('tipoexamens_id', $items, null, ['class' => 'form-control', 'placeholder' => 'Seleccione']) }}
+                    {!! $errors->first('tipoexamens_id', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>            
+            <div class="form-group {{ $errors->has('nombre') ? 'has-error' : ''}}">
+            {!! Form::label('nombre', 'Nombre: ', ['class' => 'col-sm-3 control-label']) !!}
+            <div class="col-sm-6">
                     {!! Form::text('nombre', null, ['class' => 'form-control', 'required' => 'required']) !!}
                     {!! $errors->first('nombre', '<p class="help-block">:message</p>') !!}
                 </div>
@@ -58,9 +65,12 @@ Editar Muestra
                         }
                     }
                 },
-                descripción: {
+                descripcion: {
                     message: 'La Descripción no es válida',
                     validators: {
+                        notEmpty: {
+                            message: 'La Descripción no puede ser vacía.'
+                        },
                         regexp: {
                             regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
                             message: 'Ingrese una Descripción válida.'
@@ -72,14 +82,6 @@ Editar Muestra
                     validators: {
                         notEmpty: {
                             message: 'El Tipo de Exámen no puede ser vacío.'
-                        }
-                    }
-                },
-                muestras_id: {
-                    message: 'La muestra no es válida',
-                    validators: {
-                        notEmpty: {
-                            message: 'La Muestra no puede ser vacío.'
                         }
                     }
                 }

@@ -8,7 +8,14 @@ Nueva Muestra
     <h1>Nueva Muestra</h1>
     <hr/>
     {!! Form::open(['url' => 'muestra', 'class' => 'form-horizontal','id'=>'frmMuestra']) !!}
-                <div class="form-group {{ $errors->has('nombre') ? 'has-error' : ''}}">
+            <div class="form-group {{ $errors->has('tipoexamens_id') ? 'has-error' : ''}}">
+                {!! Form::label('tipoexamens_id', 'Tipo Examen: ', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {{ Form::select('tipoexamens_id', $items, null, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
+                    {!! $errors->first('tipoexamens_id', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            <div class="form-group {{ $errors->has('nombre') ? 'has-error' : ''}}">
                 {!! Form::label('nombre', 'Nombre: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
@@ -50,9 +57,20 @@ Nueva Muestra
                         }
                     }
                 },
-                descripción: {
+                tipoexamens_id: {
+                    message: 'El Tipo de Exámen no es válido',
+                    validators: {
+                        notEmpty: {
+                            message: 'El Tipo de Exámen no puede ser vacío.'
+                        }
+                    }
+                },
+                descripcion: {
                     message: 'La Descripción no es válida',
                     validators: {
+                        notEmpty: {
+                            message: 'La Descripción no puede ser vacía.'
+                        },
                         regexp: {
                             regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
                             message: 'Ingrese una Descripción válida.'

@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Muestra;
+use App\TipoExaman;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -32,7 +33,8 @@ class MuestraController extends Controller
      */
     public function create()
     {
-        return view('backEnd.muestra.create');
+        $items= TipoExaman::pluck('nombre', 'id')->toArray();
+        return view('backEnd.muestra.create',compact('items'));
     }
 
     /**
@@ -44,6 +46,7 @@ class MuestraController extends Controller
     {
         $this->validate($request, [
         		'nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
+                'tipoexamens_id' => 'required',
         		'descripcion' => 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\-\,\s]+$/'
         ]);
         Muestra::create($request->all());
@@ -64,8 +67,8 @@ class MuestraController extends Controller
     public function show($id)
     {
         $muestra = Muestra::findOrFail($id);
-
-        return view('backEnd.muestra.show', compact('muestra'));
+        $items= TipoExaman::pluck('nombre', 'id')->toArray();
+        return view('backEnd.muestra.show', compact('muestra','items'));
     }
 
     /**
@@ -78,8 +81,8 @@ class MuestraController extends Controller
     public function edit($id)
     {
         $muestra = Muestra::findOrFail($id);
-
-        return view('backEnd.muestra.edit', compact('muestra'));
+        $items= TipoExaman::pluck('nombre', 'id')->toArray();
+        return view('backEnd.muestra.edit', compact('muestra','items'));
     }
 
     /**
@@ -93,6 +96,7 @@ class MuestraController extends Controller
     {
         $this->validate($request, [
         		'nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
+                'tipoexamens_id' => 'required',
         		'descripcion' => 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\-\,\s]+$/'
         ]);
 

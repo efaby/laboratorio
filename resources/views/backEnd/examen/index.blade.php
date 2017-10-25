@@ -23,7 +23,7 @@ Exámen
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
             <thead class="bg-primary">
                 <tr>
-                    <th>Id</th><th>Nombres</th><th>Tipo Examen</th><th>Muestra</th><th style="width: 10%; text-align: center;">Acciones</th>
+                    <th>Id</th><th>Nombres</th><th>Tipo Examen</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +32,6 @@ Exámen
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->nombre }}</td>
                     <td>{{ $item->tipoexaman->nombre }}</td>                    
-                    <td>{{ $item->muestra->nombre }}</td>
                     <td style="width: 10%; text-align: center;">
                         <a href="{{ url('examen/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([

@@ -21,7 +21,7 @@ Muestra
         <table class="table table-bordered table-striped table-hover" id="tblmuestra">
             <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Nombre</th><th>Descripción</th><th style="width: 10%; text-align: center;">Acciones</th>
+                    <th></th><th>Id</th><th>Nombre</th><th>Tipo Examen</th><th>Descripción</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +29,9 @@ Muestra
                 <tr>
                 	<td></td>
                     <td>{{ $item->id }}</td>
-                    <td>{{ $item->nombre }}</td><td>{{ $item->descripcion }}</td>
+                    <td>{{ $item->nombre }}</td>
+                    <td>{{ $item->tipoexaman->nombre }}</td>
+                    <td>{{ $item->descripcion }}</td>
                     <td style="width: 10%; text-align: center;">
                         <a href="{{ url('muestra/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([

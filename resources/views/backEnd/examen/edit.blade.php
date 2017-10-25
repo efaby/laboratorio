@@ -28,13 +28,6 @@ Editar Exámen
                     {{ Form::select('tipoexamens_id', $items, null, ['class' => 'form-control', 'placeholder' => 'Seleccione']) }}
                     {!! $errors->first('tipoexamens_id', '<p class="help-block">:message</p>') !!}
                 </div>
-            </div>
-            <div class="form-group {{ $errors->has('muestras_id') ? 'has-error' : ''}}">
-                {!! Form::label('muestras_id', 'Muestra: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {{ Form::select('muestras_id', $muestras, null, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
-                    {!! $errors->first('muestras_id', '<p class="help-block">:message</p>') !!}
-                </div>
             </div>     
             <div class="form-group {{ $errors->has('plantilla') ? 'has-error' : ''}}">
                 {!! Form::label('plantilla', 'Plantilla: ', ['class' => 'col-sm-3 control-label']) !!}
@@ -110,14 +103,6 @@ Editar Exámen
                             message: 'La Plantilla no pueden ser vacía.'
                         },
                         
-                    }
-                },
-                muestras_id: {
-                    message: 'La muestra no es válida',
-                    validators: {
-                        notEmpty: {
-                            message: 'La Muestra no puede ser vacío.'
-                        }
                     }
                 },
                 precio_normal: {

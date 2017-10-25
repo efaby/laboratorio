@@ -57,7 +57,13 @@
 	  	  	<tr>
 	  	  		<td><b>Nombre: </b>{{ $paciente->apellidos }} {{ $paciente->nombres }}</td>
 	  	  		<td><b>Edad: </b>{{ $paciente->edad }} Años</td>
-	  	  		<td><b>Sexo: </b>{{ $paciente->genero }}</td>	  	  		
+	  	  		<td><b>Sexo: </b>
+	  	  		@if ($paciente->genero === 'Mas')
+					    Masculino
+					@else
+					    Femenino
+					@endif
+	  	  		</td>	  	  		
 	  	  	</tr>
 	  	  	<tr>
 	  	  		<td><b>Médico: </b>{{ $orden->nombre_medico}}</td>	  	  		

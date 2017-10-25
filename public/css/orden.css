@@ -10,3 +10,8 @@
 table .form-group {
 	margin-bottom: 0px;
 }
+
+.modal-dialog{
+   width: 80%;
+   margin: auto;
+}

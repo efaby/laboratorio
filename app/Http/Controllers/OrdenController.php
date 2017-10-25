@@ -261,7 +261,7 @@ class OrdenController extends Controller
 
 
     public function examenes (){
-        $examenes = Examan::all();
+        $examenes = Examan::orderBy('tipoexamens_id', 'asc')->get();
         $limit = round(count($examenes) / 4);
         return view('backEnd.orden.modalExamenes', compact('examenes','limit'));        
     }

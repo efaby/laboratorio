@@ -22,7 +22,7 @@ class OrdenController extends Controller
      */
     public function index()
     {
-        $ordenes = Orden::all();
+        $ordenes = Orden::orderBy('id', 'desc')->get();;
 
         return view('backEnd.orden.index', compact('ordenes'));
     }
@@ -297,9 +297,9 @@ class OrdenController extends Controller
                     }                   
                 }
                 if($band==true){
-                    $result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => '0.00', 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => '0.00', 'precio_clinica' => '0.00', 'examen' => $query->nombre ];             
+                    $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => '0.00', 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => '0.00', 'precio_clinica' => '0.00', 'examen' => $query->nombre ];             
                 }else{
-                    $result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];                  
+                    $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];                  
                 }
             }           
             // if isrelated se deberia hacer una consulta in            
@@ -308,7 +308,7 @@ class OrdenController extends Controller
         }else{
             foreach ($data as $query)
             {
-                $result[] = [ 'id' => $query->id, 'value' => $query->nombre . " - " . $query->muestra->nombre, 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre, 'muestra' => $query->muestra->nombre, 'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];
+                $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];
     
             }
         }

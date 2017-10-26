@@ -18,7 +18,9 @@ Orden Exámen
           	   <div class="form-group">
           	        <div class="col-md-12">
           	        	<div class="pull-right">
-          	        	 	<a  href="{{ url('orden/imprimir/'.$orden->id) }}" class="btn btn-warning btn-xs" title="Imprimir">Imprimir</a>          	        	 
+                            @if ($orden->validado)
+                                <a  href="{{ url('orden/imprimir/'.$orden->id) }}" class="btn btn-warning btn-xs" title="Imprimir">Imprimir</a>
+                            @endif          	        	 	          	        	 
           	        	 </div>
           	        </div>
           	   </div>
@@ -91,7 +93,12 @@ Orden Exámen
             <div class="form-group">
                 <div class="col-sm-12">
                 	{!! Form::hidden('orden_id', $orden->id) !!}
-                    {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+                    {!! Form::hidden('validar', $validar) !!}
+                    @if ($validar)
+                        {!! Form::submit('Validar', ['class' => 'btn btn-primary']) !!}
+                    @else
+                        {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+                    @endif                    
                     <a href="{{ url('orden') }}" class="btn btn-info btn-sm">Salir</a>
                 </div>
             </div>

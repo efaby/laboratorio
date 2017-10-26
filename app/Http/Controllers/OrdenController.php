@@ -331,6 +331,24 @@ class OrdenController extends Controller
     }
 
     public function orden($id) {
+        $orden = $this->getOrden($id);
+        $validar = false;
+        $paciente = $orden['paciente'];
+        $plantilla = $orden['plantilla'];
+        $orden = $orden['orden'];
+        return view('backEnd.orden.orden', compact('orden', 'paciente', 'plantilla', 'validar'));
+    }
+
+    public function validar($id) {        
+        $orden = $this->getOrden($id);
+        $validar = true;
+        $paciente = $orden['paciente'];
+        $plantilla = $orden['plantilla'];
+        $orden = $orden['orden'];
+        return view('backEnd.orden.orden', compact('orden', 'paciente', 'plantilla', 'validar'));             
+    }
+
+    private function getOrden($id) {
         $orden = Orden::findOrFail($id);
         $paciente = $orden->paciente;
         $plantilla = $orden->plantilla;
@@ -340,9 +358,7 @@ class OrdenController extends Controller
                 $plantilla .= "MUESTRA:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ".$item->examan->muestra->nombre.$item->examan->plantilla;
             }
         }
-        //$detalleorden = $orden->detalleorden;
-        return view('backEnd.orden.orden', compact('orden', 'paciente', 'plantilla'));
-                        
+        return array('orden' => $orden, 'paciente' => $paciente, 'plantilla' => $plantilla );
     }
 
     public function saveOrden(Request $request)
@@ -352,16 +368,26 @@ class OrdenController extends Controller
         ]);
         $orden_id = $request->input('orden_id');
         $plantilla = $request->input('plantilla');
+        $validar = $request->input('validar');
         $is_relacional = $request->is_relacional;
         
         $orden = Orden::findOrFail($orden_id);
         $orden->plantilla = $plantilla;
         $orden->atendido = 1;
-        $orden->usuario_atiende = 1; // user sesion
+        $redirect = "orden1";
+        if($validar) {
+            $orden->validado = 1;
+            $orden->usuario_valida = 1; // user sesion
+            $orden->fecha_validacion = date('Y-m-d');
+            $redirect = "validar";
+        } else {
+            $orden->usuario_atiende = 1; // user sesion
+        }
+
         $orden->save();
         Session::flash('status', 'success');
         Session::flash('message', 'La Orden se Actualizo satisfactoriamente!');
-        return redirect()->route('orden1', ['id' => $orden_id]);
+        return redirect()->route($redirect, ['id' => $orden_id]);
     }
     
     public function ordenPdf($id)

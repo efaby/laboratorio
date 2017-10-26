@@ -21,6 +21,7 @@ Route::get("orden/autocompletgrupo",array('as'=>'autocompletgrupo','uses'=> 'Ord
 Route::get("orden/examenes",array('as'=>'examenes','uses'=> 'OrdenController@examenes'));
 Route::get("orden/medicos",array('as'=>'medicos','uses'=> 'OrdenController@medicos'));
 Route::get("orden/orden/{id}",array('as'=>'orden1','uses'=> 'OrdenController@orden'));
+Route::get("orden/validar/{id}",array('as'=>'validar','uses'=> 'OrdenController@validar'));
 Route::post("orden/saveOrden",array('as'=>'saveOrden','uses'=> 'OrdenController@saveOrden'));
 Route::post("orden/examenesDetalles",array('as'=>'examenesDetalles','uses'=> 'OrdenController@examenesDetalles'));
 Route::get("orden/ordenPdf/{id}",array('as'=>'ordenPdf','uses'=> 'OrdenController@ordenPdf'));

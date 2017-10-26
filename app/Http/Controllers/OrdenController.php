@@ -8,6 +8,7 @@ use App\Orden;
 use App\Paciente;
 use App\Examan;
 use App\TipoPaciente;
+use App\Muestra;
 use App\Detalleorden;
 use Illuminate\Database\Eloquent\Model;
 use Session;
@@ -258,8 +259,7 @@ class OrdenController extends Controller
     	}
     	return response()->json($result);    	     	
     }
-
-
+    
     public function examenes (){
         $examenes = Examan::orderBy('tipoexamens_id', 'asc')->get();
         $limit = round(count($examenes) / 4);
@@ -416,4 +416,22 @@ class OrdenController extends Controller
     public function updatePage(){
     	return redirect()->to('orden');
     }
+    
+    public function autocompletgrupo(Request $request)
+    {
+    	$muestra=$request->term;
+    	$tipo_examen = $request->tipo_examen;
+    	$data = muestra::where(DB::raw("`nombre`"),'LIKE','%'.$muestra.'%')
+    	->whereAnd('deleted_at','is null')
+    	->whereAnd('tipoexamens_id','=',$tipo_examen)
+    	->take(10)
+    	->get();
+    	$result=array();
+    	foreach ($data as $query)
+    	{
+    		$result[] = [ 'muestra_id' => $query->id, 'muestra'=>$query->nombre];
+    	}
+    	return response()->json($result);
+    }
+      
 }

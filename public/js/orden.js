@@ -20,7 +20,8 @@ $(document).ready(function() {
             $('#frmItem').formValidation('revalidateField', 'nombre_paciente');             
 		 }
 	});
-
+	
+	
     $("#nombre_medico").autocomplete({
         source : url3,
         minLength: 3,
@@ -35,47 +36,21 @@ $(document).ready(function() {
 		
 	});
 	
-	jQuery('body').on('keyup.autocomplete', '[id^="examen"]', function() {
-    	var row = getRowId($(this));
-    	$('#tipo' + row).html("");
-        $('#muestra' + row).html("");
-        $('#precio' + row).html("");
-        $('#preciop' + row).val(0);
-        $('#preciol' + row).val(0);
-        $('#precioc' + row).val(0);
-        $('#ids' + row).val(0);
-        var is_relacional = $('input:checkbox[name=is_relacional]:checked').val();
-        if(is_relacional == undefined){
-        	is_relacional =0;
-        }else{
-        	is_relacional =1;
-        }
-        var id_paciente =  $('#id_paciente').val();        
-        suma();
+	jQuery('body').on('keyup.autocomplete', '[id^="muestra"]', function() {
+		var muestra = $('#muestra').val();
+		var tipo_examen = $('#tipo_examen').val();		
         jQuery(this).autocomplete({
-            //source : url2,
-            source: url2+"?is_relacional=" +is_relacional +" & id_paciente="+id_paciente,
-            minLength: 2,
-            extraParams: {
-                test: 'new'
-            },
+            source: url3+"?tipo_examen="+tipo_examen,
+            minLength: 3,
             select: function(event, ui) {
-                var row = getRowId($(this));
                 event.preventDefault();
-                asignarPrecio(ui.item.precio_normal,ui.item.precio_laboratorio,ui.item.precio_clinica,row);                
-                $('#tipo' + row).html(ui.item.tipo);
-                $('#muestra' + row).html(ui.item.muestra);                             
-            	$('#preciop' + row).val(ui.item.precio_normal);
-            	$('#preciol' + row).val(ui.item.precio_laboratorio);
-                $('#precioc' + row).val(ui.item.precio_clinica);
-            	$('#ids' + row).val(ui.item.id);
-                $('#muestras' + row).val(ui.item.muestraId);
-                $('#examen' + row).val(ui.item.examen);
-                $('#frmItem').formValidation('revalidateField', 'examen[]');   
-                suma();
+                $('#muestra').html(ui.item.muestra);
+                $('#muestra_id').html(ui.item.muestra_id);            	   
             }
         });
     });
+	
+	
    /* 
     jQuery( "#fecha_entrega" ).datepicker({  
 		dateFormat: "yy-mm-dd",
@@ -112,6 +87,11 @@ $(document).ready(function() {
     $('#tipopaciente_id').on( 'change', function () {   
     	asignarDetallePrecios();
     	suma();               	
+    });
+    
+    $('#nuevaOrden').click(function() {
+        $('#tbodyExamenes').empty();
+        suma();
     });
     
     $('#frmItem').formValidation({
@@ -446,7 +426,7 @@ function agregar(items) {
 
                 asignarPrecio(value.precio_normal,value.precio_laboratorio,value.precio_clinica,iteration);                
                 $('#tipo' + iteration).html(value.tipo);
-                $('#muestra' + iteration).html(value.muestra);                             
+    //            $('#muestra' + iteration).html(value.muestra);                             
                 $('#preciop' + iteration).val(value.precio_normal);
                 $('#preciol' + iteration).val(value.precio_laboratorio);
                 $('#precioc' + iteration).val(value.precio_clinica);

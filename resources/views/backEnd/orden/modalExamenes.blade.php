@@ -10,6 +10,9 @@
                 @if ( $tipo != $item->tipoexamens_id ) 
                     <h5><b>{{ $item->tipoexaman->nombre }}</b></h5>
                     <?php $tipo = $item->tipoexamens_id; ?> 
+                    {!! Form::text('muestra', null, ['class' => 'form-control','id'=>'muestra']) !!}
+                     {!! Form::hidden('muestra_id', null, ['class' => 'form-control','id'=>'muestra_id']) !!}
+                    {!! Form::hidden('tipo_examen',$item->tipoexaman->id , ['class' => 'form-control','id'=>'tipo_examen']) !!}                    
                 @endif              
                 <p>
                 {!! Form::checkbox('examen[]', $item->id); !!}
@@ -31,7 +34,7 @@
 </div>
 
 <script type="text/javascript">
-    
+	var url3 = '{!!URL::route('autocompletgrupo')!!}';		    
     $(document).ready(function() {
          $("#btnAgregar").click(function() {
             var checked = []

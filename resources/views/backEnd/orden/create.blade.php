@@ -186,7 +186,6 @@ Nuevo Exámen
         		</div>        				
     	   	{!! Form::close() !!}
     	</div>   
-
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 		<div class="modal-dialog modal-lg" >
 			<div class="modal-content">
@@ -202,9 +201,12 @@ Nuevo Exámen
    var url1 = '{!!URL::route('autocomplete')!!}';
    var url2 = '{!!URL::route('examenesDetalles')!!}';
    var url3 = '{!!URL::route('medicos')!!}';   
+   var url4 = '{!!URL::route('autocompletgrupo')!!}';
+   
    var token = "{{ csrf_token() }}";
    var myArray = [];
 </script>
+
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/jquery.datetimepicker.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/orden.css')}}" rel="stylesheet">

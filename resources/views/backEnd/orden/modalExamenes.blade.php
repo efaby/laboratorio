@@ -7,12 +7,12 @@
 		<div class="col-sm-3">
             <?php $cont = 1; $tipo = ""; ?>
             @foreach($examenes as $item) 
-                @if ( $tipo != $item->tipoexamens_id ) 
+                @if ( $tipo != $item->tipoexamens_id) 
                     <h5><b>{{ $item->tipoexaman->nombre }}</b></h5>
                     <?php $tipo = $item->tipoexamens_id; ?> 
                     {!! Form::text('muestra', null, ['class' => 'form-control','id'=>'muestra']) !!}
-                     {!! Form::hidden('muestra_id', null, ['class' => 'form-control','id'=>'muestra_id']) !!}
-                    {!! Form::hidden('tipo_examen',$item->tipoexaman->id , ['class' => 'form-control','id'=>'tipo_examen']) !!}                    
+                    {!! Form::hidden('muestra_id', null, ['class' => 'form-control','id'=>'muestra_id']) !!}
+                    {!! Form::hidden('tipo_examen',$item->tipoexaman->id , ['class' => 'form-control','id'=>'tipo_examen','name'=>'tipo_examen']) !!}                    
                 @endif              
                 <p>
                 {!! Form::checkbox('examen[]', $item->id); !!}
@@ -33,8 +33,7 @@
     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>      
 </div>
 
-<script type="text/javascript">
-	var url3 = '{!!URL::route('autocompletgrupo')!!}';		    
+<script type="text/javascript">		    
     $(document).ready(function() {
          $("#btnAgregar").click(function() {
             var checked = []
@@ -45,8 +44,6 @@
             $('#myModal').modal('hide');
             agregar(checked);
         });
-
-
 
           $("input:checkbox").each(function () {
             var iid = $(this).attr("value");

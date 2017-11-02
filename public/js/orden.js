@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 	var table = $('#productos').DataTable({
                     "info": false,
@@ -21,7 +20,6 @@ $(document).ready(function() {
 		 }
 	});
 	
-	
     $("#nombre_medico").autocomplete({
         source : url3,
         minLength: 3,
@@ -31,24 +29,32 @@ $(document).ready(function() {
             $('#frmItem').formValidation('revalidateField', 'nombre_medico');             
          }
     });
-
-	$('#addDetalle').on( 'click', function () {
-		
-	});
-	
-	jQuery('body').on('keyup.autocomplete', '[id^="muestra"]', function() {
-		var muestra = $('#muestra').val();
-		var tipo_examen = $('#tipo_examen').val();		
-        jQuery(this).autocomplete({
-            source: url3+"?tipo_examen="+tipo_examen,
-            minLength: 3,
-            select: function(event, ui) {
-                event.preventDefault();
-                $('#muestra').html(ui.item.muestra);
-                $('#muestra_id').html(ui.item.muestra_id);            	   
-            }
-        });
-    });
+    
+    
+  /*  $("#muestra").autocomplete({
+    	source: url4+"?tipo_examen="+$('#tipo_examen').val(),
+        minLength: 3,
+        select: function(event, ui) {
+            event.preventDefault();
+            $( "#muestra").val( ui.item.label );
+            $( "#muestra_id").val(ui.item.value);               
+         }
+    });*/
+    
+    	jQuery('body').on('keyup.autocomplete', '[id^="muestra"]', function() {
+    		jQuery(this).autocomplete({
+                source: url4+"?tipo_examen="+$('#tipo_examen').val(),
+    		    minLength: 3,            
+                select: function( event, ui ) {
+                	$( "#muestra").val( ui.item.label );
+                    $( "#muestra_id").val(ui.item.value);                
+                    return false;
+                  } 
+            });
+        });               	
+    
+    
+    
 	
 	
    /* 
@@ -70,8 +76,7 @@ $(document).ready(function() {
     });
     
     $('#input').on('keypress', function(e) {
-    	console.log('ksk');
-        if (e.which == 13) {
+    	if (e.which == 13) {
             return false;
         }        
     });

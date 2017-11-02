@@ -15,3 +15,16 @@ table .form-group {
    width: 80%;
    margin: auto;
 }
+
+.ui-autocomplete {
+    position: absolute;
+}
+
+#container_tags {
+    display: block; 
+    position:relative
+}
+
+.ui-autocomplete{
+	z-index:1050;
+}

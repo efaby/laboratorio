@@ -448,14 +448,14 @@ class OrdenController extends Controller
     	$muestra=$request->term;
     	$tipo_examen = $request->tipo_examen;
     	$data = muestra::where(DB::raw("`nombre`"),'LIKE','%'.$muestra.'%')
-    	->whereAnd('deleted_at','is null')
     	->whereAnd('tipoexamens_id','=',$tipo_examen)
+    	->whereAnd('deleted_at','is null')    	
     	->take(10)
     	->get();
     	$result=array();
     	foreach ($data as $query)
     	{
-    		$result[] = [ 'muestra_id' => $query->id, 'muestra'=>$query->nombre];
+    		$result[] = [ 'value' => $query->id, 'label'=>$query->nombre];    		
     	}
     	return response()->json($result);
     }

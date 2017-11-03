@@ -455,7 +455,7 @@ class OrdenController extends Controller
     	$result=array();
     	foreach ($data as $query)
     	{
-    		$result[] = [ 'value' => $query->id, 'label'=>$query->nombre];    		
+    		$result[] = [ 'value' => $query->nombre, 'label'=>$query->nombre, 'id' => $query->id];    		
     	}
     	return response()->json($result);
     }

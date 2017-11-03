@@ -31,6 +31,7 @@ $(document).ready(function() {
     });
     
     
+
   /*  $("#muestra").autocomplete({
     	source: url4+"?tipo_examen="+$('#tipo_examen').val(),
         minLength: 3,
@@ -42,13 +43,15 @@ $(document).ready(function() {
     });*/
     
     	jQuery('body').on('keyup.autocomplete', '[id^="muestra"]', function() {
+            var id = $(this).data("id");
     		jQuery(this).autocomplete({
-                source: url4+"?tipo_examen="+$('#tipo_examen').val(),
+                source: url4+"?tipo_examen="+id,
     		    minLength: 3,            
                 select: function( event, ui ) {
-                	$( "#muestra").val( ui.item.label );
-                    $( "#muestra_id").val(ui.item.value);                
-                    return false;
+                	//$( "#muestra").val( ui.item.label );
+                    $( "#muestra_" + id).val(ui.item.id);  
+                    $('#frmOrden').formValidation('revalidateField', 'txtmuestra_' + id);              
+                   // return false;
                   } 
             });
         });               	

@@ -60,42 +60,42 @@
         .formValidation({
             message: 'This value is not valid',
             fields: {
-                txtmuestra_1: {
+            @foreach($tipos as $item) 
+                txtmuestra_{{$item->id}}: {
                     validators: {
                         callback: {
                             message: 'Ingrese la muestra',
                             callback: function(value, validator, $field) {
-                                var options = $('#frmOrden').find('[name="examen_1[]"]:checked').val();
+                                var options = $('#frmOrden').find('[name="examen_{{$item->id}}[]"]:checked').val();
                                 if (typeof options === 'undefined') {
-                                    $('#frmOrden').find('[name="muestra_1"]').val(0);
-                                    $('#frmOrden').find('[name="txtmuestra_1"]').val('');
+                                    $('#frmOrden').find('[name="muestra_{{$item->id}}"]').val(0);
+                                    $('#frmOrden').find('[name="txtmuestra_{{$item->id}}"]').val('');
                                     
                                 } else {
                                     if (value !== '') {
-                                        var muestra = $('#frmOrden').find('[name="muestra_1"]').val();
+                                        var muestra = $('#frmOrden').find('[name="muestra_{{$item->id}}"]').val();
                                         console.log("muestra", muestra);
-                                        if (muestra !== '0') {
-                                             console.log("regrsa true");
+                                        if (muestra !== '0') {                                             
                                             return true
-                                        } else {
-                                            console.log("regrsa false");
+                                        } else {                                            
                                             return false;
                                         }
-                                    } else {
-                                         console.log("regrsa false other");
+                                    } else {                                         
                                         return false;
                                     }
                                 } 
                             }
                         }
                     }
-                }
+                },
+            @endforeach
             }
         })
-        .on('change', '[name="examen_1[]"]', function(e) {
-            console.log("entro");
-            $('#frmOrden').formValidation('revalidateField', 'txtmuestra_1');
+        @foreach($tipos as $item) 
+        .on('change', '[name="examen_{{$item->id}}[]"]', function(e) {
+            $('#frmOrden').formValidation('revalidateField', 'txtmuestra_{{$item->id}}');
         })
+        @endforeach
         .on('success.field.fv', function(e, data) {
             if (data.field === 'otherChannel') {
                 var channel = $('#surveyForm').find('[name="channel"]:checked').val();

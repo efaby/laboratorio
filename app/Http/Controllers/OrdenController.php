@@ -13,6 +13,7 @@ use App\Detalleorden;
 use Illuminate\Database\Eloquent\Model;
 use Session;
 use App\Codigosorden;
+use App\TipoExaman;
 
 class OrdenController extends Controller
 {
@@ -262,8 +263,9 @@ class OrdenController extends Controller
     
     public function examenes (){
         $examenes = Examan::orderBy('tipoexamens_id', 'asc')->get();
+        $tipos = tipoexaman::orderBy('id', 'asc')->get();
         $limit = round(count($examenes) / 4);
-        return view('backEnd.orden.modalExamenes', compact('examenes','limit'));        
+        return view('backEnd.orden.modalExamenes', compact('examenes','limit','tipos'));        
     }
 
     public function examenesDetalles(Request $request) {

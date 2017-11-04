@@ -16,7 +16,8 @@ $(document).ready(function() {
 			$('#direccion_paciente').val(ui.item.direccion);
 			$('#edad').val(ui.item.edad);
             $("#nombre_paciente").val(ui.item.value); 
-            $('#frmItem').formValidation('revalidateField', 'nombre_paciente');             
+            $('#frmItem').formValidation('revalidateField', 'nombre_paciente');
+            $('#frmItem').formValidation('revalidateField', 'edad');             
 		 }
 	});
 	
@@ -75,8 +76,13 @@ $(document).ready(function() {
         dayOfWeekStart : 1,
         format: 'Y-m-d H:i',
         lang:'es',
-        minDate:  new Date()
+        minDate:  new Date(),
+        onChangeDateTime:function() {
+          $('#frmItem').formValidation('revalidateField', 'fecha_entrega');  
+        },
+
     });
+    
     
     $('#input').on('keypress', function(e) {
     	if (e.which == 13) {
@@ -331,13 +337,13 @@ function soloNumeros(evt) {
     return true;
 }
 
-function agregar(items) {
-    console.log("llegos",items);
+function agregar(items, muestras) {
+    console.log("llegos",muestras);
 
     $.ajax({
         type: "POST",
         url: url2,
-        data: {"_token": token, ids: items, is_relacional: $('input:checkbox[name=is_relacional]:checked').val(), id_paciente: $('#id_paciente').val() },
+        data: {"_token": token, ids: items, muestras: muestras, is_relacional: $('input:checkbox[name=is_relacional]:checked').val(), id_paciente: $('#id_paciente').val() },
         success: function( response ) {
             var iteration = 0;
             myArray = [];
@@ -434,7 +440,7 @@ function agregar(items) {
 
                 asignarPrecio(value.precio_normal,value.precio_laboratorio,value.precio_clinica,iteration);                
                 $('#tipo' + iteration).html(value.tipo);
-    //            $('#muestra' + iteration).html(value.muestra);                             
+                $('#muestra' + iteration).html(value.muestra);                             
                 $('#preciop' + iteration).val(value.precio_normal);
                 $('#preciol' + iteration).val(value.precio_laboratorio);
                 $('#precioc' + iteration).val(value.precio_clinica);
@@ -448,5 +454,5 @@ function agregar(items) {
             });
 
         }
-    });
+    }); 
 }

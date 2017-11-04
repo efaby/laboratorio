@@ -1,10 +1,10 @@
-<form id="frmOrden">  
+ 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  
     <h4 class="modal-title">Listado de Examenes</h4>
 </div>
 <div class="modal-body" >
-     
+     <form id="frmOrden"> 
 	<div class="row">
 		<div class="col-sm-3">
             <?php $cont = 1; $tipo = ""; ?>
@@ -30,23 +30,32 @@
             @endforeach
         </div>
 	</div>
-       	
+       </form> 	
 </div>
 <div class="modal-footer">
     <button type="submit" class="btn btn-primary" id="btnAgregar" >Agregar</button>
     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>      
 </div>
-</form> 
+
 <script type="text/javascript">		    
     $(document).ready(function() {
+        var idsTE = [];
+
+        @foreach($tipos as $item) 
+            idsTE.push(parseInt({{$item->id}}));
+        @endforeach
          $("#btnAgregar").click(function() {
-            var checked = []
-            $("input[name='examen[]']:checked").each(function ()
-            {
-                checked.push(parseInt($(this).val()));
-            });
+            var checked = [];
+            var muestras = [];
+            idsTE.forEach(function (item){
+                $("input[name='examen_" + item + "[]']:checked").each(function (){                    
+                    checked.push(parseInt(this.value));
+                    muestras.push(parseInt($('#muestra_' + item).val()));
+                });
+
+            });            
             $('#myModal').modal('hide');
-            agregar(checked);
+            agregar(checked,muestras);
         });
 
           $("input:checkbox").each(function () {
@@ -67,14 +76,11 @@
                             message: 'Ingrese la muestra',
                             callback: function(value, validator, $field) {
                                 var options = $('#frmOrden').find('[name="examen_{{$item->id}}[]"]:checked').val();
-                                if (typeof options === 'undefined') {
-                                    $('#frmOrden').find('[name="muestra_{{$item->id}}"]').val(0);
-                                    $('#frmOrden').find('[name="txtmuestra_{{$item->id}}"]').val('');
-                                    
+                                if (typeof options === 'undefined') {                                    
+                                    return true;
                                 } else {
                                     if (value !== '') {
                                         var muestra = $('#frmOrden').find('[name="muestra_{{$item->id}}"]').val();
-                                        console.log("muestra", muestra);
                                         if (muestra !== '0') {                                             
                                             return true
                                         } else {                                            
@@ -95,20 +101,19 @@
         .on('change', '[name="examen_{{$item->id}}[]"]', function(e) {
             $('#frmOrden').formValidation('revalidateField', 'txtmuestra_{{$item->id}}');
         })
-        @endforeach
         .on('success.field.fv', function(e, data) {
-            if (data.field === 'otherChannel') {
-                var channel = $('#surveyForm').find('[name="channel"]:checked').val();
-                // User choose given channel
-                if (channel !== 'other') {
-                    // Remove the success class from the container
+            if (data.field === 'txtmuestra_{{$item->id}}') {
+                var options = $('#frmOrden').find('[name="examen_{{$item->id}}[]"]:checked').val();
+                if (typeof options === 'undefined') {
+                    $('#frmOrden').find('[name="muestra_{{$item->id}}"]').val(0);
+                    $('#frmOrden').find('[name="txtmuestra_{{$item->id}}"]').val('');
                     data.element.closest('.form-group').removeClass('has-success');
-
-                    // Hide the tick icon
-                    data.element.data('fv.icon').hide();
                 }
             }
-        });
+        })
+        @endforeach
+        
+        ;
 
 
     });

@@ -74,6 +74,9 @@ class OrdenController extends Controller
         if($tipopaciente_id == 3){
             $precio_array = $request->input('precioc');
         }
+
+        $muestras = $request->input('muestras');
+
         $subtotal = array_sum($precio_array);
         $total = $subtotal - $descuento;
         $examen_ids =$request->input('ids'); // obtenermos los
@@ -114,7 +117,8 @@ class OrdenController extends Controller
         			'orden_id'  => $orden_id,
         			'examens_id'=> $exa,
         			'created_at'=> new \DateTime(),
-                    'precio' => $precio_array[$i]
+                    'precio' => $precio_array[$i],
+                    'muestra_id' => $muestras[i]
         	];
             $i++;
         }
@@ -271,6 +275,8 @@ class OrdenController extends Controller
     public function examenesDetalles(Request $request) {
 
         $ids = $request->input('ids');
+        $muestrasIds = $request->input('muestras');
+        $muestrasIds = array_unique($muestrasIds);
         $is_relacional = $request->input('is_relacional');
         $id_paciente = $request->input('id_paciente');    
 
@@ -278,6 +284,17 @@ class OrdenController extends Controller
         $hoy_format = $hoy->format('Y-m-d');
 
         $data = Examan::whereIn('id', $ids)->get();
+
+
+        $muestras = Muestra::whereIn('id', $muestrasIds)->get();
+
+        foreach ($data as $query) {
+            foreach ($muestras as $item) {
+                if($item->tipoexamens_id === $query->tipoexamens_id) {
+                    $query->muestra = $item;
+                }
+            }
+        }
 
         $result=array();
         
@@ -299,9 +316,9 @@ class OrdenController extends Controller
                     }                   
                 }
                 if($band==true){
-                    $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => '0.00', 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => '0.00', 'precio_clinica' => '0.00', 'examen' => $query->nombre ];             
+                    $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => '0.00', 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => '0.00', 'precio_clinica' => '0.00', 'examen' => $query->nombre , 'muestra' => $query->muestra->nombre, 'muestraId' => $query->muestra->id];             
                 }else{
-                    $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];                  
+                    $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre, 'muestra' => $query->muestra->nombre, 'muestraId' => $query->muestra->id ];                  
                 }
             }           
             // if isrelated se deberia hacer una consulta in            
@@ -310,7 +327,7 @@ class OrdenController extends Controller
         }else{
             foreach ($data as $query)
             {
-                $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre ];
+                $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre, 'muestra' => $query->muestra->nombre, 'muestraId' => $query->muestra->id ];
     
             }
         }
@@ -449,9 +466,9 @@ class OrdenController extends Controller
     {
     	$muestra=$request->term;
     	$tipo_examen = $request->tipo_examen;
-    	$data = muestra::where(DB::raw("`nombre`"),'LIKE','%'.$muestra.'%')
-    	->whereAnd('tipoexamens_id','=',$tipo_examen)
-    	->whereAnd('deleted_at','is null')    	
+
+    	$data = Muestra::where(DB::raw("`nombre`"),'LIKE','%'.$muestra.'%')
+    	->where('tipoexamens_id','=',$tipo_examen)   	
     	->take(10)
     	->get();
     	$result=array();

@@ -81,6 +81,7 @@ class OrdenController extends Controller
         $total = $subtotal - $descuento;
         $examen_ids =$request->input('ids'); // obtenermos los
         
+        
         $is_relacional = $request->input('is_relacional');
         if(isset($is_relacional)){
         	$is_relacional =1;
@@ -118,7 +119,7 @@ class OrdenController extends Controller
         			'examens_id'=> $exa,
         			'created_at'=> new \DateTime(),
                     'precio' => $precio_array[$i],
-                    'muestra_id' => $muestras[i]
+                    'muestra_id' => $muestras[$i]
         	];
             $i++;
         }
@@ -149,12 +150,12 @@ class OrdenController extends Controller
      */
     public function edit($id)
     {
-        $orden = Orden::findOrFail($id);
+    	$orden = Orden::findOrFail($id);
         $paciente = $orden->paciente;
         $detalleorden = $orden->detalleorden;
-        $items= TipoPaciente::pluck('nombre', 'id')->toArray();  
+        $items= TipoPaciente::pluck('nombre', 'id')->toArray();        
         $iteration = count($detalleorden);  	
-    	return view('backEnd.orden.edit', compact('orden','paciente','detalleorden','items', 'iteration'));
+        return view('backEnd.orden.edit', compact('orden','paciente','detalleorden','items', 'iteration'));
     }
 
     /**

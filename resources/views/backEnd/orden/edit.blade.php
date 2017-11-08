@@ -80,7 +80,7 @@ Editar Exámen
                 	</div>
                 </div>
                 <div class="form-group col-md-12">
-                        <a href="{{ url('orden/examenes') }}" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal">
+                        <a href="{{ url('orden/examenesEdit/'.$orden->id) }}" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal">
                           	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                 </div>
@@ -105,18 +105,18 @@ Editar Exámen
 			                    <tr>
 			                	    <td>
 			                	    	
-		                	    		<div id="examen<?php echo $i; ?>" class="texto-span"><?php echo $item->examan->nombre; ?></div>
+		                	    		<div id="examen<?php echo $i; ?>" class="texto-span"><?php echo $item->examen; ?></div>
 			                    	    
-			                            <input type="hidden" id="ids<?php echo $i; ?>" name="ids[]" value="<?php echo $item->examan->id; ?>">
-			                            <input type="hidden" id="preciop<?php echo $i; ?>" name="preciop[]" class="preciop" value="<?php echo $item->examan->precio_normal; ?>">
-			                            <input type="hidden" id="preciol<?php echo $i; ?>" name="preciol[]" class="preciol" value="<?php echo $item->examan->precio_laboratorio; ?>">
-			                            <input type="hidden" id="precioc<?php echo $i; ?>" name="precioc[]" class="precioc" value="<?php echo $item->examan->precio_clinica; ?>">         		    
+			                            <input type="hidden" id="ids<?php echo $i; ?>" name="ids[]" value="<?php echo $item->examen_id; ?>">
+			                            <input type="hidden" id="preciop<?php echo $i; ?>" name="preciop[]" class="preciop" value="<?php echo $item->precio_normal; ?>">
+			                            <input type="hidden" id="preciol<?php echo $i; ?>" name="preciol[]" class="preciol" value="<?php echo $item->precio_laboratorio; ?>">
+			                            <input type="hidden" id="precioc<?php echo $i; ?>" name="precioc[]" class="precioc" value="<?php echo $item->precio_clinica; ?>">         		    
 			                    	</td>
 			                    	<td>
-			                            <div id="tipo<?php echo $i; ?>" class="texto-span"><?php echo $item->examan->tipoexaman->nombre; ?></div>                   		            
+			                            <div id="tipo<?php echo $i; ?>" class="texto-span"><?php echo $item->nombre; ?></div>                   		            
 			                    	</td>
 				                    <td>
-			                            <div id="muestra<?php echo $i; ?>" class="texto-span"><?php echo $item->examan->muestra->nombre; ?></div>
+			                            <div id="muestra<?php echo $i; ?>" class="texto-span"><?php echo $item->muestra; ?></div>
 				                    </td>
 				                    <td>
 			                            <div id="precio<?php echo $i; ?>" class="texto-span"><?php echo $item->precio; ?></div>
@@ -139,7 +139,7 @@ Editar Exámen
 	                    			</div>
 	                    			<div class="col-md-2">
 		                    			<label for="subtotal" class="control-label">
-		                    				<span id="subtotal" name="subtotal"><?php echo $orden->subtotal; ?></span>
+		                    				<span id="subtotal" name="subtotal">$<?php echo $orden->subtotal; ?></span>
 	    	                			</label>
 	    	                		</div>		
 	                    		</td>	
@@ -161,7 +161,7 @@ Editar Exámen
 	                    			</div>
 	                    			<div class="col-md-2">
 	                    				<label for="total" class="control-label">
-											<span id="total" name="total"><?php echo $orden->total; ?></span>
+											<span id="total" name="total">$<?php echo $orden->total; ?></span>
 										</label>
 									</div>	
 	                    		</td>	
@@ -183,7 +183,7 @@ Editar Exámen
 	                    			</div>
 	                    			<div class="col-md-2">
 		                    			<label for="pendiente" class="control-label">
-											<span id="pendiente" name="pendiente"><?php echo $orden->total - $orden->abono; ?></span>
+											<span id="pendiente" name="pendiente">$<?php echo number_format(($orden->total - $orden->abono),2); ?></span>
 										</label>
 									</div>	
 	                    		</td>	
@@ -218,7 +218,9 @@ Editar Exámen
    var url1 = '{!!URL::route('autocomplete')!!}';
    var url2 = '{!!URL::route('examenesDetalles')!!}';
    var url3 = '{!!URL::route('medicos')!!}';
+   var url4 = '{!!URL::route('autocompletgrupo')!!}';
    var token = "{{ csrf_token() }}";
+   var myArray = [];
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/jquery.datetimepicker.css')}}" rel="stylesheet">

@@ -152,7 +152,16 @@ class OrdenController extends Controller
     {
     	$orden = Orden::findOrFail($id);
         $paciente = $orden->paciente;
-        $detalleorden = $orden->detalleorden;
+        
+        $detalleorden = DB::table('detalleorden')
+                            ->join('muestras', 'muestras.id', '=', 'detalleorden.muestra_id')
+                            ->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
+                            ->join('tipoexamens', 'examens.tipoexamens_id', '=', 'tipoexamens.id')
+                            ->select('examens.id as examen_id','examens.nombre as examen','examens.precio_normal',
+                            		'examens.precio_laboratorio','examens.precio_clinica',
+                            		'muestras.nombre as muestra', 'detalleorden.*','tipoexamens.*')                            
+                            ->where('orden_id', $id)                            
+                            ->get();   	
         $items= TipoPaciente::pluck('nombre', 'id')->toArray();        
         $iteration = count($detalleorden);  	
         return view('backEnd.orden.edit', compact('orden','paciente','detalleorden','items', 'iteration'));
@@ -255,7 +264,7 @@ class OrdenController extends Controller
     {
     	$term=$request->term;
     	$data = paciente::where(DB::raw("CONCAT(`nombres`, ' ', `apellidos`)"),'LIKE','%'.$term.'%')
-    	->whereAnd('deleted_at','is null')
+    	->whereNull('deleted_at')
     	->take(10)
     	->get();
     	$result=array();
@@ -271,6 +280,30 @@ class OrdenController extends Controller
         $tipos = tipoexaman::orderBy('id', 'asc')->get();
         $limit = round(count($examenes) / 4);
         return view('backEnd.orden.modalExamenes', compact('examenes','limit','tipos'));        
+    }
+    
+    public function examenesEdit ($id){
+    	$detalleorden = DB::table('detalleorden')
+				    	->join('muestras', 'muestras.id', '=', 'detalleorden.muestra_id')
+				    	->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
+				    	->join('tipoexamens', 'examens.tipoexamens_id', '=', 'tipoexamens.id')
+				    	->select('examens.id as examen_id','muestras.id as muestra_id','muestras.nombre as muestra')
+    					->where('orden_id', $id)
+    					->get();
+    	$examenes = Examan::orderBy('tipoexamens_id', 'asc')->get();
+    	$tipos = tipoexaman::orderBy('id', 'asc')->get();
+    	$limit = round(count($examenes) / 4);
+    	
+    	foreach ($examenes as $exa){
+    		foreach ($detalleorden as $deta){
+    			if($deta->examen_id == $exa->id){
+    				$exa->muestra = $deta->muestra;
+    				$exa->muestra_id = $deta->muestra_id;
+    				$exa->marca = 1;
+    			}
+    		}
+    	}
+    	return view('backEnd.orden.modalExamenesEdit', compact('examenes','limit','tipos'));
     }
 
     public function examenesDetalles(Request $request) {
@@ -304,7 +337,7 @@ class OrdenController extends Controller
                             ->join('detalleorden', 'orden.id', '=', 'detalleorden.orden_id')
                             ->select('detalleorden.*')
                             ->where('pacientes_id', $id_paciente)
-                            ->whereAnd('fecha_emision', $hoy_format)
+                            ->where('fecha_emision', $hoy_format)
                             ->get();
             
             foreach ($data as $query)           
@@ -339,7 +372,7 @@ class OrdenController extends Controller
     {
         $term=$request->term;
         $data = Orden::where('nombre_medico','LIKE','%'.$term.'%')
-        ->whereAnd('deleted_at','is null')
+        ->whereNull('deleted_at')
         ->take(10)
         ->get();
         $result=array();

@@ -96,7 +96,7 @@ Editar Exámen
 			                        <th style="width: 5%;">Acción</th>
 			                    </tr>
 			                </thead>
-		                    <tbody>
+		                    <tbody id="tbodyExamenes">
 		                    <?php $i = 1;  $disable = "";
 		                    if(count($detalleorden)== 1) {
 		                    	$disable = "disabled";

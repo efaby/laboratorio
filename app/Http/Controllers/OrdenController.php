@@ -291,19 +291,20 @@ class OrdenController extends Controller
     					->where('orden_id', $id)
     					->get();
     	$examenes = Examan::orderBy('tipoexamens_id', 'asc')->get();
+
     	$tipos = tipoexaman::orderBy('id', 'asc')->get();
     	$limit = round(count($examenes) / 4);
-    	
+    	$muestras = [];
     	foreach ($examenes as $exa){
     		foreach ($detalleorden as $deta){
-    			if($deta->examen_id == $exa->id){
-    				$exa->muestra = $deta->muestra;
-    				$exa->muestra_id = $deta->muestra_id;
+    			if($deta->examen_id === $exa->id){
+                    $muestras[$exa->tipoexamens_id] =  (object) array('id' => $deta->muestra_id, 'nombre' => $deta->muestra);
     				$exa->marca = 1;
     			}
     		}
     	}
-    	return view('backEnd.orden.modalExamenesEdit', compact('examenes','limit','tipos'));
+
+    	return view('backEnd.orden.modalExamenesEdit', compact('examenes','limit','tipos','muestras'));
     }
 
     public function examenesDetalles(Request $request) {

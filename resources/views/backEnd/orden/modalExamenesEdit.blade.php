@@ -7,13 +7,15 @@
 	<div class="row">
 		<div class="col-sm-3">
             <?php $cont = 1; $tipo = ""; ?>
+
             @foreach($examenes as $item) 
+           
                 @if ( $tipo != $item->tipoexamens_id) 
                     <h5><b>{{ $item->tipoexaman->nombre }}</b></h5>
                     <?php $tipo = $item->tipoexamens_id; ?> 
                     <div class="form-group">
-                    {!! Form::text('txtmuestra_'.$item->tipoexaman->id, $item->muestra?$item->muestra:null, ['class' => 'form-control','id'=>'muestra', 'data-id' => $item->tipoexaman->id]) !!}
-                    {!! Form::hidden('muestra_'.$item->tipoexaman->id, $item->muestra_id?$item->muestra_id:0, ['class' => 'form-control','id'=>'muestra_'.$item->tipoexaman->id]) !!}
+                    {!! Form::text('txtmuestra_'.$item->tipoexaman->id, (isset($muestras[$item->tipoexaman->id]))? $muestras[$item->tipoexaman->id]->nombre : null, ['class' => 'form-control','id'=>'muestra', 'data-id' => $item->tipoexaman->id]) !!}
+                    {!! Form::hidden('muestra_'.$item->tipoexaman->id, (isset($muestras[$item->tipoexaman->id]))? $muestras[$item->tipoexaman->id]->id : null, ['class' => 'form-control','id'=>'muestra_'.$item->tipoexaman->id]) !!}
                     </div>              
                 @endif              
                 <p>                
@@ -57,11 +59,11 @@
             agregar(checked,muestras);
         });
 
-          $("input:checkbox").each(function () {
+        /*  $("input:checkbox").each(function () {
             var iid = $(this).attr("value");
             this.checked = false
             if (myArray.indexOf(iid) != -1) this.checked = true
-        });
+        });*/
 
 
         $('#frmOrden')

@@ -17,9 +17,8 @@
                     </div>              
                 @endif              
                 <p>                
-                	{!! Form::checkbox('examen_' .$item->tipoexaman->id. '[]',$item->id,true); !!}
-                	{{ $item->nombre }}
-    	            <input type="checkbox" value="contact" name="type" @if ($item->marca==1) checked="checked" @endif>
+                	{!! Form::checkbox('examen_' .$item->tipoexaman->id. '[]',$item->id,$item->marca==1?true:false); !!}
+                	{{ $item->nombre }}    	        
                 </p>
                 @if ( $cont == $limit ) 
                     </div>

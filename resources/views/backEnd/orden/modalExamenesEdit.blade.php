@@ -1,3 +1,4 @@
+<div id="mostrarVentana">
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  
     <h4 class="modal-title">Listado de Examenes</h4>
@@ -37,7 +38,7 @@
     <button type="submit" class="btn btn-primary" id="btnAgregar" >Agregar</button>
     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>      
 </div>
-
+</div>
 <script type="text/javascript">		    
     $(document).ready(function() {
         var idsTE = [];
@@ -57,6 +58,7 @@
             });            
             $('#myModal').modal('hide');
             agregar(checked,muestras);
+            $('#frmOrden').trigger("reset");
         });
 
         /*  $("input:checkbox").each(function () {
@@ -112,10 +114,7 @@
                 }
             }
         })
-        @endforeach
-        
+        @endforeach      
         ;
-
-
     });
 </script>

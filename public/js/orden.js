@@ -232,6 +232,7 @@ function asignarPrecio(preciop, preciol,precioc,row){
 
 function removeDetalle(btn) {
     var tbl = document.getElementById('examenes');
+    console.log(tbl);
     var row1 = tbl.rows.length;
     if(row1 > 2){
         var row = btn.parentNode.parentNode;
@@ -338,9 +339,7 @@ function soloNumeros(evt) {
 }
 
 function agregar(items, muestras) {
-    console.log("llegos",muestras);
-
-    $.ajax({
+	    $.ajax({
         type: "POST",
         url: url2,
         data: {"_token": token, ids: items, muestras: muestras, is_relacional: $('input:checkbox[name=is_relacional]:checked').val(), id_paciente: $('#id_paciente').val() },
@@ -452,7 +451,7 @@ function agregar(items, muestras) {
                 suma();
                 
             });
-
         }
-    }); 
+    });
+    $(':checkbox').prop('checked', false);
 }

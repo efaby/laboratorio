@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::get("orden/autocomplete",array('as'=>'autocomplete','uses'=> 'OrdenController@autocomplete'));
 Route::get("orden/autocompletgrupo",array('as'=>'autocompletgrupo','uses'=> 'OrdenController@autocompletgrupo'));
 Route::get("orden/examenes",array('as'=>'examenes','uses'=> 'OrdenController@examenes'));
-Route::get("orden/examenesEdit/{id}",array('as'=>'examenesEdit','uses'=> 'OrdenController@examenesEdit'));
+Route::get("orden/examenesEdit",array('as'=>'examenesEdit','uses'=> 'OrdenController@examenesEdit'));
 Route::get("orden/medicos",array('as'=>'medicos','uses'=> 'OrdenController@medicos'));
 Route::get("orden/orden/{id}",array('as'=>'orden1','uses'=> 'OrdenController@orden'));
 Route::get("orden/validar/{id}",array('as'=>'validar','uses'=> 'OrdenController@validar'));

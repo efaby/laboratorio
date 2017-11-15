@@ -80,9 +80,9 @@ Editar Exámen
                 	</div>
                 </div>
                 <div class="form-group col-md-12">
-                        <a href="{{ url('orden/examenesEdit/'.$orden->id) }}" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal">
+                        <a href="" id="add" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal">
                           	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </a>
+                        </a>                         
                 </div>
                 <div >
                 <div class="table table-responsive">
@@ -108,6 +108,7 @@ Editar Exámen
 		                	    		<div id="examen<?php echo $i; ?>" class="texto-span"><?php echo $item->examen; ?></div>
 			                    	    
 			                            <input type="hidden" id="ids<?php echo $i; ?>" name="ids[]" value="<?php echo $item->examen_id; ?>">
+			                            <input type="hidden" id="muestras<?php echo $i; ?>" name="muestras[]" value="<?php echo $item->muestra_id; ?>">
 			                            <input type="hidden" id="preciop<?php echo $i; ?>" name="preciop[]" class="preciop" value="<?php echo $item->precio_normal; ?>">
 			                            <input type="hidden" id="preciol<?php echo $i; ?>" name="preciol[]" class="preciol" value="<?php echo $item->precio_laboratorio; ?>">
 			                            <input type="hidden" id="precioc<?php echo $i; ?>" name="precioc[]" class="precioc" value="<?php echo $item->precio_clinica; ?>">         		    
@@ -219,8 +220,36 @@ Editar Exámen
    var url2 = '{!!URL::route('examenesDetalles')!!}';
    var url3 = '{!!URL::route('medicos')!!}';
    var url4 = '{!!URL::route('autocompletgrupo')!!}';
+   var url5 = '{!!URL::route('examenesEdit')!!}';
    var token = "{{ csrf_token() }}";
    var myArray = [];
+
+   $('#myModal').on('show.bs.modal', function (evnt) {
+   //$("#add").on("click",function() {
+		var idsAux =[];
+		var muestrasIds =[];
+		$('input[name^="ids"]').each(function() {
+			idsAux.push($(this).val());	   		
+		});
+	   	$('input[name^="muestras"]').each(function() {
+	   		muestrasIds.push($(this).val());
+		});
+		console.log(idsAux,muestrasIds);	
+			
+	    jQuery.ajax({
+		    type: "GET",		    
+		   	url: url5,
+		    dataType: "json", 
+		    data: { 
+			    ids: idsAux,
+			    muestrasIds:muestrasIds			    
+			},		    
+		    success:function(response) {
+			    console.log(response);		    		        				    			           	
+		   }			        
+		});
+	});
+  	    
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/jquery.datetimepicker.css')}}" rel="stylesheet">

@@ -274,7 +274,7 @@ class OrdenController extends Controller
     	}
     	return response()->json($result);    	     	
     }
-    
+    	
     public function examenes (){
         $examenes = Examan::orderBy('tipoexamens_id', 'asc')->get();
         $tipos = tipoexaman::orderBy('id', 'asc')->get();
@@ -282,28 +282,41 @@ class OrdenController extends Controller
         return view('backEnd.orden.modalExamenes', compact('examenes','limit','tipos'));        
     }
     
-    public function examenesEdit ($id){
-    	$detalleorden = DB::table('detalleorden')
-				    	->join('muestras', 'muestras.id', '=', 'detalleorden.muestra_id')
-				    	->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
-				    	->join('tipoexamens', 'examens.tipoexamens_id', '=', 'tipoexamens.id')
-				    	->select('examens.id as examen_id','muestras.id as muestra_id','muestras.nombre as muestra')
-    					->where('orden_id', $id)
-    					->get();
+    /*$detalleorden = DB::table('detalleorden')
+     ->join('muestras', 'muestras.id', '=', 'detalleorden.muestra_id')
+     ->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
+     ->join('tipoexamens', 'examens.tipoexamens_id', '=', 'tipoexamens.id')
+     ->select('examens.id as examen_id','muestras.id as muestra_id','muestras.nombre as muestra')
+     ->where('orden_id', $id)
+     ->get();*/
+       
+    public function examenesEdit (Request $request){
+    	$ids = $request->ids;
+    	$muestrasIds = $request->muestrasIds;
+    	$muestrasUnicas = array_unique($muestrasIds);
+    	
+    	$muestrasAux = DB::table('muestras')
+    			   ->whereIn('id', $muestrasUnicas)
+    			   ->get();
+    	foreach ($muestrasAux as $muestra){
+    		$estructura[$muestra->id] = (object) array('id' => $muestra->id, 'nombre' => $muestra->nombre);    		
+    	}    	
+    	
     	$examenes = Examan::orderBy('tipoexamens_id', 'asc')->get();
-
     	$tipos = tipoexaman::orderBy('id', 'asc')->get();
     	$limit = round(count($examenes) / 4);
     	$muestras = [];
+    	
     	foreach ($examenes as $exa){
-    		foreach ($detalleorden as $deta){
-    			if($deta->examen_id === $exa->id){
-                    $muestras[$exa->tipoexamens_id] =  (object) array('id' => $deta->muestra_id, 'nombre' => $deta->muestra);
-    				$exa->marca = 1;
+    		$contador = 0;
+    		foreach ($ids as $deta){
+    			if($deta == $exa->id){
+    				$muestras[$exa->tipoexamens_id] =  $estructura[$muestrasIds[$contador]];
+        	        $exa->marca = 1;
     			}
     		}
+    		$contador++;
     	}
-
     	return view('backEnd.orden.modalExamenesEdit', compact('examenes','limit','tipos','muestras'));
     }
 

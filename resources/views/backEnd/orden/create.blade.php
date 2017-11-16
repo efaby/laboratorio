@@ -93,7 +93,7 @@ Nuevo Exámen
                 	</div>
                 </div>
                 <div class="form-group col-md-12">
-                        <a href="{{ url('orden/examenes') }}" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal" data-backdrop="static">
+                        <a href="" id="add" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal" data-backdrop="static">
                           	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                 </div>
@@ -202,9 +202,29 @@ Nuevo Exámen
    var url2 = '{!!URL::route('examenesDetalles')!!}';
    var url3 = '{!!URL::route('medicos')!!}';   
    var url4 = '{!!URL::route('autocompletgrupo')!!}';
-   
+   var url5 = '{!!URL::route('examenesEdit')!!}';
    var token = "{{ csrf_token() }}";
    var myArray = [];
+
+  $('#myModal').on('show.bs.modal', function (evnt) {
+   //$("#add").on("click",function() {
+    var idsAux =[];
+    var muestrasIds =[];
+    $('input[name^="ids"]').each(function() {
+      idsAux.push($(this).val());       
+    });
+      $('input[name^="muestras"]').each(function() {
+        muestrasIds.push($(this).val());
+    });
+    var urlModal = url5 + "?ids="+JSON.stringify(idsAux)+"&muestrasIds="+JSON.stringify(muestrasIds);
+    
+    $('.modal-content').load(urlModal,function(result){     
+    });
+  });
+
+
+
+
 </script>
 
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">

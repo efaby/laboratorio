@@ -80,7 +80,7 @@ Editar Exámen
                 	</div>
                 </div>
                 <div class="form-group col-md-12">
-                        <a href="" id="add" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal">
+                        <a href="" id="add" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal" data-backdrop="static">
                           	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>                         
                 </div>
@@ -234,19 +234,9 @@ Editar Exámen
 	   	$('input[name^="muestras"]').each(function() {
 	   		muestrasIds.push($(this).val());
 		});
-		console.log(idsAux,muestrasIds);	
-			
-	    jQuery.ajax({
-		    type: "GET",		    
-		   	url: url5,
-		    dataType: "json", 
-		    data: { 
-			    ids: idsAux,
-			    muestrasIds:muestrasIds			    
-			},		    
-		    success:function(response) {
-			    console.log(response);		    		        				    			           	
-		   }			        
+		var urlModal = url5 + "?ids="+JSON.stringify(idsAux)+"&muestrasIds="+JSON.stringify(muestrasIds);
+		
+		$('.modal-content').load(urlModal,function(result){	    
 		});
 	});
   	    

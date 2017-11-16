@@ -274,27 +274,11 @@ class OrdenController extends Controller
     	}
     	return response()->json($result);    	     	
     }
-    	
-    public function examenes (){
-        $examenes = Examan::orderBy('tipoexamens_id', 'asc')->get();
-        $tipos = tipoexaman::orderBy('id', 'asc')->get();
-        $limit = round(count($examenes) / 4);
-        return view('backEnd.orden.modalExamenes', compact('examenes','limit','tipos'));        
-    }
-    
-    /*$detalleorden = DB::table('detalleorden')
-     ->join('muestras', 'muestras.id', '=', 'detalleorden.muestra_id')
-     ->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
-     ->join('tipoexamens', 'examens.tipoexamens_id', '=', 'tipoexamens.id')
-     ->select('examens.id as examen_id','muestras.id as muestra_id','muestras.nombre as muestra')
-     ->where('orden_id', $id)
-     ->get();*/
-       
+
     public function examenesEdit (Request $request){
-    	$ids = $request->ids;
-    	$muestrasIds = $request->muestrasIds;
-    	$muestrasUnicas = array_unique($muestrasIds);
-    	
+    	$ids = json_decode($request->ids);
+    	$muestrasIds = json_decode($request->muestrasIds);        
+    	$muestrasUnicas = array_unique($muestrasIds);    	
     	$muestrasAux = DB::table('muestras')
     			   ->whereIn('id', $muestrasUnicas)
     			   ->get();

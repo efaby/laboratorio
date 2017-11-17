@@ -480,13 +480,14 @@ class OrdenController extends Controller
     	}else{
 	    	$codigo = $this->alphaNumeric(6);
 	    	$array = [
-	    			'cedula'  => $paciente->cedula,
-	    			'fecha'    => new \DateTime(),
+	    			'cedula' => isset($paciente->cedula)?$paciente->cedula:0,
+	    			'fecha'  => new \DateTime(),
 	    			'codigo' => $codigo,
 	    			'orden_id' => $id    			
 	    	];
 	    	DB::table('codigosorden')->insert($array);
     	}
+    	
     	return view('backEnd.orden.modal', compact('codigo'));    	
     }
     

@@ -196,6 +196,9 @@ class OrdenController extends Controller
         if($tipopaciente_id == 3){
             $precio_array = $request->input('precioc');
         }
+        
+        $muestras = $request->input('muestras');
+        
         $subtotal = array_sum($precio_array);
         $total = $subtotal - $descuento;
 
@@ -225,7 +228,9 @@ class OrdenController extends Controller
                     'orden_id'  => $id,
                     'examens_id'=> $exa,
                     'created_at'=> new \DateTime(),
-                    'precio' => $precio_array[$i]
+                    'precio' => $precio_array[$i],            		
+            		'muestra_id' => $muestras[$i]
+            		
             ];
             $i++;
         }

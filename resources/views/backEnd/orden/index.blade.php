@@ -40,7 +40,7 @@ Orden
                     <td>${{ $item->abono }}</a></td>
                     <td>{{ $item->fecha_entrega }}</a></td>
                     <td style="width: 13%; text-align: center;">
-                        @if ($item->atendido===0) 
+                        @if ($item->atendido==0) 
                             <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
                         @else
                             <a href="#" class="btn btn-warning btn-xs disabled" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a>                            

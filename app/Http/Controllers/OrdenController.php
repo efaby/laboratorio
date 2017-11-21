@@ -36,8 +36,8 @@ class OrdenController extends Controller
      */
     public function create()
     {
-    	$items= TipoPaciente::pluck('nombre', 'id')->toArray();
-    	return view('backEnd.orden.create', compact('items'));
+        $items= TipoPaciente::pluck('nombre', 'id')->toArray();
+        return view('backEnd.orden.create', compact('items'));
     }
 
     /**
@@ -48,9 +48,9 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-    	$is_relacional = $request->input('is_relacional');
-    	$is_relacional = isset($is_relacional)?1:0;
-    	$paciente_id = $request->input('id_paciente');
+        $is_relacional = $request->input('is_relacional');
+        $is_relacional = isset($is_relacional)?1:0;
+        $paciente_id = $request->input('id_paciente');
         //Poner id de usuario logueado 
         $user_id = 1;
         $abono = $request->input('abono');
@@ -65,7 +65,7 @@ class OrdenController extends Controller
         $paciente->save();
       
         if($tipopaciente_id == 1){
-        	$precio_array = $request->input('preciop');
+            $precio_array = $request->input('preciop');
         }        
         if($tipopaciente_id == 2){
           
@@ -84,49 +84,49 @@ class OrdenController extends Controller
         
         $is_relacional = $request->input('is_relacional');
         if(isset($is_relacional)){
-        	$is_relacional =1;
+            $is_relacional =1;
         }else{
-        	$is_relacional =0;
+            $is_relacional =0;
         }
         $array = [
-        		'pacientes_id'  => $paciente_id,
-        		'user_id'    => $user_id,
-        		'fecha_emision' => new \DateTime(),
-        		'fecha_entrega' => $fecha_entrega,
-        		'abono' =>$abono,
-        		'tipo_pago' =>1,
-        		'iva' => 0,
-        		'subtotal'=>$subtotal,
-        		'total'=>$total,
-        		'estado'=>1,
-        		'created_at'=>new \DateTime(),
-        		'cliente_id' => 0,
-        		'descuento' =>$descuento,
+                'pacientes_id'  => $paciente_id,
+                'user_id'    => $user_id,
+                'fecha_emision' => new \DateTime(),
+                'fecha_entrega' => $fecha_entrega,
+                'abono' =>$abono,
+                'tipo_pago' =>1,
+                'iva' => 0,
+                'subtotal'=>$subtotal,
+                'total'=>$total,
+                'estado'=>1,
+                'created_at'=>new \DateTime(),
+                'cliente_id' => 0,
+                'descuento' =>$descuento,
                 'nombre_medico' => $nombre_medico,
-        		'usuario_atiende' =>0,
-        		'atendido' =>0,
+                'usuario_atiende' =>0,
+                'atendido' =>0,
                 'tipopaciente_id' => $tipopaciente_id,
-        		'is_relacional'=>$is_relacional
-        		];
+                'is_relacional'=>$is_relacional
+                ];
         DB::table('orden')->insert($array);
         $orden_id = DB::table('orden')->max('id');
         
         $examens = [];
         $i = 0;
         foreach ($examen_ids as $exa) {
-        	$examens[] = [
-        			'orden_id'  => $orden_id,
-        			'examens_id'=> $exa,
-        			'created_at'=> new \DateTime(),
+            $examens[] = [
+                    'orden_id'  => $orden_id,
+                    'examens_id'=> $exa,
+                    'created_at'=> new \DateTime(),
                     'precio' => $precio_array[$i],
                     'muestra_id' => $muestras[$i]
-        	];
+            ];
             $i++;
         }
         DB::table('detalleorden')->insert($examens);
         Session::flash('message', 'La Orden se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
-        return redirect('orden');    	
+        return redirect('orden');       
     }
 
     /**
@@ -137,9 +137,9 @@ class OrdenController extends Controller
      */
     public function show($id)
     {
-    	$orden = Orden::findOrFail($id);
-    	
-    	return view('backEnd.orden.show', compact('orden'));
+        $orden = Orden::findOrFail($id);
+        
+        return view('backEnd.orden.show', compact('orden'));
     }
 
     /**
@@ -150,7 +150,7 @@ class OrdenController extends Controller
      */
     public function edit($id)
     {
-    	$orden = Orden::findOrFail($id);
+        $orden = Orden::findOrFail($id);
         $paciente = $orden->paciente;
         
         $detalleorden = DB::table('detalleorden')
@@ -158,12 +158,12 @@ class OrdenController extends Controller
                             ->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
                             ->join('tipoexamens', 'examens.tipoexamens_id', '=', 'tipoexamens.id')
                             ->select('examens.id as examen_id','examens.nombre as examen','examens.precio_normal',
-                            		'examens.precio_laboratorio','examens.precio_clinica',
-                            		'muestras.nombre as muestra', 'detalleorden.*','tipoexamens.*')                            
+                                    'examens.precio_laboratorio','examens.precio_clinica',
+                                    'muestras.nombre as muestra', 'detalleorden.*','tipoexamens.*')                            
                             ->where('orden_id', $id)                            
-                            ->get();   	
+                            ->get();    
         $items= TipoPaciente::pluck('nombre', 'id')->toArray();        
-        $iteration = count($detalleorden);  	
+        $iteration = count($detalleorden);      
         return view('backEnd.orden.edit', compact('orden','paciente','detalleorden','items', 'iteration'));
     }
 
@@ -213,9 +213,9 @@ class OrdenController extends Controller
         $orden->total = $total;        
         $is_relacional = $request->input('is_relacional');
         if(isset($is_relacional)){
-        	$orden->is_relacional =1;
+            $orden->is_relacional =1;
         }else{
-        	$orden->is_relacional =0;
+            $orden->is_relacional =0;
         }
         
         $orden->save();
@@ -228,9 +228,9 @@ class OrdenController extends Controller
                     'orden_id'  => $id,
                     'examens_id'=> $exa,
                     'created_at'=> new \DateTime(),
-                    'precio' => $precio_array[$i],            		
-            		'muestra_id' => $muestras[$i]
-            		
+                    'precio' => $precio_array[$i],                  
+                    'muestra_id' => $muestras[$i]
+                    
             ];
             $i++;
         }
@@ -255,7 +255,7 @@ class OrdenController extends Controller
         $type = 'warning';
         if($orden->atendido === 0){
             $orden->delete();
-            $message = 'La Orden se eliminó satisfactoriamente!';
+            $message = 'La Orden se elimin車 satisfactoriamente!';
             $type = 'success';
         }   
 
@@ -267,46 +267,45 @@ class OrdenController extends Controller
     
     public function autocomplete(Request $request)
     {
-    	$term=$request->term;
-    	$data = paciente::where(DB::raw("CONCAT(`nombres`, ' ', `apellidos`)"),'LIKE','%'.$term.'%')
-    	->whereNull('deleted_at')
-    	->take(10)
-    	->get();
-    	$result=array();
-    	foreach ($data as $query)
-    	{
-    		$result[] = [ 'id' => $query->id, 'value' => $query->cedula .' - '.$query->apellidos. ' ' .$query->nombres, 'nombres' => $query->apellidos.' '.$query->nombres, 'direccion' => $query->direccion, 'telefono' => $query->telefono,'celular' => $query->celular,'edad' => $query->edad];
-    	}
-    	return response()->json($result);    	     	
+        $term=$request->term;
+        $data = paciente::where(DB::raw("CONCAT(`nombres`, ' ', `apellidos`)"),'LIKE','%'.$term.'%')
+        ->whereNull('deleted_at')
+        ->take(10)
+        ->get();
+        $result=array();
+        foreach ($data as $query)
+        {
+            $result[] = [ 'id' => $query->id, 'value' => $query->cedula .' - '.$query->apellidos. ' ' .$query->nombres, 'nombres' => $query->apellidos.' '.$query->nombres, 'direccion' => $query->direccion, 'telefono' => $query->telefono,'celular' => $query->celular,'edad' => $query->edad];
+        }
+        return response()->json($result);               
     }
 
     public function examenesEdit (Request $request){
-    	$ids = json_decode($request->ids);
-    	$muestrasIds = json_decode($request->muestrasIds);        
-    	$muestrasUnicas = array_unique($muestrasIds);    	
-    	$muestrasAux = DB::table('muestras')
-    			   ->whereIn('id', $muestrasUnicas)
-    			   ->get();
-    	foreach ($muestrasAux as $muestra){
-    		$estructura[$muestra->id] = (object) array('id' => $muestra->id, 'nombre' => $muestra->nombre);    		
-    	}    	
-    	
-    	$examenes = Examan::orderBy('tipoexamens_id', 'asc')->get();
-    	$tipos = tipoexaman::orderBy('id', 'asc')->get();
-    	$limit = round(count($examenes) / 4);
-    	$muestras = [];
-    	
-    	foreach ($examenes as $exa){
-    		$contador = 0;
-    		foreach ($ids as $deta){
-    			if($deta == $exa->id){
-    				$muestras[$exa->tipoexamens_id] =  $estructura[$muestrasIds[$contador]];
-        	        $exa->marca = 1;
-    			}
-    		}
-    		$contador++;
-    	}
-    	return view('backEnd.orden.modalExamenesEdit', compact('examenes','limit','tipos','muestras'));
+        $ids = json_decode($request->ids);
+        $muestrasIds = json_decode($request->muestrasIds);        
+        $muestrasUnicas = array_unique($muestrasIds);       
+        $muestrasAux = DB::table('muestras')
+                   ->whereIn('id', $muestrasUnicas)
+                   ->get();
+        foreach ($muestrasAux as $muestra){
+            $estructura[$muestra->id] = (object) array('id' => $muestra->id, 'nombre' => $muestra->nombre);         
+        }               
+        $examenes = Examan::orderBy('tipoexamens_id', 'asc')->get();
+        $tipos = tipoexaman::orderBy('id', 'asc')->get();
+        $limit = round(count($examenes) / 4);
+        $muestras = [];
+        
+        foreach ($examenes as $exa){
+            $contador = 0;
+            foreach ($ids as $deta){
+                if($deta == $exa->id){
+                    $muestras[$exa->tipoexamens_id] =  $estructura[$muestrasIds[$contador]];
+                    $exa->marca = 1;
+                }
+                $contador++;
+            }           
+        }       
+        return view('backEnd.orden.modalExamenesEdit', compact('examenes','limit','tipos','muestras'));
     }
 
     public function examenesDetalles(Request $request) {
@@ -409,9 +408,24 @@ class OrdenController extends Controller
         $paciente = $orden->paciente;
         $plantilla = $orden->plantilla;
         if ($plantilla === null) {
-            $detalleorden = $orden->detalleorden;
+           // $detalleorden = $orden->detalleorden;
+
+            $detalleorden = DB::table('detalleorden')
+                            ->join('muestras', 'muestras.id', '=', 'detalleorden.muestra_id')
+                            ->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
+                            ->join('tipoexamens', 'examens.tipoexamens_id', '=', 'tipoexamens.id')
+                            ->select('examens.plantilla','examens.nombre','muestras.nombre as muestra','tipoexamens.id as type')                            
+                            ->where('orden_id', $id)    
+                            ->orderBy('tipoexamens.id')                        
+                            ->get();
+            $muestra = 0;
             foreach ($detalleorden as $item) {
-                $plantilla .= "MUESTRA:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ".$item->examan->muestra->nombre.$item->examan->plantilla;
+               
+                if($muestra != $item->type) {
+                    $plantilla .= "</br>MUESTRA:&nbsp;  ". $item->muestra;
+                    $muestra = $item->type;
+                }
+                $plantilla .= "</br>".$item->nombre . "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" . $item->plantilla;
             }
         }
         return array('orden' => $orden, 'paciente' => $paciente, 'plantilla' => $plantilla );
@@ -419,7 +433,7 @@ class OrdenController extends Controller
 
     public function saveOrden(Request $request)
     {
-    	$this->validate($request, ['orden_id' => 'required',
+        $this->validate($request, ['orden_id' => 'required',
                                    'plantilla'   => 'required'
         ]);
         $orden_id = $request->input('orden_id');
@@ -448,13 +462,13 @@ class OrdenController extends Controller
     
     public function ordenPdf($id)
     {
-    	$orden = Orden::findOrFail($id);
-    	$paciente = $orden->paciente;
-    	$plantilla = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',$orden->plantilla);
-    	$view =  \View::make('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'))->render();
-    	$pdf = \App::make('dompdf.wrapper');
-    	$pdf->loadHTML($view);
-    	return $pdf->stream('invoice');
+        $orden = Orden::findOrFail($id);
+        $paciente = $orden->paciente;
+        $plantilla = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',$orden->plantilla);
+        $view =  \View::make('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('invoice');
     }
 
     public function imprimir($id)
@@ -465,56 +479,56 @@ class OrdenController extends Controller
     
     public static function alphaNumeric($length)
     {
-    	$chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    	$clen   = strlen( $chars )-1;
-    	$id  = '';
+        $chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $clen   = strlen( $chars )-1;
+        $id  = '';
     
-    	for ($i = 0; $i < $length; $i++) {
-    		$id .= $chars[mt_rand(0,$clen)];
-    	}
-    	return ($id);
+        for ($i = 0; $i < $length; $i++) {
+            $id .= $chars[mt_rand(0,$clen)];
+        }
+        return ($id);
     }
     
     public function generarCodigo($id){
-    	$orden = Orden::findOrFail($id);
-    	$paciente = $orden->paciente;
-    	$orden= Codigosorden::where('orden_id', '=', $id)->count();
-    	if($orden>0){
-    		$ord= Codigosorden::where('orden_id', '=', $id)->firstOrFail();
-    		$codigo = $ord->codigo;
-    	}else{
-	    	$codigo = $this->alphaNumeric(6);
-	    	$array = [
-	    			'cedula' => isset($paciente->cedula)?$paciente->cedula:0,
-	    			'fecha'  => new \DateTime(),
-	    			'codigo' => $codigo,
-	    			'orden_id' => $id    			
-	    	];
-	    	DB::table('codigosorden')->insert($array);
-    	}
-    	
-    	return view('backEnd.orden.modal', compact('codigo'));    	
+        $orden = Orden::findOrFail($id);
+        $paciente = $orden->paciente;
+        $orden= Codigosorden::where('orden_id', '=', $id)->count();
+        if($orden>0){
+            $ord= Codigosorden::where('orden_id', '=', $id)->firstOrFail();
+            $codigo = $ord->codigo;
+        }else{
+            $codigo = $this->alphaNumeric(6);
+            $array = [
+                    'cedula' => isset($paciente->cedula)?$paciente->cedula:0,
+                    'fecha'  => new \DateTime(),
+                    'codigo' => $codigo,
+                    'orden_id' => $id               
+            ];
+            DB::table('codigosorden')->insert($array);
+        }
+        
+        return view('backEnd.orden.modal', compact('codigo'));      
     }
     
     public function updatePage(){
-    	return redirect()->to('orden');
+        return redirect()->to('orden');
     }
     
     public function autocompletgrupo(Request $request)
     {
-    	$muestra=$request->term;
-    	$tipo_examen = $request->tipo_examen;
+        $muestra=$request->term;
+        $tipo_examen = $request->tipo_examen;
 
-    	$data = Muestra::where(DB::raw("`nombre`"),'LIKE','%'.$muestra.'%')
-    	->where('tipoexamens_id','=',$tipo_examen)   	
-    	->take(10)
-    	->get();
-    	$result=array();
-    	foreach ($data as $query)
-    	{
-    		$result[] = [ 'value' => $query->nombre, 'label'=>$query->nombre, 'id' => $query->id];    		
-    	}
-    	return response()->json($result);
+        $data = Muestra::where(DB::raw("`nombre`"),'LIKE','%'.$muestra.'%')
+        ->where('tipoexamens_id','=',$tipo_examen)      
+        ->take(10)
+        ->get();
+        $result=array();
+        foreach ($data as $query)
+        {
+            $result[] = [ 'value' => $query->nombre, 'label'=>$query->nombre, 'id' => $query->id];          
+        }
+        return response()->json($result);
     }
       
 }

@@ -45,7 +45,7 @@ class MuestraController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-        		'nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
+        		'nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\s]+$/', 
                 'tipoexamens_id' => 'required',
         		'descripcion' => 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\-\,\s]+$/'
         ]);
@@ -95,7 +95,7 @@ class MuestraController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-        		'nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
+        		'nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\-\,\s]+$/',
                 'tipoexamens_id' => 'required',
         		'descripcion' => 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\-\,\s]+$/'
         ]);

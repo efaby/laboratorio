@@ -47,7 +47,7 @@ $(document).ready(function() {
             var id = $(this).data("id");
     		jQuery(this).autocomplete({
                 source: url4+"?tipo_examen="+id,
-    		    minLength: 3,            
+    		    minLength: 2,            
                 select: function( event, ui ) {
                 	//$( "#muestra").val( ui.item.label );
                     $( "#muestra_" + id).val(ui.item.id);  

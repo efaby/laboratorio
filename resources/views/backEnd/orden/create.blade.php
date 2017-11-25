@@ -27,9 +27,8 @@ Nuevo Exámen
                   		<input type="checkbox" id="is_relacional" name="is_relacional">
                   	</div>
                   	<div class="col-md-4" style="text-align: right;">
-                      <a id="nuevaOrden" class="btn btn-default btn-sm">Nueva Orden</a> &nbsp;
-                    	<a href="{{ url('paciente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Paciente</a> &nbsp;
-                    	<a href="{{ url('cliente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Cliente</a>
+                      	<a id="nuevaOrden" class="btn btn-default btn-sm">Nueva Orden</a> &nbsp;
+                    	<a href="{{ url('paciente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Paciente</a>                    	
                   	</div>                  
                </div>
                <div class="form-group row">               		

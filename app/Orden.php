@@ -19,7 +19,7 @@ class Orden extends Model
      *
      * @var array
      */
-    protected $fillable = ['pacientes_id','user_id','nombre','fecha_emision','fecha_entrega','abono','tipo_pago','total','iva','iva','estado','subtotal', 'descuento', 'cliente_id', 'nombre_medico', 'usuario_atiende', 'atendido','plantilla','is_relacional'];
+    protected $fillable = ['pacientes_id','user_id','nombre','fecha_emision','fecha_entrega','abono','tipo_pago','total','iva','iva','estado','subtotal', 'descuento', 'cliente_id', 'nombre_medico', 'usuario_atiende', 'atendido','plantilla','is_relacional','entidad'];
 
     public function paciente()
     {

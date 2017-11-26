@@ -1,4 +1,12 @@
 <div id="print">
+	<div class="modal-footer" style="text-align: right;">	    	   	
+		<a href="javascript:imprSelec('print')" class="btn btn-default">
+          Imprimir 
+        </a>
+        <a href="javascript:window.close()" class="btn btn-default" title="Cerrar">
+	    	Cerrar
+	    </a>        
+	</div>
 	<div class="row">
 		<div class="row" style="margin-left:16px">
 			<table style="width: 100%">
@@ -115,13 +123,6 @@
         </div>		
 	</div>	    	
 </div>
-<div class="modal-footer">	    	   	
-	<a href="javascript:imprSelec('print')" class="btn btn-info btn-sm">Imprimir</a>
-	<a href="javascript:window.close()" class="btn btn-default" title="Cerrar">
-    	Cerrar
-    </a>        
-</div>
-
 <script type="text/javascript">
 function imprSelec(print)
 {	

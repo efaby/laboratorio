@@ -36,7 +36,7 @@ class OrdenController extends Controller
      */
     public function create()
     {
-        $items= TipoPaciente::pluck('nombre', 'id')->toArray();
+    	$items= TipoPaciente::pluck('nombre', 'id')->toArray();
         return view('backEnd.orden.create', compact('items'));
     }
 
@@ -59,8 +59,8 @@ class OrdenController extends Controller
         $tipopago_id = $request->input('tipopago_id');
         $fecha_entrega = $request->input('fecha_entrega');
         $nombre_medico = $request->input('nombre_medico');
-
-        $paciente = Paciente::findOrFail($paciente_id);
+        $entidad = $request->input('entidad');
+        $paciente = Paciente::findOrFail($paciente_id);        
         $paciente->edad = $request->input('edad');
         $paciente->save();
       
@@ -106,7 +106,8 @@ class OrdenController extends Controller
                 'usuario_atiende' =>0,
                 'atendido' =>0,
                 'tipopaciente_id' => $tipopaciente_id,
-                'is_relacional'=>$is_relacional
+                'is_relacional'=>$is_relacional,
+        		'entidad'=>$entidad
                 ];
         DB::table('orden')->insert($array);
         $orden_id = DB::table('orden')->max('id');
@@ -530,5 +531,32 @@ class OrdenController extends Controller
         }
         return response()->json($result);
     }
-      
+    
+    public function entidades(Request $request)
+    {
+    	$id=$request->id;
+    	$required = null;
+    	if($id !=1){
+    		$required = 'required';
+    		if($id ==2){
+    			$etiqueta = "Laboratorio";
+    		}
+    		if($id ==3){
+    			$etiqueta = "Clinica";
+    		}
+    		$data = Paciente::where('tipopacientes_id','=',$id)
+    		->get();
+    		$result = "<div class='col-md-1'>
+    					<label for='entidad_l' class='col-md-1 control-label'>".$etiqueta."</label></div>
+    			   <div class='col-md-3'><select name='entidad' id='entidad' class='form-control input-sm'".$required.">";
+    		$result.= '<option>Seleccione</option>';
+    		foreach ($data as $query)
+    		{
+    			$result.= '<option value="'.$query->id.'">'.$query->nombres.' '.$query->apellidos.'</option>';
+    		}
+    		 
+    		$result.="</select></div>";
+    		return $result;
+    	}   	
+    } 
 }

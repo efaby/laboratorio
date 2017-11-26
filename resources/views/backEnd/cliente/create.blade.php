@@ -5,13 +5,19 @@ Nuevo Cliente
 
 @section('content')
 
-    <h1>Create New Cliente</h1>
+    <h1>Nuevo Cliente</h1>
     <hr/>
 
     {!! Form::open(['url' => 'cliente', 'class' => 'form-horizontal','id'=>'frmCliente']) !!}
-
+     		<div class="form-group {{ $errors->has('tipopacientes_id') ? 'has-error' : ''}}">
+                {!! Form::label('tipopacientes_id', 'Tipo Paciente: ', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {{ Form::select('tipopacientes_id', $items, 1, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
+                    {!! $errors->first('tipopacientes_id', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
             <div class="form-group {{ $errors->has('cedula') ? 'has-error' : ''}}">
-                {!! Form::label('cedula', 'Cédula: ', ['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('cedula', 'Cédula/RUC: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('cedula', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('cedula', '<p class="help-block">:message</p>') !!}

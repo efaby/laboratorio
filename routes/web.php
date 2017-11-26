@@ -26,6 +26,8 @@ Route::post("orden/saveOrden",array('as'=>'saveOrden','uses'=> 'OrdenController@
 Route::post("orden/examenesDetalles",array('as'=>'examenesDetalles','uses'=> 'OrdenController@examenesDetalles'));
 Route::get("orden/ordenPdf/{id}",array('as'=>'ordenPdf','uses'=> 'OrdenController@ordenPdf'));
 Route::get("orden/imprimir/{id}",array('as'=>'imprimir','uses'=> 'OrdenController@imprimir'));
+Route::get("orden/entidades",array('as'=>'entidades','uses'=> 'OrdenController@entidades'));
+
 Route::get("orden/generarCodigo/{id}",array('as'=>'generarCodigo','uses'=> 'OrdenController@generarCodigo'));
 Route::get("orden/updatePage",array('as'=>'updatePage','uses'=> 'OrdenController@updatePage'));
 Route::get("facturacion/individual",array('as'=>'individual','uses'=> 'FacturacionController@individual'));

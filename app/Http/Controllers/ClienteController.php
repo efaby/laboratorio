@@ -6,6 +6,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Cliente;
+use App\TipoPaciente;
+
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -32,7 +34,8 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('backEnd.cliente.create');
+    	$items = TipoPaciente::pluck('nombre', 'id')->toArray();
+    	return view('backEnd.cliente.create', compact('items'));
     }
 
     /**
@@ -84,8 +87,9 @@ class ClienteController extends Controller
     public function edit($id)
     {
         $cliente = Cliente::findOrFail($id);
+        $items = TipoPaciente::pluck('nombre', 'id')->toArray();
 
-        return view('backEnd.cliente.edit', compact('cliente'));
+        return view('backEnd.cliente.edit', compact('cliente','items'));
     }
 
     /**

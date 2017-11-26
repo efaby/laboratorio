@@ -77,20 +77,22 @@ Nuevo Exámen
                     </div>
                     <div class="col-md-3">
                      	{{ Form::select('tipopaciente_id', $items, 1, ['class' => 'form-control input-sm','placeholder' => 'Seleccione','id'=>'tipopaciente_id']) }}                    
-                	</div>                    
-                	<div class="col-md-1">
-                    	<label for="fecha_entrega" class="col-md-1 control-label">Fecha de Entrega</label>
-                    </div>
-                    <div class="col-md-3">
-                     	{!! Form::text('fecha_entrega', null, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Entrega','id'=>'fecha_entrega']) !!}                    	                    
                 	</div>
                 	<div class="col-md-1">
                     	<label for="tipo_pago" class="col-md-1 control-label">Tipo Pago</label>
                     </div>
                     <div class="col-md-3">
                      	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], null, ['class' => 'form-control input-sm','id'=>'tipopago_id']) }}                    
-                	</div>
+                	</div>         	                	
+                	<div class="col-md-1">
+                    	<label for="fecha_entrega" class="col-md-1 control-label">Fecha de Entrega</label>
+                    </div>
+                    <div class="col-md-3">
+                     	{!! Form::text('fecha_entrega', null, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Entrega','id'=>'fecha_entrega']) !!}                    	                    
+                	</div>                	
                 </div>
+                <div class="form-group row" id="entidad">                	                	
+                </div>	
                 <div class="form-group col-md-12">
                         <a href="" id="add" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal" data-backdrop="static">
                           	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -202,6 +204,7 @@ Nuevo Exámen
    var url3 = '{!!URL::route('medicos')!!}';   
    var url4 = '{!!URL::route('autocompletgrupo')!!}';
    var url5 = '{!!URL::route('examenesEdit')!!}';
+   var url6 = '{!!URL::route('entidades')!!}';
    var token = "{{ csrf_token() }}";
    var myArray = [];
 

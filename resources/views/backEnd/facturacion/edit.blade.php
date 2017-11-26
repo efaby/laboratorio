@@ -4,7 +4,6 @@ Facturación
 @stop
 
 @section('content')
-
 <div class="container">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -145,7 +144,7 @@ Facturación
 	                    	</tr>
 	                    	<tr>
 	                    		<td style="text-align: right;padding-bottom:12px">
-	                    			<label for="total" class="control-label">TOTAL $</label>
+	                    			<label for="total" class="control-label">TOTAL</label>
 	                    		</td>			
 	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
 	                    			<label for="total" class="control-label">
@@ -176,10 +175,9 @@ Facturación
 	</div> 
 @endsection
 @section('scripts')
-<script type="text/javascript">
+<script type="text/javascript">	
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/orden.css')}}" rel="stylesheet">
 <script src="{{ asset('/js/jquery-ui.js') }}"></script>
-<script src="{{ asset('/js/orden.js') }}"></script>
 @endsection

@@ -13,14 +13,14 @@ class Cliente extends Model
      *
      * @var string
      */
-    protected $table = 'clientes';
+    protected $table = 'pacientes';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['cedula', 'nombres', 'apellidos', 'direccion', 'telefono', 'estado'];
+    protected $fillable = ['id','tipopacientes_id','cedula', 'nombres', 'apellidos', 'direccion', 'telefono', 'estado'];
 
     public function ordenes()
     {

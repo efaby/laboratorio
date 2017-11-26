@@ -58,9 +58,6 @@ $(document).ready(function() {
         });               	
     
     
-    
-	
-	
    /* 
     jQuery( "#fecha_entrega" ).datepicker({  
 		dateFormat: "yy-mm-dd",
@@ -100,8 +97,9 @@ $(document).ready(function() {
     
     $('#tipopaciente_id').on( 'change', function () {   
     	asignarDetallePrecios();
-    	suma();               	
-    });
+    	suma();
+    	cargarEntidad($('#tipopaciente_id').val());
+    });    
     
     $('#nuevaOrden').click(function() {
         $('#tbodyExamenes').empty();
@@ -454,4 +452,18 @@ function agregar(items, muestras) {
         }
     });
     $(':checkbox').prop('checked', false);
+}
+
+function cargarEntidad(id){
+	jQuery.ajax({
+	   type: "GET",
+	   url: url6,
+	   data: {
+	      	"id": id		        	
+	   },
+	   success:function(response) {
+	     $('#entidad').html(response);
+	     $("#entidad").prop('disabled', false);			        		        				    			           	
+	   }
+	});	
 }

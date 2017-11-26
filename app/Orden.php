@@ -19,11 +19,16 @@ class Orden extends Model
      *
      * @var array
      */
-    protected $fillable = ['pacientes_id','user_id','nombre','fecha_emision','fecha_entrega','abono','tipo_pago','total','iva','iva','estado','subtotal', 'descuento', 'cliente_id', 'nombre_medico', 'usuario_atiende', 'atendido','plantilla','is_relacional','entidad'];
+    protected $fillable = ['pacientes_id','user_id','nombre','fecha_emision','fecha_entrega','abono','tipo_pago','total','iva','iva','estado','subtotal', 'descuento', 'cliente_id', 'nombre_medico', 'usuario_atiende', 'atendido','plantilla','is_relacional','entidad','factura_id'];
 
     public function paciente()
     {
         return $this->belongsTo('App\Paciente','pacientes_id','id');
+    }
+    
+    public function factura()
+    {
+    	return $this->belongsTo('App\Factura','factura_id','id');
     }
 
     public function cliente()

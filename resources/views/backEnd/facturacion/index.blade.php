@@ -31,12 +31,12 @@ Facturación Individual
                     <td>${{ $item->total }}</a></td>
                     <td>{{ $item->fecha_emision }}</a></td>
                     <td style="width: 20%; text-align: center;">
-                        @if ($item->facturado==0) 
+                        @if ($item->factura_id==0) 
                             <a href="{{ url('facturacion/editIndividual/' . $item->id ) }}" class="btn btn-warning btn-xs" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
                         @else
                             <a href="#" class="btn btn-warning btn-xs disabled" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a>                            
                         @endif                        
-                        <a href="{{ url('facturacion/editIndividual/' . $item->id ) }}" class="btn btn-success btn-xs" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
+                        <a href="{{ url('facturacion/verIndividual/' . $item->id ) }}" class="btn btn-success btn-xs" title="ver"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
                     </td>
                 </tr>
             @endforeach

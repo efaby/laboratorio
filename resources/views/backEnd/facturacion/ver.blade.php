@@ -21,11 +21,8 @@ Facturación
                 		<label for="cedula" class="col-md-1 control-label">Cédula/RUC</label>
                 	</div>	
                     <div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="cedula" name="cedula" value="{{ $paciente->cedula }}">                    	 
-                  	</div>
-                	<div class="col-md-3" style="text-align: left">
-                      <a href="{{ url('cliente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Cliente</a>
-                  	</div>                  
+                    	<input type="text" class="form-control input-sm" id="cedula" name="cedula" value="{{ $paciente->cedula }}" disabled>                    	 
+                  	</div>                	                  
                </div>
                <div class="form-group row">
               		<div class="col-md-1">
@@ -156,10 +153,7 @@ Facturación
 	                    		<td colspan="2" style="text-align: right;padding-right:1px;">
 	                    			<br>
 	                    			<a href="{{ url('facturacion/individual') }}" class="btn btn-default btn-sm" style="float: right;">Cancelar</a> &nbsp;&nbsp;
-	                    			<a href="{{ url('facturacion/imprimirIndividual/' . $item->id) }}" target="popup" style="margin-right:7px" onClick="window.open(this.href, this.target, 'width=750,height=450'); return false;" class="btn btn-info btn-sm" title="Imprimir">
-                          				Imprimir
-                        			</a>        
-                        			<input type="hidden" id="orden_id" name="orden_id" value="{{$item->id}} ">          			       		                  			
+	                    			<input type="hidden" id="orden_id" name="orden_id" value="{{$item->id}} ">          			       		                  			
 	                    		</td>
 	                    	</tr>
 	                    </table>			        

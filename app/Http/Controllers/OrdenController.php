@@ -544,8 +544,7 @@ class OrdenController extends Controller
     		if($id ==3){
     			$etiqueta = "Clinica";
     		}
-    		$data = Paciente::where('tipopacientes_id','=',$id)
-    		->get();
+    		$data = Paciente::where('tipopacientes_id','=',$id)->get();
     		$result = "<div class='col-md-1'>
     					<label for='entidad_l' class='col-md-1 control-label'>".$etiqueta."</label></div>
     			   <div class='col-md-3'><select name='entidad' id='entidad' class='form-control input-sm'".$required.">";

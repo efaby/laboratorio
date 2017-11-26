@@ -32,7 +32,9 @@ Route::get("orden/generarCodigo/{id}",array('as'=>'generarCodigo','uses'=> 'Orde
 Route::get("orden/updatePage",array('as'=>'updatePage','uses'=> 'OrdenController@updatePage'));
 Route::get("facturacion/individual",array('as'=>'individual','uses'=> 'FacturacionController@individual'));
 Route::get("facturacion/editIndividual/{id}",array('as'=>'editIndividual','uses'=> 'FacturacionController@editIndividual'));
+Route::get("facturacion/verIndividual/{id}",array('as'=>'verIndividual','uses'=> 'FacturacionController@verIndividual'));
 Route::get("facturacion/imprimirIndividual/{id}",array('as'=>'imprimirIndividual','uses'=> 'FacturacionController@imprimirIndividual'));
+Route::get("facturacion/obtenerCliente",array('as'=>'obtenerCliente','uses'=> 'FacturacionController@obtenerCliente'));
 
 
 Route::group(['middleware' => ['web']], function () {

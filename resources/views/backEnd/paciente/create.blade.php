@@ -9,15 +9,9 @@ Nuevo Paciente
     <hr/>
 
     {!! Form::open(['url' => 'paciente', 'class' => 'form-horizontal','id'=>'frmPaciente']) !!}
-
-            <div class="form-group {{ $errors->has('tipopacientes_id') ? 'has-error' : ''}}">
-                {!! Form::label('tipopacientes_id', 'Tipo Paciente: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {{ Form::select('tipopacientes_id', $items, null, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
-                    {!! $errors->first('tipopacientes_id', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
             <div class="form-group {{ $errors->has('cedula') ? 'has-error' : ''}}">
+            	{!! Form::hidden('tipopacientes_id', 1, ['class' => 'form-control']) !!}
+            	
                 {!! Form::label('cedula', 'Cédula: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('cedula', null, ['class' => 'form-control']) !!}

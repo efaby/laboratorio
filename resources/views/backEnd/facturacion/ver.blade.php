@@ -153,6 +153,9 @@ Facturación
 	                    		<td colspan="2" style="text-align: right;padding-right:1px;">
 	                    			<br>
 	                    			<a href="{{ url('facturacion/individual') }}" class="btn btn-default btn-sm" style="float: right;">Cancelar</a> &nbsp;&nbsp;
+	                    			<a href="{{ url('facturacion/imprimirIndividual/' . $item->id.'-'.$paciente->id) }}" target="popup" style="margin-right:7px" onClick="window.open(this.href, this.target, 'width=750,height=450'); return false;" class="btn btn-info btn-sm" title="Imprimir">
+                          				Reimprimir
+                        			</a>
 	                    			<input type="hidden" id="orden_id" name="orden_id" value="{{$item->id}} ">          			       		                  			
 	                    		</td>
 	                    	</tr>

@@ -14,14 +14,7 @@ Editar Paciente
         'class' => 'form-horizontal',
         'id'=>'frmPaciente'
     ]) !!}
-
-            <div class="form-group {{ $errors->has('tipopacientes_id') ? 'has-error' : ''}}">
-                {!! Form::label('tipopacientes_id', 'Tipo Paciente: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {{ Form::select('tipopacientes_id', $items, null, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
-                    {!! $errors->first('tipopacientes_id', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>            
+            {!! Form::hidden('tipopacientes_id', 1, ['class' => 'form-control']) !!}
             <div class="form-group {{ $errors->has('cedula') ? 'has-error' : ''}}">
                 {!! Form::label('cedula', 'Cédula: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
@@ -106,14 +99,6 @@ Editar Paciente
        $('#frmPaciente').formValidation({
         message: 'This value is not valid',
             fields: {
-            	   tipopacientes_id: {
-                       message: 'El Tipo de Paciente no es válido',
-                       validators: {
-                           notEmpty: {
-                               message: 'El Tipo de Paciente no puede ser vacío.'
-                           }
-                       }
-                   },  
                    cedula: {
 	       				message: 'El Número de Cédula no es válido',
 	       				validators: {			

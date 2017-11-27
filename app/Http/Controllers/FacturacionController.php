@@ -27,7 +27,7 @@ class FacturacionController extends Controller
 					->where('tipopaciente_id',1)
 					->where('atendido', 1)
 					->where('validado', 1)
-					->get();		
+					->get();
 		return view('backEnd.facturacion.index', compact('ordenes'));		
 	}	
 	
@@ -46,13 +46,18 @@ class FacturacionController extends Controller
 		return view('backEnd.facturacion.edit', compact('orden','paciente','detalleorden'));		
 	}
 	
-	public function imprimirIndividual($id)
+	public function imprimirIndividual($val)
 	{
+		$array = explode('-', $val);
+		$id = $array[0];
 		$orden = Orden::findOrFail($id);
-		$paciente = $orden->paciente;
+		$paciente = Paciente::findOrFail($array[1]);
 		$hoy = new \DateTime();
 		
-		DB::table('factura')->insert(['fecha_factura'  => $hoy]);
+		DB::table('factura')->insert([
+				'fecha_factura'  => $hoy,
+				'cliente_id'  => $array[1]
+		]);
 		$factura = DB::table('factura')->max('id');
 		
 		DB::table('orden')
@@ -73,18 +78,13 @@ class FacturacionController extends Controller
 	
 	public function obtenerCliente(Request $request){
 		$id=$request->id;
-		$orden = (int)$request->orden_id;
 		$data = Paciente::where('cedula',$id)->get();
 		$result=array();
 		foreach ($data as $query)
 		{
 			$result[] = [ 'id'=>$query->id, 'cedula' => $query->cedula,'nombres' => $query->nombres,'apellidos'=>$query->apellidos,'direccion'=>$query->direccion,'telefono'=>$query->telefono];
 		}
-		if (count($result > 0)){
-			DB::table('orden')
-			->where('id', $orden)
-			->update(['pacientes_id' => $result[0]['id']]);
-		}else{			
+		if (count($result == 0)){
 			$result[] = [ 'id'=>'', 'cedula' => $id,'nombres' => '','apellidos'=>'','direccion'=>'','telefono'=>''];
 		}
 		return $result[0];

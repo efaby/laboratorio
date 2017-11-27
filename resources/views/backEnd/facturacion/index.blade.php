@@ -36,7 +36,10 @@ Facturación Individual
                         @else
                             <a href="#" class="btn btn-warning btn-xs disabled" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a>                            
                         @endif                        
+                         @if ($item->factura_id>0) 
                         <a href="{{ url('facturacion/verIndividual/' . $item->id ) }}" class="btn btn-success btn-xs" title="ver"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
+                        @endif
+                         
                     </td>
                 </tr>
             @endforeach

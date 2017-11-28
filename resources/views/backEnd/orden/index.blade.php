@@ -48,8 +48,12 @@ Orden
                         <a href="{{ url('orden/generarCodigo/' . $item->id) }}" data-toggle="modal" class="btn btn-info btn-xs" title="Generar Código" data-target="#myModal">
                           	<span class="glyphicon glyphicon-qrcode" aria-hidden="true" ></span>
                         </a>
+                        @if ($item->validado===0) 
+                            <a href="{{ url('orden/orden/' . $item->id ) }}" class="btn btn-success btn-xs" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
+                        @else
+                            <a href="#" class="btn btn-success btn-xs disabled" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a>
 
-                        <a href="{{ url('orden/orden/' . $item->id ) }}" class="btn btn-success btn-xs" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
+                        @endif   
 
                         @if ($item->atendido===0) 
                          

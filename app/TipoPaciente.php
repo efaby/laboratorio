@@ -30,4 +30,8 @@ class TipoPaciente extends Model
         return $this->hasMany('App\Paciente' , 'id', 'tipopacientes_id');
     }
 
+    public function clientes()
+    {
+    	return $this->hasMany('App\Cliente' , 'id', 'tipopacientes_id');
+    }
 }

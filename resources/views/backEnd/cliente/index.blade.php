@@ -22,7 +22,7 @@ Cliente
         <table class="table table-bordered table-striped table-hover" id="tblcliente">
             <thead>
                 <tr>
-                    <th>ID</th><th>C&eacute;dula</th><th>Nombres</th><th>Apellidos</th><th style="width: 10%; text-align: center;">Acciones</th>
+                    <th>ID</th><th>C&eacute;dula</th><th>Nombres</th><th>Apellidos</th><th>Tipo</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +30,7 @@ Cliente
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->cedula }}</td><td>{{ $item->nombres }}</td><td>{{ $item->apellidos }}</td>
+                    <td>{{ $item->tipopaciente->nombre }}</td>
                     <td style="width: 10%; text-align: center;">
                         <a href="{{ url('cliente/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([

@@ -16,6 +16,12 @@ class Cliente extends Model
      * @var array
      */
     protected $fillable = ['id','tipopacientes_id','cedula', 'nombres', 'apellidos', 'direccion', 'telefono', 'estado'];
+    
+    public function tipopaciente()
+    {
+    	return $this->belongsTo('App\TipoPaciente','tipopacientes_id','id');
+    }
+    
     public function ordenes()
     {
         return $this->hasMany('App\Orden' , 'id', 'cliente_id');

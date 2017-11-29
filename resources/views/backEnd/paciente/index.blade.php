@@ -23,7 +23,7 @@ Paciente
         <table class="table table-bordered table-striped table-hover" id="tblpaciente">
             <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Nombres</th><th>Apellidos</th><th>Tipo</th><th>Edad</th><th>Teléfono</th><th style="width: 10%; text-align: center;">Acciones</th>
+                    <th></th><th>Id</th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Edad</th><th>Teléfono</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,9 +31,9 @@ Paciente
                 <tr>
                  	<td></td>	
                     <td>{{ $item->id }}</td>
+                    <td>{{ $item->cedula }}</td>
                     <td>{{ $item->nombres }}</td>
-                    <td>{{ $item->apellidos }}</td>
-                    <td>{{ $item->tipopaciente->nombre }}</td>
+                    <td>{{ $item->apellidos }}</td>                   
                     <td>{{ $item->edad }}</td>
                     <td>{{ $item->telefono }}</td>
                     <td style="width: 10%; text-align: center;">

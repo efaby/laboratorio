@@ -21,8 +21,7 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        $paciente = Paciente::all();
-
+        $paciente = Paciente::where('tipopacientes_id', '1')->get(); 
         return view('backEnd.paciente.index', compact('paciente'));
     }
 

@@ -69,6 +69,7 @@
                             <li><a href="{{ url('facturacion/fac_global') }}">Facturación Global</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{ url('verExamen') }}">Ver  Orden</a></li>
 
 				<!--
 					@if (Auth::guest())

@@ -16,7 +16,10 @@
 		thead{
 		   width:100%;position:fixed;
 		   height:109px;
-		}		
+		}	
+		#encabezado {
+			padding-top:150px;	
+		}	
 		#apartado1{
 		   width:600px;
 		   height:40px;
@@ -24,7 +27,7 @@
 		   border-color:black;
 		   border-radius: 5px 5px 7px 7px;
 		   margin: auto;
-		   margin-top:150px;		   
+		   	   
 		}
 		#apartado1 table{
 			line-height: 0.5em;
@@ -47,15 +50,22 @@
 			padding-left:20px;
 			padding-right:20px;
 		}
-		@page {
+		.bg{
+            background-image:url("{{asset('images/fondo.png')}}");
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        @page {
 			size: 21cm 29.7cm;
 			margin: 0;
 		}
 	</style>
   </head>
-  <body>
+  <body class="bg">
   	 <?php $i = 1; ?>	
    	  @foreach ($plantilla as $item)
+   	  <div id="encabezado">
   	  <div id="apartado1">
 	  	  <table align="center">
 	  	  	<tr>
@@ -75,7 +85,8 @@
 	  	  		<td><b>Fecha de Entrega: </b>{{ date("d-m-Y", strtotime($orden->fecha_entrega)) }}</td>	  	  		
 	  	  	</tr>	  	  	
 	  	  </table>
-  	  </div>     
+  	  </div> 
+  	  </div>    
   	  <br>
   	  <div id="apartado2">
 	  	  <table align="center">

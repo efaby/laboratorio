@@ -37,6 +37,11 @@ Route::get("facturacion/imprimirIndividual/{id}",array('as'=>'imprimirIndividual
 Route::get("facturacion/obtenerCliente",array('as'=>'obtenerCliente','uses'=> 'FacturacionController@obtenerCliente'));
 
 
+Route::post("verExamen",array('as'=>'verExamenForm','uses'=> 'PublicoController@buscarExamen'));
+Route::get("verExamen",array('as'=>'verExamen','uses'=> 'PublicoController@index'));
+Route::get("examenPdf/{id}",array('as'=>'examenPdf','uses'=> 'PublicoController@ordenPdf'));
+
+
 Route::group(['middleware' => ['web']], function () {
 	Route::resource('tipousuario', 'TipoUsuarioController');
 });

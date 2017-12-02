@@ -38,6 +38,7 @@ Route::get("facturacion/obtenerCliente",array('as'=>'obtenerCliente','uses'=> 'F
 
 
 Route::post("verExamen",array('as'=>'verExamenForm','uses'=> 'PublicoController@buscarExamen'));
+Route::post("validarCedula",array('as'=>'validarCedula','uses'=> 'PacienteController@validarCedula'));
 Route::get("verExamen",array('as'=>'verExamen','uses'=> 'PublicoController@index'));
 Route::get("examenPdf/{id}",array('as'=>'examenPdf','uses'=> 'PublicoController@ordenPdf'));
 

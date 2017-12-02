@@ -153,4 +153,23 @@ class PacienteController extends Controller
         return redirect('paciente');
     }
 
+    public function validarCedula(Request $request) {
+        $cedula = $request->input('cedula');
+        $id = $request->input('id');
+
+        $paciente = Paciente::whereNull('deleted_at')
+            ->where('id', '<>', $id)
+            ->where('cedula', $cedula)
+            ->get();
+
+        if(count($paciente)){
+            $isAvailable = false;
+        }
+        else{
+            $isAvailable = true;
+        }
+        
+        echo json_encode(array('valid' => $isAvailable,));
+    }
+
 }

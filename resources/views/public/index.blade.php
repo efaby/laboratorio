@@ -5,7 +5,7 @@ Ver Resultados
 
 @section('content')
 
-    <h1>Ver REsultados</h1>
+    <h1>Ver Resultados</h1>
     <hr/>
 
     @if (Session::has('message'))

@@ -16,7 +16,7 @@
                     <?php $tipo = $item->tipoexamens_id; ?> 
                     <div class="form-group">
                     {!! Form::text('txtmuestra_'.$item->tipoexaman->id, (isset($muestras[$item->tipoexaman->id]))? $muestras[$item->tipoexaman->id]->nombre : null, ['class' => 'form-control','id'=>'muestra', 'data-id' => $item->tipoexaman->id]) !!}
-                    {!! Form::hidden('muestra_'.$item->tipoexaman->id, (isset($muestras[$item->tipoexaman->id]))? $muestras[$item->tipoexaman->id]->id : null, ['class' => 'form-control','id'=>'muestra_'.$item->tipoexaman->id]) !!}
+                    {!! Form::hidden('muestra_'.$item->tipoexaman->id, (isset($muestras[$item->tipoexaman->id]))? $muestras[$item->tipoexaman->id]->id : 0, ['class' => 'form-control','id'=>'muestra_'.$item->tipoexaman->id]) !!}
                     </div>              
                 @endif              
                 <p>                
@@ -35,7 +35,7 @@
        </form> 	
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary" id="btnAgregar" >Agregar</button>
+    <button type="submit" class="btn btn-primary disabled" id="btnAgregar" >Agregar</button>
     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>      
 </div>
 </div>
@@ -46,19 +46,30 @@
         @foreach($tipos as $item) 
             idsTE.push(parseInt({{$item->id}}));
         @endforeach
-         $("#btnAgregar").click(function() {
-            var checked = [];
-            var muestras = [];
-            idsTE.forEach(function (item){
-                $("input[name='examen_" + item + "[]']:checked").each(function (){                    
-                    checked.push(parseInt(this.value));
-                    muestras.push(parseInt($('#muestra_' + item).val()));
-                });
 
-            });            
-            $('#myModal').modal('hide');
-            agregar(checked,muestras);
-            $('#frmOrden').trigger("reset");
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              return false;
+            }
+        });
+
+
+         $("#btnAgregar").click(function() {
+            if (!$(this).hasClass('disabled')) {
+                var checked = [];
+                var muestras = [];
+                idsTE.forEach(function (item){
+                    $("input[name='examen_" + item + "[]']:checked").each(function (){                    
+                        checked.push(parseInt(this.value));
+                        muestras.push(parseInt($('#muestra_' + item).val()));
+                    });
+
+                });            
+                $('#myModal').modal('hide');
+                agregar(checked,muestras);
+                $('#frmOrden').trigger("reset");
+            }
         });
 
         /*  $("input:checkbox").each(function () {
@@ -79,17 +90,27 @@
                             message: 'Ingrese la muestra',
                             callback: function(value, validator, $field) {
                                 var options = $('#frmOrden').find('[name="examen_{{$item->id}}[]"]:checked').val();
-                                if (typeof options === 'undefined') {                                    
+                                if (typeof options === 'undefined') {  
+                                    $("#btnAgregar").removeClass( "disabled");                                  
                                     return true;
                                 } else {
                                     if (value !== '') {
                                         var muestra = $('#frmOrden').find('[name="muestra_{{$item->id}}"]').val();
-                                        if (muestra !== '0') {                                             
-                                            return true
-                                        } else {                                            
+                                        if (muestra !== '0') { 
+                                            $("#btnAgregar").removeClass( "disabled");                                             
+                                            return true;
+                                        } else {   
+                                            $("#btnAgregar").addClass("disabled");                                          
                                             return false;
                                         }
-                                    } else {                                         
+                                    } else {  
+                                        var v = $( "#muestra_{{$item->id}}").val();
+                                        console.log("value",v);
+                                        if( v > 0  ) {
+                                            $("#btnAgregar").removeClass( "disabled" ); 
+                                            return true;
+                                        }   
+                                        $("#btnAgregar").addClass("disabled");                                   
                                         return false;
                                     }
                                 } 
@@ -104,6 +125,7 @@
         .on('change', '[name="examen_{{$item->id}}[]"]', function(e) {
             $('#frmOrden').formValidation('revalidateField', 'txtmuestra_{{$item->id}}');
         })
+
         .on('success.field.fv', function(e, data) {
             if (data.field === 'txtmuestra_{{$item->id}}') {
                 var options = $('#frmOrden').find('[name="examen_{{$item->id}}[]"]:checked').val();
@@ -114,7 +136,7 @@
                 }
             }
         })
-        @endforeach      
+        @endforeach     
         ;
     });
 </script>

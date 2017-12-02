@@ -24,7 +24,7 @@ Nuevo Cliente
                 </div>
             </div>
             <div class="form-group {{ $errors->has('nombres') ? 'has-error' : ''}}">
-                {!! Form::label('nombres', 'Nombres: ', ['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('nombres', 'Nombres/Razon Social: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('nombres', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('nombres', '<p class="help-block">:message</p>') !!}
@@ -33,7 +33,7 @@ Nuevo Cliente
             <div class="form-group {{ $errors->has('apellidos') ? 'has-error' : ''}}">
                 {!! Form::label('apellidos', 'Apellidos: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('apellidos', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('apellidos', '', ['class' => 'form-control']) !!}
                     {!! $errors->first('apellidos', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -56,6 +56,7 @@ Nuevo Cliente
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
         {!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
+        {!! Form::hidden('id', 0, ['class' => 'form-control']) !!}
             {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
             <a href="{{ url('cliente') }}" class="btn btn-info btn-sm">Cancelar</a>
         </div>
@@ -84,14 +85,67 @@ Nuevo Cliente
                         regexp: {
                             regexp: /^(?:\+)?\d{10,13}$/,
                             message: 'Ingrese un Número de Identificación válido.'
-                        }                               
+                        },
+                        remote: {
+                            message: 'El Número de Identificación ya existe.',
+                            url: '{{ url('validarCedula') }}',
+                            data: function(validator, $field, value) {
+                                return {
+                                    id: validator.getFieldElements('id').val(),
+                                    _token: "{{ csrf_token() }}"
+                                };
+                            },                            
+                            type: 'POST'
+                        },                  
+                      /*  callback: {
+                                  message: 'El Número de Identificación no es válido.',
+                                  callback: function (value, validator, $field) {
+                                    var cedula = value;
+                                    try {
+                                        array = cedula.split("");
+                                    }
+                                    catch (e) {
+                                        //array = null;
+                                    }
+                                    num = array.length;
+                                    if (num === 10) {
+                                        total = 0;
+                                        digito = (array[9] * 1);
+                                        for (i = 0; i < (num - 1); i++) {
+                                            mult = 0;
+                                            if ((i % 2) !== 0) {
+                                                total = total + (array[i] * 1);
+                                            } else {
+                                                mult = array[i] * 2;
+                                                if (mult > 9)
+                                                    total = total + (mult - 9);
+                                                else
+                                                    total = total + mult;
+                                            }
+                                        }
+                                        decena = total / 10;
+                                        decena = Math.floor(decena);
+                                        decena = (decena + 1) * 10;
+                                        final = (decena - total);
+                                        if ((final === 10 && digito === 0) || (final === digito)) {
+                                
+                                            return true;
+                                        } else {
+                                
+                                            return false;
+                                        }
+                                    } else {
+                                
+                                        return false;
+                                    }
+                                }  */                            
                     }
                 },                      
                 nombres: {
                     message: 'Los Nombres no son válidos',
                     validators: {
                         notEmpty: {
-                           message: 'Los Nombres no pueden ser vacíos.'
+                           message: 'Los Nombres/Razon Social no pueden ser vacío.'
                         },
                         regexp: {
                            regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
@@ -102,13 +156,19 @@ Nuevo Cliente
                apellidos: {
                    message: 'Los Apellidos no son válidos',
                    validators: {
-                       notEmpty: {
-                           message: 'Los Apellidos no puedem ser vacíos.'
-                       },
                        regexp: {
-                           regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
+                           regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\-]+$/,
                            message: 'Ingrese los Apellidos válidos.'
-                       }
+                       },
+                       callback: {
+                            message: 'El apellido no puede ser vacio',
+                            callback: function(value, validator, $field) {
+                                var tipo = $('#frmCliente').find('[name="tipopacientes_id"]').val();
+                                console.log("tipo", tipo);
+                                return (parseInt(tipo) !== 1) ? true : (value !== '');
+                              
+                            }
+                      }
                    }
                },
                    direccion: {
@@ -133,7 +193,26 @@ Nuevo Cliente
                        }
                    },           
                }
-           });
+           })
+       .on('change', '[name="tipopacientes_id"]', function(e) {
+            $('#frmCliente').formValidation('revalidateField', 'apellidos');
+        })
+        .on('success.field.fv', function(e, data) {
+            if (data.field === 'frmCliente') {
+                var type = $('#frmCliente').find('[name="tipopacientes_id"]').val();
+                // User choose given channel
+                if (parseInt(type) !== 1) {
+                    // Remove the success class from the container
+                    data.element.closest('.form-group').removeClass('has-success');
+
+                    // Hide the tick icon
+                    data.element.data('fv.icon').hide();
+                } else {
+                  $('#frmCliente').formValidation('revalidateField', 'apellidos');
+                }
+            }
+        })
+       ;
        });
 
 

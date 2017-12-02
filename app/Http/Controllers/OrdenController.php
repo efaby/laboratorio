@@ -423,10 +423,10 @@ class OrdenController extends Controller
             foreach ($detalleorden as $item) {
                
                 if($muestra != $item->type) {
-                    $plantilla .= "</br>MUESTRA:&nbsp;  ". $item->muestra;
+                    $plantilla .= "</br></br>MUESTRA:&nbsp;  ". $item->muestra;
                     $muestra = $item->type;
                 }
-                $plantilla .= "</br>".$item->nombre . "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" . $item->plantilla;
+                $plantilla .= "</br>".$item->nombre . "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" . preg_replace('/<\\/?p(.|\\s)*?>/', "",$item->plantilla);
             }
         }
         return array('orden' => $orden, 'paciente' => $paciente, 'plantilla' => $plantilla );

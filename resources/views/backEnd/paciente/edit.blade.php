@@ -82,6 +82,7 @@ Editar Paciente
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
         	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
+          {!! Form::hidden('id', null, ['class' => 'form-control']) !!}
             {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
             <a href="{{ url('paciente') }}" class="btn btn-info btn-sm">Cancelar</a>
         </div>
@@ -105,7 +106,60 @@ Editar Paciente
 	       							regexp: {
 	       								regexp: /^(?:\+)?\d{10,13}$/,
 	       								message: 'Ingrese un Número de Identificación válido.'
-	       							}
+	       							},
+                      remote: {
+                            message: 'El Número de Identificación ya existe.',
+                            url: '{{ url('validarCedula') }}',
+                            data: function(validator, $field, value) {
+                                return {
+                                    id: validator.getFieldElements('id').val(),
+                                    _token: "{{ csrf_token() }}"
+                                };
+                            },                            
+                            type: 'POST'
+                        },                  
+                      /*  callback: {
+                                  message: 'El Número de Identificación no es válido.',
+                                  callback: function (value, validator, $field) {
+                                    var cedula = value;
+                                    try {
+                                        array = cedula.split("");
+                                    }
+                                    catch (e) {
+                                        //array = null;
+                                    }
+                                    num = array.length;
+                                    if (num === 10) {
+                                        total = 0;
+                                        digito = (array[9] * 1);
+                                        for (i = 0; i < (num - 1); i++) {
+                                            mult = 0;
+                                            if ((i % 2) !== 0) {
+                                                total = total + (array[i] * 1);
+                                            } else {
+                                                mult = array[i] * 2;
+                                                if (mult > 9)
+                                                    total = total + (mult - 9);
+                                                else
+                                                    total = total + mult;
+                                            }
+                                        }
+                                        decena = total / 10;
+                                        decena = Math.floor(decena);
+                                        decena = (decena + 1) * 10;
+                                        final = (decena - total);
+                                        if ((final === 10 && digito === 0) || (final === digito)) {
+                                
+                                            return true;
+                                        } else {
+                                
+                                            return false;
+                                        }
+                                    } else {
+                                
+                                        return false;
+                                    }
+                                }  */
 	       				}
 	       			},       				
             	   nombres: {

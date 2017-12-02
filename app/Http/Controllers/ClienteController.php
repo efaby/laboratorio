@@ -54,7 +54,7 @@ class ClienteController extends Controller
 
                 'cedula' => 'required|regex:/^(?:\+)?\d{10,13}$/', 
                 'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
-                'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
+                'apellidos' => 'nullable|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
                 'direccion'=>'required|regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
                 'telefono'=>'nullable|regex: /^(?:\+)?\d{9}$/'
         ]);
@@ -110,7 +110,7 @@ class ClienteController extends Controller
 
                 'cedula' => 'required|regex:/^(?:\+)?\d{10,13}$/', 
                 'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
-                'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
+                'apellidos' => 'nullable|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
                 'direccion'=>'required|regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/',
                 'telefono'=>'nullable|regex: /^(?:\+)?\d{9}$/'
         ]);

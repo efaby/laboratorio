@@ -65,7 +65,7 @@
                     		Facturación<b class = "caret"></b>
                     	</a>
                     	 <ul class = "dropdown-menu">
-                            <li><a href="{{ url('facturacion/individual') }}">Facturación Mensual</a></li>
+                            <li><a href="{{ url('facturacion/individual') }}">Facturación Individual</a></li>
                             <li><a href="{{ url('facturacion/fac_global') }}">Facturación Global</a></li>
                         </ul>
                     </li>

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Orden;
 use App\Paciente;
 use App\Factura;
-
+use App\TipoPaciente;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -103,4 +103,102 @@ class FacturacionController extends Controller
 		->get();
 		return view('backEnd.facturacion.ver', compact('orden','paciente','detalleorden'));
 	}
+
+	/* facturacion global */
+
+	public function global()
+	{
+		$cliente_id = 0;
+		$fecha_inicio = "";
+		$fecha_fin = "";
+		$items = $this->getClients();
+		$total = 0;
+		$cliente = null;
+		return view('backEnd.facturacion.global', compact('items', 'cliente_id', 'fecha_inicio', 'fecha_fin', 'total','cliente'));		
+	}
+
+	private function getClients() {
+		$items = array();
+		$tipos= TipoPaciente::where('id','>',1)->get();
+
+		foreach ($tipos as $item) {
+			$clientes = Paciente::where('tipopacientes_id',$item->id)->get();
+			$subItems = array();
+			foreach ($clientes as $cliente) {
+				$subItems[$cliente->id] = $cliente->nombres;
+			}
+			$items[$item->nombre] = $subItems;
+			
+		}
+		return $items;	
+	}	
+
+	public function facturarGlobal(Request $request) {
+		$cliente_id = $request->cliente_id;
+		$fecha_inicio = $request->fecha_inicio;
+		$fecha_fin = $request->fecha_fin;
+		$items = $this->getClients();
+		$total = 0;
+		$ordenes = Orden::orderBy('id', 'desc')
+					->where('entidad',$cliente_id)
+					->where('fecha_emision', '<=', $fecha_fin)
+					->where('fecha_emision', '>=', $fecha_inicio)
+					->where('factura_id', 0)
+					->get();
+		$cliente = Paciente::findOrFail($cliente_id);
+
+		foreach ($ordenes as $item) {
+			$total = $total + $item->total;
+		}
+		if($total === 0) {
+			Session::flash('message', 'No existe ningun resultado asociado al Cliente!');
+            Session::flash('status', 'warning');
+		}
+		return view('backEnd.facturacion.global', compact('items', 'cliente_id', 'fecha_inicio', 'fecha_fin', 'total','cliente'));	
+	}
+
+	public function guardarFacturaGlobal(Request $request) {
+
+        $cliente_id = $request->cliente_id;
+		$fecha_inicio = $request->fecha_inicio;
+		$fecha_fin = $request->fecha_fin;
+		$total = $request->total;
+
+		$hoy = new \DateTime();
+		
+		DB::table('factura')->insert([
+				'fecha_factura'  => $hoy,
+				'cliente_id'  => $cliente_id,
+				'fecha_inicio' => $fecha_inicio,
+				'fecha_fin' => $fecha_fin,
+				'tipo' => 2,
+				'precio' => $total
+		]);
+		$factura = DB::table('factura')->max('id');
+
+		DB::table('orden')
+				->where('entidad',$cliente_id)
+				->where('fecha_emision', '<=', $fecha_fin)
+				->where('fecha_emision', '>=', $fecha_inicio)
+				->where('factura_id', 0)
+		->update(['factura_id' => $factura]);
+
+
+		return response()->json($factura); 
+
+    }
+
+    public function imprimirGlobal($id) {
+    	$factura = Factura::findOrFail($id);
+    	$cliente = Paciente::findOrFail($factura->cliente_id);
+    	return view('backEnd.facturacion.printGlobal', compact('factura','cliente'));
+    }
+
+    public function anexoGlobal($id) {
+    	$factura = Factura::findOrFail($id);
+    	$ordenes = Orden::where('factura_id',$id)->get();    
+    	$cliente = Paciente::findOrFail($factura->cliente_id);
+    	return view('backEnd.facturacion.printAnexo', compact('factura', 'ordenes','cliente'));
+    }
+
 }

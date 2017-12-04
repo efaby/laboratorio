@@ -33,12 +33,12 @@ Orden
                  	<th></th>
                 	<td>{{ $item->id }}</td>
                     <td>{{ $item->paciente->nombres }} {{ $item->paciente->apellidos }}</td>
-                    <td>{{ $item->fecha_emision }}</a></td>
-                    <td>${{ $item->subtotal }}</a></td>
-                    <td>${{ $item->descuento }}</a></td>
-                    <td>${{ $item->total }}</a></td>
-                    <td>${{ $item->abono }}</a></td>
-                    <td>{{ $item->fecha_entrega }}</a></td>
+                    <td>{{ $item->fecha_emision }}</td>
+                    <td>${{ $item->subtotal }}</td>
+                    <td>${{ $item->descuento }}</td>
+                    <td>${{ $item->total }}</td>
+                    <td>${{ $item->abono }}</td>
+                    <td>{{ $item->fecha_entrega }}</td>
                     <td style="width: 20%; text-align: center;">
                         @if ($item->atendido==0) 
                             <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 

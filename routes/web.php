@@ -42,6 +42,12 @@ Route::post("validarCedula",array('as'=>'validarCedula','uses'=> 'PacienteContro
 Route::get("verExamen",array('as'=>'verExamen','uses'=> 'PublicoController@index'));
 Route::get("examenPdf/{id}",array('as'=>'examenPdf','uses'=> 'PublicoController@ordenPdf'));
 
+Route::get("facturacion/global",array('as'=>'global','uses'=> 'FacturacionController@global'));
+Route::post("facturacion/global",array('as'=>'globalForm','uses'=> 'FacturacionController@facturarGlobal'));
+Route::post("facturacion/guardarGlobal",array('as'=>'guardarFacturaGlobal','uses'=> 'FacturacionController@guardarFacturaGlobal'));
+Route::get("facturacion/imprimirGlobal/{id}",array('as'=>'imprimirGlobal','uses'=> 'FacturacionController@imprimirGlobal'));
+Route::get("facturacion/anexoGlobal/{id}",array('as'=>'anexoGlobal','uses'=> 'FacturacionController@anexoGlobal'));
+
 
 Route::group(['middleware' => ['web']], function () {
 	Route::resource('tipousuario', 'TipoUsuarioController');

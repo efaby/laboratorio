@@ -66,8 +66,7 @@ class FacturacionController extends Controller
 		$orden->fecha_facturacion = $hoy->format('d/m/Y');
 		$detalleorden = DB::table('detalleorden')
 		->join('orden', 'orden.id', '=', 'detalleorden.orden_id')
-		->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
-		->select('examens.nombre as examen','detalleorden.precio','orden.id')
+		->select('detalleorden.precio','orden.id')
 		->where('orden_id', $id)
 		->get();
 		

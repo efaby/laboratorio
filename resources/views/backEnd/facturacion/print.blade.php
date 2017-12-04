@@ -39,76 +39,19 @@
 		            </tr>
 		      	</thead>
 		      	<tbody>
-		   		<?php
-		       			foreach ($detalleorden as $item) { ?>
 		   			<tr>
-		           	    <td>
-		               	    	1		                	    		         		    
-			            </td>
-			            <td>
-			                <?php echo $item->examen; ?>                   		            
-			            </td>
-				        <td style="text-align: right">
-			                $<?php echo $item->precio; ?>
+		           	    <td>1</td>
+		           	    <td>Exámenes de Laboratorio</td>
+			            <td style="text-align: right">
+			                $<?php echo $orden->total; ?>
 				        </td>
 				        <td style="text-align: right">
-			        	    $<?php echo $item->precio; ?>
+			        	    $<?php echo $orden->total; ?>
 				        </td>				                    
-			    	</tr>
-			    <?php } ?>
+			    	</tr>			    
 		    	</tbody>    
 			</table>        
 			<table style="width: 100%;text-align: right;">
-	                    	<tr>
-	                    		<td style="text-align: right;padding-bottom:12px;padding-right: 5px;width: 90%">
-	                    			<label for="subtotal" class="control-label">SUBTOTAL</label>	                    				                    					
-	                    		</td>	
-	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
-	                    			<label for="subtotal" class="control-label">
-		                    			<span id="subtotal" name="subtotal">$<?php echo $orden->subtotal; ?></span>
-	    	                		</label>	    	                				
-	                    		</td>
-	                    	</tr>
-	                    	<tr>
-	                    		<td style="text-align: right;padding-bottom:12px;padding-right: 5px;">
-	                    			<label for="descuento" class="control-label">DESCUENTO</label>
-	                    		</td>	
-	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
-	                    			<label for="descuento" class="control-label">
-		                    			<span id="descuento" name="descuento">$<?php echo $orden->descuento; ?></span>
-	    	                		</label>            				
-	                    		</td>	
-	                    	</tr>	                    		                    		
-	                    	<tr>
-	                    		<td style="text-align: right;padding-bottom:12px">
-	                    			<label for="descuento" class="control-label">TARIFA IVA 0%</label>
-	                    		</td>	
-	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">	          							
-	                    			<label for="iva_cero" class="control-label">
-		                    			<span id="iva_cero" name="iva_cero">$0.00</span>
-	    	                		</label>            				
-	                    		</td>	
-	                    	</tr>
-	                    	<tr>
-	                    		<td style="text-align: right;padding-bottom:12px">
-	                    			<label for="descuento" class="control-label">TARIFA IVA 12%</label>
-	                    		</td>			
-	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
-	                    			<label for="iva_doce" class="control-label">
-		                    			<span id="iva_doce" name="iva_cero">$0.00</span>
-	    	                		</label>            				
-	                    		</td>	
-	                    	</tr>
-	                    	<tr>
-	                    		<td style="text-align: right;padding-bottom:12px">
-	                    			<label for="descuento" class="control-label">IMPORTE IVA</label>
-	                    		</td>			
-	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
-	                    			<label for="iva_doce" class="control-label">
-		                    			<span id="iva_doce" name="iva_cero">$0.00</span>
-	    	                		</label>            				
-	                    		</td>	
-	                    	</tr>
 	                    	<tr>
 	                    		<td style="text-align: right;padding-bottom:12px">
 	                    			<label for="total" class="control-label">TOTAL $</label>

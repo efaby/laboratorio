@@ -249,8 +249,10 @@ Factura Global
 
 
    $("#anexo").click(function() {
-        var url3 = '{{ url('facturacion/anexoGlobal/') }}';
-        window.open(url3 + "/" + $('#factura_id').val(), 'popup', 'width=750,height=450');
+        if($('#factura_id').val()>0) {
+            var url3 = '{{ url('facturacion/anexoGlobal/') }}';
+            window.open(url3 + "/" + $('#factura_id').val(), 'popup', 'width=750,height=450');
+        }
    });
 
 

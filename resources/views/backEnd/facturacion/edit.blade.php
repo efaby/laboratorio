@@ -128,6 +128,30 @@ Facturación
 			   }
 			});		
 	});
+
+	$('#consumidor_final').on( 'change', function () {
+		if ($('#consumidor_final').is(":checked")){
+			jQuery.ajax({
+				   type: "GET",
+				   url: url,
+				   success:function(ui) {
+					    $('#paciente_id').val(ui.id);
+					   	$('#cedula').val(ui.cedula);
+					   	$('#nombre').val(ui.nombres+' '+ui.apellidos);
+						$('#direccion_paciente').val(ui.direccion);
+						$('#telefono_paciente').val(ui.telefono);				   				    			           	
+				   }
+			});
+		}else{
+			$("#cedula").removeAttr('disabled');
+			$('#paciente_id').val(null);
+			$('#cedula').val(null);		
+			$('#nombre').val(null);
+			$('#direccion_paciente').val(null);
+			$('#telefono_paciente').val(null);
+		}
+	});
+	
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/orden.css')}}" rel="stylesheet">

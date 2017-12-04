@@ -75,7 +75,11 @@ class FacturacionController extends Controller
 	
 	public function obtenerCliente(Request $request){
 		$id=$request->id;
-		$data = Paciente::where('cedula',$id)->get();
+		if(isset($id)){
+			$data = Paciente::where('cedula',$id)->get();
+		}else{
+			$data = Paciente::where('cedula','9999999999')->get();			
+		}		
 		$result=array();
 		foreach ($data as $query)
 		{

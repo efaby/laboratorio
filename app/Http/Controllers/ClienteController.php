@@ -22,12 +22,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $cliente = Cliente::all();
-      /*  print_r('<pre>');
-        print_r($cliente);
-        print_r('</pre>');
-        exit();*/
-
+        $cliente = Cliente::where('cedula','<>','9999999999')->get();
         return view('backEnd.cliente.index', compact('cliente'));
     }
 

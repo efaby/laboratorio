@@ -24,8 +24,7 @@ class FacturacionController extends Controller
 	public function individual()
 	{
 		$ordenes = Orden::orderBy('id', 'desc')
-					->where('tipopaciente_id',1)
-					->where('atendido', 1)					
+					->where('tipopaciente_id',1)										
 					->get();
 		return view('backEnd.facturacion.index', compact('ordenes'));		
 	}	

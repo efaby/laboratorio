@@ -23,6 +23,9 @@ Facturación
                     <div class="col-md-3">
                     	<input type="text" class="form-control input-sm" id="cedula" name="cedula" value="{{ $paciente->cedula }}">                    	                    	 
                   	</div>
+                  	<div class="col-md-2" style="text-align: left">
+                  		<input type="checkbox" id="consumidor_final" name="consumidor_final"><b>Consumidor Final</b>
+                  	</div>
                 	<div class="col-md-3" style="text-align: left">
                       <a href="{{ url('cliente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Cliente</a>
                   	</div>                  

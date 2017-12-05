@@ -135,6 +135,7 @@ Facturación
     	</div>
 @endsection
 @section('scripts')
+
 <script type="text/javascript">	
 	var url = '{!!URL::route('obtenerCliente')!!}';
 	var url1 = '{{ url('facturacion/imprimirIndividual/') }}';

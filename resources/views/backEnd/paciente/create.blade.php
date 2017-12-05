@@ -67,6 +67,13 @@ Nuevo Paciente
                     {!! $errors->first('genero', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+            <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                {!! Form::label('email', 'Email: ', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
             <div class="form-group {{ $errors->has('enfermedades') ? 'has-error' : ''}}">
                 {!! Form::label('enfermedades', 'Datos Cl&iacute;nicos: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
@@ -220,6 +227,15 @@ Nuevo Paciente
 	                       }
                        }
                    },
+                   email: {
+                    message: 'El Email no es válido',
+                    validators: {
+                      
+                      emailAddress: {
+                        message: 'Ingrese un Email válido.'
+                      }
+                    }
+                  },
                    edad: {
                        message: 'La edad no es válida',
                        validators: {

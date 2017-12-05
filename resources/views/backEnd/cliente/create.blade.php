@@ -52,6 +52,13 @@ Nuevo Cliente
                     {!! $errors->first('telefono', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+            <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                {!! Form::label('email', 'Email: ', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
@@ -191,7 +198,16 @@ Nuevo Cliente
                                message: 'Ingrese un Número de Teléfono válido.'
                            }
                        }
-                   },           
+                   },
+                   email: {
+                    message: 'El Email no es válido',
+                    validators: {
+                      
+                      emailAddress: {
+                        message: 'Ingrese un Email válido.'
+                      }
+                    }
+                  }           
                }
            })
        .on('change', '[name="tipopacientes_id"]', function(e) {

@@ -88,7 +88,8 @@
 	  	  	</tr>
 	  	  	<tr>
 	  	  		<td align="left" id="plantilla">
-	  	  			<?php echo strip_tags($item, '<p><br>') ?>
+	  	  			<?php $item = str_replace('border="1"','border="0"',$item); ?>
+	  	  			<?php echo strip_tags($item, '<p><br><table><tr><th><td>') ?>
 	  	  		</td>
 	  	  	</tr>
 	  	  </table>

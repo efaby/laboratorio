@@ -15,7 +15,7 @@ class Cliente extends Model
      *
      * @var array
      */
-    protected $fillable = ['id','tipopacientes_id','cedula', 'nombres', 'apellidos', 'direccion', 'telefono', 'estado'];
+    protected $fillable = ['id','tipopacientes_id','cedula', 'nombres', 'apellidos', 'direccion', 'telefono', 'estado','email'];
     
     public function tipopaciente()
     {

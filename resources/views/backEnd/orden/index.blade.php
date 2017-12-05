@@ -23,7 +23,7 @@ Orden
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
             <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Paciente</th><th>Fecha Emisión</th><th>Subtotal</th><th>Descuento</th><th>Total</th><th>Abono</th><th>Fecha Entrega</th><th style="width: 20%; text-align: center;">Acciones</th>
+                    <th></th><th>Id</th><th>Paciente</th><th>Fecha Emisión</th><th>Total</th><th>Fecha Entrega</th><th>Estado</th><th style="width: 20%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,11 +34,15 @@ Orden
                 	<td>{{ $item->id }}</td>
                     <td>{{ $item->paciente->nombres }} {{ $item->paciente->apellidos }}</td>
                     <td>{{ $item->fecha_emision }}</td>
-                    <td>${{ $item->subtotal }}</td>
-                    <td>${{ $item->descuento }}</td>
-                    <td>${{ $item->total }}</td>
-                    <td>${{ $item->abono }}</td>
+                    <td>${{ $item->total }}</td>                    
                     <td>{{ $item->fecha_entrega }}</td>
+                    <td>
+                        @if ($item->atendido==0) 
+                            No Validado
+                        @else
+                            Validado
+                        @endif    
+                    </td>
                     <td style="width: 20%; text-align: center;">
                         @if ($item->atendido==0) 
                             <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 

@@ -270,6 +270,7 @@ class OrdenController extends Controller
     {
         $term=$request->term;
         $data = paciente::where(DB::raw("CONCAT(`nombres`, ' ', `apellidos`)"),'LIKE','%'.$term.'%')
+        ->orWhere('cedula','LIKE','%'.$term.'%')
         ->whereNull('deleted_at')
         ->take(10)
         ->get();
@@ -466,10 +467,11 @@ class OrdenController extends Controller
         $orden = Orden::findOrFail($id);
         $paciente = $orden->paciente;
         $plantilla = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',$orden->plantilla);
+        //return view('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'));
         $view =  \View::make('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('invoice');
+        return $pdf->stream('invoice'); 
     }
 
     public function imprimir($id)

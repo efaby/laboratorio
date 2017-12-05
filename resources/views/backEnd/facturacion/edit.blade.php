@@ -84,6 +84,27 @@ Facturación
 		                 </tbody>    
 			        </table>        
 			         <table style="width: 100%;text-align: right;">
+			         		<tr>
+	                    		<td style="text-align: right;padding-bottom:12px;padding-right: 5px;width: 90%">
+	                    			<label for="subtotal" class="control-label">SUBTOTAL</label>	                    				                    					
+	                    		</td>	
+	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
+	                    			<label for="subtotal" class="control-label">
+		                    			<span id="subtotal" name="subtotal">$<?php echo $orden->subtotal; ?></span>
+	    	                		</label>	    	                				
+	                    		</td>
+	                    	</tr>
+	                    	<tr>
+	                    		<td style="text-align: right;padding-bottom:12px;padding-right: 5px;">
+	                    			<label for="descuento" class="control-label">DESCUENTO</label>
+	                    		</td>	
+	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
+	                    			<label for="descuento" class="control-label">
+		                    			<span id="descuento" name="descuento">$<?php echo $orden->descuento; ?></span>
+	    	                		</label>            				
+	                    		</td>	
+	                    	</tr>	                    		                    		
+	                    	
 	                    	<tr>
 	                    	 	<td style="text-align: right;padding-bottom:12px;width: 90%">
 	                    			<label for="total" class="control-label">TOTAL</label>
@@ -93,15 +114,19 @@ Facturación
 										<span id="total" name="total">$<?php echo $orden->total; ?></span>
 									</label>									
 	                    		</td>	
-	                    	</tr>
+	                    	</tr>	                    	
 	                    	<tr>
 	                    		<td colspan="2" style="text-align: right;padding-right:1px;">
 	                    			<br>
 	                    			<input type="hidden" id="paciente_id" name="paciente_id" value="{{$paciente->id}} ">	                    			
+	                    			<input type="hidden" id="orden_id" name="orden_id" value="{{$orden->id}}">
 	                    			<a href="{{ url('facturacion/individual') }}" class="btn btn-default btn-sm" style="float: right;">Cancelar</a> &nbsp;&nbsp;
-	                    			<a href="{{ url('facturacion/imprimirIndividual/' . $orden->id.'-'.$paciente->id) }}" target="popup" style="margin-right:7px" onClick="window.open(this.href, this.target, 'width=750,height=450'); return false;" class="btn btn-info btn-sm" title="Imprimir">
+	                    			<a id="imprimir" href="{{ url('facturacion/imprimirIndividual/' . $orden->id.'-'.$paciente->id) }}" target="popup" style="margin-right:7px" onClick="window.open(this.href, this.target, 'width=750,height=450'); return false;" class="btn btn-info btn-sm" title="Imprimir">
                           				Imprimir
                         			</a>
+                        			<a href="#" style="margin-right:7px" id="anexo" class="btn btn-warning btn-sm" title="Anexo" disabled>
+                                        Anexo
+                                    </a>
 	                    		</td>
 	                    	</tr>
 	                    </table>			        
@@ -112,6 +137,8 @@ Facturación
 @section('scripts')
 <script type="text/javascript">	
 	var url = '{!!URL::route('obtenerCliente')!!}';
+	var url1 = '{{ url('facturacion/imprimirIndividual/') }}';
+	
 	$('#cedula').on( 'change', function () {
 		jQuery.ajax({
 			   type: "GET",
@@ -120,11 +147,21 @@ Facturación
 			      	"id": $('#cedula').val()    	
 			   },
 			   success:function(ui) {
-				    $('#paciente_id').val(ui.id);
-				   	$('#cedula').val(ui.cedula);
-				   	$('#nombre').val(ui.nombres+' '+ui.apellidos);
-					$('#direccion_paciente').val(ui.direccion);
-					$('#telefono_paciente').val(ui.telefono);				   				    			           	
+				   if(ui.id){
+					    $('#paciente_id').val(ui.id);
+					   	$('#cedula').val(ui.cedula);
+					   	$('#nombre').val(ui.nombres+' '+ui.apellidos);
+						$('#direccion_paciente').val(ui.direccion);
+						$('#telefono_paciente').val(ui.telefono);	
+						val = url1+"/"+$('#orden_id').val()+'-'+ui.id;
+						$("#imprimir").attr('href',val);			   				    			           	
+				   }else{
+						$("#imprimir").attr('disabled','disabled');
+						$(".alert alert-danger").val('Ese usuario no existe');
+						$('#nombre').val(null);
+						$('#direccion_paciente').val(null);
+						$('#telefono_paciente').val(null);
+				   }
 			   }
 			});		
 	});
@@ -137,9 +174,12 @@ Facturación
 				   success:function(ui) {
 					    $('#paciente_id').val(ui.id);
 					   	$('#cedula').val(ui.cedula);
+					   	$("#cedula").attr('disabled','disabled');
 					   	$('#nombre').val(ui.nombres+' '+ui.apellidos);
 						$('#direccion_paciente').val(ui.direccion);
-						$('#telefono_paciente').val(ui.telefono);				   				    			           	
+						$('#telefono_paciente').val(ui.telefono);
+						val = url1+"/"+$('#orden_id').val()+'-'+ui.id;
+						$("#imprimir").attr('href',val);
 				   }
 			});
 		}else{

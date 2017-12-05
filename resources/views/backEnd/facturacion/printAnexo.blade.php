@@ -13,9 +13,9 @@
 		<div class="row" style="margin-left:16px">
 			<table style="width: 100%">
 				<tr>
-					<td style="width: 10%">Fecha</td>
+					<td style="width: 15%">Fecha</td>
 					<td style="width: 40%">Nonbre</td>
-					<td style="width: 40%">Prueba</td>
+					<td style="width: 35%">Prueba</td>
 					<td style="width: 10%">Valor</td>
 				</tr>
 				@php
@@ -51,7 +51,7 @@
 		Atentamente,
 		</br></br></br></br>
 		Dra. Veronica Cantu&ntilde;a</br>
-		Jefe deLaboratorio
+		Jefe de Laboratorio
 		</div>		            
 		
 	</div>	    	

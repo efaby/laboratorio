@@ -137,8 +137,8 @@ Factura Global
                                     <br>
                                     <input type="hidden" id="paciente_id" name="paciente_id" value="">                                    
                                     <a href="{{ url('facturacion/individual') }}" class="btn btn-default btn-sm" style="float: right;">Cancelar</a> &nbsp;&nbsp;
-                                    <a href="#" style="margin-right:7px" id="imprimir" class="btn btn-info btn-sm" title="Imprimir">
-                                        Imprimir
+                                    <a href="#" style="margin-right:7px" id="imprimir" class="btn btn-info btn-sm" title="Facturar">
+                                        Facturar
                                     </a>
                                     <input type="hidden" id="factura_id" name="factura_id" value="0">         
                                     <a href="#" style="margin-right:7px" id="anexo" class="btn btn-warning btn-sm" title="Anexo" disabled>
@@ -251,7 +251,7 @@ Factura Global
    $("#anexo").click(function() {
         if($('#factura_id').val()>0) {
             var url3 = '{{ url('facturacion/anexoGlobal/') }}';
-            window.open(url3 + "/" + $('#factura_id').val(), 'popup', 'width=750,height=450');
+            window.open(url3 + "/" + $('#factura_id').val(), 'popup', 'width=800,height=450');
         }
    });
 

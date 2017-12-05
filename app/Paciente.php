@@ -32,6 +32,11 @@ class Paciente extends Model
         return $this->hasMany('App\Orden' , 'pacientes_id', 'id');
     }
 
+    public function facturas()
+    {
+        return $this->hasMany('App\Factura' , 'id', 'cliente_id');
+    }
+
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 

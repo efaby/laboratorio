@@ -20,12 +20,17 @@ class Factura extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id','fecha_factura'];
+	protected $fillable = ['id','fecha_factura', 'cliente_id', 'fecha_inicio', 'fecha_fin', 'precio'];
 
 	public function ordenes()
 	{
 		return $this->hasMany('App\Orden' , 'id', 'factura_id');
 	}
+
+	public function cliente()
+    {
+        return $this->belongsTo('App\Cliente','cliente_id','id');
+    }
 
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];

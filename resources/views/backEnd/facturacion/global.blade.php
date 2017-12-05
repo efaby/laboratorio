@@ -28,21 +28,18 @@ Factura Global
             <div class="col-md-1">
                         <label for="fecha_inicio" class="col-md-1 control-label">Fecha de Inicio</label>
                     </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 {!! Form::text('fecha_inicio', $fecha_inicio, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Inicio','id'=>'fecha_inicio']) !!}                                           
             </div> 
             <div class="col-md-1">
                 <label for="fecha_fin" class="col-md-1 control-label">Fecha de Fin</label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 {!! Form::text('fecha_fin', $fecha_fin, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Fin','id'=>'fecha_fin']) !!}                                           
             </div> 
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Buscar', ['class' => 'btn btn-primary']) !!}
-            
-        </div>
-    </div>
+            <div class="col-md-1">
+                {!! Form::submit('Buscar', ['class' => 'btn btn-primary']) !!}
+            </div>
     {!! Form::close() !!}
 
     
@@ -136,7 +133,7 @@ Factura Global
                                 <td style="text-align: right;padding-right:1px;">
                                     <br>
                                     <input type="hidden" id="paciente_id" name="paciente_id" value="">                                    
-                                    <a href="{{ url('facturacion/individual') }}" class="btn btn-default btn-sm" style="float: right;">Cancelar</a> &nbsp;&nbsp;
+                                    <a href="{{ url('facturacion/listadoGlobal') }}" class="btn btn-default btn-sm" style="float: right;">Cancelar</a> &nbsp;&nbsp;
                                     <a href="#" style="margin-right:7px" id="imprimir" class="btn btn-info btn-sm" title="Facturar">
                                         Facturar
                                     </a>

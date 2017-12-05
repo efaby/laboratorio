@@ -201,4 +201,9 @@ class FacturacionController extends Controller
     	return view('backEnd.facturacion.printAnexo', compact('factura', 'ordenes','cliente'));
     }
 
+    public function listadoGlobal() {
+    	$facturas = Factura::where('tipo',2)->get();
+    	return view('backEnd.facturacion.listadoGlobal', compact('facturas'));
+    }
+
 }

@@ -66,7 +66,7 @@
                     	</a>
                     	 <ul class = "dropdown-menu">
                             <li><a href="{{ url('facturacion/individual') }}">Facturación Individual</a></li>
-                            <li><a href="{{ url('facturacion/global') }}">Facturación Global</a></li>
+                            <li><a href="{{ url('facturacion/listadoGlobal') }}">Facturación Global</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ url('verExamen') }}">Ver  Orden</a></li>

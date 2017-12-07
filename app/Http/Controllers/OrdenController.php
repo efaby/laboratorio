@@ -479,6 +479,12 @@ class OrdenController extends Controller
         // verificar el usuario que va  imprimir
         return view('backEnd.orden.imprimir', compact('id'));
     }
+
+    public function imprimirListado($id)
+    {
+        // verificar el usuario que va  imprimir para mandar el mensaje
+        return view('backEnd.orden.imprimirListado', compact('id'));
+    }
     
     public static function alphaNumeric($length)
     {

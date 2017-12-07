@@ -27,6 +27,7 @@ Route::post("orden/examenesDetalles",array('as'=>'examenesDetalles','uses'=> 'Or
 Route::get("orden/ordenPdf/{id}",array('as'=>'ordenPdf','uses'=> 'OrdenController@ordenPdf'));
 Route::get("orden/imprimir/{id}",array('as'=>'imprimir','uses'=> 'OrdenController@imprimir'));
 Route::get("orden/entidades",array('as'=>'entidades','uses'=> 'OrdenController@entidades'));
+Route::get("orden/imprimirListado/{id}",array('as'=>'imprimir','uses'=> 'OrdenController@imprimirListado'));
 
 Route::get("orden/generarCodigo/{id}",array('as'=>'generarCodigo','uses'=> 'OrdenController@generarCodigo'));
 Route::get("orden/updatePage",array('as'=>'updatePage','uses'=> 'OrdenController@updatePage'));
@@ -48,6 +49,7 @@ Route::post("facturacion/global",array('as'=>'globalForm','uses'=> 'FacturacionC
 Route::post("facturacion/guardarGlobal",array('as'=>'guardarFacturaGlobal','uses'=> 'FacturacionController@guardarFacturaGlobal'));
 Route::get("facturacion/imprimirGlobal/{id}",array('as'=>'imprimirGlobal','uses'=> 'FacturacionController@imprimirGlobal'));
 Route::get("facturacion/anexoGlobal/{id}",array('as'=>'anexoGlobal','uses'=> 'FacturacionController@anexoGlobal'));
+
 
 
 Route::group(['middleware' => ['web']], function () {

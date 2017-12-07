@@ -56,7 +56,9 @@ Orden
                             <a href="{{ url('orden/orden/' . $item->id ) }}" class="btn btn-success btn-xs" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
                         @else
                             <a href="#" class="btn btn-success btn-xs disabled" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a>
-
+                            <a href="{{ url('orden/imprimirListado/' . $item->id) }}" data-toggle="modal" class="btn btn-info btn-xs" title="Imprimir" data-target="#myModal1">
+                            <span class="glyphicon glyphicon-print" aria-hidden="true" ></span>
+                        </a>
                         @endif   
 
                         @if ($item->atendido==0) 
@@ -89,6 +91,16 @@ Orden
 			</div>
 		</div>	
 	</div>
+
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-lg" >
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+            </div>
+        </div>  
+    </div> 
+
 </div>	
 @endsection
 
@@ -127,4 +139,12 @@ Orden
         return confirm("Esta seguro que desea eliminar la orden selccionada?");
     });
 </script>
+<style type="text/css">
+    
+    .modal-dialog{
+       width: 60%;
+       margin: auto;
+    }
+
+</style>
 @endsection

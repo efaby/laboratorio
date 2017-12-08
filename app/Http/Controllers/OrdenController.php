@@ -471,6 +471,9 @@ class OrdenController extends Controller
         $view =  \View::make('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
+       // $pdf->getDomPDF()->get_canvas()->get_cpdf()->setEncryption('trees','frogs',array('copy','print'));
+       // $dompdf->get_canvas()->get_cpdf()->setEncryption('trees','frogs',array('copy','print'));
+        //$pdf->getDomPDF()->getCanvas()->get_cpdf()->setEncryption("pass", 'your_password');
         return $pdf->stream('invoice'); 
     }
 

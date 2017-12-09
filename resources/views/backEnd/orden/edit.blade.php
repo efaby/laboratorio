@@ -224,10 +224,11 @@ Editar Exámen
    var url3 = '{!!URL::route('medicos')!!}';
    var url4 = '{!!URL::route('autocompletgrupo')!!}';
    var url5 = '{!!URL::route('examenesEdit')!!}';
+   var url6 = '{!!URL::route('entidades')!!}';
    var token = "{{ csrf_token() }}";
    var myArray = [];
 
-   $('#myModal').on('show.bs.modal', function (evnt) {
+    $('#myModal').on('show.bs.modal', function (evnt) {
    //$("#add").on("click",function() {
 		var idsAux =[];
 		var muestrasIds =[];
@@ -251,5 +252,12 @@ Editar Exámen
 <script src="{{ asset('/js/orden.js') }}"></script>
 <script src="{{ asset('/js/jquery.datetimepicker.full.min.js') }}"></script>
 
+<script type="text/javascript">
+	
+	<?php if ($orden->tipopaciente_id > 1) { ?>
+   		cargarEntidad(<?php echo $orden->tipopaciente_id; ?>,<?php echo $orden->entidad; ?>);
+   	<?php } ?>
+
+</script>
 
 @endsection

@@ -100,7 +100,6 @@ class OrdenController extends Controller
                 'total'=>$total,
                 'estado'=>1,
                 'created_at'=>new \DateTime(),
-                'cliente_id' => 0,
                 'descuento' =>$descuento,
                 'nombre_medico' => $nombre_medico,
                 'usuario_atiende' =>0,
@@ -219,6 +218,9 @@ class OrdenController extends Controller
             $orden->is_relacional =0;
         }
         
+        $orden->entidad = ($tipopaciente_id > 1)? $request->input('entidad'):null;
+
+
         $orden->save();
         Detalleorden::where('orden_id', '=', $id)->delete();
         $examen_ids =$request->input('ids');      
@@ -546,6 +548,8 @@ class OrdenController extends Controller
     public function entidades(Request $request)
     {
     	$id=$request->id;
+        $idSelect=$request->select;
+
     	$required = null;
     	if($id !=1){
     		$required = 'required';
@@ -559,10 +563,12 @@ class OrdenController extends Controller
     		$result = "<div class='col-md-1'>
     					<label for='entidad_l' class='col-md-1 control-label'>".$etiqueta."</label></div>
     			   <div class='col-md-3'><select name='entidad' id='entidad' class='form-control input-sm'".$required.">";
-    		$result.= '<option>Seleccione</option>';
+    		//$result.= '<option>Seleccione</option>';
     		foreach ($data as $query)
     		{
-    			$result.= '<option value="'.$query->id.'">'.$query->nombres.' '.$query->apellidos.'</option>';
+                $select = ($query->id == $idSelect)? "selected":"";
+
+    			$result.= '<option value="'.$query->id.'" '.$select.' >'.$query->nombres.' '.$query->apellidos.'</option>';
     		}
     		 
     		$result.="</select></div>";

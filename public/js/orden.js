@@ -468,12 +468,13 @@ function agregar(items, muestras) {
     $(':checkbox').prop('checked', false);
 }
 
-function cargarEntidad(id){
+function cargarEntidad(id, selected = 0){
 	jQuery.ajax({
 	   type: "GET",
 	   url: url6,
 	   data: {
-	      	"id": id		        	
+	      	"id": id,
+            "select": selected	        	
 	   },
 	   success:function(response) {
 	     $('#entidad').html(response);

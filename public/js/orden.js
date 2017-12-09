@@ -189,13 +189,23 @@ $(document).ready(function() {
                              message: 'El Exámen no puede ser vacío.'
                          }
                     }
+                },
+                examenesBand: {
+                    excluded: false,   
+                    validators: {
+                        greaterThan: {
+                            value: 1,
+                            message: 'Ingrese almenos un examen'
+                        }
+                    }
                 }
             }
     })
     // Called after adding new field
     .on('added.field.fv', function(e, data) {
-        if (data.field === 'examen[]') {
-            if ($('#frmDatosFactura').find(':visible[name="examen[]"]').length >= 1) {
+        if (data.field === 'examenesBand') {
+           // console.log(data.field);
+            if ($('#examenesBand').val() >= 1) {
                 $('#frmDatosFactura').find('.addButton').attr('disabled', 'disabled');
             }
         }
@@ -203,8 +213,8 @@ $(document).ready(function() {
 
     // Called after removing the field
     .on('removed.field.fv', function(e, data) {
-       if (data.field === 'examen[]') {
-            if ($('#frmDatosFactura').find(':visible[name="examen[]"]').length < 1) {
+       if (data.field === 'examenesBand') {
+            if (data.field < 1) {
                 $('#frmDatosFactura').find('.addButton').removeAttr('disabled');
             }
         }
@@ -230,12 +240,14 @@ function asignarPrecio(preciop, preciol,precioc,row){
 
 function removeDetalle(btn) {
     var tbl = document.getElementById('examenes');
-    console.log(tbl);
+  //  console.log(tbl);
     var row1 = tbl.rows.length;
     if(row1 > 2){
         var row = btn.parentNode.parentNode;
         row.parentNode.removeChild(row);
         $('#frmDatosFactura').formValidation('removeField', row);
+        $('#examenesBand').val(parseInt($('#examenesBand').val()) - 1);
+        $('#frmItem').formValidation('revalidateField', 'examenesBand');
         suma();
     }
 	
@@ -447,6 +459,8 @@ function agregar(items, muestras) {
                 $('#examen' + iteration).html(value.examen);
                 $('#frmItem').formValidation('revalidateField', 'examen[]');   
                 suma();
+                $('#examenesBand').val(parseInt($('#examenesBand').val()) + 1);
+                $('#frmItem').formValidation('revalidateField', 'examenesBand');  
                 
             });
         }

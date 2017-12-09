@@ -97,6 +97,7 @@ Nuevo Exámen
                         <a href="" id="add" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal" data-backdrop="static">
                           	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
+                        <input type="hidden" name="examenesBand" id="examenesBand" value="0">
                 </div>
                 <div >
                 <div class="table table-responsive">
@@ -222,6 +223,7 @@ Nuevo Exámen
     
     $('.modal-content').load(urlModal,function(result){     
     });
+
   });
 
 

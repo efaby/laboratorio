@@ -84,7 +84,8 @@ Editar Exámen
                 <div class="form-group col-md-12">
                         <a href="" id="add" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal" data-backdrop="static">
                           	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </a>                         
+                        </a>
+                        <input type="hidden" name="examenesBand" id="examenesBand" value="<?php echo count($detalleorden) ?>">                         
                 </div>
                 <div >
                 <div class="table table-responsive">

@@ -35,10 +35,10 @@ Facturación Individual
                         @if ($item->factura_id==0) 
                             <a href="{{ url('facturacion/editIndividual/' . $item->id ) }}" class="btn btn-warning btn-xs" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
                         @else
-                            <a href="#" class="btn btn-warning btn-xs disabled" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a>                            
+                            <a href="{{ url('facturacion/imprimirIndividual/'.$item->factura_id)}}" onClick="window.open(this.href, this.target, 'width=750,height=450'); return false;" class="btn btn-warning btn-xs" title="Reemprimir"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a>                            
                         @endif                        
                          @if ($item->factura_id>0) 
-                        <a href="{{ url('facturacion/verIndividual/' . $item->id ) }}" class="btn btn-success btn-xs" title="ver"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
+                        <a href="javascript: verAnexos({{$item->factura_id}})" class="btn btn-success btn-xs" title="Ver Anexo" id="anexo"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
                         @endif
                          
                     </td>
@@ -83,6 +83,11 @@ Facturación Individual
     $(".delete").on("submit", function(){
         return confirm("Esta seguro que desea eliminar el item selccionado?");
     });
+
+    function verAnexos(id) {
+        var url3 = '{{ url('facturacion/anexoIndividual/') }}';
+        window.open(url3 + "/" + id, 'popup', 'width=800,height=450');
+    };
     
 </script>
 @endsection

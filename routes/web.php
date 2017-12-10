@@ -31,11 +31,14 @@ Route::get("orden/imprimirListado/{id}",array('as'=>'imprimir','uses'=> 'OrdenCo
 
 Route::get("orden/generarCodigo/{id}",array('as'=>'generarCodigo','uses'=> 'OrdenController@generarCodigo'));
 Route::get("orden/updatePage",array('as'=>'updatePage','uses'=> 'OrdenController@updatePage'));
+
 Route::get("facturacion/individual",array('as'=>'individual','uses'=> 'FacturacionController@individual'));
 Route::get("facturacion/editIndividual/{id}",array('as'=>'editIndividual','uses'=> 'FacturacionController@editIndividual'));
+Route::post("facturacion/guardarIndividual",array('as'=>'guardarFacturaIndividual','uses'=> 'FacturacionController@guardarFacturaIndividual'));
 Route::get("facturacion/verIndividual/{id}",array('as'=>'verIndividual','uses'=> 'FacturacionController@verIndividual'));
 Route::get("facturacion/imprimirIndividual/{id}",array('as'=>'imprimirIndividual','uses'=> 'FacturacionController@imprimirIndividual'));
 Route::get("facturacion/obtenerCliente",array('as'=>'obtenerCliente','uses'=> 'FacturacionController@obtenerCliente'));
+Route::get("facturacion/anexoIndividual/{id}",array('as'=>'anexoIndividual','uses'=> 'FacturacionController@anexoIndividual'));
 
 
 Route::post("verExamen",array('as'=>'verExamenForm','uses'=> 'PublicoController@buscarExamen'));

@@ -44,33 +44,32 @@ class FacturacionController extends Controller
 		return view('backEnd.facturacion.edit', compact('orden','paciente','detalleorden'));		
 	}
 	
-	public function imprimirIndividual($val)
-	{
-		$array = explode('-', $val);
-		$id = $array[0];
-		$orden = Orden::findOrFail($id);
-		$paciente = Paciente::findOrFail($array[1]);
+	public function guardarFacturaIndividual(Request $request) {
+		$orden_id = $request->orden_id;
+		$paciente_id = $request->paciente_id;
+		$total = $request->total;
 		$hoy = new \DateTime();
-		
 		DB::table('factura')->insert([
 				'fecha_factura'  => $hoy,
-				'cliente_id'  => $array[1]
+				'cliente_id'  => $paciente_id,
+				'precio' => $total				
 		]);
 		$factura = DB::table('factura')->max('id');
 		
 		DB::table('orden')
-		->where('id', $id)
+		->where('id', $orden_id)
 		->update(['factura_id' => $factura]);
-		
-		$orden->fecha_facturacion = $hoy->format('d/m/Y');
-		$detalleorden = DB::table('detalleorden')
-		->join('orden', 'orden.id', '=', 'detalleorden.orden_id')
-		->select('detalleorden.precio','orden.id')
-		->where('orden_id', $id)
-		->get();
+		return response()->json($factura);		
+	}
+	
+	public function imprimirIndividual($id)
+	{
+		$factura = Factura::findOrFail($id);
+		$paciente = Paciente::findOrFail($factura->cliente_id);
+		$orden = Factura::findOrFail($id);
 		
 		//Imprimir
-		return view('backEnd.facturacion.print', compact('orden','paciente','detalleorden'));
+		return view('backEnd.facturacion.print', compact('orden','paciente','factura'));
 	}
 	
 	public function obtenerCliente(Request $request){
@@ -87,6 +86,8 @@ class FacturacionController extends Controller
 		}
 		if (count($result == 0)){
 			$result[] = [ 'id'=>'', 'cedula' => $id,'nombres' => '','apellidos'=>'','direccion'=>'','telefono'=>''];
+			Session::flash('message', 'No existe ningun resultado asociado al Cliente!');
+			Session::flash('status', 'warning');			
 		}
 		return $result[0];
 	}
@@ -102,6 +103,13 @@ class FacturacionController extends Controller
 		->where('orden_id', $id)
 		->get();
 		return view('backEnd.facturacion.ver', compact('orden','paciente','detalleorden'));
+	}
+	
+	public function anexoIndividual($id) {
+		$factura = Factura::findOrFail($id);
+		$ordenes = Orden::where('factura_id',$id)->get();
+		$cliente = Paciente::findOrFail($factura->cliente_id);
+		return view('backEnd.facturacion.printAnexoIndividual', compact('factura', 'ordenes','cliente'));
 	}
 
 	/* facturacion global */

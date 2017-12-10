@@ -9,26 +9,28 @@ Facturación
         <div class="panel-heading">
             <h4> Facturación</h4>
         </div>
-        <div class="panel-body">
-            {!! Form::model($orden, [
-        			'method' => 'PATCH',
-        			'url' => ['orden', $orden->id],
-        			'class' => 'form-horizontal',
-        			'id'=>'frmIndividual'
-    		]) !!}
-              <div class="form-group row">
+        @if (Session::has('message'))
+        <div class="alert alert-{{ Session::get('status') }} fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            {{ Session::get('message') }}
+        </div>
+    	@endif
+    	
+    	<div class="panel-body">
+            	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+    		  	<div class="form-group row">
               		<div class="col-md-1">
                 		<label for="cedula" class="col-md-1 control-label">Cédula/RUC</label>
                 	</div>	
                     <div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="cedula" name="cedula" value="{{ $paciente->cedula }}">                    	                    	 
+                    	<input type="text" class="form-control input-sm" id="cedula" name="cedula" value="{{ $paciente->cedula }}" required>                    	                    	 
                   	</div>
-                  	<div class="col-md-2" style="text-align: left">
+                  	<div class="col-md-2" style="text-align: left" id="val1">
                   		<input type="checkbox" id="consumidor_final" name="consumidor_final"><b>Consumidor Final</b>
                   	</div>
-                	<div class="col-md-3" style="text-align: left">
-                      <a href="{{ url('cliente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Cliente</a>
-                  	</div>                  
+                  	<div class="col-md-3" style="text-align: left" id="val2">
+                      <a href="{{ url('cliente') }}" class="btn btn-default btn-sm" target="_blank" id="nuevo_cliente">Nuevo Cliente</a>
+                  	</div>     
                </div>
                <div class="form-group row">
               		<div class="col-md-1">
@@ -85,27 +87,6 @@ Facturación
 			        </table>        
 			         <table style="width: 100%;text-align: right;">
 			         		<tr>
-	                    		<td style="text-align: right;padding-bottom:12px;padding-right: 5px;width: 90%">
-	                    			<label for="subtotal" class="control-label">SUBTOTAL</label>	                    				                    					
-	                    		</td>	
-	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
-	                    			<label for="subtotal" class="control-label">
-		                    			<span id="subtotal" name="subtotal">$<?php echo $orden->subtotal; ?></span>
-	    	                		</label>	    	                				
-	                    		</td>
-	                    	</tr>
-	                    	<tr>
-	                    		<td style="text-align: right;padding-bottom:12px;padding-right: 5px;">
-	                    			<label for="descuento" class="control-label">DESCUENTO</label>
-	                    		</td>	
-	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
-	                    			<label for="descuento" class="control-label">
-		                    			<span id="descuento" name="descuento">$<?php echo $orden->descuento; ?></span>
-	    	                		</label>            				
-	                    		</td>	
-	                    	</tr>	                    		                    		
-	                    	
-	                    	<tr>
 	                    	 	<td style="text-align: right;padding-bottom:12px;width: 90%">
 	                    			<label for="total" class="control-label">TOTAL</label>
 	                    		</td>			
@@ -121,17 +102,17 @@ Facturación
 	                    			<input type="hidden" id="paciente_id" name="paciente_id" value="{{$paciente->id}} ">	                    			
 	                    			<input type="hidden" id="orden_id" name="orden_id" value="{{$orden->id}}">
 	                    			<a href="{{ url('facturacion/individual') }}" class="btn btn-default btn-sm" style="float: right;">Cancelar</a> &nbsp;&nbsp;
-	                    			<a id="imprimir" href="{{ url('facturacion/imprimirIndividual/' . $orden->id.'-'.$paciente->id) }}" target="popup" style="margin-right:7px" onClick="window.open(this.href, this.target, 'width=750,height=450'); return false;" class="btn btn-info btn-sm" title="Imprimir">
-                          				Imprimir
-                        			</a>
+	                    			<a href="#" style="margin-right:7px" id="imprimir" class="btn btn-info btn-sm" title="Facturar">
+                                        Facturar
+                                    </a>
+                        			<input type="hidden" id="factura_id" name="factura_id" value="0">
                         			<a href="#" style="margin-right:7px" id="anexo" class="btn btn-warning btn-sm" title="Anexo" disabled>
                                         Anexo
                                     </a>
-	                    		</td>
+	                    		</td>	                    		
 	                    	</tr>
 	                    </table>			        
-               </div>
-    	   	{!! Form::close() !!}
+               </div>    	   	
     	</div>
 @endsection
 @section('scripts')
@@ -140,6 +121,26 @@ Facturación
 	var url = '{!!URL::route('obtenerCliente')!!}';
 	var url1 = '{{ url('facturacion/imprimirIndividual/') }}';
 	
+	 $(document).ready(function() {
+	       $('#frmFacturacion').formValidation({
+	        message: 'This value is not valid',
+	            fields: {   
+	            	cedula: {
+	                    message: 'El Número de Identificación no es válido',
+	                    validators: {
+	                        notEmpty: {
+	                            message: 'El Número de Identificación no puede ser vacío.'
+	                        },                   
+	                        regexp: {
+	                            regexp: /^(?:\+)?\d{10,13}$/,
+	                            message: 'Ingrese un Número de Identificación válido.'
+	                        }                               
+	                    }
+	                }
+	            }
+	        });
+	});
+		
 	$('#cedula').on( 'change', function () {
 		jQuery.ajax({
 			   type: "GET",
@@ -148,50 +149,76 @@ Facturación
 			      	"id": $('#cedula').val()    	
 			   },
 			   success:function(ui) {
-				   if(ui.id){
-					    $('#paciente_id').val(ui.id);
-					   	$('#cedula').val(ui.cedula);
-					   	$('#nombre').val(ui.nombres+' '+ui.apellidos);
-						$('#direccion_paciente').val(ui.direccion);
-						$('#telefono_paciente').val(ui.telefono);	
-						val = url1+"/"+$('#orden_id').val()+'-'+ui.id;
-						$("#imprimir").attr('href',val);			   				    			           	
-				   }else{
-						$("#imprimir").attr('disabled','disabled');
-						$(".alert alert-danger").val('Ese usuario no existe');
-						$('#nombre').val(null);
-						$('#direccion_paciente').val(null);
-						$('#telefono_paciente').val(null);
-				   }
+				  	$('#paciente_id').val(ui.id);
+					$('#cedula').val(ui.cedula);
+					$('#nombre').val(ui.nombres+' '+ui.apellidos);
+					$('#direccion_paciente').val(ui.direccion);
+					$('#telefono_paciente').val(ui.telefono);
 			   }
 			});		
 	});
 
 	$('#consumidor_final').on( 'change', function () {
-		if ($('#consumidor_final').is(":checked")){
-			jQuery.ajax({
-				   type: "GET",
-				   url: url,
-				   success:function(ui) {
-					    $('#paciente_id').val(ui.id);
-					   	$('#cedula').val(ui.cedula);
-					   	$("#cedula").attr('disabled','disabled');
-					   	$('#nombre').val(ui.nombres+' '+ui.apellidos);
-						$('#direccion_paciente').val(ui.direccion);
-						$('#telefono_paciente').val(ui.telefono);
-						val = url1+"/"+$('#orden_id').val()+'-'+ui.id;
-						$("#imprimir").attr('href',val);
-				   }
-			});
-		}else{
-			$("#cedula").removeAttr('disabled');
-			$('#paciente_id').val(null);
-			$('#cedula').val(null);		
-			$('#nombre').val(null);
-			$('#direccion_paciente').val(null);
-			$('#telefono_paciente').val(null);
+		if($('#factura_id').val() == 0) {
+			if ($('#consumidor_final').is(":checked")){
+				jQuery.ajax({
+					   type: "GET",
+					   url: url,
+					   success:function(ui) {
+						    $('#paciente_id').val(ui.id);
+						   	$('#cedula').val(ui.cedula);
+						   	$("#cedula").attr('disabled','disabled');
+						   	$('#nombre').val(ui.nombres+' '+ui.apellidos);
+							$('#direccion_paciente').val(ui.direccion);
+							$('#telefono_paciente').val(ui.telefono);
+							/*val = url1+"/"+$('#orden_id').val()+'-'+ui.id;
+							$("#imprimir").attr('href',val);*/
+					   }
+				});
+			}else{
+				$("#cedula").removeAttr('disabled');
+				$('#paciente_id').val(null);
+				$('#cedula').val(null);		
+				$('#nombre').val(null);
+				$('#direccion_paciente').val(null);
+				$('#telefono_paciente').val(null);
+			}
 		}
 	});
+
+	 $("#imprimir").click(function() {
+		    var token = "{{ csrf_token() }}";
+	        var url2 = '{!!URL::route('guardarFacturaIndividual')!!}';
+	        if($('#factura_id').val()>0) {
+	            window.open(url1 + "/" + $('#factura_id').val(), 'popup', 'width=750,height=450');
+	        } else {
+		        if($('#paciente_id').val() != null){
+		             $.ajax({
+		                type: "POST",
+		                url: url2,
+		                data: {"_token": token, paciente_id: $('#paciente_id').val(), orden_id: {{$orden->id}},total:{{$orden->total}} },
+		                success: function( response ) {
+		                        $('#factura_id').val(response);
+		                        $('#anexo').attr("disabled", false);
+		                        $("#imprimir").attr("disabled", true);
+		                        $("#nuevo_cliente").attr("disabled", true);
+		                        $("#cedula").attr("disabled", true);
+		                        $('#val1').hide();
+		                        $('#val2').hide();
+		                        window.open(url1 + "/" + response, 'popup', 'width=750,height=450');
+		                    }
+		            });	        	
+		        }
+	        }
+	       
+	  });
+
+	 $("#anexo").click(function() {
+	        if($('#factura_id').val()>0) {
+	            var url3 = '{{ url('facturacion/anexoIndividual/') }}';
+	            window.open(url3 + "/" + $('#factura_id').val(), 'popup', 'width=800,height=450');
+	        }
+	   });		
 	
 </script>
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">

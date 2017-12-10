@@ -43,42 +43,22 @@
 		           	    <td>1</td>
 		           	    <td>Exámenes de Laboratorio</td>
 			            <td style="text-align: right">
-			                $<?php echo $orden->total; ?>
+			                $<?php echo $orden->precio; ?>
 				        </td>
 				        <td style="text-align: right">
-			        	    $<?php echo $orden->total; ?>
+			        	    $<?php echo $orden->precio; ?>
 				        </td>				                    
 			    	</tr>			    
 		    	</tbody>    
 			</table>        
 			<table style="width: 100%;text-align: right;">
 							<tr>
-	                    		<td style="text-align: right;padding-bottom:12px;padding-right: 5px;width: 90%">
-	                    			<label for="subtotal" class="control-label">SUBTOTAL</label>	                    				                    					
-	                    		</td>	
-	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
-	                    			<label for="subtotal" class="control-label">
-		                    			<span id="subtotal" name="subtotal">$<?php echo $orden->subtotal; ?></span>
-	    	                		</label>	    	                				
-	                    		</td>
-	                    	</tr>
-	                    	<tr>
-	                    		<td style="text-align: right;padding-bottom:12px;padding-right: 5px;">
-	                    			<label for="descuento" class="control-label">DESCUENTO</label>
-	                    		</td>	
-	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
-	                    			<label for="descuento" class="control-label">
-		                    			<span id="descuento" name="descuento">$<?php echo $orden->descuento; ?></span>
-	    	                		</label>            				
-	                    		</td>	
-	                    	</tr>
-	                    	<tr>
 	                    		<td style="text-align: right;padding-bottom:12px">
 	                    			<label for="total" class="control-label">TOTAL $</label>
 	                    		</td>			
 	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
 	                    			<label for="total" class="control-label">
-										<span id="total" name="total">$<?php echo $orden->total; ?></span>
+										<span id="total" name="total">$<?php echo $factura->precio; ?></span>
 									</label>									
 	                    		</td>	
 	                    	</tr>	                    	

@@ -18,7 +18,7 @@
 			<table style="width: 100%">
 				<tr>
 					<td style="width: 50%">
-						<b>Anexo de Factura N°</b>  
+						<b>Anexo de Factura N°</b>  {{ $factura->num_factura }}
 					</td>
 					<td style="width: 50%">
 						<b>Fecha:</b> {{ $factura->fecha_factura }}

@@ -52,7 +52,8 @@ class FacturacionController extends Controller
 		DB::table('factura')->insert([
 				'fecha_factura'  => $hoy,
 				'cliente_id'  => $paciente_id,
-				'precio' => $total				
+				'precio' => $total,
+				'num_factura' => $request->num_factura
 		]);
 		$factura = DB::table('factura')->max('id');
 		

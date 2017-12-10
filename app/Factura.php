@@ -20,7 +20,7 @@ class Factura extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id','fecha_factura', 'cliente_id', 'fecha_inicio', 'fecha_fin', 'precio'];
+	protected $fillable = ['id','fecha_factura', 'cliente_id', 'fecha_inicio', 'fecha_fin', 'precio','num_factura'];
 
 	public function ordenes()
 	{

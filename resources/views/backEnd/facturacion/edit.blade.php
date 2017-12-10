@@ -15,7 +15,7 @@ Facturación
             {{ Session::get('message') }}
         </div>
     	@endif
-    	{!! Form::open(['url' => 'facturacion/individual', 'class' => 'form-horizontal','id'=>'frmFacturacion']) !!}
+    	{!! Form::open(['url' => '#', 'class' => 'form-horizontal','id'=>'frmFacturacion']) !!}
     	<div class="panel-body">
             	<input type="hidden" name="_token" value="{{ csrf_token() }}">
     		  	<div class="form-group row">
@@ -65,7 +65,14 @@ Facturación
                     <div class="col-md-5">
                         <input type="text" class="form-control input-sm" id="fecha_facturacion" name="fecha_facturacion" 
                         placeholder="Dirección" value="{{ $orden->fecha_facturacion }}" readonly>
-                    </div>                    
+                    </div>
+                    <div class="col-md-1">
+               			<label for="mail" class="col-md-1 control-label">Num. Factura</label>
+               		</div>	
+                    <div class="col-md-5">
+                        <input type="text" class="form-control input-sm" id="num_factura" name="num_factura" 
+                        placeholder="Número de Factura" value="">
+                    </div>                        
                </div>
                <div class="table table-responsive">
 	           		<table class="table table-responsive table-striped table-hover table-condensed" id="examenes">
@@ -184,9 +191,7 @@ Facturación
 						   	$("#cedula").attr('disabled','disabled');
 						   	$('#nombre').val(ui.nombres+' '+ui.apellidos);
 							$('#direccion_paciente').val(ui.direccion);
-							$('#telefono_paciente').val(ui.telefono);
-							/*val = url1+"/"+$('#orden_id').val()+'-'+ui.id;
-							$("#imprimir").attr('href',val);*/
+							$('#telefono_paciente').val(ui.telefono);							
 					   }
 				});
 			}else{
@@ -211,12 +216,13 @@ Facturación
 			             $.ajax({
 			                type: "POST",
 			                url: url2,
-			                data: {"_token": token, paciente_id: $('#paciente_id').val(), orden_id: {{$orden->id}},total:{{$orden->total}} },
+			                data: {"_token": token, paciente_id: $('#paciente_id').val(), orden_id: {{$orden->id}},total:{{$orden->total}}, num_factura: $('#num_factura').val() },
 			                success: function( response ) {
 			                        $('#factura_id').val(response);
 			                        $('#anexo').attr("disabled", false);
 			                        $("#imprimir").attr("disabled", true);
 			                        $("#nuevo_cliente").attr("disabled", true);
+			                        $("#num_factura").attr("disabled", true);
 			                        $("#cedula").attr("disabled", true);
 			                        $('#val1').hide();
 			                        $('#val2').hide();

@@ -85,9 +85,9 @@ class FacturacionController extends Controller
 			$result[] = [ 'id'=>$query->id, 'cedula' => $query->cedula,'nombres' => $query->nombres,'apellidos'=>$query->apellidos,'direccion'=>$query->direccion,'telefono'=>$query->telefono];
 		}
 		if (count($result == 0)){
-			$result[] = [ 'id'=>'', 'cedula' => $id,'nombres' => '','apellidos'=>'','direccion'=>'','telefono'=>''];
-			Session::flash('message', 'No existe ningun resultado asociado al Cliente!');
-			Session::flash('status', 'warning');			
+			$result[] = [ 'id'=>0, 'cedula' => $id,'nombres' => '','apellidos'=>'','direccion'=>'','telefono'=>''];
+			/*Session::flash('message', 'No existe ningun resultado asociado al Cliente!');
+			Session::flash('status', 'warning');		*/	
 		}
 		return $result[0];
 	}

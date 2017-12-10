@@ -21,20 +21,20 @@
 						<b>Anexo de Factura N°</b>  
 					</td>
 					<td style="width: 50%">
-						<b>Fecha:</b> {{ $item->fecha_emision }}
+						<b>Fecha:</b> {{ $factura->fecha_factura }}
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<b>Direccióm:</b> {{ $item->paciente->direccion }}
+						<b>Direccióm:</b> {{ $cliente->direccion }}
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b>CI:</b> {{ $item->paciente->cedula }}
+						<b>CI:</b> {{ $cliente->cedula }}
 					</td>
 					<td>
-						<b>Beneficiario: </b>{{ $item->paciente->nombres }} {{ $item->paciente->apellidos }}
+						<b>Beneficiario: </b>{{ $cliente->nombres }} {{ $cliente->apellidos }}
 					</td>
 				</tr>
 			</table>

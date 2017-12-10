@@ -15,7 +15,7 @@ Facturación
             {{ Session::get('message') }}
         </div>
     	@endif
-    	
+    	{!! Form::open(['url' => 'facturacion/individual', 'class' => 'form-horizontal','id'=>'frmFacturacion']) !!}
     	<div class="panel-body">
             	<input type="hidden" name="_token" value="{{ csrf_token() }}">
     		  	<div class="form-group row">
@@ -23,7 +23,8 @@ Facturación
                 		<label for="cedula" class="col-md-1 control-label">Cédula/RUC</label>
                 	</div>	
                     <div class="col-md-3">
-                    	<input type="text" class="form-control input-sm" id="cedula" name="cedula" value="{{ $paciente->cedula }}" required>                    	                    	 
+                    	<input type="text" class="form-control input-sm" id="cedula" name="cedula" value="{{ $paciente->cedula }}" required>                 
+                    	<input type="hidden" id="paciente_id" name="paciente_id" value="{{$paciente->id}} ">                  	 
                   	</div>
                   	<div class="col-md-2" style="text-align: left" id="val1">
                   		<input type="checkbox" id="consumidor_final" name="consumidor_final"><b>Consumidor Final</b>
@@ -99,7 +100,7 @@ Facturación
 	                    	<tr>
 	                    		<td colspan="2" style="text-align: right;padding-right:1px;">
 	                    			<br>
-	                    			<input type="hidden" id="paciente_id" name="paciente_id" value="{{$paciente->id}} ">	                    			
+	                    				                    			
 	                    			<input type="hidden" id="orden_id" name="orden_id" value="{{$orden->id}}">
 	                    			<a href="{{ url('facturacion/individual') }}" class="btn btn-default btn-sm" style="float: right;">Cancelar</a> &nbsp;&nbsp;
 	                    			<a href="#" style="margin-right:7px" id="imprimir" class="btn btn-info btn-sm" title="Facturar">
@@ -114,6 +115,7 @@ Facturación
 	                    </table>			        
                </div>    	   	
     	</div>
+    	{!! Form::close() !!}
 @endsection
 @section('scripts')
 
@@ -136,6 +138,16 @@ Facturación
 	                            message: 'Ingrese un Número de Identificación válido.'
 	                        }                               
 	                    }
+	                },
+	                paciente_id: {
+	                	excluded: false,   
+	                    validators: {
+	                        greaterThan: {
+	                            value: 1,
+	                            message: 'El cliente no esta registrado'
+	                        }
+	                    }
+                
 	                }
 	            }
 	        });
@@ -149,11 +161,13 @@ Facturación
 			      	"id": $('#cedula').val()    	
 			   },
 			   success:function(ui) {
-				  	$('#paciente_id').val(ui.id);
+		   			$('#paciente_id').val(ui.id);
 					$('#cedula').val(ui.cedula);
 					$('#nombre').val(ui.nombres+' '+ui.apellidos);
 					$('#direccion_paciente').val(ui.direccion);
-					$('#telefono_paciente').val(ui.telefono);
+					$('#telefono_paciente').val(ui.telefono);	
+					$('#frmFacturacion').formValidation('revalidateField', 'paciente_id');	   		
+				  	
 			   }
 			});		
 	});
@@ -187,29 +201,31 @@ Facturación
 	});
 
 	 $("#imprimir").click(function() {
-		    var token = "{{ csrf_token() }}";
-	        var url2 = '{!!URL::route('guardarFacturaIndividual')!!}';
-	        if($('#factura_id').val()>0) {
-	            window.open(url1 + "/" + $('#factura_id').val(), 'popup', 'width=750,height=450');
-	        } else {
-		        if($('#paciente_id').val() != null){
-		             $.ajax({
-		                type: "POST",
-		                url: url2,
-		                data: {"_token": token, paciente_id: $('#paciente_id').val(), orden_id: {{$orden->id}},total:{{$orden->total}} },
-		                success: function( response ) {
-		                        $('#factura_id').val(response);
-		                        $('#anexo').attr("disabled", false);
-		                        $("#imprimir").attr("disabled", true);
-		                        $("#nuevo_cliente").attr("disabled", true);
-		                        $("#cedula").attr("disabled", true);
-		                        $('#val1').hide();
-		                        $('#val2').hide();
-		                        window.open(url1 + "/" + response, 'popup', 'width=750,height=450');
-		                    }
-		            });	        	
+	 		if($('#paciente_id').val() > 0) {
+	 			var token = "{{ csrf_token() }}";
+		        var url2 = '{!!URL::route('guardarFacturaIndividual')!!}';
+		        if($('#factura_id').val()>0) {
+		            window.open(url1 + "/" + $('#factura_id').val(), 'popup', 'width=750,height=450');
+		        } else {
+			        if($('#paciente_id').val() != null){
+			             $.ajax({
+			                type: "POST",
+			                url: url2,
+			                data: {"_token": token, paciente_id: $('#paciente_id').val(), orden_id: {{$orden->id}},total:{{$orden->total}} },
+			                success: function( response ) {
+			                        $('#factura_id').val(response);
+			                        $('#anexo').attr("disabled", false);
+			                        $("#imprimir").attr("disabled", true);
+			                        $("#nuevo_cliente").attr("disabled", true);
+			                        $("#cedula").attr("disabled", true);
+			                        $('#val1').hide();
+			                        $('#val2').hide();
+			                        window.open(url1 + "/" + response, 'popup', 'width=750,height=450');
+			                    }
+			            });	        	
+			        }
 		        }
-	        }
+	 		} 
 	       
 	  });
 

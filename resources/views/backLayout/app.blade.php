@@ -48,6 +48,7 @@
                         <ul class = "dropdown-menu">
                             <li><a href="{{ url('paciente') }}">Paciente</a></li>
                             <li><a href="{{ url('cliente') }}">Cliente</a></li>
+                            <li><a href="{{ url('user') }}">Usuarios</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

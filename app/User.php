@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'nombres', 'apellidos', 'direccion', 'tipousuarios_id','cedula'
     ];
 
     /**
@@ -29,6 +29,11 @@ class User extends Authenticatable
 
     public function ordenes()
     {
-        return $this->hasMany('App\Orden' , 'id', 'usuario_id');
+        return $this->hasMany('App\Orden' , 'user_id', 'id');
+    }
+
+    public function tipousuario()
+    {
+        return $this->belongsTo('App\TipoUsuario','tipousuarios_id','id');
     }
 }

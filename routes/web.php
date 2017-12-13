@@ -86,6 +86,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+Route::group(['middleware' => ['web']], function () {
+	Route::resource('user', 'UserController');
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post("validarCedulaUser",array('as'=>'validarCedulaUser','uses'=> 'UserController@validarCedulaUser'));

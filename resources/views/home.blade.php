@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('backLayout.app')
+@section('title')
+Home
+@stop
 
 @section('content')
 <div class="container">

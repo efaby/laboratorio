@@ -14,13 +14,7 @@ Editar Usuario
         'class' => 'form-horizontal',
         'id'=>'frmUser'
     ]) !!}
-            <div class="form-group {{ $errors->has('tipousuarios_id') ? 'has-error' : ''}}">
-                {!! Form::label('tipousuarios_id', 'Tipo Usuario: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {{ Form::select('tipousuarios_id', $items, null, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
-                    {!! $errors->first('tipousuarios_id', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
+            
             <div class="form-group {{ $errors->has('cedula') ? 'has-error' : ''}}">
                 {!! Form::label('cedula', 'Cédula: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
@@ -57,6 +51,17 @@ Editar Usuario
                     {!! $errors->first('direccion', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+            <div class="form-group {{ $errors->has('roles') ? 'has-error' : ''}}">
+                {!! Form::label('roles', 'Roles: ', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+
+                   @foreach($items as $item) 
+                    {!! Form::checkbox('roles[]', $item->id ) !!}
+                    {{ $item->nombre }}
+                  @endforeach
+                    {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
+                </div>
+              </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
                 {!! Form::label('password', 'Contrase&ntilde;a: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
@@ -92,14 +97,14 @@ Editar Usuario
        $('#frmUser').formValidation({
         message: 'This value is not valid',
             fields: {
-              tipousuarios_id: {
-                    message: 'El Tipo de Usuario no es válido',
-                    validators: {
-                        notEmpty: {
-                           message: 'El Tipo de Usuario no puede ser vacío.'
-                        }
+              'roles[]': {
+                validators: {
+                    choice: {
+                        min: 1,
+                        message: 'Seleccione almenos un Rol'
                     }
-                },  
+                }
+            },  
                cedula: {
               message: 'El Número de Cédula no es válido',
               validators: { 

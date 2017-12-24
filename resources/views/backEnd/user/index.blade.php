@@ -35,7 +35,11 @@ Usuarios
                     <td>{{ $item->nombres }}</td>
                     <td>{{ $item->apellidos }}</td>                   
                     <td>{{ $item->email }}</td>
-                    <td>{{ $item->tipousuario->nombre }}</td>
+                    <td>
+                        @foreach($item->roles as $rol)
+                            {{ $rol->nombre }},
+                        @endforeach
+                    </td>
                     <td style="width: 10%; text-align: center;">
                         <a href="{{ url('user/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([

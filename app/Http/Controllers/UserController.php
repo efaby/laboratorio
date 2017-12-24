@@ -10,6 +10,8 @@ use App\TipoUsuario;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
+use DB;
+
 
 class UserController extends Controller
 {
@@ -36,7 +38,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $items = TipoUsuario::pluck('nombre', 'id')->toArray();
+        $items = TipoUsuario::All();
         return view('backEnd.user.create', compact('items'));
     }
 
@@ -48,7 +50,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
     	$this->validate($request, [
-        		'tipousuarios_id'=>'required',
         		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/', 
         		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
@@ -57,18 +58,20 @@ class UserController extends Controller
         		//'telefono'=>'regex: /^(?:\+)?\d{9}$/',
         ]);
 
-        User::create([
+        $array = [
             'nombres' => $request->nombres,
             'apellidos' => $request->apellidos,
             'cedula' => $request->cedula,
             'name' => $request->cedula,
-            'tipousuarios_id' => $request->tipousuarios_id,
             'email' => $request->email,
             'direccion' => $request->direccion,
             'password' => bcrypt($request->password),
-        ]);
+        ];
 
-
+        DB::table('users')->insert($array);
+        $user_id = DB::table('users')->max('id');
+        $user = User::findOrFail($user_id);
+        $user->roles()->attach($request->roles);
         Session::flash('message', 'El Usuario se almaceno satisfactoriamente!');
         Session::flash('status', 'success');
 
@@ -99,7 +102,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $items = TipoUsuario::pluck('nombre', 'id')->toArray();
+        $items = TipoUsuario::All();
         return view('backEnd.user.edit', compact('user','items'));
     }
 
@@ -113,7 +116,7 @@ class UserController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-        		'tipousuarios_id'=>'required',
+
         		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/',
         		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
@@ -127,8 +130,7 @@ class UserController extends Controller
         $user->nombres = $request->nombres;
         $user->apellidos = $request->apellidos;
         $user->cedula = $request->cedula;
-        $user->name = $request->cedula;
-        $user->tipousuarios_id = $request->tipousuarios_id;
+        $user->name = $request->cedula;       
         $user->email = $request->email;
         $user->direccion = $request->direccion;
 
@@ -137,6 +139,8 @@ class UserController extends Controller
         }
         
         $user->save();
+        $user->roles()->detach();
+        $user->roles()->attach($request->roles);
 
         Session::flash('message', 'El Usuario se almaceno satisfactoriamente!');
         Session::flash('status', 'success');

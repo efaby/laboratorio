@@ -34,7 +34,7 @@ class PublicoController extends Controller
             ->where('cedula', $identificacion)
             ->where('codigosorden.codigo', $codigo)
             ->where('validado', 1)
-            ->where('factura_id', '>',0)
+           // ->where('factura_id', '>',0)
             ->get();
         $id = 0;
         if(count($orden)){

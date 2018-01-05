@@ -30,7 +30,7 @@
 
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-
+					@if (Auth::user()->authorizeMenu(['Administrador','Analista']))
 					<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Administración <b class = "caret"></b>
@@ -39,20 +39,29 @@
                         <ul class = "dropdown-menu">
                             @if (Auth::user()->authorizeMenu(['Administrador']))
                                 <li><a href="{{ url('tipopaciente') }}">Tipo Paciente</a></li>
-                            @endif
-                            <li><a href="{{ url('tipoexamen') }}">Tipo Examen</a></li>
-                            <li><a href = "{{ url('tipousuario') }}">Tipo Usuario</a></li> 
-                            <li><a href = "{{ url('entidad') }}">Entidades</a></li>                            
+                            @endif    
+                            @if (Auth::user()->authorizeMenu(['Administrador','Analista']))
+	                            <li><a href="{{ url('tipoexamen') }}">Tipo Examen</a></li>
+	                        @endif    
+	                        @if (Auth::user()->authorizeMenu(['Administrador']))
+	                            <li><a href = "{{ url('tipousuario') }}">Tipo Usuario</a></li> 
+	                            <li><a href = "{{ url('entidad') }}">Entidades</a></li>                            
+	                        @endif
                         </ul>
                     </li>
+                    @endif
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Personas <b class = "caret"></b>
                         </a>
                         <ul class = "dropdown-menu">
-                            <li><a href="{{ url('paciente') }}">Paciente</a></li>
-                            <li><a href="{{ url('cliente') }}">Cliente</a></li>
-                            <li><a href="{{ url('user') }}">Usuarios</a></li>
+                          	@if (Auth::user()->authorizeMenu(['Administrador','Analista','Secretaria']))
+                            	<li><a href="{{ url('paciente') }}">Paciente</a></li>
+                            	<li><a href="{{ url('cliente') }}">Cliente</a></li>
+                            @endif	
+                            @if (Auth::user()->authorizeMenu(['Administrador']))	
+                            	<li><a href="{{ url('user') }}">Usuarios</a></li>
+                            @endif	
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -74,8 +83,9 @@
                             <li><a href="{{ url('facturacion/listadoGlobal') }}">Facturación Global</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ url('verExamen') }}">Ver  Orden</a></li>
-
+                    @if (Auth::user()->authorizeMenu(['Administrador']))
+                    	<li><a href="{{ url('verExamen') }}">Ver  Orden</a></li>
+					@endif
 				
 					<li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

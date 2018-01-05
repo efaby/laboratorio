@@ -44,25 +44,33 @@ Orden
                         @endif    
                     </td>
                     <td style="width: 20%; text-align: center;">
-                        @if ($item->atendido==0) 
-                            <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
-                        @else
-                            <a href="#" class="btn btn-warning btn-xs disabled" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a>                            
-                        @endif
+                    	@if (Auth::user()->authorizeMenu(['Administrador','Analista','Secretaria']))
+	                        @if ($item->atendido==0) 
+	                            <a href="{{ url('orden/' . $item->id . '/edit') }}" class="btn btn-warning btn-xs" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
+	                        @else
+	                            <a href="#" class="btn btn-warning btn-xs disabled" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a>                            
+	                        @endif
+	                    @endif    
                         <a href="{{ url('orden/generarCodigo/' . $item->id) }}" data-toggle="modal" class="btn btn-info btn-xs" title="Generar Código" data-target="#myModal">
                           	<span class="glyphicon glyphicon-qrcode" aria-hidden="true" ></span>
                         </a>
-                        @if ($item->validado==0) 
-                            <a href="{{ url('orden/orden/' . $item->id ) }}" class="btn btn-success btn-xs" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
-                        @else
-                            <a href="#" class="btn btn-success btn-xs disabled" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a>
-                            <a href="{{ url('orden/imprimirListado/' . $item->id) }}" data-toggle="modal" class="btn btn-info btn-xs" title="Imprimir" data-target="#myModal1">
-                            <span class="glyphicon glyphicon-print" aria-hidden="true" ></span>
-                        </a>
-                        @endif   
-
-                        @if ($item->atendido==0) 
-                         
+                            @if ($item->validado==0)
+                              	@if (Auth::user()->authorizeMenu(['Administrador'])) 
+	                            	<a href="{{ url('orden/orden/' . $item->id ) }}" class="btn btn-success btn-xs" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a>
+	                          	@endif   
+	                        @else
+	                        	@if (Auth::user()->authorizeMenu(['Administrador']))
+	                            	<a href="#" class="btn btn-success btn-xs disabled" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a>
+	                            @endif
+	                            @if (Auth::user()->authorizeMenu(['Administrador','Analista']))
+	                            	<a href="{{ url('orden/imprimirListado/' . $item->id) }}" data-toggle="modal" class="btn btn-info btn-xs" title="Imprimir" data-target="#myModal1">
+	                            		<span class="glyphicon glyphicon-print" aria-hidden="true" ></span>
+	                        		</a>
+	                        	@endif
+	                        @endif   
+						
+						   
+                        @if ($item->atendido==0)                          
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['orden', $item->id],
@@ -73,9 +81,10 @@ Orden
                             {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
                         {!! Form::close() !!}
                         @else
-                            <a href="{{ url('orden/validar/' . $item->id ) }}" class="btn btn-warning btn-xs" title="Validar"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a>
-                            <a href="#" class="btn btn-danger btn-xs disabled" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></a> 
-
+	                        @if (Auth::user()->authorizeMenu(['Administrador']))
+	                            <a href="{{ url('orden/validar/' . $item->id ) }}" class="btn btn-warning btn-xs" title="Validar"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a>
+	                        @endif    
+                            <a href="#" class="btn btn-danger btn-xs disabled" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></a>
                         @endif
                     </td>
                 </tr>

@@ -173,7 +173,7 @@ Editar Paciente
                        message: 'Los Nombres no son válidos',
                        validators: {
                            notEmpty: {
-                               message: 'Los Nombres no puedem ser vacíos.'
+                               message: 'Los Nombres no pueden ser vacíos.'
                            },
                            regexp: {
                                regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
@@ -185,7 +185,7 @@ Editar Paciente
                        message: 'Los Apellidos no son válidos',
                        validators: {
                            notEmpty: {
-                               message: 'Los Apellidos no puedem ser vacíos.'
+                               message: 'Los Apellidos no pueden ser vacíos.'
                            },
                            regexp: {
                                regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
@@ -227,11 +227,11 @@ Editar Paciente
                        message: 'La edad no es válida',
                        validators: {
                         notEmpty: {
-                               message: 'La edad no puede ser vacía.'
+                               message: 'La Edad no puede ser vacía.'
                            },
                          regexp: {
                              regexp: /^[1-9]\d*$/,
-                             message: 'Ingrese una edad válida.'
+                             message: 'Ingrese una Edad válida.'
                          }
                        }
                    },

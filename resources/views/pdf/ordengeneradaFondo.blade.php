@@ -24,7 +24,7 @@
 		   width:600px;
 		   height:40px;
 		   border:0.5px solid;
-		   border-color:black;
+		   border-color:white;
 		   border-radius: 5px 5px 7px 7px;
 		   margin: auto;
 		   	   
@@ -36,7 +36,7 @@
 		   width:600px;
 		   height:820px;
 		   border:0.5px solid;
-		   border-color:black;
+		   border-color:white;
 		   border-radius: 5px 5px 7px 7px;		   
 		   margin: auto;		   
 		}

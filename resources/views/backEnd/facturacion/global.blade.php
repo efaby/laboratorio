@@ -196,7 +196,7 @@ Factura Global
                 fecha_inicio: {
                      validators: {
                          notEmpty: {
-                             message: 'La fecha de inicio es requerida y no puede ser vacia'
+                             message: 'La Fecha de Inicio es requerida y no puede ser vacía'
                          },
                          date:{  
                                 format: 'YYYY-MM-DD',
@@ -209,7 +209,7 @@ Factura Global
                 fecha_fin: {
                      validators: {
                          notEmpty: {
-                             message: 'La fecha de fin es requerida y no puede ser vacia'
+                             message: 'La Fecha de Fin es requerida y no puede ser vacía'
                          },
                          date: {
                              format: 'YYYY-MM-DD',

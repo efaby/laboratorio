@@ -104,7 +104,7 @@ Nuevo Usuario
        				message: 'El Número de Cédula no es válido',
    				    validators: {	
               notEmpty: {
-                           message: 'El Número de Cédula no pueden ser vacío.'
+                           message: 'El Número de Cédula no puede ser vacío.'
                         },				
        					regexp: {
        						regexp: /^(?:\+)?\d{10}$/,
@@ -181,7 +181,7 @@ Nuevo Usuario
                    message: 'Los Apellidos no son válidos',
                    validators: {
                        notEmpty: {
-                           message: 'Los Apellidos no puedem ser vacíos.'
+                           message: 'Los Apellidos no pueden ser vacíos.'
                        },
                        regexp: {
                            regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
@@ -216,10 +216,10 @@ Nuevo Usuario
                        },
                 identical: {
                     field: 'password-confirm',
-                    message: 'La Contraseña no coinside.'
+                    message: 'La Contraseña no coincide.'
                 },
                 stringLength: {
-                        message: 'La Contraseña debe tener almenos 6 caracteres',
+                        message: 'La Contraseña debe tener al menos 6 caracteres',
                         min: 6
                     }
             }
@@ -228,7 +228,7 @@ Nuevo Usuario
             validators: {
                 identical: {
                     field: 'password',
-                    message: 'La Contraseña no coinside.'
+                    message: 'La Contraseña no coincide.'
                 }
             }
         }           

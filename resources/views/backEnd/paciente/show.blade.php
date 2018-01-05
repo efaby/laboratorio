@@ -10,7 +10,7 @@ Paciente
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>ID.</th> <th>Cedula</th><th>Nombres</th><th>Apellidos</th>
+                    <th>ID.</th> <th>Cédula</th><th>Nombres</th><th>Apellidos</th>
                 </tr>
             </thead>
             <tbody>

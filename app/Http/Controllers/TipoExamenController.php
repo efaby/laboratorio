@@ -22,8 +22,9 @@ class TipoExamenController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista']);
         $tipoexamen = TipoExaman::all();
 
         return view('backEnd.tipoexamen.index', compact('tipoexamen'));
@@ -34,8 +35,9 @@ class TipoExamenController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista']);
         return view('backEnd.tipoexamen.create');
     }
 
@@ -46,11 +48,12 @@ class TipoExamenController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista']);
         $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/']);
         
         TipoExaman::create($request->all());
 
-        Session::flash('message', 'El Tipo Examen se almaceno satisfactoriamente!');
+        Session::flash('message', 'El Tipo Exámen se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipoexamen');
@@ -63,8 +66,10 @@ class TipoExamenController extends Controller
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista']);
+
         $tipoexaman = TipoExaman::findOrFail($id);
 
         return view('backEnd.tipoexamen.show', compact('tipoexaman'));
@@ -77,8 +82,9 @@ class TipoExamenController extends Controller
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista']);
         $tipoexaman = TipoExaman::findOrFail($id);
 
         return view('backEnd.tipoexamen.edit', compact('tipoexaman'));
@@ -93,12 +99,13 @@ class TipoExamenController extends Controller
      */
     public function update($id, Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista']);
         $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\(\)\_\s\-]+$/', ]);
 
         $tipoexaman = TipoExaman::findOrFail($id);
         $tipoexaman->update($request->all());
 
-        Session::flash('message', 'El Tipo Examen se almaceno satisfactoriamente!');
+        Session::flash('message', 'El Tipo Exámen se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipoexamen');
@@ -111,13 +118,14 @@ class TipoExamenController extends Controller
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista']);
         $tipoexaman = TipoExaman::findOrFail($id);
 
         $tipoexaman->delete();
 
-        Session::flash('message', 'El Tipo Examen se elimino satisfactoriamente!');
+        Session::flash('message', 'El Tipo Exámen se eliminó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipoexamen');

@@ -23,8 +23,10 @@ class MuestraController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $muestra = Muestra::all();
 
         return view('backEnd.muestra.index', compact('muestra'));
@@ -35,8 +37,9 @@ class MuestraController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);    
         $items= TipoExaman::pluck('nombre', 'id')->toArray();
         return view('backEnd.muestra.create',compact('items'));
     }
@@ -48,6 +51,8 @@ class MuestraController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $this->validate($request, [
         		'nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\s]+$/', 
                 'tipoexamens_id' => 'required',
@@ -55,7 +60,7 @@ class MuestraController extends Controller
         ]);
         Muestra::create($request->all());
 
-        Session::flash('message', 'La Muestra se almaceno satisfactoriamente!');
+        Session::flash('message', 'La Muestra se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('muestra');
@@ -68,8 +73,10 @@ class MuestraController extends Controller
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $muestra = Muestra::findOrFail($id);
         $items= TipoExaman::pluck('nombre', 'id')->toArray();
         return view('backEnd.muestra.show', compact('muestra','items'));
@@ -82,8 +89,10 @@ class MuestraController extends Controller
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $muestra = Muestra::findOrFail($id);
         $items= TipoExaman::pluck('nombre', 'id')->toArray();
         return view('backEnd.muestra.edit', compact('muestra','items'));
@@ -98,6 +107,8 @@ class MuestraController extends Controller
      */
     public function update($id, Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $this->validate($request, [
         		'nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\-\,\s]+$/',
                 'tipoexamens_id' => 'required',
@@ -107,7 +118,7 @@ class MuestraController extends Controller
         $muestra = Muestra::findOrFail($id);
         $muestra->update($request->all());
 
-        Session::flash('message', 'La Muestra se almaceno satisfactoriamente!');
+        Session::flash('message', 'La Muestra se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('muestra');
@@ -120,13 +131,15 @@ class MuestraController extends Controller
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $muestra = Muestra::findOrFail($id);
 
         $muestra->delete();
 
-        Session::flash('message', 'La Muestra se elimino satisfactoriamente!');
+        Session::flash('message', 'La Muestra se eliminó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('muestra');

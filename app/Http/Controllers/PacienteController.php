@@ -23,8 +23,9 @@ class PacienteController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
         $paciente = Paciente::where('tipopacientes_id', '1')->where('cedula','<>','9999999999')->get(); 
         return view('backEnd.paciente.index', compact('paciente'));
     }
@@ -34,8 +35,9 @@ class PacienteController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
         $items = TipoPaciente::pluck('nombre', 'id')->toArray();
         return view('backEnd.paciente.create', compact('items'));
     }
@@ -47,6 +49,7 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
     	$this->validate($request, [
         		'tipopacientes_id'=>'required',
         		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/', 
@@ -61,7 +64,7 @@ class PacienteController extends Controller
 
         Paciente::create($request->all());
 
-        Session::flash('message', 'El Paciente se almaceno satisfactoriamente!');
+        Session::flash('message', 'El Paciente se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('paciente');
@@ -74,8 +77,9 @@ class PacienteController extends Controller
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
         $paciente = Paciente::findOrFail($id);
 
         return view('backEnd.paciente.show', compact('paciente'));
@@ -88,8 +92,9 @@ class PacienteController extends Controller
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
         $paciente = Paciente::findOrFail($id);
         $items = TipoPaciente::pluck('nombre', 'id')->toArray();
         return view('backEnd.paciente.edit', compact('paciente','items'));
@@ -104,6 +109,7 @@ class PacienteController extends Controller
      */
     public function update($id, Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
         $this->validate($request, [
         		'tipopacientes_id'=>'required',
         		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/',
@@ -119,7 +125,7 @@ class PacienteController extends Controller
         $paciente = Paciente::findOrFail($id);
         $paciente->update($request->all());
 
-        Session::flash('message', 'El Paciente se almaceno satisfactoriamente!');
+        Session::flash('message', 'El Paciente se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('paciente');
@@ -132,8 +138,10 @@ class PacienteController extends Controller
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $paciente = Paciente::findOrFail($id);
 
         $ordenes = $paciente->ordenes;
@@ -143,7 +151,7 @@ class PacienteController extends Controller
                 $band = false;
             }
         }
-        $message = 'El Paciente NO se pudo eliminar porque exiten ordenes de examenes Asociados!';
+        $message = 'El Paciente NO se pudo eliminar porque exiten órdenes de exámenes Asociados!';
         $type = 'warning';
         if($band) {
             $paciente->delete();

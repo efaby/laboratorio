@@ -24,8 +24,10 @@ class ClienteController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $cliente = Cliente::where('cedula','<>','9999999999')->get();
         return view('backEnd.cliente.index', compact('cliente'));
     }
@@ -35,8 +37,10 @@ class ClienteController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
     	$items = TipoPaciente::pluck('nombre', 'id')->toArray();
     	return view('backEnd.cliente.create', compact('items'));
     }
@@ -48,6 +52,8 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         //$this->validate($request, ['cedula' => 'required', 'nombres' => 'required', 'apellidos' => 'required', ]);
         $this->validate($request, [
 
@@ -60,7 +66,7 @@ class ClienteController extends Controller
 
         Cliente::create($request->all());
 
-        Session::flash('message', 'El Cliente se almaceno satisfactoriamente!');
+        Session::flash('message', 'El Cliente se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('cliente');
@@ -73,8 +79,10 @@ class ClienteController extends Controller
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $cliente = Cliente::findOrFail($id);
 
         return view('backEnd.cliente.show', compact('cliente'));
@@ -87,8 +95,10 @@ class ClienteController extends Controller
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $cliente = Cliente::findOrFail($id);
         $items = TipoPaciente::pluck('nombre', 'id')->toArray();
 
@@ -104,6 +114,8 @@ class ClienteController extends Controller
      */
     public function update($id, Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
        // $this->validate($request, ['cedula' => 'required', 'nombres' => 'required', 'apellidos' => 'required', ]);
          $this->validate($request, [
 
@@ -117,7 +129,7 @@ class ClienteController extends Controller
         $cliente = Cliente::findOrFail($id);
         $cliente->update($request->all());
 
-        Session::flash('message', 'El Cliente se almaceno satisfactoriamente!');
+        Session::flash('message', 'El Cliente se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('cliente');
@@ -130,13 +142,15 @@ class ClienteController extends Controller
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $cliente = Cliente::findOrFail($id);
 
         $cliente->delete();
 
-        Session::flash('message', 'El Cliente se elimino satisfactoriamente!');
+        Session::flash('message', 'El Cliente se eliminó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('cliente');

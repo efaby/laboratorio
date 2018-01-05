@@ -26,7 +26,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<b>Direccióm:</b> {{ $cliente->direccion }}
+						<b>Dirección:</b> {{ $cliente->direccion }}
 					</td>
 				</tr>
 				<tr>
@@ -74,7 +74,7 @@
 		</br>
 		Atentamente,
 		</br></br></br></br>
-		Dra. Veronica Cantu&ntilde;a</br>
+		Dra. Verónica Cantu&ntilde;a</br>
 		Jefe de Laboratorio
 		</div>		            
 		

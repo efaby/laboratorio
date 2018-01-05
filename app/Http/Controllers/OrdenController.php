@@ -28,9 +28,11 @@ class OrdenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ordenes = Orden::orderBy('id', 'desc')->get();;
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
+        $ordenes = Orden::orderBy('id', 'desc')->get();
 
         return view('backEnd.orden.index', compact('ordenes'));
     }
@@ -40,8 +42,10 @@ class OrdenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
     	$items= TipoPaciente::pluck('nombre', 'id')->toArray();
         return view('backEnd.orden.create', compact('items'));
     }
@@ -54,6 +58,8 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $is_relacional = $request->input('is_relacional');
         $is_relacional = isset($is_relacional)?1:0;
         $paciente_id = $request->input('id_paciente');
@@ -130,7 +136,7 @@ class OrdenController extends Controller
             $i++;
         }
         DB::table('detalleorden')->insert($examens);
-        Session::flash('message', 'La Orden se almaceno satisfactoriamente!');
+        Session::flash('message', 'La Orden se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
         return redirect('orden');       
     }
@@ -141,8 +147,10 @@ class OrdenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $orden = Orden::findOrFail($id);
         
         return view('backEnd.orden.show', compact('orden'));
@@ -154,8 +162,10 @@ class OrdenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $orden = Orden::findOrFail($id);
         $paciente = $orden->paciente;
         
@@ -182,6 +192,8 @@ class OrdenController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $orden = Orden::findOrFail($id);
         $paciente_id = $request->input('id_paciente');
         //Poner id de usuario logueado 
@@ -245,7 +257,7 @@ class OrdenController extends Controller
         }
         DB::table('detalleorden')->insert($examens);
         //$orden->detalleorden()->sync($examens);
-        Session::flash('message', 'La Orden se almaceno satisfactoriamente!');
+        Session::flash('message', 'La Orden se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
         return redirect('orden');
     }
@@ -256,15 +268,17 @@ class OrdenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $orden = Orden::findOrFail($id);
 
         $message = 'La Orden NO se pudo eliminar porque es ya fue atendida!';
         $type = 'warning';
         if($orden->atendido === 0){
             $orden->delete();
-            $message = 'La Orden se elimin車 satisfactoriamente!';
+            $message = 'La Orden se eliminó satisfactoriamente!';
             $type = 'success';
         }   
 
@@ -276,6 +290,8 @@ class OrdenController extends Controller
     
     public function autocomplete(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $term=$request->term;
         $data = paciente::where(DB::raw("CONCAT(`nombres`, ' ', `apellidos`)"),'LIKE','%'.$term.'%')
         ->orWhere('cedula','LIKE','%'.$term.'%')
@@ -291,6 +307,8 @@ class OrdenController extends Controller
     }
 
     public function examenesEdit (Request $request){
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $ids = json_decode($request->ids);
         $muestrasIds = json_decode($request->muestrasIds);        
         $muestrasUnicas = array_unique($muestrasIds);       
@@ -319,6 +337,7 @@ class OrdenController extends Controller
     }
 
     public function examenesDetalles(Request $request) {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
 
         $ids = $request->input('ids');
         $muestrasIds = $request->input('muestras');
@@ -382,6 +401,8 @@ class OrdenController extends Controller
 
     public function medicos(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $term=$request->term;
         $data = Orden::where('nombre_medico','LIKE','%'.$term.'%')
         ->whereNull('deleted_at')
@@ -391,11 +412,15 @@ class OrdenController extends Controller
         foreach ($data as $query)
         {
             $result[] = [ 'value' => $query->nombre_medico ];
+     
         }
         return response()->json($result);               
     }
 
-    public function orden($id) {
+    public function orden(Request $request,$id) {
+
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $orden = $this->getOrden($id);
         $validar = false;
         $paciente = $orden['paciente'];
@@ -404,7 +429,9 @@ class OrdenController extends Controller
         return view('backEnd.orden.orden', compact('orden', 'paciente', 'plantilla', 'validar'));
     }
 
-    public function validar($id) {        
+    public function validar(Request $request,$id) {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $orden = $this->getOrden($id);
         $validar = true;
         $paciente = $orden['paciente'];
@@ -443,6 +470,8 @@ class OrdenController extends Controller
 
     public function saveOrden(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $this->validate($request, ['orden_id' => 'required',
                                    'plantilla'   => 'required'
         ]);
@@ -466,12 +495,14 @@ class OrdenController extends Controller
 
         $orden->save();
         Session::flash('status', 'success');
-        Session::flash('message', 'La Orden se Actualizo satisfactoriamente!');
+        Session::flash('message', 'La Orden se almacenó satisfactoriamente!');
         return redirect()->route($redirect, ['id' => $orden_id]);
     }
     
-    public function ordenPdf($id)
+    public function ordenPdf(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $orden = Orden::findOrFail($id);
         $paciente = $orden->paciente;
         $plantilla = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',$orden->plantilla);
@@ -485,14 +516,18 @@ class OrdenController extends Controller
         return $pdf->stream('invoice'); 
     }
 
-    public function imprimir($id)
+    public function imprimir(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         // verificar el usuario que va  imprimir
         return view('backEnd.orden.imprimir', compact('id'));
     }
 
-    public function imprimirListado($id)
+    public function imprimirListado(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         // verificar el usuario que va  imprimir para mandar el mensaje
         return view('backEnd.orden.imprimirListado', compact('id'));
     }
@@ -509,7 +544,9 @@ class OrdenController extends Controller
         return ($id);
     }
     
-    public function generarCodigo($id){
+    public function generarCodigo(Request $request,$id){
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $orden = Orden::findOrFail($id);
         $paciente = $orden->paciente;
         $orden= Codigosorden::where('orden_id', '=', $id)->count();
@@ -536,6 +573,8 @@ class OrdenController extends Controller
     
     public function autocompletgrupo(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
         $muestra=$request->term;
         $tipo_examen = $request->tipo_examen;
 
@@ -553,6 +592,8 @@ class OrdenController extends Controller
     
     public function entidades(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
     	$id=$request->id;
         $idSelect=$request->select;
 

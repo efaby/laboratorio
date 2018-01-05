@@ -136,7 +136,7 @@ Orden
     });
 
     $(".delete").on("submit", function(){
-        return confirm("Esta seguro que desea eliminar la orden selccionada?");
+        return confirm("Está seguro que desea eliminar la orden selccionada?");
     });
 </script>
 <style type="text/css">

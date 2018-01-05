@@ -54,6 +54,18 @@ class User extends Authenticatable
       return $this->hasRole($roles) || 
              abort(403, 'permission denied.');
     }
+
+    /**
+     * @param string|array $roles
+     */
+    public function authorizeMenu($roles)
+    {
+        if (is_array($roles)) {
+            return $this->hasAnyRole($roles);
+        }
+        return $this->hasRole($roles);
+    }
+
     /**
     * Check multiple roles
     * @param array $roles

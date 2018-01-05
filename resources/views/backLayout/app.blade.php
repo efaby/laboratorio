@@ -35,8 +35,11 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Administración <b class = "caret"></b>
                         </a>
+
                         <ul class = "dropdown-menu">
-                            <li><a href="{{ url('tipopaciente') }}">Tipo Paciente</a></li>
+                            @if (Auth::user()->authorizeMenu(['Administrador']))
+                                <li><a href="{{ url('tipopaciente') }}">Tipo Paciente</a></li>
+                            @endif
                             <li><a href="{{ url('tipoexamen') }}">Tipo Examen</a></li>
                             <li><a href = "{{ url('tipousuario') }}">Tipo Usuario</a></li>                            
                         </ul>

@@ -25,16 +25,20 @@ class FacturacionController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function individual()
+	public function individual(Request $request)
 	{
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
 		$ordenes = Orden::orderBy('id', 'desc')
 					->where('tipopaciente_id',1)										
 					->get();
 		return view('backEnd.facturacion.index', compact('ordenes'));		
 	}	
 	
-	public function editIndividual($id)
+	public function editIndividual(Request $request,$id)
 	{
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
 		$orden = Orden::findOrFail($id);
 		$paciente = $orden->paciente;
 		$hoy = new \DateTime();
@@ -49,6 +53,8 @@ class FacturacionController extends Controller
 	}
 	
 	public function guardarFacturaIndividual(Request $request) {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
 		$orden_id = $request->orden_id;
 		$paciente_id = $request->paciente_id;
 		$total = $request->total;
@@ -67,8 +73,10 @@ class FacturacionController extends Controller
 		return response()->json($factura);		
 	}
 	
-	public function imprimirIndividual($id)
+	public function imprimirIndividual(Request $request,$id)
 	{
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
 		$factura = Factura::findOrFail($id);
 		$paciente = Paciente::findOrFail($factura->cliente_id);
 		$orden = Factura::findOrFail($id);
@@ -78,6 +86,8 @@ class FacturacionController extends Controller
 	}
 	
 	public function obtenerCliente(Request $request){
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
 		$id=$request->id;
 		if(isset($id)){
 			$data = Paciente::where('cedula',$id)->get();
@@ -97,8 +107,10 @@ class FacturacionController extends Controller
 		return $result[0];
 	}
 	
-	public function verIndividual($id)
+	public function verIndividual(Request $request,$id)
 	{
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
 		$orden = Orden::findOrFail($id);
 		$paciente = $orden->paciente;		
 		$detalleorden = DB::table('detalleorden')
@@ -110,7 +122,9 @@ class FacturacionController extends Controller
 		return view('backEnd.facturacion.ver', compact('orden','paciente','detalleorden'));
 	}
 	
-	public function anexoIndividual($id) {
+	public function anexoIndividual(Request $request,$id) {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
 		$factura = Factura::findOrFail($id);
 		$ordenes = Orden::where('factura_id',$id)->get();
 		$cliente = Paciente::findOrFail($factura->cliente_id);
@@ -147,6 +161,8 @@ class FacturacionController extends Controller
 	}	
 
 	public function facturarGlobal(Request $request) {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
 		$cliente_id = $request->cliente_id;
 		$fecha_inicio = $request->fecha_inicio;
 		$fecha_fin = $request->fecha_fin;
@@ -171,6 +187,7 @@ class FacturacionController extends Controller
 	}
 
 	public function guardarFacturaGlobal(Request $request) {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
 
         $cliente_id = $request->cliente_id;
 		$fecha_inicio = $request->fecha_inicio;
@@ -201,20 +218,25 @@ class FacturacionController extends Controller
 
     }
 
-    public function imprimirGlobal($id) {
+    public function imprimirGlobal(Request $request,$id) {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
     	$factura = Factura::findOrFail($id);
     	$cliente = Paciente::findOrFail($factura->cliente_id);
     	return view('backEnd.facturacion.printGlobal', compact('factura','cliente'));
     }
 
-    public function anexoGlobal($id) {
+    public function anexoGlobal(Request $request,$id) {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
     	$factura = Factura::findOrFail($id);
     	$ordenes = Orden::where('factura_id',$id)->get();    
     	$cliente = Paciente::findOrFail($factura->cliente_id);
     	return view('backEnd.facturacion.printAnexo', compact('factura', 'ordenes','cliente'));
     }
 
-    public function listadoGlobal() {
+    public function listadoGlobal(Request $request) {
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
     	$facturas = Factura::where('tipo',2)->get();
     	return view('backEnd.facturacion.listadoGlobal', compact('facturas'));
     }

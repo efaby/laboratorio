@@ -25,8 +25,10 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
+
         $usuarios = User::all();
         return view('backEnd.user.index', compact('usuarios'));
     }
@@ -36,8 +38,10 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
+
         $items = TipoUsuario::All();
         return view('backEnd.user.create', compact('items'));
     }
@@ -49,6 +53,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
+
     	$this->validate($request, [
         		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/', 
         		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
@@ -72,7 +78,7 @@ class UserController extends Controller
         $user_id = DB::table('users')->max('id');
         $user = User::findOrFail($user_id);
         $user->roles()->attach($request->roles);
-        Session::flash('message', 'El Usuario se almaceno satisfactoriamente!');
+        Session::flash('message', 'El Usuario se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('user');
@@ -85,8 +91,10 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador']);
+
         $paciente = Paciente::findOrFail($id);
 
         return view('backEnd.paciente.show', compact('paciente'));
@@ -99,8 +107,10 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador']);
+
         $user = User::findOrFail($id);
         $items = TipoUsuario::All();
         return view('backEnd.user.edit', compact('user','items'));
@@ -115,6 +125,8 @@ class UserController extends Controller
      */
     public function update($id, Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
+
         $this->validate($request, [
 
         		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/',
@@ -142,7 +154,7 @@ class UserController extends Controller
         $user->roles()->detach();
         $user->roles()->attach($request->roles);
 
-        Session::flash('message', 'El Usuario se almaceno satisfactoriamente!');
+        Session::flash('message', 'El Usuario se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('user');
@@ -155,11 +167,13 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador']);
+
         $user = User::findOrFail($id);
         
-        $message = 'El Usuario NO se pudo eliminar porque exiten ordenes de examenes Asociados!';
+        $message = 'El Usuario NO se pudo eliminar porque exiten órdenes de examenes Asociados!';
         $type = 'warning';
 
         if(count($user->ordenes) == 0) {
@@ -192,8 +206,4 @@ class UserController extends Controller
         
         echo json_encode(array('valid' => $isAvailable,));
     }
-
-
-    
-
 }

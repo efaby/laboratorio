@@ -82,7 +82,7 @@ Facturación Global
     });
 
     $(".delete").on("submit", function(){
-        return confirm("Esta seguro que desea eliminar el item selccionado?");
+        return confirm("Está seguro que desea eliminar el item seleccionado?");
     });
     
     function imprimir(id) {

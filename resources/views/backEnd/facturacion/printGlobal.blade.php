@@ -43,7 +43,7 @@
 		               	    	1		                	    		         		    
 			            </td>
 			            <td>
-			                Examenes de Laboratorio                 		            
+			                Exámenes de Laboratorio
 			            </td>
 				        <td style="text-align: right">
 			        	    $<?php echo $factura->precio; ?>

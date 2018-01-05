@@ -151,7 +151,7 @@ Facturación
 	                    validators: {
 	                        greaterThan: {
 	                            value: 1,
-	                            message: 'El cliente no esta registrado'
+	                            message: 'El Cliente no esta registrado'
 	                        }
 	                    }
                 

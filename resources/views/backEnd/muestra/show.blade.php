@@ -10,7 +10,7 @@ Muestra
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>ID.</th> <th>Nombre</th><th>Descripcion</th><th>Estado</th>
+                    <th>ID.</th> <th>Nombre</th><th>Descripción</th><th>Estado</th>
                 </tr>
             </thead>
             <tbody>

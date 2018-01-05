@@ -156,7 +156,7 @@ Editar Cliente
                        message: 'Los Nombres no son válidos',
                        validators: {
                            notEmpty: {
-                               message: 'Los Nombres no puedem ser vacíos.'
+                               message: 'Los Nombres no pueden ser vacíos.'
                            },
                            regexp: {
                                regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
@@ -172,7 +172,7 @@ Editar Cliente
                                message: 'Ingrese los Apellidos válidos.'
                            },
                            callback: {
-                            message: 'El apellido no puede ser vacio',
+                            message: 'El Apellido no puede ser vacío',
                             callback: function(value, validator, $field) {
                                 var tipo = $('#frmCliente').find('[name="tipopacientes_id"]').val();
                                 console.log("tipo", tipo);
@@ -186,7 +186,7 @@ Editar Cliente
                        message: 'La Dirección no es válida',
                        validators: {
                         notEmpty: {
-                           message: 'La Dirección no pueden ser vacía.'
+                           message: 'La Dirección no puede ser vacía.'
                         },
                            regexp: {
                                regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\s\_\-]+$/,

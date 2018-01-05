@@ -22,8 +22,10 @@ class TipoUsuarioController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
+
         $tipousuario = TipoUsuario::all();
 
         return view('backEnd.tipousuario.index', compact('tipousuario'));
@@ -34,8 +36,9 @@ class TipoUsuarioController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
         return view('backEnd.tipousuario.create');
     }
 
@@ -46,11 +49,12 @@ class TipoUsuarioController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
         $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/']);
 
         TipoUsuario::create($request->all());
 
-        Session::flash('message', 'El Tipo Usuario se almaceno satisfactoriamente!');
+        Session::flash('message', 'El Tipo Usuario se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipousuario');
@@ -63,8 +67,9 @@ class TipoUsuarioController extends Controller
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador']);
         $tipousuario = TipoUsuario::findOrFail($id);
 
         return view('backEnd.tipousuario.show', compact('tipousuario'));
@@ -77,8 +82,9 @@ class TipoUsuarioController extends Controller
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador']);
         $tipousuario = TipoUsuario::findOrFail($id);
 
         return view('backEnd.tipousuario.edit', compact('tipousuario'));
@@ -93,12 +99,14 @@ class TipoUsuarioController extends Controller
      */
     public function update($id, Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
+
         $this->validate($request, ['nombre' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/']);
 
         $tipousuario = TipoUsuario::findOrFail($id);
         $tipousuario->update($request->all());
 
-        Session::flash('message', 'El Tipo Usuario se almaceno satisfactoriamente!');
+        Session::flash('message', 'El Tipo Usuario se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
 
         return redirect('tipousuario');
@@ -111,11 +119,13 @@ class TipoUsuarioController extends Controller
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $request->user()->authorizeRoles(['Administrador']);
+        
         $tipousuario = TipoUsuario::findOrFail($id);
         $tipousuario->delete();
-        Session::flash('message', 'El Tipo Usuario se elimino satisfactoriamente!');
+        Session::flash('message', 'El Tipo Usuario se eliminó satisfactoriamente!');
         Session::flash('status', 'success');
         return redirect('tipousuario');
     }

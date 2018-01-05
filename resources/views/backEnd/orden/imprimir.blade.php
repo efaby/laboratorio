@@ -6,7 +6,7 @@ Imprimir Exámen
 @section('content')
 
 <div class="panel-body">
-    <h1>Imprimir de Exámen</h1>
+    <h1>Imprimir Exámen</h1>
     <hr/>
     <div class="alert alert-warning fade in">
             <a href="#" class="close" data-dismiss="alert">&times;</a>

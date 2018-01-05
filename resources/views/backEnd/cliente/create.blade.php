@@ -152,7 +152,7 @@ Nuevo Cliente
                     message: 'Los Nombres no son válidos',
                     validators: {
                         notEmpty: {
-                           message: 'Los Nombres/Razon Social no pueden ser vacío.'
+                           message: 'Los Nombres/Razón Social no pueden ser vacío.'
                         },
                         regexp: {
                            regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\_\s\-]+$/,
@@ -168,7 +168,7 @@ Nuevo Cliente
                            message: 'Ingrese los Apellidos válidos.'
                        },
                        callback: {
-                            message: 'El apellido no puede ser vacio',
+                            message: 'El Apellido no puede ser vacío',
                             callback: function(value, validator, $field) {
                                 var tipo = $('#frmCliente').find('[name="tipopacientes_id"]').val();
                                 console.log("tipo", tipo);

@@ -91,7 +91,7 @@ Usuarios
     });
 
     $(".delete").on("submit", function(){
-        return confirm("Esta seguro que desea eliminar el item selccionado?");
+        return confirm("Está seguro que desea eliminar el item selccionado?");
     });
 </script>
 @endsection

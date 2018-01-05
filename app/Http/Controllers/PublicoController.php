@@ -40,7 +40,7 @@ class PublicoController extends Controller
         if(count($orden)){
             $id = $orden[0]->id;
         } else {
-            Session::flash('message', 'No existe ningun resultado asociado al Paciente!');
+            Session::flash('message', 'No existe ningún resultado asociado al Paciente!');
             Session::flash('status', 'warning');
         }
 

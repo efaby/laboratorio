@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use App\TipoUsuario;
+use App\Entidad;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -41,9 +42,9 @@ class UserController extends Controller
     public function create(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']);
-
+        $entidades= Entidad::pluck('nombre', 'id')->toArray();
         $items = TipoUsuario::All();
-        return view('backEnd.user.create', compact('items'));
+        return view('backEnd.user.create', compact('items','entidades'));
     }
 
     /**
@@ -72,6 +73,7 @@ class UserController extends Controller
             'email' => $request->email,
             'direccion' => $request->direccion,
             'password' => bcrypt($request->password),
+            'entidad_id' => $request->entidad_id
         ];
 
         DB::table('users')->insert($array);
@@ -110,10 +112,10 @@ class UserController extends Controller
     public function edit(Request $request,$id)
     {
         $request->user()->authorizeRoles(['Administrador']);
-
+        $entidades= Entidad::pluck('nombre', 'id')->toArray();
         $user = User::findOrFail($id);
         $items = TipoUsuario::All();
-        return view('backEnd.user.edit', compact('user','items'));
+        return view('backEnd.user.edit', compact('user','items','entidades'));
     }
 
     /**
@@ -145,6 +147,7 @@ class UserController extends Controller
         $user->name = $request->cedula;       
         $user->email = $request->email;
         $user->direccion = $request->direccion;
+        $user->entidad_id = $request->entidad_id;
 
         if ($request->password && $request->password != '') {
             $user->password = bcrypt($request->password);

@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'nombres', 'apellidos', 'direccion', 'cedula'
+        'name', 'email', 'password', 'nombres', 'apellidos', 'direccion', 'cedula', 'entidad_id'
     ];
 
     /**
@@ -40,6 +40,11 @@ class User extends Authenticatable
     public function roles()
     {
       return $this->belongsToMany(TipoUsuario::class);
+    }
+
+    public function entidad()
+    {
+        return $this->belongsTo('App\Entidad','entidad_id','id');
     }
 
     /**

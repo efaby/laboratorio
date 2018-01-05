@@ -62,6 +62,13 @@ Editar Usuario
                     {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
                 </div>
               </div>
+              <div class="form-group {{ $errors->has('entidad_id') ? 'has-error' : ''}}">
+                {!! Form::label('entidad_id', 'Entidad: ', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {{ Form::select('entidad_id', $entidades, null, ['class' => 'form-control', 'placeholder' => 'Seleccione']) }}
+                    {!! $errors->first('entidad_id', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div> 
             <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
                 {!! Form::label('password', 'Contrase&ntilde;a: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
@@ -105,6 +112,14 @@ Editar Usuario
                     }
                 }
             },  
+            entidad_id: {
+                    message: 'La Entidad no es válida',
+                    validators: {
+                        notEmpty: {
+                            message: 'La Entidad no puede ser vacía.'
+                        }
+                    }
+                },
                cedula: {
               message: 'El Número de Cédula no es válido',
               validators: { 

@@ -62,6 +62,9 @@ Route::group(['middleware' => ['web']], function () {
 	Route::resource('tipoexamen', 'TipoExamenController');
 });
 Route::group(['middleware' => ['web']], function () {
+	Route::resource('entidad', 'EntidadController');
+});
+Route::group(['middleware' => ['web']], function () {
 	Route::resource('tipopaciente', 'TipoPacienteController');
 });
 Route::group(['middleware' => ['web']], function () {

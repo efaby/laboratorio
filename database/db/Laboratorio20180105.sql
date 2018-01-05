@@ -113,6 +113,34 @@ INSERT INTO `detalleorden` VALUES (1,17,3,'2017-11-09 08:36:47',NULL,2.50,1),(2,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `entidad`
+--
+
+DROP TABLE IF EXISTS `entidad`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `entidad` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` tinyint(4) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `entidad`
+--
+
+LOCK TABLES `entidad` WRITE;
+/*!40000 ALTER TABLE `entidad` DISABLE KEYS */;
+INSERT INTO `entidad` VALUES (1,'Matriz',1,'2018-01-05 09:42:05','2018-01-05 09:43:24',NULL),(2,'Sucursal',1,'2018-01-05 09:42:50','2018-01-05 09:42:50',NULL);
+/*!40000 ALTER TABLE `entidad` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `examan_muestra`
 --
 
@@ -445,7 +473,7 @@ CREATE TABLE `tipo_usuario_user` (
   `tipo_usuario_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -454,7 +482,7 @@ CREATE TABLE `tipo_usuario_user` (
 
 LOCK TABLES `tipo_usuario_user` WRITE;
 /*!40000 ALTER TABLE `tipo_usuario_user` DISABLE KEYS */;
-INSERT INTO `tipo_usuario_user` VALUES (1,1,1),(8,1,6),(10,2,5),(12,3,7);
+INSERT INTO `tipo_usuario_user` VALUES (1,1,1),(8,1,6),(10,2,5),(12,3,7),(17,1,9);
 /*!40000 ALTER TABLE `tipo_usuario_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -562,9 +590,10 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `entidad_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `users_email_unique` (`cedula`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -573,7 +602,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'0603718578','0603718578','Fabian','Villa','Calle 5','efaby10@hotmail.com','$2y$10$GNR6US81pE1Gwd57kyD57OYU7fVjczlBEFP1fFGx3P4MPxXvcfZz.','hnDcb8AhK9wcrZqoKUIMcF7d2mYFY4bhv3hbz9Q7ZIMqMOoRHR2JTzz1R5VY','2017-12-13 10:44:41','2017-12-13 10:57:52',NULL),(5,'0603108770','0603108770','Janeth','Concha',NULL,'mail@mail.com','$2y$10$l0EegupxPQbHA6TYbNUm6.TKS3COR9DxleRHtqUIw1Ly.ESI2kXt6','Lq58NdvMKYi66jqnowB0jhWicuiSiJmBz5P5yR9QgBjRfCLt5TbQS4HpSMk8',NULL,'2018-01-05 00:33:49',NULL),(7,'0101380285','0101380285','Ana','Ana','ww','qsas@mail.com','$2y$10$3ltg4096Uc5K09ZqyIp8aeYYMG5UH16LiGvXsPQQMyZ9Uiajj/7Mu','DyB4zrA7y9BvM9ChuZYhOYfCahjxz5v2hNLCQmH1m1PmJMN7Yj4EU66rH8uE',NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,'0603718578','0603718578','Fabian','Villa','Calle 5','efaby10@hotmail.com','$2y$10$GNR6US81pE1Gwd57kyD57OYU7fVjczlBEFP1fFGx3P4MPxXvcfZz.','hnDcb8AhK9wcrZqoKUIMcF7d2mYFY4bhv3hbz9Q7ZIMqMOoRHR2JTzz1R5VY','2017-12-13 10:44:41','2017-12-13 10:57:52',NULL,1),(5,'0603108770','0603108770','Janeth','Concha',NULL,'mail@mail.com','$2y$10$l0EegupxPQbHA6TYbNUm6.TKS3COR9DxleRHtqUIw1Ly.ESI2kXt6','Lq58NdvMKYi66jqnowB0jhWicuiSiJmBz5P5yR9QgBjRfCLt5TbQS4HpSMk8',NULL,'2018-01-05 00:33:49',NULL,1),(7,'0101380285','0101380285','Ana','Ana','ww','qsas@mail.com','$2y$10$3ltg4096Uc5K09ZqyIp8aeYYMG5UH16LiGvXsPQQMyZ9Uiajj/7Mu','DyB4zrA7y9BvM9ChuZYhOYfCahjxz5v2hNLCQmH1m1PmJMN7Yj4EU66rH8uE',NULL,NULL,NULL,1),(9,'0603718570','0603718570','test','test',NULL,'mail@mail.com','$2y$10$RUD3KxPdoumubtC.2sxnb.6nYif0r1eE7rPe88yHnHb577H4ueEqa',NULL,NULL,'2018-01-05 10:08:02',NULL,2);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -586,4 +615,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-04 23:03:12
+-- Dump completed on 2018-01-05  0:09:02

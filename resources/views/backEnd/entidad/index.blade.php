@@ -1,55 +1,46 @@
 @extends('backLayout.app')
 @section('title')
-Usuarios
+Entidades
 @stop
 
 @section('content')
 
-    <h1>Usuarios</h1>
+    <h1>Entidades</h1>
 
     @if (Session::has('message'))
-        <div class="alert alert-{{ Session::get('status') }} fade in">
+        <div class="alert alert-success fade in">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             {{ Session::get('message') }}
         </div>
     @endif
     <div class="row" style="margin-bottom: 10px;" > 
     <div class="col-sm-12">
-        <a href="{{ url('user/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a>
+        <a href="{{ url('entidad/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a>
     </div>
     </div>
 
     <div class="table table-responsive">
-        <table class="table table-bordered table-striped table-hover" id="tblpaciente">
+        <table class="table table-bordered table-striped table-hover" id="tblentidad">
             <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Email</th><th>Tipo</th><th>Entidad</th><th style="width: 10%; text-align: center;">Acciones</th>
+                    <th></th><th>Id</th><th>Nombre</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach($usuarios as $item)
+            @foreach($entidades as $item)
                 <tr>
-                 	<td></td>	
+                	<td></td>
                     <td>{{ $item->id }}</td>
-                    <td>{{ $item->cedula }}</td>
-                    <td>{{ $item->nombres }}</td>
-                    <td>{{ $item->apellidos }}</td>                   
-                    <td>{{ $item->email }}</td>
-                    <td>
-                        @foreach($item->roles as $rol)
-                            {{ $rol->nombre }},
-                        @endforeach
-                    </td>
-                    <td>{{ $item->entidad->nombre }}</td>
+                    <td>{{ $item->nombre }}</td>
                     <td style="width: 10%; text-align: center;">
-                        <a href="{{ url('user/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+                        <a href="{{ url('entidad/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['user', $item->id],
+                            'url' => ['entidad', $item->id],
                             'style' => 'display:inline',
                             'class' => 'delete'
                         ]) !!}
-                            {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
+                             {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
@@ -63,7 +54,7 @@ Usuarios
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#tblpaciente').DataTable({
+        $('#tblentidad').DataTable({
             columnDefs: [{
                 targets: [0],
                 visible: false,

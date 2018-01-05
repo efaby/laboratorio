@@ -41,7 +41,8 @@
                                 <li><a href="{{ url('tipopaciente') }}">Tipo Paciente</a></li>
                             @endif
                             <li><a href="{{ url('tipoexamen') }}">Tipo Examen</a></li>
-                            <li><a href = "{{ url('tipousuario') }}">Tipo Usuario</a></li>                            
+                            <li><a href = "{{ url('tipousuario') }}">Tipo Usuario</a></li> 
+                            <li><a href = "{{ url('entidad') }}">Entidades</a></li>                            
                         </ul>
                     </li>
                     <li class="dropdown">

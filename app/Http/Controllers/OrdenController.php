@@ -418,7 +418,6 @@ class OrdenController extends Controller
     }
 
     public function orden(Request $request,$id) {
-
         $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
 
         $orden = $this->getOrden($id);
@@ -501,9 +500,14 @@ class OrdenController extends Controller
     
     public function ordenPdf(Request $request,$id)
     {
-        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
-
-        $orden = Orden::findOrFail($id);
+    	$request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+    	
+    	DB::table('orden')
+    	->where('id', $id)
+    	->increment('num_impresion',1);
+    	
+        $orden = Orden::findOrFail($id);        
+        
         $paciente = $orden->paciente;
         $plantilla = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',$orden->plantilla);
         //return view('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'));
@@ -527,9 +531,12 @@ class OrdenController extends Controller
     public function imprimirListado(Request $request,$id)
     {
         $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
-
+        
+        $orden = Orden::findOrFail($id);
+        $num_impresion = $orden->num_impresion;
+        
         // verificar el usuario que va  imprimir para mandar el mensaje
-        return view('backEnd.orden.imprimirListado', compact('id'));
+        return view('backEnd.orden.imprimirListado', compact('id','num_impresion'));
     }
     
     public static function alphaNumeric($length)

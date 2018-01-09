@@ -55,11 +55,11 @@ Orden
                           	<span class="glyphicon glyphicon-qrcode" aria-hidden="true" ></span>
                         </a>
                             @if ($item->validado==0)
-                              	@if (Auth::user()->authorizeMenu(['Administrador'])) 
+                              	@if (Auth::user()->authorizeMenu(['Administrador','Analista'])) 
 	                            	<a href="{{ url('orden/orden/' . $item->id ) }}" class="btn btn-success btn-xs" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a>
 	                          	@endif   
 	                        @else
-	                        	@if (Auth::user()->authorizeMenu(['Administrador']))
+	                        	@if (Auth::user()->authorizeMenu(['Administrador','Analista']))
 	                            	<a href="#" class="btn btn-success btn-xs disabled" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a>
 	                            @endif
 	                            @if (Auth::user()->authorizeMenu(['Administrador','Analista']))

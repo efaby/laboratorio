@@ -523,9 +523,12 @@ class OrdenController extends Controller
     public function imprimir(Request $request,$id)
     {
         $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+        $orden = Orden::findOrFail($id);
+        $num_impresion = $orden->num_impresion;
+        
 
         // verificar el usuario que va  imprimir
-        return view('backEnd.orden.imprimir', compact('id'));
+        return view('backEnd.orden.imprimir', compact('id','num_impresion'));
     }
 
     public function imprimirListado(Request $request,$id)

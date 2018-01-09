@@ -81,16 +81,7 @@ Orden Exámen
                 </div>
 
     {!! Form::open(['url' => 'orden/saveOrden', 'class' => 'form-horizontal', 'id'=>'frmItem' ]) !!}
-      
-            <div class="form-group {{ $errors->has('plantilla') ? 'has-error' : ''}}">
-                
-                <div class="col-sm-12">
-                    {{ Form::textarea('plantilla', $plantilla, [ 'class' => 'form-control']) }}
-                    {!! $errors->first('plantilla', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-           
-            <div class="form-group">
+     		<div class="form-group" style="text-align: right;">
                 <div class="col-sm-12">
                 	{!! Form::hidden('orden_id', $orden->id) !!}
                     {!! Form::hidden('validar', $validar) !!}
@@ -102,6 +93,16 @@ Orden Exámen
                     <a href="{{ url('orden') }}" class="btn btn-info btn-sm">Salir</a>
                 </div>
             </div>
+      
+            <div class="form-group {{ $errors->has('plantilla') ? 'has-error' : ''}}">
+                
+                <div class="col-sm-12">
+                    {{ Form::textarea('plantilla', $plantilla, [ 'class' => 'form-control']) }}
+                    {!! $errors->first('plantilla', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+           
+           
     {!! Form::close() !!}
 </div>
 @endsection

@@ -63,7 +63,7 @@ Orden
 	                            	<a href="#" class="btn btn-success btn-xs disabled" title="Atender"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a>
 	                            @endif
 	                            @if (Auth::user()->authorizeMenu(['Administrador','Analista']))
-	                            	<a href="{{ url('orden/imprimirListado/' . $item->id) }}" data-toggle="modal" class="btn btn-info btn-xs" title="Imprimir" data-target="#myModal1">
+	                            	<a href="{{ url('orden/imprimirListado/' . $item->id) }}" data-toggle="modal" class="btn btn-info btn-xs" title="Imprimir" data-target="#myModal1" data-backdrop="static" >
 	                            		<span class="glyphicon glyphicon-print" aria-hidden="true" ></span>
 	                        		</a>
 	                        	@endif
@@ -147,6 +147,14 @@ Orden
     $(".delete").on("submit", function(){
         return confirm("Está seguro que desea eliminar la orden selccionada?");
     });
+
+    $(document.body).on('hidden.bs.modal', function () {
+        $('#myModal1').removeData('bs.modal')
+    });
+
+    
+$('.modal').on('hidden', function() { console.log("hidden"); $(this).removeData(); })
+
 </script>
 <style type="text/css">
     

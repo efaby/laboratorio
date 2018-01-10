@@ -31,9 +31,20 @@ class OrdenController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
-
-        $ordenes = Orden::orderBy('id', 'desc')->get();
-
+        
+        if ($request->user()->authorizeMenu(['Administrador']))
+        {
+	        $ordenes = Orden::orderBy('id', 'desc')->get();
+        }else{
+        	//$ordenes = Orden::orderBy('id', 'desc')->get();
+        	
+        	$entidad = $request->user()->entidad_id;
+        	
+        	$ordenes = Orden::join('users', 'orden.user_id', '=', 'users.id')
+        	->select('orden.id as id','orden.*')
+        	->where('entidad_id',$entidad)
+        	->orderBy('orden.id', 'desc')->get();
+        }
         return view('backEnd.orden.index', compact('ordenes'));
     }
 
@@ -350,7 +361,6 @@ class OrdenController extends Controller
 
         $data = Examan::whereIn('id', $ids)->get();
 
-
         $muestras = Muestra::whereIn('id', $muestrasIds)->get();
 
         foreach ($data as $query) {
@@ -363,14 +373,14 @@ class OrdenController extends Controller
 
         $result=array();
         
-        if($is_relacional == 1){                        
+        if($is_relacional){                        
             $detalle= DB::table('orden')
                             ->join('detalleorden', 'orden.id', '=', 'detalleorden.orden_id')
                             ->select('detalleorden.*')
                             ->where('pacientes_id', $id_paciente)
                             ->where('fecha_emision', $hoy_format)
                             ->get();
-            
+                            
             foreach ($data as $query)           
             {
                 $band=false;

@@ -28,10 +28,22 @@ class FacturacionController extends Controller
 	public function individual(Request $request)
 	{
         $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
-
-		$ordenes = Orden::orderBy('id', 'desc')
+		
+        if ($request->user()->authorizeMenu(['Administrador']))
+        {
+			$ordenes = Orden::orderBy('id', 'desc')
 					->where('tipopaciente_id',1)										
 					->get();
+        }else{
+        	$entidad = $request->user()->entidad_id;
+        	
+        	$ordenes = Orden::join('users', 'orden.user_id', '=', 'users.id')
+        	->select('orden.id as id','orden.*')
+        	->where('entidad_id',$entidad)
+        	->where('tipopaciente_id',1)
+        	->orderBy('orden.id', 'desc')
+        	->get();
+        }
 		return view('backEnd.facturacion.index', compact('ordenes'));		
 	}	
 	
@@ -236,8 +248,22 @@ class FacturacionController extends Controller
 
     public function listadoGlobal(Request $request) {
         $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
-
-    	$facturas = Factura::where('tipo',2)->get();
+        
+        if ($request->user()->authorizeMenu(['Administrador']))
+        {
+        	$facturas = Factura::where('tipo',2)->get();
+        }else{
+        	$entidad = $request->user()->entidad_id;
+        	
+        	$facturas = Factura::leftJoin('orden','orden.factura_id','=','factura.id')
+        	->select('factura.id as id','factura.*')
+        	->join('users', 'orden.user_id', '=', 'users.id')
+        	->where('entidad_id',$entidad)
+        	->where('tipo',2)
+        	->orderBy('factura.id','asc')
+        	->get();
+        	
+        }
     	return view('backEnd.facturacion.listadoGlobal', compact('facturas'));
     }
 

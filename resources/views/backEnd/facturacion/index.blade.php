@@ -16,7 +16,16 @@ Facturación Individual
         <table class="table table-bordered table-striped table-hover" id="tblfac">
             <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Paciente</th><th>Subtotal</th><th>Descuento</th><th>Abono</th><th>Total</th><th>Fecha Facturación</th><th style="width: 20%; text-align: center;">Acciones</th>
+                    <th></th>
+                    <th>Id</th>
+                    <th>Paciente</th>
+                    <th>Subtotal</th>
+                    <th>Descuento</th>
+                    <th>Por Cobrar</th>
+                    <th>Abono</th>
+                    <th>Total</th>
+                    <th>Fecha Facturación</th>
+                    <th style="width: 20%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +37,7 @@ Facturación Individual
                     <td>{{ $item->paciente->nombres }} {{ $item->paciente->apellidos }}</td>
                     <td>${{ $item->subtotal }}</a></td>
                     <td>${{ $item->descuento }}</a></td>
+                    <td>${{ number_format(($item->total - $item->abono),2)}}</td>
                     <td>${{ $item->abono }}</td>
                     <td>${{ $item->total }}</a></td>
                     <td>{{ $item->fecha_emision }}</a></td>

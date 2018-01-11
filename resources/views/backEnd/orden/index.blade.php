@@ -37,7 +37,7 @@ Orden
                     <td>${{ $item->total }}</td>                    
                     <td>{{ $item->fecha_entrega }}</td>
                     <td>
-                        @if ($item->atendido==0) 
+                        @if ($item->validado == 0) 
                             No Validado
                         @else
                             Validado

@@ -104,6 +104,10 @@
 	  	  	</tr>
 	  	  </table>
   	  </div>
+  	  <div style="margin-left: 40px">
+  	  		Validado por Dr. {{Auth::user()->nombres}} {{Auth::user()->apellidos}}
+  	  </div>	
+  	 	
   	  <div id="apartado3">
   	  		Página {{$i}}/{{count($plantilla)}}
   	  </div>

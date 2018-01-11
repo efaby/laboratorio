@@ -132,7 +132,7 @@ Orden Exámen
                
                 { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
                 { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
-                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting' ] },
+                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat', 'CopyFormatting' ] },
                 { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
                 { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
                 { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ] },
@@ -141,9 +141,10 @@ Orden Exámen
             ],
             bodyClass: 'document-editor',
             format_tags: 'p;h1;h2;h3;pre',
-            extraPlugins: 'pagebreak,print',
+            extraPlugins: 'pagebreak,print,justify,basicstyles',
             contentsCss: [ 'https://cdn.ckeditor.com/4.6.1/full-all/contents.css', '{{ asset('/css/editorStyles.css') }}' ],
-            height: 600
+            height: 600,
+            removeButtons: ''
         })
         .editor                              // Get the editor instance
             .on('change', function(e) {  

@@ -153,17 +153,18 @@ Nuevo Exámen
                     { name: 'document', items: [ 'Print' ] },
                     { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
                     { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
-                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting' ] },
+                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat', 'CopyFormatting' ] },
                     { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
                     { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ] },
+                    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'align' ] },
                     { name: 'editing', items: [ 'Scayt' ] },
                     { name: 'insert', items: [ 'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe' ] }
                 ],
-                extraPlugins: 'pagebreak,print',
+                extraPlugins: 'justify,basicstyles',
+                removeButtons: ''
             })
                 .editor
-                    .on('change', function(e) {
+                    .on('change', function(e) {removeButtons: ''
                         // Revalidate the field that
                         // the current editor is attached to
                         // e.sender.name presents the field name

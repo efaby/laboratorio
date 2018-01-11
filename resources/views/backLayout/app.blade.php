@@ -65,13 +65,15 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Pruebas de Laboratorio <b class = "caret"></b>
-                        </a>
-                        <ul class = "dropdown-menu">
-                            <li><a href="{{ url('muestra') }}">Muestras</a></li>
-                            <li><a href="{{ url('examen') }}">Examenes</a></li>
-                        </ul>
+                    	@if (Auth::user()->authorizeMenu(['Administrador','Analista']))
+	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	                            Pruebas de Laboratorio <b class = "caret"></b>
+	                        </a>
+	                        <ul class = "dropdown-menu">
+	                            <li><a href="{{ url('muestra') }}">Muestras</a></li>
+	                            <li><a href="{{ url('examen') }}">Examenes</a></li>
+	                        </ul>
+	                     @endif    
                     </li>
                     <li><a href="{{ url('orden') }}">Orden</a></li>
                     <li>

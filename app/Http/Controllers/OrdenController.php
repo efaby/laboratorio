@@ -439,7 +439,7 @@ class OrdenController extends Controller
     }
 
     public function validar(Request $request,$id) {
-        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+    	$request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
 
         $orden = $this->getOrden($id);
         $validar = true;
@@ -532,7 +532,10 @@ class OrdenController extends Controller
 
     public function imprimir(Request $request,$id)
     {
-        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+    	$request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+    	
+    	self::validar($request,$id);
+    	
         $orden = Orden::findOrFail($id);
         $num_impresion = $orden->num_impresion;
         
@@ -543,7 +546,7 @@ class OrdenController extends Controller
 
     public function imprimirListado(Request $request,$id)
     {
-        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+    	$request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
         $orden = Orden::findOrFail($id);
         $num_impresion = $orden->num_impresion;
         

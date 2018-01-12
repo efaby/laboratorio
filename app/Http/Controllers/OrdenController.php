@@ -386,7 +386,7 @@ class OrdenController extends Controller
                 $band=false;
                 foreach ($detalle as $d)
                 {     
-                    if($d->examens_id == $query->id){
+                	if($d->examens_id == $query->id){
                         $band=true;                     
                     }                   
                 }
@@ -395,11 +395,13 @@ class OrdenController extends Controller
                 }else{
                     $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre, 'muestra' => $query->muestra->nombre, 'muestraId' => $query->muestra->id ];                  
                 }
-            }           
+            }
             // if isrelated se deberia hacer una consulta in            
             // detalle de todas las ordenes de ese dia y comparas con los resultados del sql del term
             
         }else{
+        	print_r('pp');
+        	exit();
             foreach ($data as $query)
             {
                 $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre, 'muestra' => $query->muestra->nombre, 'muestraId' => $query->muestra->id ];

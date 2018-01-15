@@ -67,7 +67,7 @@ Editar Paciente
             <div class="form-group {{ $errors->has('genero') ? 'has-error' : ''}}">
                 {!! Form::label('genero', 'Género: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                     {!! Form::select('genero', array(null => 'Seleccione','Fem' => 'Femenino', 'Mas' => 'Masculino'),null, ['class' => 'form-control']) !!}
+                     {!! Form::select('genero', array(null => 'Seleccione','Fem' => 'Femenino', 'Mas' => 'Masculino','Na'=>'No Aplica'),null, ['class' => 'form-control']) !!}
                     {!! $errors->first('genero', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -111,7 +111,7 @@ Editar Paciente
 	       				message: 'El Número de Cédula no es válido',
 	       				validators: {			
 	       							regexp: {
-	       								regexp: /^(?:\+)?\d{10,13}$/,
+	       								regexp: /^[0-9]+$/,
 	       								message: 'Ingrese un Número de Identificación válido.'
 	       							},
                       remote: {

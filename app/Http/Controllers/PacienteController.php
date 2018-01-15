@@ -52,7 +52,7 @@ class PacienteController extends Controller
         $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
     	$this->validate($request, [
         		'tipopacientes_id'=>'required',
-        		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/', 
+        		'cedula' => 'nullable|regex:/^[0-9 ]+$/', 
         		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/', 
         		'edad'=>'required|regex:/^[1-9]\d*$/',
@@ -112,7 +112,7 @@ class PacienteController extends Controller
         $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
         $this->validate($request, [
         		'tipopacientes_id'=>'required',
-        		'cedula' => 'nullable|regex:/^(?:\+)?\d{10,13}$/',
+        		'cedula' => 'nullable|regex:/^[0-9 ]+$/',
         		'nombres' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'apellidos' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
         		'edad'=>'required|regex:/^[1-9]\d*$/',

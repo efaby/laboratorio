@@ -13,9 +13,13 @@ Nuevo Paciente
             	{!! Form::hidden('tipopacientes_id', 1, ['class' => 'form-control']) !!}
             	
                 {!! Form::label('cedula', 'Cédula: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     {!! Form::text('cedula', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('cedula', '<p class="help-block">:message</p>') !!}
+                </div>                 
+                <div class="col-sm-1">
+                 	{!! Form::checkbox('codigo', 0,false,['id'=>'codigo']) !!}                    
+                    <b>Código</b>                    
                 </div>
             </div>
             <div class="form-group {{ $errors->has('apellidos') ? 'has-error' : ''}}">
@@ -63,7 +67,7 @@ Nuevo Paciente
             <div class="form-group {{ $errors->has('genero') ? 'has-error' : ''}}">
                 {!! Form::label('genero', 'Género: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::select('genero', array(null => 'Seleccione','Fem' => 'Femenino', 'Mas' => 'Masculino'),null, ['class' => 'form-control']) !!}
+                    {!! Form::select('genero', array(null => 'Seleccione','Fem' => 'Femenino', 'Mas' => 'Masculino','Na'=>'No Aplica'),null, ['class' => 'form-control']) !!}
                     {!! $errors->first('genero', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -100,7 +104,7 @@ Nuevo Paciente
 
 <script type="text/javascript">
    $(document).ready(function() {
-       $('#frmPaciente').formValidation({
+	   $('#frmPaciente').formValidation({
         message: 'This value is not valid',
             fields: {
             	tipopacientes_id: {
@@ -115,7 +119,7 @@ Nuevo Paciente
        				message: 'El Número de Cédula no es válido',
    				    validators: {					
        					regexp: {
-       						regexp: /^(?:\+)?\d{10,13}$/,
+       						regexp: /^[0-9]+$/,
        						message: 'Ingrese un Número de Identificación válido.'
        					},
                 remote: {
@@ -258,8 +262,14 @@ Nuevo Paciente
                    }            
                }
            });
+
+		   $('#codigo').click(function() {
+			   	$('#apellidos').val('Paciente');
+	   			$('#nombres').val('Laboratorio');
+	   			$('#celular').val('0000000000');
+	   			$('#genero').val('Na');
+		        
+		    });
        });
-
-
    </script>
    @endsection

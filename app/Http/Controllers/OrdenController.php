@@ -400,9 +400,7 @@ class OrdenController extends Controller
             // detalle de todas las ordenes de ese dia y comparas con los resultados del sql del term
             
         }else{
-        	print_r('pp');
-        	exit();
-            foreach ($data as $query)
+        	foreach ($data as $query)
             {
                 $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre, 'muestra' => $query->muestra->nombre, 'muestraId' => $query->muestra->id ];
     

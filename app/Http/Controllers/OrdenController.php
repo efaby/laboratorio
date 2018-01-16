@@ -108,6 +108,12 @@ class OrdenController extends Controller
         $is_relacional = $request->input('is_relacional');
         if(isset($is_relacional)){
             $is_relacional =1;
+            DB::table('orden')
+            ->where('pacientes_id', $paciente_id)
+            ->where('fecha_emision', date("Y-m-d"))
+            ->where('is_relacional', 0)
+            ->update(['is_relacional' => 1]);
+
         }else{
             $is_relacional =0;
         }
@@ -243,6 +249,13 @@ class OrdenController extends Controller
         $is_relacional = $request->input('is_relacional');
         if(isset($is_relacional)){
             $orden->is_relacional =1;
+            // update 
+            DB::table('orden')
+            ->where('pacientes_id', $paciente_id)
+            ->where('fecha_emision', date("Y-m-d"))
+            ->where('is_relacional', 0)
+            ->update(['is_relacional' => 1]);
+
         }else{
             $orden->is_relacional =0;
         }

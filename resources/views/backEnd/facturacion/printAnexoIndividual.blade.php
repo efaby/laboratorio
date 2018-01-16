@@ -10,7 +10,7 @@
 	@php
 		$total = 0
 	@endphp
-	@foreach($ordenes as $item)
+	
 				
 	<h2 style="text-align: center;">Detalle del Anexo</h2>
 	<div class="row">
@@ -48,6 +48,7 @@
 					<td style="width: 50%"><b>PRUEBA</b></td>
 					<td style="width: 50%;text-align: right;"><b>PRECIO (UDS)</b></td>
 				</tr>
+				@foreach($ordenes as $item)
 				 <tr>
 				 	<td>
 				 		@foreach($item->detalleorden as $exa)
@@ -56,10 +57,12 @@
 				 	</td>
 				 	<td  style="text-align: right;">
 				 		@foreach($item->detalleorden as $exa)
-				 			{{$exa->precio}} </br>
-				 			@php
-							    $total = $total + $exa->precio
-							@endphp
+				 			@if ($exa->precio > 0)
+					 			{{$exa->precio}} </br>
+					 			@php
+								    $total = $total + $exa->precio
+								@endphp
+							@endif
 				 		@endforeach	
 				 	</td>
 				 </tr>

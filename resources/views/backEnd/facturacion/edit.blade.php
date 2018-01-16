@@ -88,8 +88,8 @@ Facturación
 			        		<tr>
 	                    	 	<td>1</td>
 	                    	 	<td>Exámenes de Laboratorio</td>
-	                    	 	<td style="text-align: right;">$<?php echo $orden->total; ?></td>
-	                    		<td style="text-align: right;">$<?php echo $orden->total; ?></td>	
+	                    	 	<td style="text-align: right;">$<?php echo $total; ?></td>
+	                    		<td style="text-align: right;">$<?php echo $total; ?></td>	
 	                    	</tr>
 		                 </tbody>    
 			        </table>        
@@ -100,7 +100,7 @@ Facturación
 	                    		</td>			
 	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
 	                    			<label for="total" class="control-label">
-										<span id="total" name="total">$<?php echo $orden->total; ?></span>
+										<span id="total" name="total">$<?php echo $total; ?></span>
 									</label>									
 	                    		</td>	
 	                    	</tr>	                    	
@@ -216,7 +216,7 @@ Facturación
 			             $.ajax({
 			                type: "POST",
 			                url: url2,
-			                data: {"_token": token, paciente_id: $('#paciente_id').val(), orden_id: {{$orden->id}},total:{{$orden->total}}, num_factura: $('#num_factura').val() },
+			                data: {"_token": token, paciente_id: $('#paciente_id').val(), orden_id: {{$orden->id}},total:{{$total}},is_relacional:{{$orden->is_relacional}}, num_factura: $('#num_factura').val() },
 			                success: function( response ) {
 			                        $('#factura_id').val(response);
 			                        $('#anexo').attr("disabled", false);

@@ -55,13 +55,22 @@ class FacturacionController extends Controller
 		$paciente = $orden->paciente;
 		$hoy = new \DateTime();
 		$orden->fecha_facturacion = $hoy->format('d/m/Y');
-		$detalleorden = DB::table('detalleorden')
-		->join('orden', 'orden.id', '=', 'detalleorden.orden_id')
-		->join('examens', 'examens.id', '=', 'detalleorden.examens_id')		
-		->select('examens.nombre as examen','detalleorden.precio','orden.id')
-		->where('orden_id', $id)
-		->get();
-		return view('backEnd.facturacion.edit', compact('orden','paciente','detalleorden'));		
+		$total = 0;
+		if($orden->is_relacional) {
+			$ordenes = DB::table('orden')	
+			->select('orden.total')
+			->where('pacientes_id', $orden->pacientes_id)
+            ->where('fecha_emision', $orden->fecha_emision)
+            ->where('is_relacional', 1)
+			->get();
+			foreach ($ordenes as $item) {
+				$total = $total + $item->total;
+	        }
+
+		} else {
+			$total = $orden->total;
+		}		
+		return view('backEnd.facturacion.edit', compact('orden','paciente', 'total'));		
 	}
 	
 	public function guardarFacturaIndividual(Request $request) {
@@ -70,6 +79,8 @@ class FacturacionController extends Controller
 		$orden_id = $request->orden_id;
 		$paciente_id = $request->paciente_id;
 		$total = $request->total;
+		$is_relacional = $request->is_relacional;
+
 		$hoy = new \DateTime();
 		DB::table('factura')->insert([
 				'fecha_factura'  => $hoy,
@@ -78,11 +89,33 @@ class FacturacionController extends Controller
 				'num_factura' => $request->num_factura
 		]);
 		$factura = DB::table('factura')->max('id');
+
+		if($is_relacional) {
+			$orden = Orden::findOrFail($orden_id);
+			$ordenes = DB::table('orden')	
+			->select('orden.id')
+			->where('pacientes_id', $paciente_id)
+            ->where('fecha_emision', $orden->fecha_emision)
+            ->where('is_relacional', 1)
+			->get();
+			$ides = array();
+			foreach ($ordenes as $item) {
+				$ides[] = $item->id;
+	        }
+
+	        DB::table('orden')
+			->whereIn('id', $ides)
+			->update(['factura_id' => $factura]);
+			return response()->json($factura);
+
+	    } else {
+	    	DB::table('orden')
+			->where('id', $orden_id)
+			->update(['factura_id' => $factura]);
+			return response()->json($factura);
+	    }
 		
-		DB::table('orden')
-		->where('id', $orden_id)
-		->update(['factura_id' => $factura]);
-		return response()->json($factura);		
+				
 	}
 	
 	public function imprimirIndividual(Request $request,$id)

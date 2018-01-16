@@ -8,7 +8,11 @@
 	    </a>        
 	</div>
 	@php
-		$total = 0
+		$total = 0;
+		$abono =0;
+		$subtotal = 0;
+		$total_pagar = 0;
+		$descuento = 0;
 	@endphp
 	
 				
@@ -49,10 +53,15 @@
 					<td style="width: 50%;text-align: right;"><b>PRECIO (UDS)</b></td>
 				</tr>
 				@foreach($ordenes as $item)
+					@php
+						$abono = $abono + $item->abono;
+					@endphp	
 				 <tr>
 				 	<td>
 				 		@foreach($item->detalleorden as $exa)
-				 			{{$exa->examan->nombre}} </br>
+				 			@if ($exa->precio > 0)
+				 				{{$exa->examan->nombre}} </br>
+				 			@endif	
 				 		@endforeach				 		
 				 	</td>
 				 	<td  style="text-align: right;">
@@ -60,16 +69,39 @@
 				 			@if ($exa->precio > 0)
 					 			{{$exa->precio}} </br>
 					 			@php
-								    $total = $total + $exa->precio
+								    $subtotal = $subtotal + $exa->precio
 								@endphp
 							@endif
-				 		@endforeach	
+				 		@endforeach
+				 		@php
+						    $descuento = $descuento + $item->descuento;
+						    $total = $subtotal - $descuento;
+						@endphp
 				 	</td>
 				 </tr>
 				 @endforeach
+				 @php
+				     $total_pagar = $total -$abono;
+				 @endphp
+				 <tr>
+					 <td style="width: 90%;text-align: right"><b>Subtotal</b></td>
+					 <td style="width: 10%;text-align: right">{{number_format($subtotal,2)}}</td>					 
+				 </tr>
+				 <tr>
+					 <td style="width: 90%;text-align: right"><b>Descuento</b></td>
+					 <td style="width: 10%;text-align: right">{{number_format($descuento,2)}}</td>					 
+				 </tr>
 				 <tr>
 					 <td style="width: 90%;text-align: right"><b>Total</b></td>
 					 <td style="width: 10%;text-align: right">{{number_format($total,2)}}</td>					 
+				 </tr>				 
+				 <tr>
+					 <td style="width: 90%;text-align: right"><b>Abono</b></td>
+					 <td style="width: 10%;text-align: right">{{number_format($abono,2)}}</td>					 
+				 </tr>
+				 <tr>
+					 <td style="width: 90%;text-align: right"><b>Total a Pagar</b></td>
+					 <td style="width: 10%;text-align: right">{{number_format($total_pagar,2)}}</td>					 
 				 </tr>
 			</table>
 		</div>

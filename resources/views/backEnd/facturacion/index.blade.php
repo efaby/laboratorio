@@ -17,7 +17,6 @@ Facturación Individual
             <thead class="bg-primary">
                 <tr>
                     <th></th>
-                    <th>Id</th>
                     <th>Paciente</th>
                     <th>Subtotal</th>
                     <th>Descuento</th>
@@ -33,8 +32,7 @@ Facturación Individual
             @foreach($ordenes as $item)
                 <tr>
                  	<th></th>
-                	<td>{{ $item->id }}</td>
-                    <td>{{ $item->paciente->nombres }} {{ $item->paciente->apellidos }}</td>
+                	<td>{{ $item->paciente->nombres }} {{ $item->paciente->apellidos }}</td>
                     <td>${{ $item->subtotal }}</a></td>
                     <td>${{ $item->descuento }}</a></td>
                     <td>${{ number_format(($item->total - $item->abono),2)}}</td>

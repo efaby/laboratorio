@@ -96,7 +96,7 @@ Facturación
 			         <table style="width: 100%;text-align: right;">
 			         		<tr>
 	                    	 	<td style="text-align: right;padding-bottom:12px;width: 90%">
-	                    			<label for="total" class="control-label">TOTAL</label>
+	                    			<label for="total" class="control-label">Total</label>
 	                    		</td>			
 	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
 	                    			<label for="total" class="control-label">
@@ -104,6 +104,26 @@ Facturación
 									</label>									
 	                    		</td>	
 	                    	</tr>	                    	
+	                    	<tr>
+	                    	 	<td style="text-align: right;padding-bottom:12px;width: 90%">
+	                    			<label for="total" class="control-label">Abono</label>
+	                    		</td>			
+	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
+	                    			<label for="total" class="control-label">
+										<span id="total" name="total">$<?php echo $abono; ?></span>
+									</label>									
+	                    		</td>	
+	                    	</tr>
+	                    	<tr>
+	                    	 	<td style="text-align: right;padding-bottom:12px;width: 90%">
+	                    			<label for="total" class="control-label">TOTAL A PAGAR</label>
+	                    		</td>			
+	                    		<td style="text-align: right;padding-bottom:12px;padding-left: 2px;padding-right: 7px">
+	                    			<label for="total" class="control-label">
+										<span id="total" name="total">$<?php echo number_format($total_pagar,2); ?></span>
+									</label>									
+	                    		</td>	
+	                    	</tr>
 	                    	<tr>
 	                    		<td colspan="2" style="text-align: right;padding-right:1px;">
 	                    			<br>

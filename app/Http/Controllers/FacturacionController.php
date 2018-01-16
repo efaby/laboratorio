@@ -56,21 +56,28 @@ class FacturacionController extends Controller
 		$hoy = new \DateTime();
 		$orden->fecha_facturacion = $hoy->format('d/m/Y');
 		$total = 0;
+		$abono = 0;
+		$total_pagar = 0;
+		
 		if($orden->is_relacional) {
 			$ordenes = DB::table('orden')	
-			->select('orden.total')
+			->select('orden.total','orden.abono')
 			->where('pacientes_id', $orden->pacientes_id)
             ->where('fecha_emision', $orden->fecha_emision)
             ->where('is_relacional', 1)
 			->get();
 			foreach ($ordenes as $item) {
 				$total = $total + $item->total;
+				$abono = $abono+ $item->abono;
 	        }
-
 		} else {
 			$total = $orden->total;
-		}		
-		return view('backEnd.facturacion.edit', compact('orden','paciente', 'total'));		
+			$abono = $orden->abono;
+		}	
+		
+		$total_pagar = $total - $abono;
+		
+		return view('backEnd.facturacion.edit', compact('orden','paciente', 'total','abono','total_pagar'));		
 	}
 	
 	public function guardarFacturaIndividual(Request $request) {
@@ -124,10 +131,19 @@ class FacturacionController extends Controller
 
 		$factura = Factura::findOrFail($id);
 		$paciente = Paciente::findOrFail($factura->cliente_id);
-		$orden = Factura::findOrFail($id);
+		
+		$ordenes = Orden::where('factura_id', $id)
+		->get();
+		$total = 0;
+		$abono = 0;
+		foreach ($ordenes as $orden) {
+			$total= $total + $orden->total;
+			$abono = $abono+ $orden->abono;
+		}
+		$total_pagar = $total - $abono;
 		
 		//Imprimir
-		return view('backEnd.facturacion.print', compact('orden','paciente','factura'));
+		return view('backEnd.facturacion.print', compact('orden','paciente','factura','total','abono','total_pagar'));
 	}
 	
 	public function obtenerCliente(Request $request){
@@ -172,6 +188,7 @@ class FacturacionController extends Controller
 
 		$factura = Factura::findOrFail($id);
 		$ordenes = Orden::where('factura_id',$id)->get();
+		
 		$cliente = Paciente::findOrFail($factura->cliente_id);
 		return view('backEnd.facturacion.printAnexoIndividual', compact('factura', 'ordenes','cliente'));
 	}

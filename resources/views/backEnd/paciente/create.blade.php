@@ -117,11 +117,16 @@ Nuevo Paciente
                 },  
                cedula: {
        				message: 'El Número de Cédula no es válido',
-   				    validators: {					
+       				validators: {					
        					regexp: {
        						regexp: /^[0-9]+$/,
+       						enabled: false,
        						message: 'Ingrese un Número de Identificación válido.'
        					},
+       					notEmpty: {
+       						enabled: false,
+       	                    message: 'La Cédula no puede ser vacía.'
+	                    },       					
                 remote: {
                             message: 'El Número de Identificación ya existe.',
                             url: '{{ url('validarCedula') }}',
@@ -264,11 +269,21 @@ Nuevo Paciente
            });
 
 		   $('#codigo').click(function() {
-			   	$('#apellidos').val('Paciente');
-	   			$('#nombres').val('Laboratorio');
-	   			$('#celular').val('0000000000');
-	   			$('#genero').val('Na');
-		        
+			   if( $('#codigo').is(':checked') ) {
+				    $('#apellidos').val('Paciente');
+		   			$('#nombres').val('Laboratorio');
+		   			$('#celular').val('0000000000');
+		   			$('#genero').val('Na');
+		   		 	$('#frmPaciente').formValidation('enableFieldValidators', 'cedula', true, 'notEmpty');
+		   		 	$('#frmPaciente').formValidation('enableFieldValidators', 'cedula', true, 'regexp');
+		   		 
+				}else{
+					$('#apellidos').val(null);
+		   			$('#nombres').val(null);
+		   			$('#celular').val(null);
+		   			$('#genero').val(null);	
+		   			$('#frmPaciente').formValidation('enableFieldValidators', 'cedula', false, 'notEmpty');		   			
+				}
 		    });
        });
    </script>

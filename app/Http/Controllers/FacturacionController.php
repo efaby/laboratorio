@@ -33,7 +33,6 @@ class FacturacionController extends Controller
         {
 			$ordenes = Orden::orderBy('id', 'desc')
 					->where('tipopaciente_id',1)										
-					->where('is_relacional',0)
 					->get();
         }else{
         	$entidad = $request->user()->entidad_id;
@@ -42,7 +41,6 @@ class FacturacionController extends Controller
         	->select('orden.id as id','orden.*')
         	->where('entidad_id',$entidad)
         	->where('tipopaciente_id',1)
-        	->where('is_relacional',0)
         	->orderBy('orden.id', 'desc')
         	->get();
         }

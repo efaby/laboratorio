@@ -415,7 +415,7 @@ class OrdenController extends Controller
         }else{
         	foreach ($data as $query)
             {
-                $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre, 'muestra' => $query->muestra->nombre, 'muestraId' => $query->muestra->id,'is_relacional'=>$is_relacional];
+                $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre, 'muestra' => $query->muestra->nombre, 'muestraId' => $query->muestra->id,'is_relacional'=>$is_relacional ];
     
             }
         }

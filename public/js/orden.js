@@ -355,8 +355,7 @@ function agregar(items, muestras) {
         data: {"_token": token, ids: items, muestras: muestras, is_relacional: $('input:checkbox[name=is_relacional]:checked').val(), id_paciente: $('#id_paciente').val() },
         success: function( response ) {
         	var iteration = 0;
-            myArray = [];
-            
+            myArray = [];            
             $('#tbodyExamenes').empty();
             $.each(response, function(index, value) {            	
             	if(value.is_relacional){

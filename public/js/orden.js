@@ -356,9 +356,16 @@ function agregar(items, muestras) {
         success: function( response ) {
         	var iteration = 0;
             myArray = [];
+            
             $('#tbodyExamenes').empty();
-            $.each(response, function(index, value) {
-                
+            $.each(response, function(index, value) {            	
+            	if(value.is_relacional){
+            		$('#is_relacional').prop("checked", true);
+            	}
+            	else{
+            		$('#is_relacional').prop("checked", false);
+            	}
+            	  
                 var tbl = document.getElementById('tbodyExamenes');                
                 var lastRow = tbl.rows.length;
 

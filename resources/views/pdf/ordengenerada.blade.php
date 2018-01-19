@@ -80,13 +80,6 @@
   	  <div id="apartado2">
 	  	  <table align="center">
 	  	  	<tr>
-	  	  		<td align="center">	
-	  	  			<br>
-	  	  			<b><u>RESULTADO</u></b>
-	  	  			<br>  	  			
-	  	  		</td>
-	  	  	</tr>
-	  	  	<tr>
 	  	  		<td align="left" id="plantilla">
 	  	  			<?php $item = str_replace('border="1"','border="0"',$item); ?>
 	  	  			<?php echo strip_tags($item, '<p><br><table><tr><th><td>') ?>

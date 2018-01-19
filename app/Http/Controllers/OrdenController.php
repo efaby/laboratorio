@@ -484,9 +484,12 @@ class OrdenController extends Controller
                     $plantilla .= "</br></br>MUESTRA:&nbsp;  ". $item->muestra;
                     $muestra = $item->type;
                 }
-                $plantilla .= "</br><p style='text-align: center;> <b><u>RESULTADO</u></b></p></br>".$item->nombre . "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" . preg_replace('/<\\/?p(.|\\s)*?>/', "",$item->plantilla);
+                $plantilla .= "</br>".$item->nombre . "<p style='text-align: center;'> <b><u>RESULTADO</u></b></p>" ;
+                $plantilla .= preg_replace('/<\\/?p(.|\\s)*?>/', "",$item->plantilla);
+
             }
         }
+
         return array('orden' => $orden, 'paciente' => $paciente, 'plantilla' => $plantilla );
     }
 
@@ -532,7 +535,7 @@ class OrdenController extends Controller
         $orden = Orden::findOrFail($id);        
         
         $paciente = $orden->paciente;
-        $plantilla = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',preg_replace('/<\\/?p(.|\\s)*?>/', "",$orden->plantilla));
+        $plantilla = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',$orden->plantilla);
         //return view('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'));
         $view =  \View::make('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'))->render();
         $pdf = \App::make('dompdf.wrapper');

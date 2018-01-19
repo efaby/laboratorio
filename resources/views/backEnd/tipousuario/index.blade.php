@@ -14,9 +14,7 @@ Tipo de Usuario
         </div>
     @endif
     <div class="row" style="margin-bottom: 10px;" > 
-    <div class="col-sm-12">
-        <a href="{{ url('tipousuario/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a>
-    </div>
+    
     </div>
 
     <div class="table table-responsive">
@@ -34,14 +32,7 @@ Tipo de Usuario
                     <td>{{ $item->nombre }}</td>
                     <td style="width: 10%; text-align: center;">
                         <a href="{{ url('tipousuario/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['tipousuario', $item->id],
-                            'style' => 'display:inline',
-                            'class' => 'delete'
-                        ]) !!}
-                        	{!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
-                        {!! Form::close() !!}
+                        
                     </td>
                 </tr>
             @endforeach

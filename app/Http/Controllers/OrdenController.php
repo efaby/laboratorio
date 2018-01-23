@@ -153,6 +153,14 @@ class OrdenController extends Controller
             $i++;
         }
         DB::table('detalleorden')->insert($examens);
+
+        $apellidos = explode(" ", $paciente->apellidos);
+
+        $codigo = date('Y') . "-" . $orden_id . "-"  . substr($paciente->nombres,0,1) . $apellidos[0];
+        DB::table('orden')
+            ->where('id', $orden_id)
+            ->update(['codigo' => $codigo]);
+
         Session::flash('message', 'La Orden se almacenó satisfactoriamente!');
         Session::flash('status', 'success');
         return redirect('orden');       

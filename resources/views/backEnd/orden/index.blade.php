@@ -23,7 +23,7 @@ Orden
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
             <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Paciente</th><th>Fecha Emisión</th><th>Total</th><th>Fecha Entrega</th><th>Estado</th><th style="width: 20%; text-align: center;">Acciones</th>
+                    <th></th><th>Id</th><th>Paciente</th><th>Codigo</th><th>Fecha Emisión</th><th>Total</th><th>Fecha Entrega</th><th>Estado</th><th style="width: 20%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +33,7 @@ Orden
                  	<th></th>
                 	<td>{{ $item->id }}</td>
                     <td>{{ $item->paciente->nombres }} {{ $item->paciente->apellidos }}</td>
+                    <td>{{ $item->codigo }}</td>
                     <td>{{ $item->fecha_emision }}</td>
                     <td>${{ $item->total }}</td>                    
                     <td>{{ $item->fecha_entrega }}</td>

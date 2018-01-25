@@ -15,7 +15,7 @@ Facturación Global
 
      <div class="row" style="margin-bottom: 10px;" > 
         <div class="col-sm-12">
-            <a href="{{ url('facturacion/global') }}" class="btn btn-primary pull-right btn-sm">Nueva</a>
+            <a href="{{ url('facturacion/globalFac') }}" class="btn btn-primary pull-right btn-sm">Nueva</a>
         </div>
     </div>
 

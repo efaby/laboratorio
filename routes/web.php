@@ -47,7 +47,7 @@ Route::get("verExamen",array('as'=>'verExamen','uses'=> 'PublicoController@index
 Route::get("examenPdf/{id}",array('as'=>'examenPdf','uses'=> 'PublicoController@ordenPdf'));
 
 Route::get("facturacion/listadoGlobal",array('as'=>'listadoGlobal','uses'=> 'FacturacionController@listadoGlobal'));
-Route::get("facturacion/global",array('as'=>'global','uses'=> 'FacturacionController@global'));
+Route::get("facturacion/globalFac",array('as'=>'globalFac','uses'=> 'FacturacionController@globalFac'));
 Route::post("facturacion/global",array('as'=>'globalForm','uses'=> 'FacturacionController@facturarGlobal'));
 Route::post("facturacion/guardarGlobal",array('as'=>'guardarFacturaGlobal','uses'=> 'FacturacionController@guardarFacturaGlobal'));
 Route::get("facturacion/imprimirGlobal/{id}",array('as'=>'imprimirGlobal','uses'=> 'FacturacionController@imprimirGlobal'));

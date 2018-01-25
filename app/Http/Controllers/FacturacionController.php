@@ -195,7 +195,7 @@ class FacturacionController extends Controller
 
 	/* facturacion global */
 
-	public function global()
+	public function globalFac()
 	{
 		$cliente_id = 0;
 		$fecha_inicio = "";

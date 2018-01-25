@@ -9,6 +9,7 @@ use App\Paciente;
 use App\Examan;
 use App\TipoPaciente;
 use App\Muestra;
+use App\Entidad;
 use App\Detalleorden;
 use Illuminate\Database\Eloquent\Model;
 use Session;
@@ -155,8 +156,26 @@ class OrdenController extends Controller
         DB::table('detalleorden')->insert($examens);
 
         $apellidos = explode(" ", $paciente->apellidos);
-
-        $codigo = date('Y') . "-" . $orden_id . "-"  . substr($paciente->nombres,0,1) . $apellidos[0];
+        
+        $entidad_all = Entidad::findOrFail($user_id);
+        
+        if($entidad_all->anio ==  null || $entidad_all->anio < date('Y')){
+        	DB::table('entidad')
+        	->where('id', $entidad_all->id)
+        	->update(['anio' => date('Y'),'contador' => 1]);
+        	 
+        }
+        
+        if($entidad_all->anio == date('Y')){       
+	       	DB::table('entidad')
+	       	->where('id', $entidad_all->id)
+	       	->update(['contador' => ($entidad_all->contador+1)]);
+        }
+       	
+        $entidad_all = Entidad::findOrFail($user_id);
+        
+        $codigo = $entidad_all->anio . "-" . str_pad($entidad_all->contador, 4, "0", STR_PAD_LEFT); 
+        
         DB::table('orden')
             ->where('id', $orden_id)
             ->update(['codigo' => $codigo]);

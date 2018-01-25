@@ -33,19 +33,15 @@ class OrdenController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
         
-        if ($request->user()->authorizeMenu(['Administrador']))
-        {
-	        $ordenes = Orden::orderBy('id', 'desc')->get();
-        }else{
-        	//$ordenes = Orden::orderBy('id', 'desc')->get();
+        //$ordenes = Orden::orderBy('id', 'desc')->get();
         	
-        	$entidad = $request->user()->entidad_id;
-        	
-        	$ordenes = Orden::join('users', 'orden.user_id', '=', 'users.id')
-        	->select('orden.id as id','orden.*')
-        	->where('entidad_id',$entidad)
-        	->orderBy('orden.id', 'desc')->get();
-        }
+        $entidad = $request->user()->entidad_id;
+        
+        $ordenes = Orden::join('users', 'orden.user_id', '=', 'users.id')
+        ->select('orden.id as id','orden.*')
+        ->where('entidad_id',$entidad)
+        ->orderBy('orden.id', 'desc')->get();
+        
         return view('backEnd.orden.index', compact('ordenes'));
     }
 

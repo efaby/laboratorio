@@ -23,7 +23,7 @@ Exámen
         <table class="table table-bordered table-striped table-hover" id="tblexamen">
             <thead class="bg-primary">
                 <tr>
-                    <th>Id</th><th>Nombres</th><th>Tipo Examen</th><th style="width: 10%; text-align: center;">Acciones</th>
+                    <th>Id</th><th>Nombres</th><th>Tipo Exámen</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>

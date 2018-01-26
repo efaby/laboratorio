@@ -18,14 +18,14 @@ Ver Resultados
     {!! Form::open(['url' => 'verExamen', 'class' => 'form-horizontal','id'=>'frmBuscar']) !!}
 
             <div class="form-group {{ $errors->has('identificacion') ? 'has-error' : ''}}">
-                {!! Form::label('identificacion', 'Identificacion: ', ['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('identificacion', 'Identificación: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('identificacion', $identificacion, ['class' => 'form-control']) !!}
                     {!! $errors->first('identificacion', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('codigo') ? 'has-error' : ''}}">
-                {!! Form::label('codigo', 'Codigo: ', ['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('codigo', 'Código: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('codigo', $codigo, ['class' => 'form-control']) !!}
                     {!! $errors->first('codigo', '<p class="help-block">:message</p>') !!}

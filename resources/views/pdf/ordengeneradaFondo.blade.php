@@ -48,9 +48,10 @@
 		}
 		#apartado4{
 			width:700px;
-		   	margin: auto;
+			height:10px;
+			margin: auto;
 		   	padding-top:5px;		   	
-		   	padding-middle:5px;
+		   	padding-bottom:5px;
 		   	text-align:right;			
 		}
 		#plantilla{

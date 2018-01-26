@@ -45,9 +45,10 @@
 		}
 		#apartado4{
 			width:700px;
+			height:10px;
 		   	margin: auto;
 		   	padding-top:5px;		   	
-		   	padding-middle:5px;
+		   	padding-bottom:5px;
 		   	text-align:right;			
 		}
 		#plantilla{
@@ -95,7 +96,7 @@
 	  	  </table>
   	  </div>
   	  <div id="apartado4">
-  	  		Validado por Dr. {{Auth::user()->nombres}} {{Auth::user()->apellidos}}
+  	  		<b>Validado por Dr. {{Auth::user()->nombres}} {{Auth::user()->apellidos}}</b>
   	  </div>	
   	 
   	  <div id="apartado3">

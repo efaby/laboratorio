@@ -4,8 +4,11 @@
     </a>    
     <h4 class="modal-title">Generación de Código de Orden</h4>
 </div>
+<div class="modal-body" style="text-align: left">
+	<h4 class="modal-title">Identificación:{{$paciente_ced}}</h4>
+</div>	
 <div class="modal-body" style="text-align: center">
-	<div class="form-group row" style="padding-left:200px">
+	<div class="form-group row" style="padding-left:200px">		
 		<div style="border: 1px solid #292626;border-width:1px;width:178px">
 			<h1>{{$codigo}}</h1>
 		</div>

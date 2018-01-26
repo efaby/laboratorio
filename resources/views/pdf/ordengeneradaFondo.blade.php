@@ -46,6 +46,13 @@
 		   	padding-top:10px;
 		   	text-align:center;			
 		}
+		#apartado4{
+			width:700px;
+		   	margin: auto;
+		   	padding-top:5px;		   	
+		   	padding-middle:5px;
+		   	text-align:right;			
+		}
 		#plantilla{
 			padding-left:20px;
 			padding-right:20px;
@@ -97,7 +104,7 @@
 	  	  	</tr>
 	  	  </table>
   	  </div>
-  	  <div style="margin-left: 40px">
+  	  <div id="apartado4">
   	  		Validado por Dr. {{Auth::user()->nombres}} {{Auth::user()->apellidos}}
   	  </div>	
   	 	

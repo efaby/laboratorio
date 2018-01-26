@@ -610,6 +610,8 @@ class OrdenController extends Controller
 
         $orden = Orden::findOrFail($id);
         $paciente = $orden->paciente;
+        $paciente_ced = isset($paciente->cedula)?$paciente->cedula:'N/A';        
+        
         $orden= Codigosorden::where('orden_id', '=', $id)->count();
         if($orden>0){
             $ord= Codigosorden::where('orden_id', '=', $id)->firstOrFail();
@@ -625,7 +627,7 @@ class OrdenController extends Controller
             DB::table('codigosorden')->insert($array);
         }
         
-        return view('backEnd.orden.modal', compact('codigo'));      
+        return view('backEnd.orden.modal', compact('codigo','paciente_ced'));      
     }
     
     public function updatePage(){

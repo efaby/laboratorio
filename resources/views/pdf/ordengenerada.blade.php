@@ -18,7 +18,7 @@
 		   height:109px;
 		}		
 		#apartado1{
-		   width:600px;
+		   width:650px;
 		   height:40px;
 		   border:0.5px solid;
 		   border-color:white;
@@ -30,11 +30,8 @@
 			line-height: 0.5em;
 		}
 		#apartado2{
-		   width:600px;
+		   width:650px;
 		   height:820px;
-		   border:0.5px solid;
-		   border-color:white;
-		   border-radius: 5px 5px 7px 7px;		   
 		   margin: auto;		   
 		}
 		#apartado3{
@@ -53,7 +50,7 @@
 		}
 		#plantilla{
 			padding-left:20px;
-			padding-right:20px;
+			padding-right:20px;			
 		}
 		@page {
 			size: 21cm 29.7cm;
@@ -64,7 +61,7 @@
   <body>
   	 <?php $i = 1; ?>	
    	  @foreach ($plantilla as $item)
-  	  <div id="apartado1">
+  	  <div id="apartado1" style="font-size: 13px">
 	  	  <table align="center">
 	  	  	<tr>
 	  	  		<td><b>Nombre: </b>{{ $paciente->apellidos }} {{ $paciente->nombres }}</td>
@@ -74,7 +71,7 @@
 					    Masculino
 					@else
 					    Femenino
-					@endif
+					@endif				
 	  	  		</td>	  	  		
 	  	  	</tr>
 	  	  	<tr>
@@ -95,11 +92,11 @@
 	  	  	</tr>
 	  	  </table>
   	  </div>
-  	  <div id="apartado4">
+  	  <div id="apartado4" style="font-size: 13px">
   	  		<b>Validado por Dr. {{Auth::user()->nombres}} {{Auth::user()->apellidos}}</b>
   	  </div>	
   	 
-  	  <div id="apartado3">
+  	  <div id="apartado3" style="font-size: 13px">
   	  		Página {{$i}}/{{count($plantilla)}}
   	  </div>
   	  	@if (count($plantilla) != $i)

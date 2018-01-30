@@ -21,23 +21,20 @@
 			padding-top:150px;	
 		}	
 		#apartado1{
-		   width:600px;
+		   width:650px;
 		   height:40px;
 		   border:0.5px solid;
 		   border-color:white;
 		   border-radius: 5px 5px 7px 7px;
-		   margin: auto;
-		   	   
+		   margin: auto;	   
 		}
+		
 		#apartado1 table{
 			line-height: 0.5em;
 		}
 		#apartado2{
-		   width:600px;
+		   width:650px;
 		   height:820px;
-		   border:0.5px solid;
-		   border-color:white;
-		   border-radius: 5px 5px 7px 7px;		   
 		   margin: auto;		   
 		}
 		#apartado3{

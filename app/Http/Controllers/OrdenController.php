@@ -504,10 +504,10 @@ class OrdenController extends Controller
             foreach ($detalleorden as $item) {
                
                 if($muestra != $item->type) {
-                    $plantilla .= "</br></br>MUESTRA:&nbsp;  ". $item->muestra;
+                    $plantilla .= "</br></br><span style='font-size:13px'><b>MUESTRA:</b>&nbsp;  ". $item->muestra."</span>";
                     $muestra = $item->type;
                 }
-                $plantilla .= "</br>".$item->nombre . "<p style='text-align: center;'> <b><u>RESULTADO</u></b></p>" ;
+                $plantilla .= "<p style='text-align: center;'><b><u>RESULTADO</u></b></p>" ;
                 $plantilla .= preg_replace('/<\\/?p(.|\\s)*?>/', "",$item->plantilla);
 
             }
@@ -559,6 +559,8 @@ class OrdenController extends Controller
         
         $paciente = $orden->paciente;
         $plantilla = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',$orden->plantilla);
+        $plantilla[0] = '<span style=font-size:13px;>'.$plantilla[0].'</span>';
+        
         //return view('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'));
         $view =  \View::make('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'))->render();
         $pdf = \App::make('dompdf.wrapper');

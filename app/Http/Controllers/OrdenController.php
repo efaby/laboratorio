@@ -501,6 +501,7 @@ class OrdenController extends Controller
                             ->orderBy('tipoexamens.id')                        
                             ->get();
             $muestra = 0;
+            
             foreach ($detalleorden as $item) {
                
                 if($muestra != $item->type) {

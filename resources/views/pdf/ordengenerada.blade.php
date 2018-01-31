@@ -15,7 +15,8 @@
 			display: block;
 		}
 		table{
-		   padding-left:10px; width: 100%;		   
+		   padding-left:10px; width: 85%;		
+		      
 		}		
 		td{
 		   padding:2px;

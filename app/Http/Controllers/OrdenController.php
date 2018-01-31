@@ -507,7 +507,7 @@ class OrdenController extends Controller
                     $plantilla .= "</br></br><span style='font-size:13px'><b>MUESTRA:</b>&nbsp;  ". $item->muestra."</span>";
                     $muestra = $item->type;
                 }
-                $plantilla .= "<p style='text-align: center;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><u>RESULTADO</u></b> &nbsp;&nbsp;&nbsp;&nbsp; VALOR DE REFERENCIA</p>" ;
+                $plantilla .= "<p style='text-align: center;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><u>RESULTADO</u></b> &nbsp;&nbsp;&nbsp;&nbsp; <b><u>VALOR DE REFERENCIA</u></b></p>" ;
                 $plantilla .= preg_replace('/<\\/?p(.|\\s)*?>/', "",$item->plantilla);
 
             }

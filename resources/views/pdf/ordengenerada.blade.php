@@ -2,17 +2,27 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    
     <title>Orden</title>  
     <style type="text/css">
-		body{
-		  font:11px Georgia, serif;
+    
+    	body { 
+    		font-family: DejaVu Sans, sans-serif, Georgia; 
+    		font-size: 13px;
+    	}
+		
+		p {
+			display: block;
 		}
 		table{
 		   padding-left:10px; width: 100%;		   
 		}		
 		td{
-		   padding:7px;
-		}		
+		   padding:2px;
+		}	
+		#encabezado td {
+			padding: 7px 0px;
+		}	
 		thead{
 		   width:100%;position:fixed;
 		   height:109px;
@@ -21,7 +31,7 @@
 		   width:650px;
 		   height:40px;
 		   border:0.5px solid;
-		   border-color:white;
+		   border-color:black;
 		   border-radius: 5px 5px 7px 7px;
 		   margin: auto;
 		   margin-top:150px;		   
@@ -30,12 +40,16 @@
 			line-height: 0.5em;
 		}
 		#apartado2{
-		   width:650px;
-		   height:820px;
-		   margin: auto;		   
+		   width:400px;
+		   height:750px;
+		   margin: auto;	
+		    border:0.5px solid;
+		   border-color:black;
+		   border-radius: 5px 5px 7px 7px;
+		  	   
 		}
 		#apartado3{
-			width:600px;
+			width:650px;
 		   	margin: auto;
 		   	padding-top:10px;
 		   	text-align:center;			
@@ -49,8 +63,8 @@
 		   	text-align:right;			
 		}
 		#plantilla{
-			padding-left:20px;
-			padding-right:20px;			
+		/*	padding-left:20px;
+			padding-right:20px;	*/		
 		}
 		@page {
 			size: 21cm 29.7cm;
@@ -61,10 +75,10 @@
   <body>
   	 <?php $i = 1; ?>	
    	  @foreach ($plantilla as $item)
-  	  <div id="apartado1" style="font-size: 13px">
-	  	  <table align="center">
+  	  <div id="apartado1" style="font-size: 12px">
+	  	  <table align="center" id="encabezado">
 	  	  	<tr>
-	  	  		<td><b>Nombre: </b>{{ $paciente->apellidos }} {{ $paciente->nombres }}</td>
+	  	  		<td style="width: 45%"><b>Nombre: </b>{{ $paciente->apellidos }} {{ $paciente->nombres }}</td>
 	  	  		<td><b>Edad: </b>{{ $paciente->edad }} Años</td>
 	  	  		<td><b>Sexo: </b>
 	  	  		@if ($paciente->genero === 'Mas')
@@ -76,8 +90,8 @@
 	  	  	</tr>
 	  	  	<tr>
 	  	  		<td><b>Médico: </b>{{ $orden->nombre_medico}}</td>	  	  		
-	  	  		<td><b>Fecha de Recepción: </b>{{ date("d-m-Y", strtotime($orden->fecha_emision))}}</td>	  	  		
-	  	  		<td><b>Fecha de Entrega: </b>{{ date("d-m-Y", strtotime($orden->fecha_entrega)) }}</td>	  	  		
+	  	  		<td><b>Recepción: </b>{{ date("d-m-Y", strtotime($orden->fecha_emision))}}</td>	  	  		
+	  	  		<td><b>Entrega: </b>{{ date("d-m-Y", strtotime($orden->fecha_entrega)) }}</td>	  	  		
 	  	  	</tr>	  	  	
 	  	  </table>
   	  </div>     
@@ -87,7 +101,7 @@
 	  	  	<tr>
 	  	  		<td align="left" id="plantilla">
 	  	  			<?php $item = str_replace('border="1"','border="0"',$item); ?>
-	  	  			<?php echo strip_tags($item, '<p><br><table><tr><th><td>') ?>
+	  	  			<?php echo $item; ?>
 	  	  		</td>
 	  	  	</tr>
 	  	  </table>

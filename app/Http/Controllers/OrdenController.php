@@ -500,15 +500,14 @@ class OrdenController extends Controller
                             ->where('orden_id', $id)    
                             ->orderBy('tipoexamens.id')                        
                             ->get();
-            $muestra = 0;
-            
+            $muestra = 0; 
             foreach ($detalleorden as $item) {
                
                 if($muestra != $item->type) {
                     $plantilla .= "</br></br><span style='font-size:13px'><b>MUESTRA:</b>&nbsp;  ". $item->muestra."</span>";
                     $muestra = $item->type;
                 }
-                $plantilla .= "<p style='text-align: center;'><b><u>RESULTADO</u></b></p>" ;
+                $plantilla .= "<p style='text-align: center;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><u>RESULTADO</u></b> &nbsp;&nbsp;&nbsp;&nbsp; VALOR DE REFERENCIA</p>" ;
                 $plantilla .= preg_replace('/<\\/?p(.|\\s)*?>/', "",$item->plantilla);
 
             }
@@ -560,12 +559,13 @@ class OrdenController extends Controller
         
         $paciente = $orden->paciente;
         $plantilla = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',$orden->plantilla);
-        $plantilla[0] = '<span style=font-size:13px;>'.$plantilla[0].'</span>';
-        
+      //  $plantilla[0] = '<span style=font-size:13px;>'.$plantilla[0].'</span>';
         //return view('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'));
+       
         $view =  \View::make('pdf.ordengenerada', compact('orden', 'paciente', 'plantilla'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
+        
        // $pdf->getDomPDF()->get_canvas()->get_cpdf()->setEncryption('trees','frogs',array('copy','print'));
        // $dompdf->get_canvas()->get_cpdf()->setEncryption('trees','frogs',array('copy','print'));
         //$pdf->getDomPDF()->getCanvas()->get_cpdf()->setEncryption("pass", 'your_password');

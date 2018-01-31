@@ -5,7 +5,8 @@
     <title>Orden</title>  
     <style type="text/css">
 		body{
-		  font:13px Georgia, serif;
+		  	font-family: DejaVu Sans, sans-serif; 
+    		font-size: 13px;
 		}
 		table{
 		   padding-left:10px; width: 100%;		   

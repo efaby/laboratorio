@@ -6,9 +6,11 @@
     <title>Orden</title>  
     <style type="text/css">
     
-    	body{
-		  font:13px Georgia, serif;
-		}
+    	body { 
+    		font-family: DejaVu Sans, sans-serif; 
+    		font-size: 13px;
+    	}
+		
 		p {
 			display: block;
 		}
@@ -28,9 +30,6 @@
 		#apartado1{
 		   width:650px;
 		   height:40px;
-		   border:0.5px solid;
-		   border-color:white;
-		   border-radius: 5px 5px 7px 7px;
 		   margin: auto;
 		   margin-top:150px;		   
 		}
@@ -40,10 +39,10 @@
 		#apartado2{
 		   width:650px;
 		   height:750px;
-		   margin: auto;		   
+		   margin: auto;   
 		}
 		#apartado3{
-			width:600px;
+			width:650px;
 		   	margin: auto;
 		   	padding-top:10px;
 		   	text-align:center;			
@@ -57,8 +56,8 @@
 		   	text-align:right;			
 		}
 		#plantilla{
-			padding-left:20px;
-			padding-right:20px;			
+		/*	padding-left:20px;
+			padding-right:20px;	*/		
 		}
 		@page {
 			size: 21cm 29.7cm;

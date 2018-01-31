@@ -9,7 +9,7 @@
     		font-size: 13px;
 		}
 		table{
-		   padding-left:10px; width: 100%;		   
+		   padding-left:10px; width: 85%;		   
 		}		
 		td{
 		   padding:7px;

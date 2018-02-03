@@ -1,134 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('title')</title>
-	<link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">	
-	<link href="{{URL::asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
-	<link href="{{URL::asset('css/fla.bootstrap.min.css')}}" rel="stylesheet">
-	<style>
-		body {
-			padding-top: 70px;
-		}
+	<link href="{{URL::asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+	<link href="{{URL::asset('perfect-scrollbar/dist/css/perfect-scrollbar.min.css')}}" rel="stylesheet">
+	<link rel="stylesheet" href="{{URL::asset('css/style.css')}}" />
+	<link rel="shortcut icon" href="images/favicon.png" />
 	</style>
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-	    <div class="container">
-	        <!-- Brand and toggle get grouped for better mobile display -->
-	        <div class="navbar-header">
-	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-	                <span class="sr-only">Toggle navigation</span>
-	                <span class="icon-bar"></span>
-	                <span class="icon-bar"></span>
-	                <span class="icon-bar"></span>
-	            </button>
-	            <a class="navbar-brand" href="#">Laboratorio Cl&iacute;nico</a>
-	        </div>
+	<div class=" container-scroller">
+		<nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      		<div class="bg-white text-center navbar-brand-wrapper">
+		        <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo_star_black.png" /></a>
+		        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo_star_mini.jpg" alt=""></a>
+      		</div>
+	      	<div class="navbar-menu-wrapper d-flex align-items-center">
+		        <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
+		          <span class="navbar-toggler-icon"></span>
+		        </button>
+		        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block">
+		          <input class="form-control mr-sm-2 search" type="text" placeholder="Search">
+		        </form>
+		        <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
+		          <li class="nav-item">
+		            <a class="nav-link profile-pic" href="#"><img class="rounded-circle" src="images/face.jpg" alt=""></a>
+		          </li>
+		          <li class="nav-item">
+		            <a class="nav-link" href="#"><i class="fa fa-th"></i></a>
+		          </li>
+		        </ul>
+		        <button class="navbar-toggler navbar-dark navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+		          <span class="navbar-toggler-icon"></span>
+		        </button>
+	      	</div>
+    	</nav>
 
-			<div class="collapse navbar-collapse" id="navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					@if (Auth::user()->authorizeMenu(['Administrador','Analista']))
-					<li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Administración <b class = "caret"></b>
-                        </a>
+    	<div class="container-fluid">
+      		<div class="row row-offcanvas row-offcanvas-right">
+		        <!-- partial:partials/_sidebar.html -->
+		        <nav class="bg-white sidebar sidebar-offcanvas" id="sidebar">
+		          <div class="user-info">
+		            <img src="images/face.jpg" alt="">
+		            <p class="name">Richard V.Welsh</p>
+		            <p class="designation">Manager</p>
+		            <span class="online"></span>
+		          </div>
+		          <ul class="nav">
+		            <li class="nav-item active">
+		              <a class="nav-link" href="index.html">
+		                <img src="images/icons/1.png" alt="">
+		                <span class="menu-title">Dashboard</span>
+		              </a>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="pages/widgets.html">
+		                <img src="images/icons/2.png" alt="">
+		                <span class="menu-title">Widgets</span>
+		              </a>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="pages/forms/index.html">
+		                <img src="images/icons/005-forms.png" alt="">
+		                <span class="menu-title">Forms</span>
+		              </a>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="pages/ui-elements/buttons.html">
+		                <img src="images/icons/4.png" alt="">
+		                <span class="menu-title">Buttons</span>
+		              </a>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="pages/tables/index.html">
+		                <img src="images/icons/5.png" alt="">
+		                <span class="menu-title">Tables</span>
+		              </a>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="pages/charts/index.html">
+		                <img src="images/icons/6.png" alt="">
+		                <span class="menu-title">Charts</span>
+		              </a>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="pages/icons/index.html">
+		                <img src="images/icons/7.png" alt="">
+		                <span class="menu-title">Icons</span>
+		              </a>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="pages/ui-elements/typography.html">
+		                <img src="images/icons/8.png" alt="">
+		                <span class="menu-title">Typography</span>
+		              </a>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" data-toggle="collapse" href="#sample-pages" aria-expanded="false" aria-controls="sample-pages">
+		                <img src="images/icons/9.png" alt="">
+		                <span class="menu-title">Sample Pages<i class="fa fa-sort-down"></i></span>
+		              </a>
+		              <div class="collapse" id="sample-pages">
+		                <ul class="nav flex-column sub-menu">
+		                  <li class="nav-item">
+		                    <a class="nav-link" href="pages/samples/blank_page.html">
+		                      Blank Page
+		                    </a>
+		                  </li>
+		                  <li class="nav-item">
+		                    <a class="nav-link" href="pages/samples/login.html">
+		                      Login
+		                    </a>
+		                  </li>
+		                  <li class="nav-item">
+		                    <a class="nav-link" href="pages/samples/register.html">
+		                      Register
+		                    </a>
+		                  </li>
+		                  <li class="nav-item">
+		                    <a class="nav-link" href="pages/samples/404.html">
+		                      404
+		                    </a>
+		                  </li>
+		                  <li class="nav-item">
+		                    <a class="nav-link" href="pages/samples/500.html">
+		                      500
+		                    </a>
+		                  </li>
+		                </ul>
+		              </div>
+		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="#">
+		                <img src="images/icons/10.png" alt="">
+		                <span class="menu-title">Settings</span>
+		              </a>
+		            </li>
+		          </ul>
+		        </nav>
+		        <div class="content-wrapper">
+		        	@yield('content')
+		        </div>
+		        <!-- partial:partials/_footer.html -->
+		        <footer class="footer">
+		          <div class="container-fluid clearfix">
+		            <span class="float-right">
+		                Copyright &copy; {{ date('Y') }}
+		            </span>
+		          </div>
+		        </footer>
+		    </div>
+    </div>
+</div>
 
-                        <ul class = "dropdown-menu">
-                            @if (Auth::user()->authorizeMenu(['Administrador']))
-                                <li><a href="{{ url('tipopaciente') }}">Tipo Paciente</a></li>
-                            @endif    
-                            @if (Auth::user()->authorizeMenu(['Administrador','Analista']))
-	                            <li><a href="{{ url('tipoexamen') }}">Tipo Examen</a></li>
-	                        @endif    
-	                        @if (Auth::user()->authorizeMenu(['Administrador']))
-	                            <li><a href = "{{ url('tipousuario') }}">Tipo Usuario</a></li> 
-	                            <li><a href = "{{ url('entidad') }}">Entidades</a></li>                            
-	                        @endif
-                        </ul>
-                    </li>
-                    @endif
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Personas <b class = "caret"></b>
-                        </a>
-                        <ul class = "dropdown-menu">
-                          	@if (Auth::user()->authorizeMenu(['Administrador','Analista','Secretaria']))
-                            	<li><a href="{{ url('paciente') }}">Paciente</a></li>
-                            	<li><a href="{{ url('cliente') }}">Cliente</a></li>
-                            @endif	
-                            @if (Auth::user()->authorizeMenu(['Administrador']))	
-                            	<li><a href="{{ url('user') }}">Usuarios</a></li>
-                            @endif	
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                    	@if (Auth::user()->authorizeMenu(['Administrador','Analista']))
-	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	                            Pruebas de Laboratorio <b class = "caret"></b>
-	                        </a>
-	                        <ul class = "dropdown-menu">
-	                            <li><a href="{{ url('muestra') }}">Muestras</a></li>
-	                            <li><a href="{{ url('examen') }}">Examenes</a></li>
-	                        </ul>
-	                     @endif    
-                    </li>
-                    <li><a href="{{ url('orden') }}">Orden</a></li>
-                    <li>
-                    	 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    		Facturación<b class = "caret"></b>
-                    	</a>
-                    	 <ul class = "dropdown-menu">
-                            <li><a href="{{ url('facturacion/individual') }}">Facturación Individual</a></li>
-                            <li><a href="{{ url('facturacion/listadoGlobal') }}">Facturación Global</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{{ url('verExamen') }}">Ver  Orden</a></li>
-					<li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+<!-- Scripts -->
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-				</ul>
-			</div>
-
-	    </div><!-- /.container-fluid -->
-	</nav>
-
-	<div class="container">
-		@yield('content')
-	</div>
-
-	<hr/>
-
-	<div class="container">
-	    Copyright &copy; {{ date('Y') }}
-	    <br/>
-	</div>
-
-	<!-- Scripts -->
-
-	<script src="{{URL::asset('js/jquery.min.js')}}"></script>
-	<script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
+	<script src="{{URL::asset('jquery/dist/jquery.min.js')}}"></script>
+  	<script src="{{URL::asset('popper.js/dist/umd/popper.min.js')}}"></script>
+  	<script src="{{URL::asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
+  	<script src="{{URL::asset('perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js')}}"></script>
+  	<script src="{{URL::asset('js/hoverable-collapse.js')}}"></script>
+ 	<script src="{{URL::asset('js/misc.js')}}"></script>	
+	
 	<script src="{{URL::asset('js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{URL::asset('js/formValidation.js')}}"></script>
-	<script src="{{URL::asset('js/bootstrap.js')}}"></script>
 	@yield('scripts')
 </body>
 </html>

@@ -5,10 +5,14 @@ Usuarios
 
 @section('content')
 
-    <h1>Usuarios</h1>
+<h3 class="page-heading mb-4">Usuarios </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
 
     @if (Session::has('message'))
-        <div class="alert alert-{{ Session::get('status') }} fade in">
+        <div class="alert alert-{{ Session::get('status') }}">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             {{ Session::get('message') }}
         </div>
@@ -23,13 +27,12 @@ Usuarios
         <table class="table table-bordered table-striped table-hover" id="tblpaciente">
             <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Email</th><th>Tipo</th><th>Entidad</th><th style="width: 10%; text-align: center;">Acciones</th>
+                    <th>Id</th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Email</th><th>Tipo</th><th>Entidad</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($usuarios as $item)
-                <tr>
-                 	<td></td>	
+                <tr>	
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->cedula }}</td>
                     <td>{{ $item->nombres }}</td>
@@ -42,20 +45,24 @@ Usuarios
                     </td>
                     <td>{{ $item->entidad->nombre }}</td>
                     <td style="width: 10%; text-align: center;">
-                        <a href="{{ url('user/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+                        <a href="{{ url('user/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="fa fa-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['user', $item->id],
                             'style' => 'display:inline',
                             'class' => 'delete'
                         ]) !!}
-                            {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
+                            {!! Form::button('<span class="fa fa-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
 
 @endsection

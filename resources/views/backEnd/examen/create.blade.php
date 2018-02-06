@@ -4,20 +4,23 @@ Nuevo Exámen
 @stop
 
 @section('content')
+<h3 class="page-heading mb-4">Nuevo Exámen </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
 
-    <h1>Nuevo Exámen</h1>
-    <hr/>
     {!! Form::open(['url' => 'examen', 'class' => 'form-horizontal', 'id'=>'frmItem']) !!}
             <div class="form-group {{ $errors->has('nombre') ? 'has-error' : ''}}">
                 {!! Form::label('nombre', 'Nombre: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('nombre', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('tipoexamens_id') ? 'has-error' : ''}}">
                 {!! Form::label('tipoexamens_id', 'Tipo Examen: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {{ Form::select('tipoexamens_id', $items, null, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
                     {!! $errors->first('tipoexamens_id', '<p class="help-block">:message</p>') !!}
                 </div>
@@ -31,21 +34,21 @@ Nuevo Exámen
             </div>
             <div class="form-group {{ $errors->has('precio_normal') ? 'has-error' : ''}}">
                 {!! Form::label('precio_normal', 'Precio Particular: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('precio_normal', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('precio_normal', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('precio_laboratorio') ? 'has-error' : ''}}">
                 {!! Form::label('precio_laboratorio', 'Precio Laboratorio: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('precio_laboratorio', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('precio_laboratorio', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('precio_clinica') ? 'has-error' : ''}}">
                 {!! Form::label('precio_clinica', 'Precio Clinica: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('precio_clinica', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('precio_clinica', '<p class="help-block">:message</p>') !!}
                 </div>
@@ -53,11 +56,16 @@ Nuevo Exámen
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-3">
                 	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
-                    {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-                    <a href="{{ url('examen') }}" class="btn btn-info btn-sm">Cancelar</a>
+                    {!! Form::submit('Guardar', ['class' => 'btn btn-primary mr-2', 'style' => 'min-height: auto;']) !!}
+                    <a href="{{ url('examen') }}" class="btn btn-info mr-2">Cancelar</a>
                 </div>
             </div>
     {!! Form::close() !!}
+    </div>
+    </div>
+    </div>
+    </div>
+    
 
 @endsection
 

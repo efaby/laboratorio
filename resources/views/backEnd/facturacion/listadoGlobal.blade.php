@@ -4,10 +4,14 @@ Facturación Global
 @stop
 
 @section('content')
+<h3 class="page-heading mb-4">Facturación Global </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
 
-    <h1>Facturación Global</h1>
     @if (Session::has('message'))
-        <div class="alert alert-success fade in">
+        <div class="alert alert-success">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             {{ Session::get('message') }}
         </div>
@@ -39,14 +43,15 @@ Facturación Global
                     <td>${{ $item->precio }}</a></td>
                     <td style="width: 20%; text-align: center;">
 
-                        <a href="javascript: imprimir({{$item->id}})" class="btn btn-warning btn-xs" title="Re Imprimir"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a>
-                        <a href="javascript: verAnexos({{$item->id}})" class="btn btn-success btn-xs" title="Ver Anexo" id="anexo"  ><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
+                        <a href="javascript: imprimir({{$item->id}})" class="btn btn-warning btn-xs" title="Re Imprimir"><span class="fa fa-edit" aria-hidden="true" ></span></a>
+                        <a href="javascript: verAnexos({{$item->id}})" class="btn btn-success btn-xs" title="Ver Anexo" id="anexo"  ><span class="fa fa-list-alt" aria-hidden="true" ></span></a> 
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </div>
+    </div></div></div></div>
 @endsection
 
 @section('scripts')

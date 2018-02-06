@@ -5,8 +5,11 @@ Editar Muestra
 
 @section('content')
 
-    <h1>Editar Muestra</h1>
-    <hr/>
+<h3 class="page-heading mb-4">Editar Muestra</h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
 
     {!! Form::model($muestra, [
         'method' => 'PATCH',
@@ -17,21 +20,21 @@ Editar Muestra
 
             <div class="form-group {{ $errors->has('tipoexamens_id') ? 'has-error' : ''}}">
                 {!! Form::label('tipoexamens_id', 'Tipo Examen: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {{ Form::select('tipoexamens_id', $items, null, ['class' => 'form-control', 'placeholder' => 'Seleccione']) }}
                     {!! $errors->first('tipoexamens_id', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>            
             <div class="form-group {{ $errors->has('nombre') ? 'has-error' : ''}}">
             {!! Form::label('nombre', 'Nombre: ', ['class' => 'col-sm-3 control-label']) !!}
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                     {!! Form::text('nombre', null, ['class' => 'form-control', 'required' => 'required']) !!}
                     {!! $errors->first('nombre', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('descripcion') ? 'has-error' : ''}}">
                 {!! Form::label('descripcion', 'Descripci&oacute;n: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('descripcion', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('descripcion', '<p class="help-block">:message</p>') !!}
                 </div>
@@ -40,11 +43,16 @@ Editar Muestra
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
         	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
-            {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-            <a href="{{ url('muestra') }}" class="btn btn-info btn-sm">Cancelar</a>
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary mr-2 ' , 'style' => 'min-height: auto;']) !!}
+            <a href="{{ url('muestra') }}" class="btn btn-info mr-2">Cancelar</a>
         </div>
     </div>
     {!! Form::close() !!}
+    </div>
+    </div>
+    </div>
+    </div>
+    
 @endsection
 
 @section('scripts')

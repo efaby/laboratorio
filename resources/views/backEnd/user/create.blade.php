@@ -4,50 +4,52 @@ Nuevo Usuario
 @stop
 
 @section('content')
-
-    <h1>Nuevo Usuario</h1>
-    <hr/>
+<h3 class="page-heading mb-4">Nuevo Usuario </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
 
     {!! Form::open(['url' => 'user', 'class' => 'form-horizontal','id'=>'frmUser']) !!}
               
               <div class="form-group {{ $errors->has('cedula') ? 'has-error' : ''}}">            	           	
                 {!! Form::label('cedula', 'Cédula: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('cedula', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('cedula', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('nombres') ? 'has-error' : ''}}">
                 {!! Form::label('nombres', 'Nombres: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('nombres', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('nombres', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('apellidos') ? 'has-error' : ''}}">
                 {!! Form::label('apellidos', 'Apellidos: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('apellidos', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('apellidos', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
                 {!! Form::label('email', 'Email: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('direccion') ? 'has-error' : ''}}">
                 {!! Form::label('direccion', 'Dirección: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('direccion', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('direccion', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('roles') ? 'has-error' : ''}}">
                 {!! Form::label('roles', 'Roles: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
 
                    @foreach($items as $item) 
                     {!! Form::checkbox('roles[]', $item->id ) !!}
@@ -58,21 +60,21 @@ Nuevo Usuario
               </div>
               <div class="form-group {{ $errors->has('entidad_id') ? 'has-error' : ''}}">
                 {!! Form::label('entidad_id', 'Entidad: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {{ Form::select('entidad_id', $entidades, null, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
                     {!! $errors->first('entidad_id', '<p class="help-block">:message</p>') !!}
                 </div>
             </div> 
             <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
                 {!! Form::label('password', 'Contrase&ntilde;a: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <input id="password" type="password" class="form-control" name="password">
                     {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
           <div class="form-group {{ $errors->has('password-confirm') ? 'has-error' : ''}}">
                 {!! Form::label('password', 'Confirmar Contrase&ntilde;a: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                 <input id="password-confirm" type="password" class="form-control" name="password-confirm" >
                     {!! $errors->first('password-confirm', '<p class="help-block">:message</p>') !!}
                 </div>
@@ -81,11 +83,15 @@ Nuevo Usuario
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
           {!! Form::hidden('id', 0, ['class' => 'form-control']) !!}
-            {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-            <a href="{{ url('user') }}" class="btn btn-info btn-sm">Cancelar</a>
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary mr-2', 'style' => 'min-height: auto;']) !!}
+            <a href="{{ url('user') }}" class="btn btn-info mr-2">Cancelar</a>
         </div>
     </div>
     {!! Form::close() !!}
+    </div>
+    </div>
+    </div>
+    </div>
 @endsection
 
 @section('scripts')

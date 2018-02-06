@@ -4,50 +4,56 @@ Tipo de Paciente
 @stop
 
 @section('content')
+<h3 class="page-heading mb-4">Tipo de Paciente </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
 
-    <h1>Tipo de Paciente</h1>
+            @if (Session::has('message'))
+                <div class="alert alert-success">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    {{ Session::get('message') }}
+                </div>
+            @endif
+            <div class="row" style="margin-bottom: 10px;" > 
+            <div class="col-sm-12">
+                <a href="{{ url('tipopaciente/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a>
+            </div>
+            </div>
 
-    @if (Session::has('message'))
-        <div class="alert alert-success fade in">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            {{ Session::get('message') }}
-        </div>
-    @endif
-    <div class="row" style="margin-bottom: 10px;" > 
-    <div class="col-sm-12">
-        <a href="{{ url('tipopaciente/create') }}" class="btn btn-primary pull-right btn-sm">Añadir</a>
-    </div>
-    </div>
-
-    <div class="table table-responsive">
-        <table class="table table-bordered table-striped table-hover" id="tbltipopaciente">
-            <thead class="bg-primary">
-                <tr>
-                    <th></th><th>Id</th><th>Nombre</th><th style="width: 10%; text-align: center;">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($tipopaciente as $item)
-                <tr>
-                    <td></td>
-                    <td>{{ $item->id }}</td>
-                    <td>{{ $item->nombre }}
-                    <td style="width: 10%; text-align: center;">
-                        <a href="{{ url('tipopaciente/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['tipopaciente', $item->id],
-                            'style' => 'display:inline',
-                            'class' => 'delete'
-                        ]) !!}
-                            {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
-                        {!! Form::close() !!}
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
+            <div class="table table-responsive">
+                <table class="table table-bordered table-striped table-hover" id="tbltipopaciente">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th>Id</th><th>Nombre</th><th style="width: 10%; text-align: center;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($tipopaciente as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->nombre }}</td>
+                            <td style="width: 10%; text-align: center;">
+                                <a href="{{ url('tipopaciente/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="fa fa-edit" aria-hidden="true"></span></a> 
+                                {!! Form::open([
+                                    'method'=>'DELETE',
+                                    'url' => ['tipopaciente', $item->id],
+                                    'style' => 'display:inline',
+                                    'class' => 'delete '
+                                ]) !!}
+                                    {!! Form::button('<span class="fa fa-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
+                                {!! Form::close() !!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
 
 @endsection
 

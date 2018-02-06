@@ -4,42 +4,45 @@ Factura Global
 @stop
 
 @section('content')
-
-    <h1>Factura Global</h1>
-    <hr/>
+<h3 class="page-heading mb-4">Factura Global </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
 
     @if (Session::has('message'))
-        <div class="alert alert-{{ Session::get('status') }} fade in">
+        <div class="alert alert-{{ Session::get('status') }}">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             {{ Session::get('message') }}
         </div>
     @endif
 
     {!! Form::open(['url' => 'facturacion/global', 'class' => 'form-horizontal','id'=>'frmBuscar']) !!}
-
+    <div class="row">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-           <div class="col-md-1">
-                <label for="cliente_id" class="col-md-1 control-label">Cliente</label>
+           <div class="col-md-1 ">
+                <label for="cliente_id" class="control-label">Cliente</label>
             </div>
             <div class="col-md-3">
                 {{ Form::select('cliente_id', $items, $cliente_id, ['class' => 'form-control input-sm','placeholder' => 'Seleccione','id'=>'cliente_id']) }}                    
             </div>
             <div class="col-md-1">
-                        <label for="fecha_inicio" class="col-md-1 control-label">Fecha de Inicio</label>
+                        <label for="fecha_inicio" class="control-label">Fecha de Inicio</label>
                     </div>
             <div class="col-md-2">
                 {!! Form::text('fecha_inicio', $fecha_inicio, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Inicio','id'=>'fecha_inicio']) !!}                                           
             </div> 
             <div class="col-md-1">
-                <label for="fecha_fin" class="col-md-1 control-label">Fecha de Fin</label>
+                <label for="fecha_fin" class="control-label">Fecha de Fin</label>
             </div>
             <div class="col-md-2">
                 {!! Form::text('fecha_fin', $fecha_fin, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Fin','id'=>'fecha_fin']) !!}                                           
             </div> 
             <div class="col-md-1">
-                {!! Form::submit('Buscar', ['class' => 'btn btn-primary']) !!}
-            </div>
+                {!! Form::submit('Buscar', ['class' => 'btn btn-primary mr-2', 'style' => 'min-height: auto;']) !!}
+                </div>
+     </div>
     {!! Form::close() !!}
 
     
@@ -148,7 +151,8 @@ Factura Global
 
         </div>
     @endif
-
+</div></</div>
+</div></</div></div></div>
 @endsection
 
 @section('scripts')

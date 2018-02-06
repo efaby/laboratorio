@@ -4,10 +4,14 @@ Facturación Individual
 @stop
 
 @section('content')
+<h3 class="page-heading mb-4">Facturación Individual </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
 
-    <h1>Facturación Individual</h1>
     @if (Session::has('message'))
-        <div class="alert alert-success fade in">
+        <div class="alert alert-success">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             {{ Session::get('message') }}
         </div>
@@ -16,7 +20,6 @@ Facturación Individual
         <table class="table table-bordered table-striped table-hover" id="tblfac">
             <thead class="bg-primary">
                 <tr>
-                    <th></th>
                     <th>Paciente</th>
                     <th>Subtotal</th>
                     <th>Descuento</th>
@@ -31,7 +34,6 @@ Facturación Individual
             
             @foreach($ordenes as $item)
                 <tr>
-                 	<th></th>
                 	<td>{{ $item->paciente->nombres }} {{ $item->paciente->apellidos }}</td>
                     <td>${{ $item->subtotal }}</a></td>
                     <td>${{ $item->descuento }}</a></td>
@@ -41,12 +43,12 @@ Facturación Individual
                     <td>{{ $item->fecha_emision }}</a></td>
                     <td style="width: 20%; text-align: center;">
                         @if ($item->factura_id==0) 
-                            <a href="{{ url('facturacion/editIndividual/' . $item->id ) }}" class="btn btn-warning btn-xs" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a> 
+                            <a href="{{ url('facturacion/editIndividual/' . $item->id ) }}" class="btn btn-warning btn-xs" title="Editar"><span class="fa fa-edit" aria-hidden="true" ></span></a> 
                         @else
-                            <a href="{{ url('facturacion/imprimirIndividual/'.$item->factura_id)}}" onClick="window.open(this.href, this.target, 'width=750,height=450'); return false;" class="btn btn-warning btn-xs" title="Reemprimir"><span class="glyphicon glyphicon-edit" aria-hidden="true" ></span></a>                            
+                            <a href="{{ url('facturacion/imprimirIndividual/'.$item->factura_id)}}" onClick="window.open(this.href, this.target, 'width=750,height=450'); return false;" class="btn btn-warning btn-xs" title="Reemprimir"><span class="fa fa-edit" aria-hidden="true" ></span></a>                            
                         @endif                        
                          @if ($item->factura_id>0) 
-                        <a href="javascript: verAnexos({{$item->factura_id}})" class="btn btn-success btn-xs" title="Ver Anexo" id="anexo"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span></a> 
+                        <a href="javascript: verAnexos({{$item->factura_id}})" class="btn btn-success btn-xs" title="Ver Anexo" id="anexo"><span class="fa fa-list-alt" aria-hidden="true" ></span></a> 
                         @endif
                          
                     </td>
@@ -55,6 +57,11 @@ Facturación Individual
             </tbody>
         </table>
     </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    
 @endsection
 
 @section('scripts')

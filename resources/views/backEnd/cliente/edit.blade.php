@@ -5,8 +5,11 @@ Editar Cliente
 
 @section('content')
 
-    <h1>Edit Cliente</h1>
-    <hr/>
+<h3 class="page-heading mb-4">Edit Cliente </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
 
     {!! Form::model($cliente, [
         'method' => 'PATCH',
@@ -16,49 +19,49 @@ Editar Cliente
     ]) !!}
     		<div class="form-group {{ $errors->has('tipopacientes_id') ? 'has-error' : ''}}">
                 {!! Form::label('tipopacientes_id', 'Tipo Paciente: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {{ Form::select('tipopacientes_id', $items, null, ['class' => 'form-control','placeholder' => 'Seleccione']) }}
                     {!! $errors->first('tipopacientes_id', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('cedula') ? 'has-error' : ''}}">
                 {!! Form::label('cedula', 'Cédula: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('cedula', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('cedula', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('nombres') ? 'has-error' : ''}}">
                 {!! Form::label('nombres', 'Nombres: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('nombres', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('nombres', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('apellidos') ? 'has-error' : ''}}">
                 {!! Form::label('apellidos', 'Apellidos: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('apellidos', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('apellidos', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('direccion') ? 'has-error' : ''}}">
                 {!! Form::label('direccion', 'Dirección: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('direccion', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('direccion', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('telefono') ? 'has-error' : ''}}">
                 {!! Form::label('telefono', 'Teléfono: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('telefono', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('telefono', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
                 {!! Form::label('email', 'Email: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                 </div>
@@ -68,11 +71,15 @@ Editar Cliente
         <div class="col-sm-offset-3 col-sm-3">
         {!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
         {!! Form::hidden('id', null, ['class' => 'form-control']) !!}
-            {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-            <a href="{{ url('cliente') }}" class="btn btn-info btn-sm">Cancelar</a>
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary mr-2 ' , 'style' => 'min-height: auto;']) !!}
+            <a href="{{ url('cliente') }}" class="btn btn-info mr-2">Cancelar</a>
         </div>
     </div>
     {!! Form::close() !!}
+    </div>
+    </div>
+    </div>
+    </div>
 
 @endsection
 

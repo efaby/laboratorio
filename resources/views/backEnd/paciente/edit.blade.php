@@ -4,10 +4,11 @@ Editar Paciente
 @stop
 
 @section('content')
-
-    <h1>Editar Paciente</h1>
-    <hr/>
-
+<h3 class="page-heading mb-4">Editar Paciente </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
     {!! Form::model($paciente, [
         'method' => 'PATCH',
         'url' => ['paciente', $paciente->id],
@@ -17,70 +18,70 @@ Editar Paciente
             {!! Form::hidden('tipopacientes_id', 1, ['class' => 'form-control']) !!}
             <div class="form-group {{ $errors->has('cedula') ? 'has-error' : ''}}">
                 {!! Form::label('cedula', 'Cédula: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('cedula', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('cedula', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('apellidos') ? 'has-error' : ''}}">
                 {!! Form::label('apellidos', 'Apellidos: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('apellidos', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('apellidos', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('nombres') ? 'has-error' : ''}}">
                 {!! Form::label('nombres', 'Nombres: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('nombres', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('nombres', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('edad') ? 'has-error' : ''}}">
                 {!! Form::label('edad', 'Edad: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('edad', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('edad', '<p class="help-block">:message</p>') !!}                    
                 </div>
             </div>
             <div class="form-group {{ $errors->has('celular') ? 'has-error' : ''}}">
                 {!! Form::label('celular', 'Celular: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('celular', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('celular', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('direccion') ? 'has-error' : ''}}">
                 {!! Form::label('direccion', 'Dirección: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('direccion', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('direccion', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('telefono') ? 'has-error' : ''}}">
                 {!! Form::label('telefono', 'Teléfono: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('telefono', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('telefono', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('genero') ? 'has-error' : ''}}">
                 {!! Form::label('genero', 'Género: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                      {!! Form::select('genero', array(null => 'Seleccione','Fem' => 'Femenino', 'Mas' => 'Masculino','Na'=>'No Aplica'),null, ['class' => 'form-control']) !!}
                     {!! $errors->first('genero', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
                 {!! Form::label('email', 'Email: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('enfermedades') ? 'has-error' : ''}}">
                 {!! Form::label('enfermedades', 'Enfermedades: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {!! Form::textarea('enfermedades', null, ['size' => '80x10','class' => 'form-control']) !!}
                     {!! $errors->first('enfermedades', '<p class="help-block">:message</p>') !!}
                 </div>
@@ -90,11 +91,15 @@ Editar Paciente
         <div class="col-sm-offset-3 col-sm-3">
         	{!! Form::hidden('estado', 1, ['class' => 'form-control']) !!}
           {!! Form::hidden('id', null, ['class' => 'form-control']) !!}
-            {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-            <a href="{{ url('paciente') }}" class="btn btn-info btn-sm">Cancelar</a>
+            {!! Form::submit('Guardar', ['class' => 'btn btn-primary mr-2 ' , 'style' => 'min-height: auto;']) !!}
+            <a href="{{ url('paciente') }}" class="btn btn-info mr-2">Cancelar</a>
         </div>
     </div>
     {!! Form::close() !!}
+    </div>
+    </div>
+    </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -108,13 +113,18 @@ Editar Paciente
         message: 'This value is not valid',
             fields: {
                    cedula: {
-	       				message: 'El Número de Cédula no es válido',
-	       				validators: {			
-	       							regexp: {
-	       								regexp: /^[0-9]+$/,
-	       								message: 'Ingrese un Número de Identificación válido.'
-	       							},
-                      remote: {
+              message: 'El Número de Cédula no es válido',
+              validators: {         
+                regexp: {
+                  regexp: /^[0-9]+$/,
+                  enabled: false,
+                  message: 'Ingrese un Número de Identificación válido.'
+                },
+                notEmpty: {
+                  enabled: false,
+                            message: 'La Cédula no puede ser vacía.'
+                      },                
+                remote: {
                             message: 'El Número de Identificación ya existe.',
                             url: '{{ url('validarCedula') }}',
                             data: function(validator, $field, value) {
@@ -124,7 +134,7 @@ Editar Paciente
                                 };
                             },                            
                             type: 'POST'
-                        },                  
+                        },                
                       /*  callback: {
                                   message: 'El Número de Identificación no es válido.',
                                   callback: function (value, validator, $field) {

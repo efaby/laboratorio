@@ -5,10 +5,15 @@ Entidades
 
 @section('content')
 
-    <h1>Entidades</h1>
+<h3 class="page-heading mb-4">Entidades </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+
 
     @if (Session::has('message'))
-        <div class="alert alert-success fade in">
+        <div class="alert alert-success">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             {{ Session::get('message') }}
         </div>
@@ -23,30 +28,33 @@ Entidades
         <table class="table table-bordered table-striped table-hover" id="tblentidad">
             <thead class="bg-primary">
                 <tr>
-                    <th></th><th>Id</th><th>Nombre</th><th style="width: 10%; text-align: center;">Acciones</th>
+                    <th>Id</th><th>Nombre</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($entidades as $item)
                 <tr>
-                	<td></td>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->nombre }}</td>
                     <td style="width: 10%; text-align: center;">
-                        <a href="{{ url('entidad/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+                        <a href="{{ url('entidad/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="fa fa-edit" aria-hidden="true"></span></a> 
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['entidad', $item->id],
                             'style' => 'display:inline',
                             'class' => 'delete'
                         ]) !!}
-                             {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
+                             {!! Form::button('<span class="fa fa-trash"></span>', array('class'=>'btn btn-danger btn-xs', 'type'=>'submit')) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
 
 @endsection

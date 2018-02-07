@@ -9110,7 +9110,7 @@ tbody.collapse.show {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0;
   z-index: 1000;
   display: none;
   float: left;
@@ -9640,8 +9640,8 @@ tbody.collapse.show {
     padding-right: 0;
     padding-left: 0; }
   .navbar-nav .dropdown-menu {
-    position: static;
-    float: none; }
+   /* position: static;
+    float: none; */}
 
 .navbar-text {
   display: inline-block;
@@ -10632,7 +10632,7 @@ button.close {
   width: 50px;
   height: 50px;
   overflow: scroll; }
-
+/*
 @media (min-width: 576px) {
   .modal-dialog {
     max-width: 500px;
@@ -10642,7 +10642,7 @@ button.close {
 
 @media (min-width: 992px) {
   .modal-lg {
-    max-width: 800px; } }
+    max-width: 800px; } } */
 
 .tooltip {
   position: absolute;

@@ -5,40 +5,44 @@ Orden Exámen
 
 @section('content')
 
-<div class="panel-body">
-    <h1>Orden de Exámen</h1>
-    <hr/>
+
+    <h3 class="page-heading mb-4">Orden de Exámen</h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+
     @if (Session::has('message'))
-        <div class="alert alert-{{ Session::get('status') }} fade in">
+        <div class="alert alert-{{ Session::get('status') }}">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             {{ Session::get('message') }}
         </div>
     @endif
-    <div class="form-group row">
-          	   <div class="form-group">
+    <div class="form-group">
+          	   <div class="form-group row">
           	        <div class="col-md-12">
           	        	<div class="pull-right">
                             @if ($orden->validado)
-                                <a  href="{{ url('orden/imprimir/'.$orden->id) }}" class="btn btn-warning btn-xs" title="Imprimir">Imprimir</a>
+                                <a  href="{{ url('orden/imprimir/'.$orden->id) }}" class="btn btn-warning mr-2" title="Imprimir">Imprimir</a>
                             @endif          	        	 	          	        	 
           	        	 </div>
           	        </div>
           	   </div>
                <div class="form-group row">                     
                     <div class="col-md-1">
-                        <label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>
+                        <label for="nombre_pacient" class="control-label">Paciente</label>
                     </div>  
                     <div class="col-md-3">
                            <div class="col-md-12"> {{ $paciente->apellidos }} {{ $paciente->nombres }}  </div>                 
                     </div>
                     <div class="col-md-1">
-                        <label for="mail" class="col-md-1 control-label">Dirección</label>
+                        <label for="mail" class="control-label">Dirección</label>
                     </div>  
                     <div class="col-md-3">
                         <div class="col-md-12">{{ $paciente->direccion }}</div>
                     </div>
                     <div class="col-md-1">
-                        <label for="tel1" class="col-md-1 control-label">Teléfono</label>
+                        <label for="tel1" class="control-label">Teléfono</label>
                     </div>
                     <div class="col-md-3">
                        <div class="col-md-12">{{ $paciente->telefono }}</div>
@@ -46,19 +50,19 @@ Orden Exámen
               </div>
               <div class="form-group row">                      
                     <div class="col-md-1">
-                        <label for="celular" class="col-md-1 control-label">Celular</label>
+                        <label for="celular" class="control-label">Celular</label>
                     </div>
                     <div class="col-md-3">
                         <div class="col-md-12">{{ $paciente->celular }}</div>
                     </div>                      
                     <div class="col-md-1">
-                        <label for="fecha_nacimiento" class="col-md-1 control-label">Edad</label>
+                        <label for="fecha_nacimiento" class="control-label">Edad</label>
                     </div>  
                     <div class="form-group col-md-3" style="margin: 0px;">
                         <div class="col-md-12">{{ $paciente->edad }}</div>                      
                     </div>
                     <div class="col-md-1">
-                        <label for="fecha_nacimiento" class="col-md-1 control-label">M&eacute;dico</label>
+                        <label for="fecha_nacimiento" class="control-label">M&eacute;dico</label>
                     </div>  
                     <div class="form-group col-md-3" style="margin: 0px;">
                         <div class="col-md-12">{{ $orden->nombre_medico }}</div>                  
@@ -66,13 +70,13 @@ Orden Exámen
                 </div>
                 <div class="form-group row">
                     <div class="col-md-1">
-                        <label for="tipo_paciente" class="col-md-12 control-label">Tipo Paciente</label>
+                        <label for="tipo_paciente" class="control-label">Tipo Paciente</label>
                     </div>
                     <div class="col-md-3">
                         <div class="col-md-12">{{ $paciente->tipopaciente->nombre }}</div>                  
                     </div>                    
                     <div class="col-md-2">
-                        <label for="fecha_entrega" class="col-md-12 control-label">Fecha de Entrega</label>
+                        <label for="fecha_entrega" class="control-label">Fecha de Entrega</label>
                     </div>
                     <div class="col-md-3">
                            <div class="col-md-12">{{ $orden->fecha_entrega }}</div>                                  
@@ -86,11 +90,11 @@ Orden Exámen
                 	{!! Form::hidden('orden_id', $orden->id) !!}
                     {!! Form::hidden('validar', $validar) !!}
                     @if ($validar)
-                        {!! Form::submit('Validar', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Validar', ['class' => 'btn btn-primary mr-2 ' , 'style' => 'min-height: auto;']) !!}
                     @else
-                        {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Guardar', ['class' => 'btn btn-primary mr-2 ' , 'style' => 'min-height: auto;']) !!}
                     @endif                    
-                    <a href="{{ url('orden') }}" class="btn btn-info btn-sm">Salir</a>
+                    <a href="{{ url('orden') }}" class="btn btn-secondary mr-2">Salir</a>
                 </div>
             </div>
       
@@ -104,6 +108,10 @@ Orden Exámen
            
            
     {!! Form::close() !!}
+</div>
+</div>
+</div>
+</div>
 </div>
 @endsection
 

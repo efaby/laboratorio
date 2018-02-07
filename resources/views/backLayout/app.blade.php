@@ -9,7 +9,7 @@
 	<link href="{{URL::asset('perfect-scrollbar/dist/css/perfect-scrollbar.min.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{URL::asset('css/style.css')}}" />
 	<link href="{{URL::asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
-	
+
 	<link rel="shortcut icon" href="images/favicon.png" />
 	</style>
 </head>
@@ -25,11 +25,21 @@
 		        </button>
 		        <h5 style="color: #fff;">Laboratorio Cl&iacute;nico</h5>
 		        <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
-		          <li class="nav-item">
-		            <a class="nav-link profile-pic" href="#"><img class="rounded-circle" src="{{URL::asset('images/face.jpg')}}" alt=""></a>
-		          </li>
-		          <li class="nav-item">
-		            <a class="nav-link" href="#"><i class="fa fa-th"></i></a>
+		          <li class="nav-item dropdown">
+		            <a class="nav-link profile-pic" data-toggle="dropdown" href="#"><img class="rounded-circle" src="{{URL::asset('images/avatarLab.jpeg')}}" alt=""></a>
+		            <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <a class="dropdown-item" href="../../Seguridad/cambiarContrasena/"> <i class="fa fa-lock icon"></i> Cambio Contraseña </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            <i class="fa fa-power-off icon"></i> Cerrar Sesión
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                </div>
 		          </li>
 		        </ul>
 		        <button class="navbar-toggler navbar-dark navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -148,7 +158,8 @@
 
 <!-- Scripts -->
 
-	<script src="{{URL::asset('jquery/dist/jquery.min.js')}}"></script>
+	
+	<script src="{{URL::asset('js/jquery.min.js')}}"></script>
   	<script src="{{URL::asset('popper.js/dist/umd/popper.min.js')}}"></script>
   	<script src="{{URL::asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
   	<script src="{{URL::asset('perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js')}}"></script>

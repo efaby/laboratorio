@@ -4,8 +4,16 @@ Facturación
 @stop
 
 @section('content')
-<div class="container">
-    <div class="panel panel-info">
+
+<h3 class="page-heading mb-4">Factura Individual </h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+
+
+
+    <div class="table table-responsive">
         <div class="panel-heading">
             <h4> Facturación</h4>
         </div>
@@ -20,7 +28,7 @@ Facturación
             	<input type="hidden" name="_token" value="{{ csrf_token() }}">
     		  	<div class="form-group row">
               		<div class="col-md-1">
-                		<label for="cedula" class="col-md-1 control-label">Cédula/RUC</label>
+                		<label for="cedula" class="control-label">Cédula/RUC</label>
                 	</div>	
                     <div class="col-md-3">
                     	<input type="text" class="form-control input-sm" id="cedula" name="cedula" value="{{ $paciente->cedula }}" required>                 
@@ -35,7 +43,7 @@ Facturación
                </div>
                <div class="form-group row">
               		<div class="col-md-1">
-                		<label for="nombre" class="col-md-1 control-label">Nombre</label>
+                		<label for="nombre" class="control-label">Nombre</label>
                 	</div>	
                     <div class="col-md-5">
                     	<input type="text" class="form-control input-sm" id="nombre" name="nombre" value=" {{ $paciente->nombres }} {{ $paciente->apellidos }}" readonly>                    	 
@@ -44,14 +52,14 @@ Facturación
               
                <div class="form-group row">
                		<div class="col-md-1">
-               			<label for="mail" class="col-md-1 control-label">Dirección</label>
+               			<label for="mail" class="control-label">Dirección</label>
                		</div>	
                     <div class="col-md-5">
                         <input type="text" class="form-control input-sm" id="direccion_paciente" name="direccion_paciente" 
                         placeholder="Dirección" value="{{ $paciente->direccion }}" readonly>
                     </div>
                     <div class="col-md-1">
-                  		<label for="tel1" class="col-md-1 control-label">Teléfono</label>
+                  		<label for="tel1" class="control-label">Teléfono</label>
                   	</div>
                     <div class="col-md-5">
                         <input type="text" class="form-control input-sm" id="telefono_paciente" placeholder="Teléfono"
@@ -60,14 +68,14 @@ Facturación
                </div> 				
                <div class="form-group row">
                		<div class="col-md-1">
-               			<label for="mail" class="col-md-1 control-label">Fecha Emisión</label>
+               			<label for="mail" class="control-label">Fecha Emisión</label>
                		</div>	
                     <div class="col-md-5">
                         <input type="text" class="form-control input-sm" id="fecha_facturacion" name="fecha_facturacion" 
                         placeholder="Dirección" value="{{ $orden->fecha_facturacion }}" readonly>
                     </div>
                     <div class="col-md-1">
-               			<label for="mail" class="col-md-1 control-label">Num. Factura</label>
+               			<label for="mail" class="control-label">Num. Factura</label>
                		</div>	
                     <div class="col-md-5">
                         <input type="text" class="form-control input-sm" id="num_factura" name="num_factura" 
@@ -129,18 +137,23 @@ Facturación
 	                    			<br>
 	                    				                    			
 	                    			<input type="hidden" id="orden_id" name="orden_id" value="{{$orden->id}}">
-	                    			<a href="{{ url('facturacion/individual') }}" class="btn btn-default btn-sm" style="float: right;">Cancelar</a> &nbsp;&nbsp;
-	                    			<a href="#" style="margin-right:7px" id="imprimir" class="btn btn-info btn-sm" title="Facturar">
+	                    			<a href="{{ url('facturacion/individual') }}" class="btn btn-secondary mr-2" style="float: right;">Cancelar</a> &nbsp;&nbsp;
+	                    			<a href="#" style="margin-right:7px" id="imprimir" class="btn btn-info mr-2" title="Facturar">
                                         Facturar
                                     </a>
                         			<input type="hidden" id="factura_id" name="factura_id" value="0">
-                        			<a href="#" style="margin-right:7px" id="anexo" class="btn btn-warning btn-sm" title="Anexo" disabled>
+                        			<a href="#" style="margin-right:7px" id="anexo" class="btn btn-warning mr-2" title="Anexo" disabled>
                                         Anexo
                                     </a>
 	                    		</td>	                    		
 	                    	</tr>
 	                    </table>			        
                </div>    	   	
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	</div>
     	</div>
     	{!! Form::close() !!}
 @endsection

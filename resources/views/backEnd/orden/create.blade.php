@@ -5,47 +5,47 @@ Nuevo Exámen
 
 @section('content')
 
-<div class="container">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h4> Nueva Orden de Examenes</h4>
-        </div>
-        <div class="panel-body">
+<h3 class="page-heading mb-4">Nueva Orden de Examenes</h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+
             {!! Form::open(['url' => 'orden', 'class' => 'form-horizontal', 'id'=>'frmItem']) !!}
                 <div class="form-group row">
                 	<div class="col-md-1">
-                		<label for="nombre_paciente" class="col-md-1 control-label">Nombre Paciente</label>
+                		<label for="nombre_paciente" class="control-label">Nombre Paciente</label>
                 	</div>	
                     <div class="col-md-3">
                     	<input type="text" class="form-control input-sm" id="nombre_paciente" name="nombre_paciente" placeholder="Ingrese El nombre del Paciente" >
                     	<input type='hidden' id="id_paciente" name="id_paciente" class="form-control input-sm"> 
                   	</div> 
                   	<div class="col-md-1">
-                  		<label for="nombre_paciente" class="col-md-1 control-label">Orden Relacional</label>
+                  		<label for="nombre_paciente" class="control-label">Orden Relacional</label>
                   	</div>	
                   	<div class="col-md-3" style="text-align: left;">	
                   		<input type="checkbox" id="is_relacional" name="is_relacional">
                   	</div>
                   	<div class="col-md-4" style="text-align: right;">
-                      	<a id="nuevaOrden" class="btn btn-default btn-sm">Nueva Orden</a> &nbsp;
-                    	<a href="{{ url('paciente') }}" class="btn btn-default btn-sm" target="_blank">Nuevo Paciente</a>                    	
+                      	<a id="nuevaOrden" class="btn btn-warning mr-2">Nueva Orden</a> &nbsp;
+                    	<a href="{{ url('paciente') }}" class="btn btn-info mr-2" target="_blank">Nuevo Paciente</a>                    	
                   	</div>                  
                </div>
                <div class="form-group row">               		
                   	<div class="col-md-1">
-                		<label for="nombre_pacient" class="col-md-1 control-label">Paciente</label>
+                		<label for="nombre_pacient" class="control-label">Paciente</label>
                 	</div>	
                   	<div class="col-md-3">
                     	<input type="text" class="form-control input-sm" id="nombre_paciente1" placeholder="Paciente" readonly>                      	 
                   	</div>
                   	<div class="col-md-1">
-               			<label for="mail" class="col-md-1 control-label">Dirección</label>
+               			<label for="mail" class="control-label">Dirección</label>
                		</div>	
                     <div class="col-md-3">
                         <input type="text" class="form-control input-sm" id="direccion_paciente" placeholder="Dirección" readonly>
                     </div>
                		<div class="col-md-1">
-                  		<label for="tel1" class="col-md-1 control-label">Teléfono</label>
+                  		<label for="tel1" class="control-label">Teléfono</label>
                   	</div>
                     <div class="col-md-3">
                         <input type="text" class="form-control input-sm" id="telefono_paciente" placeholder="Teléfono" readonly>
@@ -53,19 +53,19 @@ Nuevo Exámen
               </div>
               <div class="form-group row">               		
                     <div class="col-md-1">
-                  		<label for="celular" class="col-md-1 control-label">Celular</label>
+                  		<label for="celular" class="control-label">Celular</label>
                   	</div>
                     <div class="col-md-3">
                         <input type="text" class="form-control input-sm" id="celular_paciente" placeholder="Celular" readonly>
                     </div>               		
                     <div class="col-md-1">
-                 		<label for="fecha_nacimiento" class="col-md-1 control-label">Edad</label>
+                 		<label for="fecha_nacimiento" class="control-label">Edad</label>
                  	</div>	
                     <div class="form-group col-md-3" style="margin: 0px;">
                     	{!! Form::text('edad', null, ['class' => 'form-control input-sm', 'id' => 'edad', 'placeholder'=>'Ingrese la Edad del Paciente']) !!}                    	
                     </div>
                     <div class="col-md-1">
-                 		<label for="fecha_nacimiento" class="col-md-1 control-label">M&eacute;dico</label>
+                 		<label for="fecha_nacimiento" class="control-label">M&eacute;dico</label>
                  	</div>	
                     <div class="form-group col-md-3" style="margin: 0px;">
                     	{!! Form::text('nombre_medico', null, ['class' => 'form-control input-sm', 'id' => 'nombre_medico', 'placeholder'=>'Ingrese el nombre del Médico']) !!}                    	
@@ -73,19 +73,19 @@ Nuevo Exámen
                 </div>
                 <div class="form-group row">
                 	<div class="col-md-1">
-                    	<label for="tipo_paciente" class="col-md-1 control-label">Tipo Paciente</label>
+                    	<label for="tipo_paciente" class="control-label">Tipo Paciente</label>
                     </div>
                     <div class="col-md-3">
                      	{{ Form::select('tipopaciente_id', $items, 1, ['class' => 'form-control input-sm','placeholder' => 'Seleccione','id'=>'tipopaciente_id']) }}                    
                 	</div>
                 	<div class="col-md-1">
-                    	<label for="tipo_pago" class="col-md-1 control-label">Tipo Pago</label>
+                    	<label for="tipo_pago" class="control-label">Tipo Pago</label>
                     </div>
                     <div class="col-md-3">
                      	{{ Form::select('tipopago_id', ['1' => 'Normal', '2' => 'Mensual'], null, ['class' => 'form-control input-sm','id'=>'tipopago_id']) }}                    
                 	</div>         	                	
                 	<div class="col-md-1">
-                    	<label for="fecha_entrega" class="col-md-1 control-label">Fecha de Entrega</label>
+                    	<label for="fecha_entrega" class="control-label">Fecha de Entrega</label>
                     </div>
                     <div class="col-md-3">
                      	{!! Form::text('fecha_entrega', null, ['class' => 'form-control input-sm','placeholder' => 'Fecha de Entrega','id'=>'fecha_entrega']) !!}                    	                    
@@ -95,7 +95,7 @@ Nuevo Exámen
                 </div>	
                 <div class="form-group col-md-12">
                         <a href="" id="add" data-toggle="modal" class="btn btn-primary" style="float: right;" title="A&ntilde;adir" data-target="#myModal" data-backdrop="static">
-                          	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                          	<span class="fa fa-plus" aria-hidden="true"></span>
                         </a>
                         <input type="hidden" name="examenesBand" id="examenesBand" value="0">
                 </div>
@@ -118,6 +118,7 @@ Nuevo Exámen
 	                    <table style="width: 100%;text-align: right;">
 	                    	<tr>
 	                    		<td style="width: 100%;text-align: right;padding-bottom:12px;">
+                            <div class="row">
 	                    			<div class="col-md-10">
 	                    				<label for="subtotal" class="control-label">SUBTOTAL</label>
 	                    			</div>
@@ -126,20 +127,24 @@ Nuevo Exámen
 		                    				<span id="subtotal" name="subtotal">$0.00</span>
 	    	                			</label>
 	    	                		</div>		
+                            </div>
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
 	                    		<td style="width: 100%;text-align: right;" class="form-group">
+                          <div class="row">
 	                    			<div class="col-md-10">
 	                    				<label for="descuento" class="control-label">DESCUENTO</label>
 	                    			</div>
 	                    			<div class="col-md-2">
 	          							<input type="text" name="descuento" id="descuento" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)" value="0" >
-	          						</div>                    				
+	          						</div>   
+                        </div>                 				
 	                    		</td>	
 	                    	</tr>	                    		                    		
 	                    	<tr>
 	                    		<td style="width: 100%;text-align: right;padding-bottom:12px;">
+                          <div class="row">
 	                    			<div class="col-md-10">
 	                    				<label for="total" class="control-label">TOTAL A PAGAR</label>
 	                    			</div>
@@ -147,21 +152,23 @@ Nuevo Exámen
 	                    				<label for="total" class="control-label">
 											<span id="total" name="total">$0.00</span>
 										</label>
-									</div>	
+									</div>	</div>
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
 	                    		<td style="width: 100%;text-align: right;" class="form-group">
+                          <div class="row">
 	                    			<div class="col-md-10">
 	                    				<label for="total" class="control-label">ABONO</label>
 	                    			</div>
 	                    			<div class="col-md-2">	
 	                    				<input type="text" name="abono" id="abono" class="form-control input-sm" style="text-align:right;" placeholder="0.00" onkeypress="return numeroFloat(event, this)" value="0">                							
-									</div>									
+									</div>		</div>							
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
 	                    		<td style="width: 100%;text-align: right;padding-bottom:12px;">
+                          <div class="row">
 	                    			<div class="col-md-10">
 	                    				<label for="pendiente" class="control-label">PENDIENTE A PAGAR</label>
 	                    			</div>
@@ -169,14 +176,14 @@ Nuevo Exámen
 		                    			<label for="pendiente" class="control-label">
 											<span id="pendiente" name="pendiente">$0.00</span>
 										</label>
-									</div>	
+									</div>	</div>
 	                    		</td>	
 	                    	</tr>
 	                    	<tr>
 	                    		<td colspan="2" style="width: 100%;text-align: right;">
 	                    			<br>
-	                    			<a href="{{ url('orden') }}" class="btn btn-info btn-sm" style="float: right;">Cancelar</a> 
-	                    			<button type="submit" class="btn btn-primary"  id="addDetalle">
+	                    			<a href="{{ url('orden') }}" class="btn btn-info mr-2" style="float: right;">Cancelar</a> 
+	                    			<button type="submit" class="btn btn-primary mr-2"  id="addDetalle">
                         		    	<span aria-hidden="true">Guardar</span>
                         			</button> &nbsp;
 
@@ -187,7 +194,11 @@ Nuevo Exámen
 
         		</div>        				
     	   	{!! Form::close() !!}
-    	</div>   
+    	</div> 
+      </div>
+      </div>
+      </div>
+
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 		<div class="modal-dialog modal-lg" >
 			<div class="modal-content">

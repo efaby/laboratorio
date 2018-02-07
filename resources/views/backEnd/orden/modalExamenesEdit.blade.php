@@ -1,7 +1,7 @@
 <div id="mostrarVentana">
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  
+<div class="modal-header">  
     <h4 class="modal-title">Listado de Examenes</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 </div>
 <div class="modal-body" >
      <form id="frmOrden"> 
@@ -19,10 +19,14 @@
                     {!! Form::hidden('muestra_'.$item->tipoexaman->id, (isset($muestras[$item->tipoexaman->id]))? $muestras[$item->tipoexaman->id]->id : 0, ['class' => 'form-control','id'=>'muestra_'.$item->tipoexaman->id]) !!}
                     </div>              
                 @endif              
-                <p>                
-                	{!! Form::checkbox('examen_' .$item->tipoexaman->id. '[]',$item->id,$item->marca==1?true:false); !!}
-                	{{ $item->nombre }}    	        
-                </p>
+                <div class="row">   
+                    <div class="col-md-1">             
+                	{!! Form::checkbox('examen_' .$item->tipoexaman->id. '[]',$item->id,$item->marca==1?true:false, ['style' => 'min-height: auto;', 'id'=>'examen_'.$item->id] ); !!}
+                    </div>
+                    <div class="col-md-10">
+                	<label for="examen_{{$item->id}}">{{ $item->nombre }} </label> 
+                    </div>
+                </div>
                 @if ( $cont == $limit ) 
                     </div>
                     <div class="col-sm-3">

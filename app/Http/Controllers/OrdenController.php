@@ -630,7 +630,7 @@ class OrdenController extends Controller
             DB::table('codigosorden')->insert($array);
         }
         
-        return view('backEnd.orden.modal', compact('codigo','paciente_ced'));      
+        return view('backEnd.orden.modal', compact('codigo','paciente_ced', 'id'));      
     }
     
     public function updatePage(){

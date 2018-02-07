@@ -1,22 +1,38 @@
 <div class="modal-header">
-    <a href="{{ url('orden/updatePage') }}" aria-hidden="true" class="close" title="Cerrar">
-    	&times;
-    </a>    
+     
     <h4 class="modal-title">Generación de Código de Orden</h4>
+    <a href="{{ url('orden/updatePage') }}" aria-hidden="true" class="close" title="Cerrar">
+        &times;
+    </a>   
 </div>
 <div class="modal-body" style="text-align: left">
-	<h4 class="modal-title">Identificación:{{$paciente_ced}}</h4>
-</div>	
-<div class="modal-body" style="text-align: center">
-	<div class="form-group row" style="padding-left:200px">		
-		<div style="border: 1px solid #292626;border-width:1px;width:178px">
-			<h1>{{$codigo}}</h1>
-		</div>
-	</div>	    	
+<div class="col-sm-12">
+    <table style="margin: 0 auto;" id="print">
+        <tr>
+            <td><h6 class="modal-title">Identificación:</h6></td>
+            <td style="width: 50%"><h4>{{$paciente_ced}}</h4></td>
+        </tr>
+        <tr>
+            <td><h6 class="modal-title">Código:</h6></td>
+            <td><h4>{{$codigo}}</h4></td>
+        </tr>
+    </table> 	
+</div>
 </div>
 <div class="modal-footer">
     <button type="submit" class="btn btn-primary">Enviar Correo</button>
-    <a href="{{ url('orden/updatePage') }}" class="btn btn-default" title="Cerrar">
+    <button type="button" id="imprimir" class="btn btn-warning">Imprimir</button>
+    <a href="{{ url('orden/updatePage') }}" class="btn btn-secondary" title="Cerrar">
     	Cerrar
     </a>        
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#imprimir").bind("click",function() {
+            $("#print").printArea();
+        });
+    });
+
+    
+</script>

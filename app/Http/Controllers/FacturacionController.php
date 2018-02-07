@@ -237,7 +237,7 @@ class FacturacionController extends Controller
 					->where('factura_id', 0)
 					->get();
 		$cliente = Paciente::findOrFail($cliente_id);
-
+		$fecha = date("Y-m-d");
 		foreach ($ordenes as $item) {
 			$total = $total + $item->total;
 		}
@@ -245,7 +245,7 @@ class FacturacionController extends Controller
 			Session::flash('message', 'No existe ningun resultado asociado al Cliente!');
             Session::flash('status', 'warning');
 		}
-		return view('backEnd.facturacion.global', compact('items', 'cliente_id', 'fecha_inicio', 'fecha_fin', 'total','cliente'));	
+		return view('backEnd.facturacion.global', compact('items', 'cliente_id', 'fecha_inicio', 'fecha_fin', 'total','cliente','fecha'));	
 	}
 
 	public function guardarFacturaGlobal(Request $request) {

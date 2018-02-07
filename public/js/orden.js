@@ -445,7 +445,7 @@ function agregar(items, muestras) {
                 eliminar.id = 'eliminar' + iteration;
                 cellFifth.appendChild(eliminar);            
                 var span = $('<span />', {
-                    'class' : 'glyphicon glyphicon-trash',
+                    'class' : 'fa fa-trash',
                     'aria-hidden':'true'
                 }); 
                 

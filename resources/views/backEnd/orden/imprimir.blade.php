@@ -4,11 +4,21 @@ Imprimir Exámen
 @stop
 
 @section('content')
+<h3 class="page-heading mb-4">Imprimir Exámen</h3>
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
 
-<div class="panel-body">
-    <h1>Imprimir Exámen</h1>
-    <hr />
-    <a href="{{ url('orden/orden/' . $id ) }}" class="btn btn-info btn-sm">Salir</a>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <a href="{{ url('orden/orden/' . $id ) }}" class="btn btn-info mr-2">Salir</a>                                                      
+                         </div>
+                    </div>
+               </div>
+
+    
    	<br><br>
     @if ($num_impresion >0 && (Auth::user()->authorizeMenu(['Analista'])))
     	<div class="alert alert-warning fade in">
@@ -26,6 +36,8 @@ Imprimir Exámen
 	@endif  
    
 </div>
+</div>
+</div></div>
 @endsection
 
 

@@ -23,8 +23,8 @@ Cliente
     </div>
     
     <div class="table table-responsive">
-        <table class="table table-bordered table-striped table-hover" id="tblcliente">
-            <thead>
+        <table class="table table-bordered table-striped table-hover " id="tblcliente">
+            <thead class="bg-primary">
                 <tr>
                     <th>ID</th><th>C&eacute;dula</th><th>Nombres</th><th>Apellidos</th><th>Tipo</th><th style="width: 10%; text-align: center;">Acciones</th>
                 </tr>

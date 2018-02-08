@@ -20,28 +20,45 @@ Facturación Individual
         <table class="table table-bordered table-striped table-hover" id="tblfac">
             <thead class="bg-primary">
                 <tr>
+                    <th></th>
                     <th>Paciente</th>
                     <th>Subtotal</th>
                     <th>Descuento</th>
                     <th>Por Cobrar</th>
                     <th>Abono</th>
                     <th>Total</th>
+                    <th>Estado</th>
                     <th>Fecha Facturación</th>
-                    <th style="width: 20%; text-align: center;">Acciones</th>
+                    <th style="text-align: center;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
             
             @foreach($ordenes as $item)
                 <tr>
+                    <td></td>
                 	<td>{{ $item->paciente->nombres }} {{ $item->paciente->apellidos }}</td>
-                    <td>${{ $item->subtotal }}</a></td>
-                    <td>${{ $item->descuento }}</a></td>
-                    <td>${{ number_format(($item->total - $item->abono),2)}}</td>
+                    <td>${{ $item->subtotal }}</td>
+                    <td>${{ $item->descuento }}</td>
+                    <td>
+                        @if ($item->factura_id == 0) 
+                            ${{ number_format(($item->total - $item->abono),2)}}
+                        @else
+                            $0
+                        @endif  
+                    </td>
                     <td>${{ $item->abono }}</td>
-                    <td>${{ $item->total }}</a></td>
+                    <td>${{ $item->total }}</td>
+                    <td style="text-align: center">
+                        @if ($item->factura_id == 0) 
+                            <label class="badge badge-danger">No Facturado</label>
+                        @else
+                            <label class="badge badge-success">Facturado</label>
+                        @endif    
+                    </td>
+
                     <td>{{ $item->fecha_emision }}</a></td>
-                    <td style="width: 20%; text-align: center;">
+                    <td style=" text-align: center;">
                         @if ($item->factura_id==0) 
                             <a href="{{ url('facturacion/editIndividual/' . $item->id ) }}" class="btn btn-warning btn-xs" title="Editar"><span class="fa fa-edit" aria-hidden="true" ></span></a> 
                         @else

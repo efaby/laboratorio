@@ -59,7 +59,7 @@ Orden
         	                            <a href="#" class="btn btn-warning btn-xs disabled" title="Editar"><span class="fa fa-edit" aria-hidden="true" ></span></a>                            
         	                        @endif
         	                    @endif    
-                                <a href="#" data-toggle="modal" class="btn btn-info btn-xs" title="Generar Código" data-target="#myModal">
+                                <a href="#" data-toggle="modal" class="btn btn-info btn-xs" title="Generar Código" data-target="#myModal" data-id="{{ $item->id }}">
                                   	<span class="fa fa-qrcode" aria-hidden="true" ></span>
                                 </a>
                                     @if ($item->validado==0)
@@ -71,7 +71,7 @@ Orden
         	                            	<a href="#" class="btn btn-success btn-xs disabled" title="Atender"><span class="fa fa-list-alt" aria-hidden="true" ></span></a>
         	                            @endif
         	                            @if (Auth::user()->authorizeMenu(['Administrador','Analista']))
-        	                            	<a href="#" data-toggle="modal" class="btn btn-info btn-xs" title="Imprimir" data-target="#myModal1" data-backdrop="static" >
+        	                            	<a href="#" data-toggle="modal" class="btn btn-info btn-xs" title="Imprimir" data-target="#myModal1" data-backdrop="static" data-id="{{ $item->id }}" >
         	                            		<span class="fa fa-print" aria-hidden="true" ></span>
         	                        		</a>
         	                        	@endif
@@ -109,8 +109,8 @@ Orden
 </div>	
 
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-                <div class="modal-dialog" >
-                    <div class="modal-content">
+                <div class="modal-dialog" style="width: 30%;" >
+                    <div class="modal-content" >
                         <div class="modal-header">
                         </div>
                     </div>
@@ -169,15 +169,22 @@ Orden
 
     
 $('.modal').on('hidden', function() { console.log("hidden"); $(this).removeData(); })
-    var url = '{{ url('orden/generarCodigo/' . $item->id) }}';
-    $('#myModal').on('show.bs.modal', function (evnt) {      
-        $('.modal-content').load(url,function(result){     
+
+    var url = '{{ url('orden/generarCodigo') }}';
+    $('#myModal').on('show.bs.modal', function (event) {    
+        var button = $(event.relatedTarget) 
+        console.log("button", button);
+        var id = button.data('id')   
+        $('.modal-content').load(url + '/' + id,function(result){     
         });
     });
 
-    var url1 = '{{ url('orden/imprimirListado/' . $item->id) }}';
-    $('#myModal1').on('show.bs.modal', function (evnt) {      
-        $('.modal-content1').load(url1,function(result){     
+    var url1 = '{{ url('orden/imprimirListado') }}';
+    $('#myModal1').on('show.bs.modal', function (event) {  
+        var button = $(event.relatedTarget) 
+        console.log("button", button);
+        var id = button.data('id')      
+        $('.modal-content1').load(url1  + '/' + id,function(result){     
         });
     });
 

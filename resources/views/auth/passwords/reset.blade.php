@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Recuperar Contrase&ntilde;a
+@stop
+
 @section('content')
 <div class="container">
     <div class="row">

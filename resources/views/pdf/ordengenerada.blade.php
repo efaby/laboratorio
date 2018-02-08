@@ -8,14 +8,14 @@
     
     	body { 
     		font-family: DejaVu Sans, sans-serif; 
-    		font-size: 13px;
+    		font-size: 12px;
     	}
 		
 		p {
 			display: block;
 		}
 		table{
-		   padding-left:10px; width: 85%;		
+		   padding-left:10px; width: 90%;		
 		      
 		}		
 		td{
@@ -29,7 +29,7 @@
 		   height:109px;
 		}		
 		#apartado1{
-		   width:650px;
+		   width:750px;
 		   height:40px;
 		   margin: auto;
 		   margin-top:150px;		   
@@ -38,7 +38,7 @@
 			line-height: 0.5em;
 		}
 		#apartado2{
-		   width:650px;
+		   width:750px;
 		   height:750px;
 		   margin: auto;   
 		}
@@ -100,11 +100,11 @@
 	  	  	</tr>
 	  	  </table>
   	  </div>
-  	  <div id="apartado4" style="font-size: 13px">
+  	  <div id="apartado4" style="font-size: 12px">
   	  		<b>Validado por Dr. {{Auth::user()->nombres}} {{Auth::user()->apellidos}}</b>
   	  </div>	
   	 
-  	  <div id="apartado3" style="font-size: 13px">
+  	  <div id="apartado3" style="font-size: 12px">
   	  		Página {{$i}}/{{count($plantilla)}}
   	  </div>
   	  	@if (count($plantilla) != $i)

@@ -6,10 +6,10 @@
     <style type="text/css">
 		body{
 		  	font-family: DejaVu Sans, sans-serif; 
-    		font-size: 13px;
+    		font-size: 12px;
 		}
 		table{
-		   padding-left:10px; width: 85%;		   
+		   padding-left:10px; width: 90%;		   
 		}		
 		td{
 		   padding:7px;
@@ -22,7 +22,7 @@
 			padding-top:150px;	
 		}	
 		#apartado1{
-		   width:650px;
+		   width:750px;
 		   height:40px;
 		   border:0.5px solid;
 		   border-color:white;
@@ -34,12 +34,12 @@
 			line-height: 0.5em;
 		}
 		#apartado2{
-		   width:650px;
+		   width:750px;
 		   height:820px;
 		   margin: auto;		   
 		}
 		#apartado3{
-			width:600px;
+			width:65px;
 		   	margin: auto;
 		   	padding-top:10px;
 		   	text-align:center;			

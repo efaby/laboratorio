@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="{{URL::asset('css/style.css')}}" />
 	<link href="{{URL::asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
 
-	<link rel="shortcut icon" href="images/favicon.png" />
+	<link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
 	</style>
 </head>
 <body>

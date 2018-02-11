@@ -41,7 +41,7 @@ Route::get("facturacion/obtenerCliente",array('as'=>'obtenerCliente','uses'=> 'F
 Route::get("facturacion/anexoIndividual/{id}",array('as'=>'anexoIndividual','uses'=> 'FacturacionController@anexoIndividual'));
 
 
-Route::post("verExamen",array('as'=>'verExamenForm','uses'=> 'PublicoController@buscarExamen'));
+Route::get("verExamenForm",array('as'=>'verExamenForm','uses'=> 'PublicoController@buscarExamen'));
 Route::post("validarCedula",array('as'=>'validarCedula','uses'=> 'PacienteController@validarCedula'));
 Route::get("verExamen",array('as'=>'verExamen','uses'=> 'PublicoController@index'));
 Route::get("examenPdf/{id}",array('as'=>'examenPdf','uses'=> 'PublicoController@ordenPdf'));

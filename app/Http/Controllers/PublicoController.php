@@ -24,10 +24,9 @@ class PublicoController extends Controller
     
     public function buscarExamen(Request $request)
     {
-        $this->validate($request, ['codigo' => 'required|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]+$/',
-                                    'identificacion' => 'required|regex:/^(?:\+)?\d{10,13}$/',]);
-        $identificacion = $request->input('identificacion');
-        $codigo = $request->input('codigo');
+        
+        $identificacion = $request->identificacion;
+        $codigo = $request->codigo;
         $orden= DB::table('orden')
             ->join('codigosorden', 'orden.id', '=', 'codigosorden.orden_id')
             ->select('orden.*')
@@ -44,7 +43,7 @@ class PublicoController extends Controller
             Session::flash('status', 'warning');
         }
 
-        return view('public.index', compact('identificacion','codigo','id'));
+        return view('public.imprimirExamen', compact('id'));
     }
 
     public function ordenPdf($id)

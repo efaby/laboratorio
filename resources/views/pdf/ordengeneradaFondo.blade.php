@@ -4,42 +4,45 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Orden</title>  
     <style type="text/css">
-		body{
-		  	font-family: DejaVu Sans, sans-serif; 
+    
+    	body { 
+    		font-family: DejaVu Sans, sans-serif; 
     		font-size: 12px;
+    	}
+		
+		p {
+			display: block;
 		}
 		table{
-		   padding-left:10px; width: 90%;		   
+		   padding-left:10px; width: 90%;		
+		      
 		}		
 		td{
-		   padding:7px;
-		}		
+		   padding:2px;
+		}	
+		#encabezado td {
+			padding: 7px 0px;
+		}	
 		thead{
 		   width:100%;position:fixed;
 		   height:109px;
-		}	
-		#encabezado {
-			padding-top:150px;	
-		}	
+		}		
 		#apartado1{
 		   width:750px;
 		   height:40px;
-		   border:0.5px solid;
-		   border-color:white;
-		   border-radius: 5px 5px 7px 7px;
-		   margin: auto;	   
+		   margin: auto;
+		   margin-top:150px;		   
 		}
-		
 		#apartado1 table{
 			line-height: 0.5em;
 		}
 		#apartado2{
 		   width:750px;
-		   height:820px;
-		   margin: auto;		   
+		   height:750px;
+		   margin: auto;   
 		}
 		#apartado3{
-			width:65px;
+			width:650px;
 		   	margin: auto;
 		   	padding-top:10px;
 		   	text-align:center;			
@@ -47,14 +50,18 @@
 		#apartado4{
 			width:700px;
 			height:10px;
-			margin: auto;
+		   	margin: auto;
 		   	padding-top:5px;		   	
 		   	padding-bottom:5px;
 		   	text-align:right;			
 		}
 		#plantilla{
-			padding-left:20px;
-			padding-right:20px;
+		/*	padding-left:20px;
+			padding-right:20px;	*/		
+		}
+		@page {
+			size: 21cm 29.7cm;
+			margin: 0;
 		}
 		.bg{
             background-image:url("{{asset('images/fondo.png')}}");
@@ -98,7 +105,8 @@
 	  	  <table align="center">
 	  	  	<tr>
 	  	  		<td align="left" id="plantilla">
-	  	  			<?php echo strip_tags($item, '<p><br>') ?>
+	  	  			<?php $item = str_replace('border="1"','border="0"',$item); ?>
+	  	  			<?php echo $item; ?>
 	  	  		</td>
 	  	  	</tr>
 	  	  </table>

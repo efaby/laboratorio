@@ -57,7 +57,7 @@
                   <ul class="nav navbar-nav">
                     <li class="active"><a href="#intro">Home</a></li>
                     <li><a href="#service">Servicios</a></li>
-                    
+                    <li><a href="{{ url('/login') }}" target="_blank">Ingreso al Sistema</a></li>
                   </ul>
                 </div>
                 <!-- /.navbar-collapse -->

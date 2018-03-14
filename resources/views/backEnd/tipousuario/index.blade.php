@@ -35,7 +35,7 @@ Tipo de Usuario
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->nombre }}</td>
                     <td style="width: 10%; text-align: center;">
-                        <a href="{{ url('tipousuario/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><span class="fa fa-edit" aria-hidden="true"></span></a> 
+                        <a href="{{ url('tipousuario/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs disabled"><span class="fa fa-edit" aria-hidden="true"></span></a> 
                         
                     </td>
                 </tr>

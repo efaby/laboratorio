@@ -19,7 +19,7 @@ class Detalleorden extends Model
      *
      * @var array
      */
-    protected $fillable = ['id','orden_id','examens_id'];
+    protected $fillable = ['id','orden_id','examens_id', 'muestras'];
 
     public function examan()
     {

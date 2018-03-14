@@ -45,15 +45,15 @@ $(document).ready(function() {
     
     	jQuery('body').on('keyup.autocomplete', '[id^="muestra"]', function() {
             var id = $(this).data("id");
+            var data = $(this).data("value");
+            var ids = $(this).data("ids");
     		jQuery(this).autocomplete({
                 source: url4+"?tipo_examen="+id,
-    		    minLength: 0,            
-                select: function( event, ui ) {
-                	//$( "#muestra").val( ui.item.label );
-                    $( "#muestra_" + id).val(ui.item.id);  
-                    $('#frmOrden').formValidation('revalidateField', 'txtmuestra_' + id);              
-                   // return false;
-                  } 
+    		    minLength: 0, 
+                multiselect: true, 
+                idInput: id,
+                selected: (data) ? data.split("-") : [],
+                selectedIds: (ids) ? ids.split("-") : []
             });
         });               	
     

@@ -15,8 +15,8 @@
                     <h5><b>{{ $item->tipoexaman->nombre }}</b></h5>
                     <?php $tipo = $item->tipoexamens_id; ?> 
                     <div class="form-group">
-                    {!! Form::text('txtmuestra_'.$item->tipoexaman->id, (isset($muestras[$item->tipoexaman->id]))? $muestras[$item->tipoexaman->id]->nombre : null, ['class' => 'form-control','id'=>'muestra', 'data-id' => $item->tipoexaman->id]) !!}
-                    {!! Form::hidden('muestra_'.$item->tipoexaman->id, (isset($muestras[$item->tipoexaman->id]))? $muestras[$item->tipoexaman->id]->id : 0, ['class' => 'form-control','id'=>'muestra_'.$item->tipoexaman->id]) !!}
+                    {!! Form::text('txtmuestra_'.$item->tipoexaman->id, null, ['class' => 'form-control','id'=>'muestra', 'data-id' => $item->tipoexaman->id , 'data-value' => (isset($muestras[$item->tipoexaman->id]['nombres'])) ? $muestras[$item->tipoexaman->id]['nombres']: null, 'data-ids' => (isset($muestras[$item->tipoexaman->id]['ids'])) ? $muestras[$item->tipoexaman->id]['ids']: null]) !!}
+                    {!! Form::hidden('muestra_'.$item->tipoexaman->id, (isset($muestras[$item->tipoexaman->id]['ids']))? $muestras[$item->tipoexaman->id]['ids'] : 0, ['class' => 'form-control','id'=>'muestra_'.$item->tipoexaman->id]) !!}
                     </div>              
                 @endif              
                 <div class="row">   
@@ -49,6 +49,7 @@
         
         @foreach($tipos as $item) 
             idsTE.push(parseInt({{$item->id}}));
+          //  $("input[name='txtmuestra_{{$item->id}}']").trigger('keyup');
         @endforeach
 
         $(window).keydown(function(event){
@@ -66,9 +67,8 @@
                 idsTE.forEach(function (item){
                     $("input[name='examen_" + item + "[]']:checked").each(function (){                    
                         checked.push(parseInt(this.value));
-                        muestras.push(parseInt($('#muestra_' + item).val()));
+                        muestras.push(($('#muestra_' + item).val()));
                     });
-
                 });            
                 $('#myModal').modal('hide');
                 agregar(checked,muestras);
@@ -93,6 +93,7 @@
                         callback: {
                             message: 'Ingrese la muestra',
                             callback: function(value, validator, $field) {
+                                console.log("revalida", examen_{{$item->id}} );
                                 var options = $('#frmOrden').find('[name="examen_{{$item->id}}[]"]:checked').val();
                                 if (typeof options === 'undefined') {  
                                     $("#btnAgregar").removeClass( "disabled");                                  
@@ -142,5 +143,15 @@
         })
         @endforeach     
         ;
+
+        @foreach($tipos as $item) 
+            //idsTE.push(parseInt({{$item->id}}));
+            $("input[name='txtmuestra_{{$item->id}}']").trigger('keyup');
+        @endforeach
     });
 </script>
+<style type="text/css">
+    .ui-state-default .ui-icon {
+        background-image: url(images/ui-icons_777777_256x240.png);
+    }
+</style>

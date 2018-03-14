@@ -120,7 +120,7 @@ Editar Exámen
 			                            <div id="tipo<?php echo $i; ?>" class="texto-span"><?php echo $item->nombre; ?></div>                   		            
 			                    	</td>
 				                    <td>
-			                            <div id="muestra<?php echo $i; ?>" class="texto-span"><?php echo $item->muestra; ?></div>
+			                            <div id="muestra<?php echo $i; ?>" class="texto-span"><?php echo $item->muestras; ?></div>
 				                    </td>
 				                    <td>
 			                            <div id="precio<?php echo $i; ?>" class="texto-span"><?php echo $item->precio; ?></div>
@@ -262,9 +262,12 @@ Editar Exámen
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/jquery.datetimepicker.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/orden.css')}}" rel="stylesheet">
+<link href="{{URL::asset('css/main.css')}}" rel="stylesheet">
 <script src="{{ asset('/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('/js/orden.js') }}"></script>
 <script src="{{ asset('/js/jquery.datetimepicker.full.min.js') }}"></script>
+
+<script src="{{ asset('/js/jquery.autocomplete.multiselect.js') }}"></script>
 
 <script type="text/javascript">
 	

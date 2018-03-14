@@ -245,9 +245,11 @@ Nuevo Exámen
 <link href="{{URL::asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/jquery.datetimepicker.css')}}" rel="stylesheet">
 <link href="{{URL::asset('css/orden.css')}}" rel="stylesheet">
+<link href="{{URL::asset('css/main.css')}}" rel="stylesheet">
 <script src="{{ asset('/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('/js/orden.js') }}"></script>
 <script src="{{ asset('/js/jquery.datetimepicker.full.min.js') }}"></script>
 
+<script src="{{ asset('/js/jquery.autocomplete.multiselect.js') }}"></script>
 
 @endsection

@@ -210,16 +210,39 @@ class OrdenController extends Controller
         $paciente = $orden->paciente;
         
         $detalleorden = DB::table('detalleorden')
-                            ->join('muestras', 'muestras.id', '=', 'detalleorden.muestra_id')
+                           // ->join('muestras', 'muestras.id', '=', 'detalleorden.muestra_id')
                             ->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
                             ->join('tipoexamens', 'examens.tipoexamens_id', '=', 'tipoexamens.id')
                             ->select('examens.id as examen_id','examens.nombre as examen','examens.precio_normal',
                                     'examens.precio_laboratorio','examens.precio_clinica',
-                                    'muestras.nombre as muestra', 'detalleorden.*','tipoexamens.*')                            
+                                     'detalleorden.*','tipoexamens.*')                            
                             ->where('orden_id', $id)                            
                             ->get();    
         $items= TipoPaciente::pluck('nombre', 'id')->toArray();        
-        $iteration = count($detalleorden);      
+        $iteration = count($detalleorden); 
+        $idsArrayName = array();
+        foreach ($detalleorden as $value) {
+            $itemArray = explode("-", $value->muestra_id);
+            foreach ($itemArray as $num) {
+                if ($num > 0) {
+                    $idsArrayName[] = $num;
+                }
+            }       
+        } 
+
+        $muestras = Muestra::whereIn('id', $idsArrayName)->get();
+        $muestrasSelect = array();
+
+        foreach ($detalleorden as $query) {
+            $query->muestras = "";
+            foreach ($muestras as $item) {
+                $itemArray = explode("-", $query->muestra_id);
+                if(in_array($item->id, $itemArray)) {
+                    $query->muestras .= $item->nombre ." ";
+                }
+            }
+        }
+
         return view('backEnd.orden.edit', compact('orden','paciente','detalleorden','items', 'iteration'));
     }
 
@@ -357,11 +380,21 @@ class OrdenController extends Controller
         $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
 
         $ids = json_decode($request->ids);
-        $muestrasIds = json_decode($request->muestrasIds);        
-        $muestrasUnicas = array_unique($muestrasIds);       
-        $muestrasAux = DB::table('muestras')
-                   ->whereIn('id', $muestrasUnicas)
-                   ->get();
+        $muestrasIds = json_decode($request->muestrasIds);
+        $muestrasUnicas = array_unique($muestrasIds);
+
+        $idsArrayName = array();
+        foreach ($muestrasUnicas as $item) {
+            $itemArray = explode("-", $item);
+            foreach ($itemArray as $num) {
+                if ($num > 0) {
+                    $idsArrayName[] = $num;
+                }
+            }
+        }
+
+        $muestrasAux = Muestra::whereIn('id', $idsArrayName)->get();
+
         foreach ($muestrasAux as $muestra){
             $estructura[$muestra->id] = (object) array('id' => $muestra->id, 'nombre' => $muestra->nombre);         
         }               
@@ -374,7 +407,15 @@ class OrdenController extends Controller
             $contador = 0;
             foreach ($ids as $deta){
                 if($deta == $exa->id){
-                    $muestras[$exa->tipoexamens_id] =  $estructura[$muestrasIds[$contador]];
+                    $itemArray = explode("-", $muestrasIds[$contador]);
+                    $nombres = "";
+                    foreach ($itemArray as $num) {
+                        if ($num > 0) {
+                            $nombres .= $estructura[$num]->nombre . "-" ;
+                        }
+                    }
+                    $muestras[$exa->tipoexamens_id]["nombres"] =  $nombres;
+                    $muestras[$exa->tipoexamens_id]["ids"] =  $muestrasIds[$contador];
                     $exa->marca = 1;
                 }
                 $contador++;
@@ -388,7 +429,9 @@ class OrdenController extends Controller
 
         $ids = $request->input('ids');
         $muestrasIds = $request->input('muestras');
+
         $muestrasIds = array_unique($muestrasIds);
+
         $is_relacional = $request->input('is_relacional');
         $id_paciente = $request->input('id_paciente');    
 
@@ -397,12 +440,23 @@ class OrdenController extends Controller
 
         $data = Examan::whereIn('id', $ids)->get();
 
-        $muestras = Muestra::whereIn('id', $muestrasIds)->get();
+        $idsArrayName = array();
+        foreach ($muestrasIds as $item) {
+            $itemArray = explode("-", $item);
+            foreach ($itemArray as $num) {
+                if ($num > 0) {
+                    $idsArrayName[] = $num;
+                }
+            }
+        }
+
+        $muestras = Muestra::whereIn('id', $idsArrayName)->get();
+        $muestrasSelect = array();
 
         foreach ($data as $query) {
             foreach ($muestras as $item) {
                 if($item->tipoexamens_id === $query->tipoexamens_id) {
-                    $query->muestra = $item;
+                    $muestrasSelect[$query->id][] = $item;
                 }
             }
         }
@@ -438,7 +492,14 @@ class OrdenController extends Controller
         }else{
         	foreach ($data as $query)
             {
-                $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre, 'muestra' => $query->muestra->nombre, 'muestraId' => $query->muestra->id,'is_relacional'=>$is_relacional ];
+                $muestrasIds = "";
+                $muestrasNames = "";
+                foreach ($muestrasSelect[$query->id] as $muestra) {
+                    $muestrasIds .= $muestra->id . "-";
+                    $muestrasNames .= $muestra->nombre. " ";
+                }
+
+                $result[] = [ 'id' => $query->id, 'value' => $query->nombre , 'precio_normal' => $query->precio_normal, 'tipo' => $query->tipoexaman->nombre,  'precio_laboratorio' => $query->precio_laboratorio, 'precio_clinica' => $query->precio_clinica, 'examen' => $query->nombre, 'muestra' => $muestrasNames, 'muestraId' => $muestrasIds,'is_relacional'=>$is_relacional ];
     
             }
         }
@@ -493,18 +554,41 @@ class OrdenController extends Controller
            // $detalleorden = $orden->detalleorden;
 
             $detalleorden = DB::table('detalleorden')
-                            ->join('muestras', 'muestras.id', '=', 'detalleorden.muestra_id')
+                           // ->join('muestras', 'muestras.id', '=', 'detalleorden.muestra_id')
                             ->join('examens', 'examens.id', '=', 'detalleorden.examens_id')
                             ->join('tipoexamens', 'examens.tipoexamens_id', '=', 'tipoexamens.id')
-                            ->select('examens.plantilla','examens.nombre','muestras.nombre as muestra','tipoexamens.id as type')                            
+                            ->select('examens.plantilla','examens.nombre','tipoexamens.id as type', 'detalleorden.*')                            
                             ->where('orden_id', $id)    
                             ->orderBy('tipoexamens.id')                        
                             ->get();
-            $muestra = 0; 
+            $muestra = 0;
+
+            $idsArrayName = array();
+            foreach ($detalleorden as $value) {
+                $itemArray = explode("-", $value->muestra_id);
+                foreach ($itemArray as $num) {
+                    if ($num > 0) {
+                        $idsArrayName[] = $num;
+                    }
+                }       
+            } 
+
+            $muestras = Muestra::whereIn('id', $idsArrayName)->get();
+            $muestrasSelect = array();
+
+
             foreach ($detalleorden as $item) {
-               
+                $muestrasName = "";
+
+                foreach ($muestras as $item1) {
+                    $itemArray = explode("-", $item->muestra_id);
+                    if(in_array($item1->id, $itemArray)) {
+                        $muestrasName .= $item1->nombre ." ";
+                    }
+                }
+
                 if($muestra != $item->type) {
-                    $plantilla .= "</br></br><span style='font-size:13px'><b>MUESTRA:</b>&nbsp;  ". $item->muestra."</span>";
+                    $plantilla .= "</br></br><span style='font-size:13px'><b>MUESTRA:</b>&nbsp;  ". $muestrasName."</span>";
                     $muestra = $item->type;
                 }
                 $plantilla .= "<p style='text-align: center;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>RESULTADO</b> &nbsp;&nbsp;&nbsp;&nbsp; <b>VALOR DE REFERENCIA</b></p>" ;

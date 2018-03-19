@@ -94,3 +94,8 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::post("validarCedulaUser",array('as'=>'validarCedulaUser','uses'=> 'UserController@validarCedulaUser'));
+
+
+Route::get('/changePassword',array('as'=>'changePasswordShow','uses'=>'HomeController@showChangePasswordForm'));
+Route::post('/changePassword','HomeController@changePassword')->name('changePassword');
+

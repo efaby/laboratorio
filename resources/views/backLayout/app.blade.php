@@ -28,7 +28,7 @@
 		          <li class="nav-item dropdown">
 		            <a class="nav-link profile-pic" data-toggle="dropdown" href="#"><img class="rounded-circle" src="{{URL::asset('images/avatarLab.jpeg')}}" alt=""></a>
 		            <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <a class="dropdown-item" href="../../Seguridad/cambiarContrasena/"> <i class="fa fa-lock icon"></i> Cambio Contraseña </a>
+                                    <a class="dropdown-item" href="{{ route('changePasswordShow') }}"> <i class="fa fa-lock icon"></i> Cambio Contraseña </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

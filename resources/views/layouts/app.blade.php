@@ -40,5 +40,6 @@
   <script src="{{ asset('bootstrap/dist/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
   <script src="{{ asset('js/misc.js') }}"></script>
+  @yield('scripts')
 </body>
 </html>

@@ -111,7 +111,7 @@
                                     } else {  
                                         var v = $( "#muestra_{{$item->id}}").val();
                                         console.log("value",v);
-                                        if( v > 0  ) {
+                                        if( v.length > 0 && v.toString() !== '0'  ) {
                                             $("#btnAgregar").removeClass( "disabled" ); 
                                             return true;
                                         }   

@@ -20,7 +20,7 @@
 </div>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Enviar Correo</button>
+    <a href="{{ url('orden/enviarCodigo', ['id' => $id]) }}" class="btn btn-primary" title="Enviar Correo">Enviar Correo</a>
     <button type="button" id="imprimir" class="btn btn-warning">Imprimir</button>
     <a href="{{ url('orden/updatePage') }}" class="btn btn-secondary" title="Cerrar">
     	Cerrar

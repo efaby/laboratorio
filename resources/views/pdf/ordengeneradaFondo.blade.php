@@ -67,6 +67,7 @@
             background-image:url("{{asset('images/fondo.png')}}");
             background-repeat: no-repeat;
             background-size: 100%;
+            margin: 0;
         }
 
         @page {

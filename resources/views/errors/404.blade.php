@@ -7,7 +7,7 @@ Recuperar Contrase&ntilde;a
     <div class="row">
             <div class="panel panel-default" style="width: 100%;">               
                 <div class="panel-body" style="padding: 0px;">
-                    <img src="{{URL::asset('images/403.png')}}" alt="">
+                    <img src="{{URL::asset('images/404.png')}}" alt="">
                    <p style="text-align: center;"> Ir a <a href="/home">Home</a></p>
                 </div>
             </div>

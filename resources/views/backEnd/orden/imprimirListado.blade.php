@@ -6,7 +6,7 @@
 <div class="panel-body">
     <hr/>
     	@if ($num_impresion >0 && (Auth::user()->authorizeMenu(['Analista'])))
-	    	<div class="alert alert-warning fade in">
+	    	<div class="alert alert-warning" style="margin: 15px;">
 	            <a href="#" class="close" data-dismiss="alert">&times;</a>
 	            Excedi&oacute; el l&iacute;mite de impresi&oacute;n
 	        </div>

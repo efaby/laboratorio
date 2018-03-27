@@ -30,6 +30,7 @@ Route::get("orden/entidades",array('as'=>'entidades','uses'=> 'OrdenController@e
 Route::get("orden/imprimirListado/{id}",array('as'=>'imprimir','uses'=> 'OrdenController@imprimirListado'));
 
 Route::get("orden/generarCodigo/{id}",array('as'=>'generarCodigo','uses'=> 'OrdenController@generarCodigo'));
+Route::get("orden/enviarCodigo/{id}",array('as'=>'enviarCodigo','uses'=> 'OrdenController@enviarCodigo'));
 Route::get("orden/updatePage",array('as'=>'updatePage','uses'=> 'OrdenController@updatePage'));
 
 Route::get("facturacion/individual",array('as'=>'individual','uses'=> 'FacturacionController@individual'));

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Session;
 use App\Codigosorden;
 use App\TipoExaman;
+use App\Mail\DemoEmail;
 
 class OrdenController extends Controller
 {
@@ -777,5 +778,29 @@ class OrdenController extends Controller
     		$result.="</select></div>";
     		return $result;
     	}   	
-    } 
+    }
+
+    public function enviarCodigo(Request $request,$id){
+        $request->user()->authorizeRoles(['Administrador','Analista','Secretaria']);
+
+        $orden = Orden::findOrFail($id);
+        $paciente = $orden->paciente;    
+        
+        $orden= Codigosorden::where('orden_id', '=', $id)->count();
+        $ord= Codigosorden::where('orden_id', '=', $id)->firstOrFail();
+        $codigo = $ord->codigo;
+        $objDemo = new \stdClass();
+        $objDemo->codigo = $codigo; 
+        $objDemo->nombre = $paciente->nombres ." ". $paciente->apellidos; 
+        $objDemo->cedula = $paciente->cedula;
+        if($paciente->email !== null) {
+            \Mail::to($paciente->email)->send(new DemoEmail($objDemo));
+            Session::flash('status', 'success');
+            Session::flash('message', 'El Código se envió satisfactoriamente!');
+        } else {
+            Session::flash('status', 'warning');
+            Session::flash('message', 'El Paciente no posee Correo Electrónico, por favor reg&iacute;strelo!');
+        }
+        return redirect()->to('orden');      
+    }
 }
